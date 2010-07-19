@@ -1,0 +1,148 @@
+synci	001
+j   	002
+jal 	003
+beq 	004
+bne 	005
+
+addi	010
+slti	012
+sltiu	013
+andi	014
+ori 	015
+xori	016
+lui 	017
+
+blt 	024
+bltu  	025
+ble 	026
+bleu  	027
+
+daddi	030
+
+lb  	040
+lh  	041
+lw  	043
+lbu 	044
+lhu 	045
+lwu 	047
+
+sb  	050
+sh  	051
+sw  	053
+
+l.s 	061
+l.d 	065
+ld  	067
+
+s.s 	071
+s.d 	075
+sd  	077
+
+
+
+
+
+unimp	000	000
+sll 	000	001
+srl 	000	002
+sra 	000	003
+sllv	000	005
+srlv	000	006
+srav	000	007
+
+jalr	000	011
+movz	000	012
+movn	000	013
+syscall	000	014
+break	000	015
+rdhwr	000	016
+sync	000	017
+
+dsll	000	021
+dsrl	000	022
+dsra	000	023
+dsllv	000	025
+dsrlv	000	026
+dsrav	000	027
+
+dsll32	000	031
+dsrl32	000	032
+dsra32	000	033
+
+add 	000	040
+sub 	000	041
+slt 	000	042
+sltu	000	043
+and 	000	044
+or  	000	045
+xor 	000	046
+nor 	000	047
+
+mul 	000	050
+
+dadd 	000	060
+dsub 	000	061
+
+dmul 	000	070
+
+
+
+ei		020	000
+di		020	001
+eret	020	002
+
+mfc0	020	030
+dmfc0	020	031
+mtc0	020	034
+dmtc0	020	035
+
+add.fmt 	021	000
+sub.fmt 	021	001
+mul.fmt 	021	002
+div.fmt 	021	003
+sqrt.fmt	021	004
+abs.fmt 	021	005
+mov.fmt 	021	006
+neg.fmt 	021	007
+
+round.l.fmt	021	010
+trunc.l.fmt	021	011
+ceil.l.fmt	021	012
+floor.l.fmt	021	013
+round.w.fmt	021	014
+trunc.w.fmt	021	015
+ceil.w.fmt	021	016
+floor.w.fmt	021	017
+
+mfc1	021	030
+dmfc1	021	031
+cfc1	021	032
+mfhc1	021	033
+mtc1	021	034
+dmtc1	021	035
+ctc1	021	036
+mthc1	021	037
+
+cvt.s.fmt	021	040
+cvt.d.fmt	021	041
+cvt.w.fmt	021	044
+cvt.l.fmt	021	045
+
+c.f.fmt 	021	060
+c.un.fmt	021	061
+c.eq.fmt	021	062
+c.ueq.fmt	021	063
+c.olt.fmt	021	064
+c.ult.fmt	021	065
+c.ole.fmt	021	066
+c.ule.fmt	021	067
+
+c.sf.fmt 	021	070
+c.ngle.fmt	021	071
+c.seq.fmt	021	072
+c.ngl.fmt	021	073
+c.lt.fmt	021	074
+c.nge.fmt	021	075
+c.le.fmt	021	076
+c.ngt.fmt	021	077
+
