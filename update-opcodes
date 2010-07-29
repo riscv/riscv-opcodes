@@ -1,4 +1,4 @@
 #!/bin/bash
-./parse-opcodes -tex < opcodes > ../doc/opcodes.tex
+#./parse-opcodes -tex < opcodes > ../doc/opcodes.tex
 ./parse-opcodes -disasm < opcodes > ../xcc/src/include/opcode/mips-riscv-opc.h
 ./parse-opcodes -switch < opcodes > ../sim/riscv/execute.h

@@ -1,148 +1,164 @@
-synci	001
-j   	002
-jal 	003
-beq 	004
-bne 	005
+# format of a line in this file:
+# <instruction name> <opcode> <args>
+#
+# <opcode> is given by specifying one or more range/value pairs:
+# highbit..lowbit=value (e.g. 31..25=0x45 14..12=0x0)
+#
+# <args> follows the conventions in xcc/src/opcodes/mips-opc.c
 
-addi	010
-slti	012
-sltiu	013
-andi	014
-ori 	015
-xori	016
-lui 	017
+unimp	31..0=0
 
-blt 	024
-bltu  	025
-ble 	026
-bleu  	027
+j		31..27=0x18 imm27 # opcodes 0x60-0x64
+jal		31..27=0x19 imm27 # opcodes 0x64-0x68 
 
-daddi	030
+lui		31..25=0x71 ra imm20
+slori 	31..25=0x72 ra imm20
 
-lb  	040
-lh  	041
-lw  	043
-lbu 	044
-lhu 	045
-lwu 	047
+beq 	31..25=0x73 14..12=0 ra rb imm
+bne 	31..25=0x73 14..12=1 ra rb imm
+blt 	31..25=0x73 14..12=2 ra rb imm
+bltu  	31..25=0x73 14..12=3 ra rb imm
+ble 	31..25=0x73 14..12=4 ra rb imm
+bleu  	31..25=0x73 14..12=5 ra rb imm
 
-sb  	050
-sh  	051
-sw  	053
+addi	31..25=0x74 14..12=0 ra rb imm 
+daddi	31..25=0x74 14..12=1 ra rb imm
+slti	31..25=0x74 14..12=2 ra rb imm
+sltiu	31..25=0x74 14..12=3 ra rb imm
+andi	31..25=0x74 14..12=4 ra rb imm
+ori		31..25=0x74 14..12=5 ra rb imm
+xori	31..25=0x74 14..12=6 ra rb imm
 
-l.s 	061
-l.d 	065
-ld  	067
+add 	31..25=0x75 14..12=0 11..5=0 rc rb ra 
+sub 	31..25=0x75 14..12=0 11..5=1 rc rb ra
+slt 	31..25=0x75 14..12=0 11..5=2 rc rb ra
+sltu	31..25=0x75 14..12=0 11..5=3 rc rb ra
+and 	31..25=0x75 14..12=0 11..5=4 rc rb ra
+or  	31..25=0x75 14..12=0 11..5=5 rc rb ra
+xor 	31..25=0x75 14..12=0 11..5=6 rc rb ra
+nor 	31..25=0x75 14..12=0 11..5=7 rc rb ra
 
-s.s 	071
-s.d 	075
-sd  	077
+mul 	31..25=0x75 14..12=1 11..5=0 rc rb ra
+mulh 	31..25=0x75 14..12=1 11..5=2 rc rb ra
+mulhu 	31..25=0x75 14..12=1 11..5=3 rc rb ra
+div 	31..25=0x75 14..12=1 11..5=4 rc rb ra
+divu 	31..25=0x75 14..12=1 11..5=5 rc rb ra
+rem		31..25=0x75 14..12=1 11..5=6 rc rb ra
+remu	31..25=0x75 14..12=1 11..5=7 rc rb ra
 
+sllv	31..25=0x75 14..12=4 11..5=1 rc rb ra
+srlv	31..25=0x75 14..12=4 11..5=2 rc rb ra
+srav	31..25=0x75 14..12=4 11..5=3 rc rb ra
+sll 	31..25=0x75 14..12=5 11..10=0 24..20=0 rc rb shamt
+srl 	31..25=0x75 14..12=6 11..10=0 24..20=0 rc rb shamt
+sra 	31..25=0x75 14..12=7 11..10=0 24..20=0 rc rb shamt
 
+dadd 	31..25=0x76 14..12=0 11..5=0 rc rb ra 
+dsub 	31..25=0x76 14..12=0 11..5=1 rc rb ra
 
+dmul 	31..25=0x76 14..12=1 11..5=0 rc rb ra
+dmulh 	31..25=0x76 14..12=1 11..5=2 rc rb ra
+dmulhu 	31..25=0x76 14..12=1 11..5=3 rc rb ra
+ddiv 	31..25=0x76 14..12=1 11..5=4 rc rb ra
+ddivu 	31..25=0x76 14..12=1 11..5=5 rc rb ra
+drem	31..25=0x76 14..12=1 11..5=6 rc rb ra
+dremu	31..25=0x76 14..12=1 11..5=7 rc rb ra
 
+dsllv	31..25=0x76 14..12=4 11..5=1 rc rb ra
+dsrlv	31..25=0x76 14..12=4 11..5=2 rc rb ra
+dsrav	31..25=0x76 14..12=4 11..5=3 rc rb ra
+dsll 	31..25=0x76 14..12=5 11..10=0 24..20=0 rc rb shamt
+dsll32 	31..25=0x76 14..12=5 11..10=1 24..20=0 rc rb shamt
+dsrl 	31..25=0x76 14..12=6 11..10=0 24..20=0 rc rb shamt
+dsrl32 	31..25=0x76 14..12=6 11..10=1 24..20=0 rc rb shamt
+dsra 	31..25=0x76 14..12=7 11..10=0 24..20=0 rc rb shamt
+dsra32 	31..25=0x76 14..12=7 11..10=1 24..20=0 rc rb shamt
 
-unimp	000	000
-sll 	000	001
-srl 	000	002
-sra 	000	003
-sllv	000	005
-srlv	000	006
-srav	000	007
+lb  	31..25=0x78 14..12=0 rb ra imm 
+lh  	31..25=0x78 14..12=1 rb ra imm
+lw  	31..25=0x78 14..12=2 rb ra imm
+ld		31..25=0x78 14..12=3 rb ra imm
+lbu 	31..25=0x78 14..12=4 rb ra imm
+lhu 	31..25=0x78 14..12=5 rb ra imm
+lwu 	31..25=0x78 14..12=6 rb ra imm
+synci	31..25=0x78 14..12=7 24..20=0 rb imm
 
-jalr	000	011
-movz	000	012
-movn	000	013
-syscall	000	014
-break	000	015
-rdhwr	000	016
-sync	000	017
+sb  	31..25=0x79 14..12=0 rb ra imm 
+sh  	31..25=0x79 14..12=1 rb ra imm
+sw  	31..25=0x79 14..12=2 rb ra imm
+sd		31..25=0x79 14..12=3 rb ra imm
 
-dsll	000	021
-dsrl	000	022
-dsra	000	023
-dsllv	000	025
-dsrlv	000	026
-dsrav	000	027
+l.s		31..25=0x79 14..12=4 rb ra imm 
+l.d		31..25=0x79 14..12=5 rb ra imm
+s.s		31..25=0x79 14..12=6 rb ra imm
+s.d		31..25=0x79 14..12=7 rb ra imm
 
-dsll32	000	031
-dsrl32	000	032
-dsra32	000	033
+jalr.c	31..25=0x7B 19..15=0 14..12=0 11..5=0 ra rc
+jalr.r	31..25=0x7B 19..15=0 14..12=0 11..5=1 ra rc
+jalr.j	31..25=0x7B 19..15=0 14..12=0 11..5=2 ra rc
+rdpc	31..25=0x7B 24..15=0 14..12=1 11..5=0 rc
+rdhwr	31..25=0x7B 19..15=0 14..12=2 11..5=0 rc ra
+sync	31..25=0x7B 24..15=0 14..12=3 11..0=0
+syscall	31..25=0x7B 24..15=0 14..12=4 11..0=0
+break	31..25=0x7B 24..15=0 14..12=5 11..0=0
 
-add 	000	040
-sub 	000	041
-slt 	000	042
-sltu	000	043
-and 	000	044
-or  	000	045
-xor 	000	046
-nor 	000	047
+ei		31..25=0x7E 14..12=0 19..15=0 11..0=0 ra
+di		31..25=0x7E 14..12=1 19..15=0 11..0=0 ra
+eret	31..25=0x7E 14..12=2 24..15=0 11..0=0
+mfc0	31..25=0x7E 14..12=4 11..0=0 ra rb
+dmfc0	31..25=0x7E 14..12=5 11..0=0 ra rb
+mtc0	31..25=0x7E 14..12=6 11..0=0 ra rb
+dmtc0	31..25=0x7E 14..12=7 11..0=0 ra rb
 
-mul 	000	050
+# 0x7F is reserved for 64-bit-long instructions
 
-dadd 	000	060
-dsub 	000	061
+add.fmt 	31..25=0x68 14..12=0 11..10=0 rc rb ra fmt
+sub.fmt 	31..25=0x68 14..12=1 11..10=0 rc rb ra fmt
+mul.fmt 	31..25=0x68 14..12=2 11..10=0 rc rb ra fmt
+div.fmt 	31..25=0x68 14..12=3 11..10=0 rc rb ra fmt
+sqrt.fmt	31..25=0x68 14..12=4 19..15=0 11..10=0 rc ra fmt
+abs.fmt 	31..25=0x68 14..12=5 19..15=0 11..10=0 rc ra fmt
+mov.fmt 	31..25=0x68 14..12=6 19..15=0 11..10=0 rc ra fmt
+neg.fmt 	31..25=0x68 14..12=7 19..15=0 11..10=0 rc ra fmt
 
-dmul 	000	070
+round.l.fmt	31..25=0x69 14..12=0 19..15=0 11..10=0 rc ra fmt
+trunc.l.fmt	31..25=0x69 14..12=1 19..15=0 11..10=0 rc ra fmt
+ceil.l.fmt	31..25=0x69 14..12=2 19..15=0 11..10=0 rc ra fmt
+floor.l.fmt	31..25=0x69 14..12=3 19..15=0 11..10=0 rc ra fmt
+round.w.fmt	31..25=0x69 14..12=4 19..15=0 11..10=0 rc ra fmt
+trunc.w.fmt	31..25=0x69 14..12=5 19..15=0 11..10=0 rc ra fmt
+ceil.w.fmt	31..25=0x69 14..12=6 19..15=0 11..10=0 rc ra fmt
+floor.w.fmt	31..25=0x69 14..12=7 19..15=0 11..10=0 rc ra fmt
 
+mfc1	31..25=0x6A 14..12=0 11..0=0 ra rb
+dmfc1	31..25=0x6A 14..12=1 11..0=0 ra rb
+cfc1	31..25=0x6A 14..12=2 11..0=0 ra rb
+mfhc1	31..25=0x6A 14..12=3 11..0=0 ra rb
+mtc1	31..25=0x6A 14..12=4 11..0=0 ra rb
+dmtc1	31..25=0x6A 14..12=5 11..0=0 ra rb
+ctc1	31..25=0x6A 14..12=6 11..0=0 ra rb
+mthc1	31..25=0x6A 14..12=7 11..0=0 ra rb
 
+cvt.s.fmt	31..25=0x6B 14..12=0 19..15=0 11..10=0 rc ra fmt
+cvt.d.fmt	31..25=0x6B 14..12=1 19..15=0 11..10=0 rc ra fmt
+cvt.w.fmt	31..25=0x6B 14..12=4 19..15=0 11..10=0 rc ra fmt
+cvt.l.fmt	31..25=0x6B 14..12=5 19..15=0 11..10=0 rc ra fmt
 
-ei		020	000
-di		020	001
-eret	020	002
+c.f.fmt 	31..25=0x6C 14..12=0 11..10=0 rc rb ra fmt
+c.un.fmt	31..25=0x6C 14..12=1 11..10=0 rc rb ra fmt
+c.eq.fmt	31..25=0x6C 14..12=2 11..10=0 rc rb ra fmt
+c.ueq.fmt	31..25=0x6C 14..12=3 11..10=0 rc rb ra fmt
+c.olt.fmt	31..25=0x6C 14..12=4 11..10=0 rc rb ra fmt
+c.ult.fmt	31..25=0x6C 14..12=5 11..10=0 rc rb ra fmt
+c.ole.fmt	31..25=0x6C 14..12=6 11..10=0 rc rb ra fmt
+c.ule.fmt	31..25=0x6C 14..12=7 11..10=0 rc rb ra fmt
 
-mfc0	020	030
-dmfc0	020	031
-mtc0	020	034
-dmtc0	020	035
-
-add.fmt 	021	000
-sub.fmt 	021	001
-mul.fmt 	021	002
-div.fmt 	021	003
-sqrt.fmt	021	004
-abs.fmt 	021	005
-mov.fmt 	021	006
-neg.fmt 	021	007
-
-round.l.fmt	021	010
-trunc.l.fmt	021	011
-ceil.l.fmt	021	012
-floor.l.fmt	021	013
-round.w.fmt	021	014
-trunc.w.fmt	021	015
-ceil.w.fmt	021	016
-floor.w.fmt	021	017
-
-mfc1	021	030
-dmfc1	021	031
-cfc1	021	032
-mfhc1	021	033
-mtc1	021	034
-dmtc1	021	035
-ctc1	021	036
-mthc1	021	037
-
-cvt.s.fmt	021	040
-cvt.d.fmt	021	041
-cvt.w.fmt	021	044
-cvt.l.fmt	021	045
-
-c.f.fmt 	021	060
-c.un.fmt	021	061
-c.eq.fmt	021	062
-c.ueq.fmt	021	063
-c.olt.fmt	021	064
-c.ult.fmt	021	065
-c.ole.fmt	021	066
-c.ule.fmt	021	067
-
-c.sf.fmt 	021	070
-c.ngle.fmt	021	071
-c.seq.fmt	021	072
-c.ngl.fmt	021	073
-c.lt.fmt	021	074
-c.nge.fmt	021	075
-c.le.fmt	021	076
-c.ngt.fmt	021	077
+c.sf.fmt 	31..25=0x6D 14..12=0 11..10=0 rc rb ra fmt
+c.ngle.fmt	31..25=0x6D 14..12=1 11..10=0 rc rb ra fmt
+c.seq.fmt	31..25=0x6D 14..12=2 11..10=0 rc rb ra fmt
+c.ngl.fmt	31..25=0x6D 14..12=3 11..10=0 rc rb ra fmt
+c.lt.fmt	31..25=0x6D 14..12=4 11..10=0 rc rb ra fmt
+c.nge.fmt	31..25=0x6D 14..12=5 11..10=0 rc rb ra fmt
+c.le.fmt	31..25=0x6D 14..12=6 11..10=0 rc rb ra fmt
+c.ngt.fmt	31..25=0x6D 14..12=7 11..10=0 rc rb ra fmt
 
