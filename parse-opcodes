@@ -14,7 +14,8 @@ args['rc'] = (4,0)
 args['imm27'] = (26,0)
 args['imm20'] = (19,0)
 args['imm'] = (11,0)
-args['shamt'] = (9,5)
+args['shamt'] = (10,5)
+args['shamtw'] = (9,5)
 args['fmt'] = (9,5)
 
 def binary(n, digits=0):
