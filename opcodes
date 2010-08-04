@@ -22,7 +22,7 @@ ble 	31..25=0x73 14..12=4 ra rb imm
 bleu  	31..25=0x73 14..12=5 ra rb imm
 
 addi	31..25=0x74 14..12=0 ra rb imm 
-daddi	31..25=0x74 14..12=1 ra rb imm
+addiw	31..25=0x74 14..12=1 ra rb imm
 slti	31..25=0x74 14..12=2 ra rb imm
 sltiu	31..25=0x74 14..12=3 ra rb imm
 andi	31..25=0x74 14..12=4 ra rb imm
@@ -50,29 +50,29 @@ sllv	31..25=0x75 14..12=4 11..5=1 rc rb ra
 srlv	31..25=0x75 14..12=4 11..5=2 rc rb ra
 srav	31..25=0x75 14..12=4 11..5=3 rc rb ra
 sll 	31..25=0x75 14..12=5 11..10=0 24..20=0 rc rb shamt
+sll32 	31..25=0x76 14..12=5 11..10=1 24..20=0 rc rb shamt
 srl 	31..25=0x75 14..12=6 11..10=0 24..20=0 rc rb shamt
+srl32 	31..25=0x76 14..12=6 11..10=1 24..20=0 rc rb shamt
 sra 	31..25=0x75 14..12=7 11..10=0 24..20=0 rc rb shamt
+sra32 	31..25=0x76 14..12=7 11..10=1 24..20=0 rc rb shamt
 
-dadd 	31..25=0x76 14..12=0 11..5=0 rc rb ra 
-dsub 	31..25=0x76 14..12=0 11..5=1 rc rb ra
+addw 	31..25=0x76 14..12=0 11..5=0 rc rb ra 
+subw 	31..25=0x76 14..12=0 11..5=1 rc rb ra
 
-dmul 	31..25=0x76 14..12=1 11..5=0 rc rb ra
-dmulh 	31..25=0x76 14..12=1 11..5=2 rc rb ra
-dmulhu 	31..25=0x76 14..12=1 11..5=3 rc rb ra
-ddiv 	31..25=0x76 14..12=1 11..5=4 rc rb ra
-ddivu 	31..25=0x76 14..12=1 11..5=5 rc rb ra
-drem	31..25=0x76 14..12=1 11..5=6 rc rb ra
-dremu	31..25=0x76 14..12=1 11..5=7 rc rb ra
+mulw 	31..25=0x76 14..12=1 11..5=0 rc rb ra
+mulhw 	31..25=0x76 14..12=1 11..5=2 rc rb ra
+mulhuw 	31..25=0x76 14..12=1 11..5=3 rc rb ra
+divw 	31..25=0x76 14..12=1 11..5=4 rc rb ra
+divuw 	31..25=0x76 14..12=1 11..5=5 rc rb ra
+remw 	31..25=0x76 14..12=1 11..5=6 rc rb ra
+remuw	31..25=0x76 14..12=1 11..5=7 rc rb ra
 
-dsllv	31..25=0x76 14..12=4 11..5=1 rc rb ra
-dsrlv	31..25=0x76 14..12=4 11..5=2 rc rb ra
-dsrav	31..25=0x76 14..12=4 11..5=3 rc rb ra
-dsll 	31..25=0x76 14..12=5 11..10=0 24..20=0 rc rb shamt
-dsll32 	31..25=0x76 14..12=5 11..10=1 24..20=0 rc rb shamt
-dsrl 	31..25=0x76 14..12=6 11..10=0 24..20=0 rc rb shamt
-dsrl32 	31..25=0x76 14..12=6 11..10=1 24..20=0 rc rb shamt
-dsra 	31..25=0x76 14..12=7 11..10=0 24..20=0 rc rb shamt
-dsra32 	31..25=0x76 14..12=7 11..10=1 24..20=0 rc rb shamt
+sllvw	31..25=0x76 14..12=4 11..5=1 rc rb ra
+srlvw	31..25=0x76 14..12=4 11..5=2 rc rb ra
+sravw	31..25=0x76 14..12=4 11..5=3 rc rb ra
+sllw 	31..25=0x76 14..12=5 11..10=0 24..20=0 rc rb shamt
+srlw 	31..25=0x76 14..12=6 11..10=0 24..20=0 rc rb shamt
+sraw 	31..25=0x76 14..12=7 11..10=0 24..20=0 rc rb shamt
 
 lb  	31..25=0x78 14..12=0 rb ra imm 
 lh  	31..25=0x78 14..12=1 rb ra imm
@@ -105,10 +105,10 @@ break	31..25=0x7B 24..15=0 14..12=5 11..0=0
 ei		31..25=0x7E 14..12=0 19..15=0 11..0=0 ra
 di		31..25=0x7E 14..12=1 19..15=0 11..0=0 ra
 eret	31..25=0x7E 14..12=2 24..15=0 11..0=0
-mfc0	31..25=0x7E 14..12=4 11..0=0 ra rb
-dmfc0	31..25=0x7E 14..12=5 11..0=0 ra rb
-mtc0	31..25=0x7E 14..12=6 11..0=0 ra rb
-dmtc0	31..25=0x7E 14..12=7 11..0=0 ra rb
+mfpcr	31..25=0x7E 14..12=4 11..0=0 ra rb
+mwfpcr	31..25=0x7E 14..12=5 11..0=0 ra rb
+mtpcr	31..25=0x7E 14..12=6 11..0=0 ra rb
+mwtpcr	31..25=0x7E 14..12=7 11..0=0 ra rb
 
 # 0x7F is reserved for 64-bit-long instructions
 
