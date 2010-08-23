@@ -11,6 +11,7 @@ args = {}
 args['ra'] = (24,20)
 args['rb'] = (19,15)
 args['rc'] = (4,0)
+args['rd'] = (9,5)
 args['imm27'] = (26,0)
 args['imm20'] = (19,0)
 args['imm'] = (11,0)
