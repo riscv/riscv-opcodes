@@ -12,7 +12,6 @@ j		31..27=0x18 imm27 # opcodes 0x60-0x64
 jal		31..27=0x19 imm27 # opcodes 0x64-0x68 
 
 lui		31..25=0x71 ra imm20
-slori 	31..25=0x72 ra imm20
 
 beq 	31..25=0x73 14..12=0 ra rb imm
 bne 	31..25=0x73 14..12=1 ra rb imm
