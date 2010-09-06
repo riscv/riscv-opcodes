@@ -4,7 +4,7 @@
 # <opcode> is given by specifying one or more range/value pairs:
 # highbit..lowbit=value (e.g. 31..25=0x45 14..12=0x0)
 #
-# <args> follows the conventions in xcc/src/opcodes/mips-opc.c
+# <args> is one of ra, rb, rc, rd, imm, imm20, imm27, shamt, shamtw
 
 unimp	31..0=0
 
@@ -84,10 +84,23 @@ sh  	31..25=0x79 14..12=1 rb ra imm
 sw  	31..25=0x79 14..12=2 rb ra imm
 sd		31..25=0x79 14..12=3 rb ra imm
 
-l.s		31..25=0x79 14..12=4 rb ra imm 
-l.d		31..25=0x79 14..12=5 rb ra imm
-s.s		31..25=0x79 14..12=6 rb ra imm
-s.d		31..25=0x79 14..12=7 rb ra imm
+amow.add	31..25=0x7A 14..12=2 11..5=0 rc rb ra
+amow.swap	31..25=0x7A 14..12=2 11..5=1 rc rb ra
+amow.and	31..25=0x7A 14..12=2 11..5=2 rc rb ra
+amow.or 	31..25=0x7A 14..12=2 11..5=3 rc rb ra
+amow.min	31..25=0x7A 14..12=2 11..5=4 rc rb ra
+amow.max	31..25=0x7A 14..12=2 11..5=5 rc rb ra
+amow.minu	31..25=0x7A 14..12=2 11..5=6 rc rb ra
+amow.maxu	31..25=0x7A 14..12=2 11..5=7 rc rb ra
+
+amo.add 	31..25=0x7A 14..12=3 11..5=0 rc rb ra
+amo.swap	31..25=0x7A 14..12=3 11..5=1 rc rb ra
+amo.and 	31..25=0x7A 14..12=3 11..5=2 rc rb ra
+amo.or  	31..25=0x7A 14..12=3 11..5=3 rc rb ra
+amo.min 	31..25=0x7A 14..12=3 11..5=4 rc rb ra
+amo.max 	31..25=0x7A 14..12=3 11..5=5 rc rb ra
+amo.minu	31..25=0x7A 14..12=3 11..5=6 rc rb ra
+amo.maxu	31..25=0x7A 14..12=3 11..5=7 rc rb ra
 
 jalr.c	31..25=0x7B 19..15=0 14..12=0 11..5=0 ra rc
 jalr.r	31..25=0x7B 19..15=0 14..12=0 11..5=1 ra rc
@@ -166,6 +179,11 @@ madd.d	31..25=0x68 14..12=4 11..10=3 rc rb ra rd
 msub.d	31..25=0x68 14..12=5 11..10=3 rc rb ra rd
 nmadd.d	31..25=0x68 14..12=6 11..10=3 rc rb ra rd
 nmsub.d	31..25=0x68 14..12=7 11..10=3 rc rb ra rd
+
+l.s		31..25=0x69 14..12=2 rb ra imm
+l.d		31..25=0x69 14..12=3 rb ra imm
+s.s		31..25=0x69 14..12=6 rb ra imm
+s.d		31..25=0x69 14..12=7 rb ra imm
 
 mff.s	31..25=0x6A 14..12=0 11..0=0 ra rb
 mff.d	31..25=0x6A 14..12=1 11..0=0 ra rb
