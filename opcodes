@@ -22,8 +22,8 @@ bleu  	31..25=0x73 14..12=5 ra rb imm
 
 addi	31..25=0x74 14..12=0 ra rb imm 
 addiw	31..25=0x74 14..12=1 ra rb imm
-slei	31..25=0x74 14..12=2 ra rb imm
-sleiu	31..25=0x74 14..12=3 ra rb imm
+slti	31..25=0x74 14..12=2 ra rb imm
+sltiu	31..25=0x74 14..12=3 ra rb imm
 andi	31..25=0x74 14..12=4 ra rb imm
 ori		31..25=0x74 14..12=5 ra rb imm
 xori	31..25=0x74 14..12=6 ra rb imm
