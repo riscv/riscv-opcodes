@@ -169,16 +169,6 @@ c.eq.d	31..25=0x68 14..12=2 11..10=3 9..5=1 rc ra rb
 c.lt.d	31..25=0x68 14..12=2 11..10=3 9..5=2 rc ra rb
 c.le.d	31..25=0x68 14..12=2 11..10=3 9..5=3 rc ra rb
 
-madd.s	31..25=0x68 14..12=4 11..10=0 rc rb ra rd
-msub.s	31..25=0x68 14..12=5 11..10=0 rc rb ra rd
-nmadd.s	31..25=0x68 14..12=6 11..10=0 rc rb ra rd
-nmsub.s	31..25=0x68 14..12=7 11..10=0 rc rb ra rd
-
-madd.d	31..25=0x68 14..12=4 11..10=3 rc rb ra rd
-msub.d	31..25=0x68 14..12=5 11..10=3 rc rb ra rd
-nmadd.d	31..25=0x68 14..12=6 11..10=3 rc rb ra rd
-nmsub.d	31..25=0x68 14..12=7 11..10=3 rc rb ra rd
-
 l.s		31..25=0x69 14..12=2 rb ra imm
 l.d		31..25=0x69 14..12=3 rb ra imm
 s.s		31..25=0x69 14..12=6 rb ra imm
@@ -188,4 +178,14 @@ mff.s	31..25=0x6A 19..15=0 14..12=0 11..5=0 ra rc
 mff.d	31..25=0x6A 19..15=0 14..12=1 11..5=0 ra rc
 mtf.s	31..25=0x6A 19..15=0 14..12=4 11..5=0 ra rc
 mtf.d	31..25=0x6A 19..15=0 14..12=5 11..5=0 ra rc
+
+madd.s	31..25=0x6B 14..12=0 11..10=0 rc rb ra rd
+msub.s	31..25=0x6B 14..12=1 11..10=0 rc rb ra rd
+nmadd.s	31..25=0x6B 14..12=2 11..10=0 rc rb ra rd
+nmsub.s	31..25=0x6B 14..12=3 11..10=0 rc rb ra rd
+
+madd.d	31..25=0x6B 14..12=0 11..10=3 rc rb ra rd
+msub.d	31..25=0x6B 14..12=1 11..10=3 rc rb ra rd
+nmadd.d	31..25=0x6B 14..12=2 11..10=3 rc rb ra rd
+nmsub.d	31..25=0x6B 14..12=3 11..10=3 rc rb ra rd
 
