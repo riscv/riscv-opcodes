@@ -1,0 +1,1752 @@
+
+\newpage
+
+\begin{table}[p]
+\begin{small}
+\begin{center}
+\begin{tabular}{rcccccccccl}
+                &
+\hspace*{0.6in} &
+\hspace*{0.2in} &
+\hspace*{0.5in} &
+\hspace*{0.5in} &
+\hspace*{0.3in} &
+\hspace*{0.1in} &
+\hspace*{0.1in} &
+\hspace*{0.5in} &
+\hspace*{0.5in} \\
+                      &
+\instbitrange{31}{27} &
+\instbitrange{26}{25} &
+\instbitrange{24}{20} &
+\instbitrange{19}{15} &
+\instbitrange{14}{12} &
+\instbit{11} &
+\instbit{10} &
+\instbitrange{9}{5} &
+\instbitrange{4}{0} \\
+\cline{2-10}
+&
+\multicolumn{1}{|c|}{opcode5} &
+\multicolumn{8}{c|}{jump target} & J-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{6}{c|}{LUI-immediate} & LUI-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{1}{c|}{funct3} &
+\multicolumn{4}{c|}{immediate} & I-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{2}{c|}{funct4} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{rc} & RSH-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{3}{c|}{funct5} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{rc} & R4-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{4}{c|}{funct10} &
+\multicolumn{1}{c|}{rc} & R-type \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Unimplemented Instruction} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{|c|}{00000000000000000000000000000000} & UNIMP \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Control Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{1}{|c|}{11000} &
+\multicolumn{8}{c|}{imm27} & J imm27 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{1}{|c|}{11001} &
+\multicolumn{8}{c|}{imm27} & JAL imm27 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111011} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000000000} &
+\multicolumn{1}{c|}{xc} & JALR.C xc,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111011} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000000001} &
+\multicolumn{1}{c|}{xc} & JALR.R xc,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111011} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000000010} &
+\multicolumn{1}{c|}{xc} & JALR.J xc,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110011} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{4}{c|}{imm} & BEQ xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110011} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{4}{c|}{imm} & BNE xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110011} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{010} &
+\multicolumn{4}{c|}{imm} & BLT xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110011} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{011} &
+\multicolumn{4}{c|}{imm} & BLTU xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110011} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{100} &
+\multicolumn{4}{c|}{imm} & BLE xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110011} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{101} &
+\multicolumn{4}{c|}{imm} & BLEU xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Memory Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111000} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{4}{c|}{imm} & LB xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111000} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{4}{c|}{imm} & LH xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111000} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{010} &
+\multicolumn{4}{c|}{imm} & LW xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111000} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{011} &
+\multicolumn{4}{c|}{imm} & LD xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111000} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{100} &
+\multicolumn{4}{c|}{imm} & LBU xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111000} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{101} &
+\multicolumn{4}{c|}{imm} & LHU xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111000} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{110} &
+\multicolumn{4}{c|}{imm} & LWU xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{111} &
+\multicolumn{4}{c|}{imm} & SYNCI xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111001} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{4}{c|}{imm} & SB xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111001} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{4}{c|}{imm} & SH xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111001} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{010} &
+\multicolumn{4}{c|}{imm} & SW xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111001} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{011} &
+\multicolumn{4}{c|}{imm} & SD xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Atomic Memory Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0100000000} &
+\multicolumn{1}{c|}{xc} & AMOW.ADD xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0100000001} &
+\multicolumn{1}{c|}{xc} & AMOW.SWAP xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0100000010} &
+\multicolumn{1}{c|}{xc} & AMOW.AND xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0100000011} &
+\multicolumn{1}{c|}{xc} & AMOW.OR xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0100000100} &
+\multicolumn{1}{c|}{xc} & AMOW.MIN xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0100000101} &
+\multicolumn{1}{c|}{xc} & AMOW.MAX xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0100000110} &
+\multicolumn{1}{c|}{xc} & AMOW.MINU xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0100000111} &
+\multicolumn{1}{c|}{xc} & AMOW.MAXU xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0110000000} &
+\multicolumn{1}{c|}{xc} & AMO.ADD xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0110000001} &
+\multicolumn{1}{c|}{xc} & AMO.SWAP xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0110000010} &
+\multicolumn{1}{c|}{xc} & AMO.AND xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0110000011} &
+\multicolumn{1}{c|}{xc} & AMO.OR xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0110000100} &
+\multicolumn{1}{c|}{xc} & AMO.MIN xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0110000101} &
+\multicolumn{1}{c|}{xc} & AMO.MAX xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0110000110} &
+\multicolumn{1}{c|}{xc} & AMO.MINU xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0110000111} &
+\multicolumn{1}{c|}{xc} & AMO.MAXU xc,xb,xa \\
+\cline{2-10}
+  
+
+\end{tabular}
+\end{center}
+\end{small}
+
+\label{instr-table}
+\end{table}
+  
+
+\newpage
+
+\begin{table}[p]
+\begin{small}
+\begin{center}
+\begin{tabular}{rcccccccccl}
+                &
+\hspace*{0.6in} &
+\hspace*{0.2in} &
+\hspace*{0.5in} &
+\hspace*{0.5in} &
+\hspace*{0.3in} &
+\hspace*{0.1in} &
+\hspace*{0.1in} &
+\hspace*{0.5in} &
+\hspace*{0.5in} \\
+                      &
+\instbitrange{31}{27} &
+\instbitrange{26}{25} &
+\instbitrange{24}{20} &
+\instbitrange{19}{15} &
+\instbitrange{14}{12} &
+\instbit{11} &
+\instbit{10} &
+\instbitrange{9}{5} &
+\instbitrange{4}{0} \\
+\cline{2-10}
+&
+\multicolumn{1}{|c|}{opcode5} &
+\multicolumn{8}{c|}{jump target} & J-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{6}{c|}{LUI-immediate} & LUI-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{1}{c|}{funct3} &
+\multicolumn{4}{c|}{immediate} & I-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{2}{c|}{funct4} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{rc} & RSH-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{3}{c|}{funct5} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{rc} & R4-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{4}{c|}{funct10} &
+\multicolumn{1}{c|}{rc} & R-type \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Integer Compute Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110001} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{6}{c|}{imm20} & LUI xa,imm20 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110100} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{4}{c|}{imm} & ADDI xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110100} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{4}{c|}{imm} & SLTI xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110100} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{010} &
+\multicolumn{4}{c|}{imm} & SLTIU xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110100} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{011} &
+\multicolumn{4}{c|}{imm} & ANDI xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110100} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{100} &
+\multicolumn{4}{c|}{imm} & ORI xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110100} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{101} &
+\multicolumn{4}{c|}{imm} & XORI xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0000000000} &
+\multicolumn{1}{c|}{xc} & ADD xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0000000001} &
+\multicolumn{1}{c|}{xc} & SUB xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0000000010} &
+\multicolumn{1}{c|}{xc} & SLT xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0000000011} &
+\multicolumn{1}{c|}{xc} & SLTU xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0000000100} &
+\multicolumn{1}{c|}{xc} & AND xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0000000101} &
+\multicolumn{1}{c|}{xc} & OR xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0000000110} &
+\multicolumn{1}{c|}{xc} & XOR xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0000000111} &
+\multicolumn{1}{c|}{xc} & NOR xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000000} &
+\multicolumn{1}{c|}{xc} & MUL xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000010} &
+\multicolumn{1}{c|}{xc} & MULH xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000011} &
+\multicolumn{1}{c|}{xc} & MULHU xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000100} &
+\multicolumn{1}{c|}{xc} & DIV xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000101} &
+\multicolumn{1}{c|}{xc} & DIVU xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000110} &
+\multicolumn{1}{c|}{xc} & REM xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000111} &
+\multicolumn{1}{c|}{xc} & REMU xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1000000001} &
+\multicolumn{1}{c|}{xc} & SLLV xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1000000010} &
+\multicolumn{1}{c|}{xc} & SRLV xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1000000011} &
+\multicolumn{1}{c|}{xc} & SRAV xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1010} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{xc} & SLL xc,xb,shamt \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1100} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{xc} & SRL xc,xb,shamt \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1110} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{xc} & SRA xc,xb,shamt \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf 32-bit Integer Compute Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110110} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{4}{c|}{imm} & ADDIW xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0000000000} &
+\multicolumn{1}{c|}{xc} & ADDW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0000000001} &
+\multicolumn{1}{c|}{xc} & SUBW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000000} &
+\multicolumn{1}{c|}{xc} & MULW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000010} &
+\multicolumn{1}{c|}{xc} & MULHW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000011} &
+\multicolumn{1}{c|}{xc} & MULHUW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000100} &
+\multicolumn{1}{c|}{xc} & DIVW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000101} &
+\multicolumn{1}{c|}{xc} & DIVUW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000110} &
+\multicolumn{1}{c|}{xc} & REMW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0010000111} &
+\multicolumn{1}{c|}{xc} & REMUW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1000000001} &
+\multicolumn{1}{c|}{xc} & SLLVW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1000000010} &
+\multicolumn{1}{c|}{xc} & SRLVW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1000000011} &
+\multicolumn{1}{c|}{xc} & SRAVW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1010} &
+\multicolumn{1}{c|}{0} &
+\multicolumn{1}{c|}{shamtw} &
+\multicolumn{1}{c|}{xc} & SLLW xc,xb,shamtw \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1100} &
+\multicolumn{1}{c|}{0} &
+\multicolumn{1}{c|}{shamtw} &
+\multicolumn{1}{c|}{xc} & SRLW xc,xb,shamtw \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1110} &
+\multicolumn{1}{c|}{0} &
+\multicolumn{1}{c|}{shamtw} &
+\multicolumn{1}{c|}{xc} & SRAW xc,xb,shamtw \\
+\cline{2-10}
+  
+
+\end{tabular}
+\end{center}
+\end{small}
+
+\label{instr-table}
+\end{table}
+  
+
+\newpage
+
+\begin{table}[p]
+\begin{small}
+\begin{center}
+\begin{tabular}{rcccccccccl}
+                &
+\hspace*{0.6in} &
+\hspace*{0.2in} &
+\hspace*{0.5in} &
+\hspace*{0.5in} &
+\hspace*{0.3in} &
+\hspace*{0.1in} &
+\hspace*{0.1in} &
+\hspace*{0.5in} &
+\hspace*{0.5in} \\
+                      &
+\instbitrange{31}{27} &
+\instbitrange{26}{25} &
+\instbitrange{24}{20} &
+\instbitrange{19}{15} &
+\instbitrange{14}{12} &
+\instbit{11} &
+\instbit{10} &
+\instbitrange{9}{5} &
+\instbitrange{4}{0} \\
+\cline{2-10}
+&
+\multicolumn{1}{|c|}{opcode5} &
+\multicolumn{8}{c|}{jump target} & J-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{6}{c|}{LUI-immediate} & LUI-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{1}{c|}{funct3} &
+\multicolumn{4}{c|}{immediate} & I-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{2}{c|}{funct4} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{rc} & RSH-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{3}{c|}{funct5} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{rc} & R4-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{4}{c|}{funct10} &
+\multicolumn{1}{c|}{rc} & R-type \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Floating Point Memory Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101001} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{4}{c|}{imm} & L.S fa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101001} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{110} &
+\multicolumn{4}{c|}{imm} & L.D fa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101001} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{4}{c|}{imm} & S.S fa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101001} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{1}{c|}{111} &
+\multicolumn{4}{c|}{imm} & S.D fa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Floating Point Compute Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{0000000000} &
+\multicolumn{1}{c|}{fc} & ADD.S fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{0000000001} &
+\multicolumn{1}{c|}{fc} & SUB.S fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{0000000010} &
+\multicolumn{1}{c|}{fc} & MUL.S fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{0000000011} &
+\multicolumn{1}{c|}{fc} & DIV.S fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000000100} &
+\multicolumn{1}{c|}{fc} & SQRT.S fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{0000000101} &
+\multicolumn{1}{c|}{fc} & SGNINJ.S fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{0000000110} &
+\multicolumn{1}{c|}{fc} & SGNINJN.S fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{0000000111} &
+\multicolumn{1}{c|}{fc} & SGNMUL.S fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{1100000000} &
+\multicolumn{1}{c|}{fc} & ADD.D fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{1100000001} &
+\multicolumn{1}{c|}{fc} & SUB.D fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{1100000010} &
+\multicolumn{1}{c|}{fc} & MUL.D fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{1100000011} &
+\multicolumn{1}{c|}{fc} & DIV.D fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100000100} &
+\multicolumn{1}{c|}{fc} & SQRT.D fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{1100000101} &
+\multicolumn{1}{c|}{fc} & SGNINJ.D fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{1100000110} &
+\multicolumn{1}{c|}{fc} & SGNINJN.D fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{1100000111} &
+\multicolumn{1}{c|}{fc} & SGNMUL.D fc,fb,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101011} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{1}{c|}{fd} &
+\multicolumn{1}{c|}{fc} & MADD.S fc,fb,fa,fd \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101011} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{3}{c|}{00001} &
+\multicolumn{1}{c|}{fd} &
+\multicolumn{1}{c|}{fc} & MSUB.S fc,fb,fa,fd \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101011} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{3}{c|}{00010} &
+\multicolumn{1}{c|}{fd} &
+\multicolumn{1}{c|}{fc} & NMADD.S fc,fb,fa,fd \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101011} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{3}{c|}{00011} &
+\multicolumn{1}{c|}{fd} &
+\multicolumn{1}{c|}{fc} & NMSUB.S fc,fb,fa,fd \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101011} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{3}{c|}{11000} &
+\multicolumn{1}{c|}{fd} &
+\multicolumn{1}{c|}{fc} & MADD.D fc,fb,fa,fd \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101011} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{3}{c|}{11001} &
+\multicolumn{1}{c|}{fd} &
+\multicolumn{1}{c|}{fc} & MSUB.D fc,fb,fa,fd \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101011} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{3}{c|}{11010} &
+\multicolumn{1}{c|}{fd} &
+\multicolumn{1}{c|}{fc} & NMADD.D fc,fb,fa,fd \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101011} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{3}{c|}{11011} &
+\multicolumn{1}{c|}{fd} &
+\multicolumn{1}{c|}{fc} & NMSUB.D fc,fb,fa,fd \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Floating Point Compare Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{0001000001} &
+\multicolumn{1}{c|}{xc} & C.EQ.S xc,fa,fb \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{0001000010} &
+\multicolumn{1}{c|}{xc} & C.LT.S xc,fa,fb \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{0001000011} &
+\multicolumn{1}{c|}{xc} & C.LE.S xc,fa,fb \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{1101000001} &
+\multicolumn{1}{c|}{xc} & C.EQ.D xc,fa,fb \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{1101000010} &
+\multicolumn{1}{c|}{xc} & C.LT.D xc,fa,fb \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{fb} &
+\multicolumn{4}{c|}{1101000011} &
+\multicolumn{1}{c|}{xc} & C.LE.D xc,fa,fb \\
+\cline{2-10}
+  
+
+\end{tabular}
+\end{center}
+\end{small}
+
+\label{instr-table}
+\end{table}
+  
+
+\newpage
+
+\begin{table}[p]
+\begin{small}
+\begin{center}
+\begin{tabular}{rcccccccccl}
+                &
+\hspace*{0.6in} &
+\hspace*{0.2in} &
+\hspace*{0.5in} &
+\hspace*{0.5in} &
+\hspace*{0.3in} &
+\hspace*{0.1in} &
+\hspace*{0.1in} &
+\hspace*{0.5in} &
+\hspace*{0.5in} \\
+                      &
+\instbitrange{31}{27} &
+\instbitrange{26}{25} &
+\instbitrange{24}{20} &
+\instbitrange{19}{15} &
+\instbitrange{14}{12} &
+\instbit{11} &
+\instbit{10} &
+\instbitrange{9}{5} &
+\instbitrange{4}{0} \\
+\cline{2-10}
+&
+\multicolumn{1}{|c|}{opcode5} &
+\multicolumn{8}{c|}{jump target} & J-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{6}{c|}{LUI-immediate} & LUI-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{1}{c|}{funct3} &
+\multicolumn{4}{c|}{immediate} & I-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{2}{c|}{funct4} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{rc} & RSH-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{3}{c|}{funct5} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{rc} & R4-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{4}{c|}{funct10} &
+\multicolumn{1}{c|}{rc} & R-type \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Integer/Floating Point Moves\&Conversion Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000100000} &
+\multicolumn{1}{c|}{fc} & TRUNC.L.S fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000100001} &
+\multicolumn{1}{c|}{fc} & TRUNCU.L.S fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000100010} &
+\multicolumn{1}{c|}{fc} & TRUNC.W.S fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000100011} &
+\multicolumn{1}{c|}{fc} & TRUNCU.W.S fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000100100} &
+\multicolumn{1}{c|}{fc} & CVT.S.L fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000100101} &
+\multicolumn{1}{c|}{fc} & CVTU.S.L fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000100110} &
+\multicolumn{1}{c|}{fc} & CVT.S.W fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000100111} &
+\multicolumn{1}{c|}{fc} & CVTU.S.W fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000110011} &
+\multicolumn{1}{c|}{fc} & CVT.S.D fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100100000} &
+\multicolumn{1}{c|}{fc} & TRUNC.L.D fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100100001} &
+\multicolumn{1}{c|}{fc} & TRUNCU.L.D fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100100010} &
+\multicolumn{1}{c|}{fc} & TRUNC.W.D fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100100011} &
+\multicolumn{1}{c|}{fc} & TRUNCU.W.D fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100100100} &
+\multicolumn{1}{c|}{fc} & CVT.D.L fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100100101} &
+\multicolumn{1}{c|}{fc} & CVTU.D.L fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100100110} &
+\multicolumn{1}{c|}{fc} & CVT.D.W fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100100111} &
+\multicolumn{1}{c|}{fc} & CVTU.D.W fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101000} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100110000} &
+\multicolumn{1}{c|}{fc} & CVT.D.S fc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000000000} &
+\multicolumn{1}{c|}{xc} & MFF.S xc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{fa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100000000} &
+\multicolumn{1}{c|}{xc} & MFF.D xc,fa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0001000000} &
+\multicolumn{1}{c|}{fc} & MTF.S fc,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1101000000} &
+\multicolumn{1}{c|}{fc} & MTF.D fc,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Miscellaneous Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111011} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0010000000} &
+\multicolumn{1}{c|}{xc} & RDPC xc \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111011} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0100000000} &
+\multicolumn{1}{c|}{xc} & MFCR xc,xb \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111011} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{0110000000} &
+\multicolumn{1}{c|}{00000} & MTCR xa,xb \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111011} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1000000000} &
+\multicolumn{1}{c|}{00000} & SYNC  \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111011} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1010000000} &
+\multicolumn{1}{c|}{00000} & SYSCALL  \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111011} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100000000} &
+\multicolumn{1}{c|}{00000} & BREAK  \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Privileged Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111110} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000000000} &
+\multicolumn{1}{c|}{xc} & EI xc \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111110} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0010000000} &
+\multicolumn{1}{c|}{xc} & DI xc \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111110} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0100000000} &
+\multicolumn{1}{c|}{00000} & ERET  \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111110} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1000000000} &
+\multicolumn{1}{c|}{xc} & MFPCR xc,xb \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1111110} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1010000000} &
+\multicolumn{1}{c|}{00000} & MTPCR xa,xb \\
+\cline{2-10}
+  
+
+\end{tabular}
+\end{center}
+\end{small}
+\caption{Instruction listing for RISC-V}
+\label{instr-table}
+\end{table}
+  
