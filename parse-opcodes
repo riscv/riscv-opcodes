@@ -452,6 +452,115 @@ def make_latex_table():
   print_insts(0x7e,-1,-1,-1)
   print_footer(1)
 
+def str_verilog_arg(arg0,arg1,match,arguments):
+  if arg0 in arguments:
+    return '?' * (arglut[arg0][0] - arglut[arg0][1] + 1)
+  elif arg1 in arguments:
+    return '?' * (arglut[arg0][0] - arglut[arg0][1] + 1)
+  else:
+    start = arglut[arg0][1]
+    len = arglut[arg0][0] - arglut[arg0][1] + 1
+    return binary(yank(match,start,len),len)
+
+def print_verilog_unimp_type(name,match,arguments):
+  print "`define %-10s 32'b%s" % \
+  ( \
+    name.replace('.','_').upper(), \
+    '0'*32 \
+  )
+
+def print_verilog_j_type(name,match,arguments):
+  print "`define %-10s 32'b%s_%s" % \
+  ( \
+    name.replace('.','_').upper(), \
+    binary(yank(match,27,5),5), \
+    str_verilog_arg('imm27','',match,arguments) \
+  )
+
+def print_verilog_lui_type(name,match,arguments):
+  print "`define %-10s 32'b%s_%s_%s" % \
+  ( \
+    name.replace('.','_').upper(), \
+    binary(yank(match,25,7),7), \
+    str_verilog_arg('xa','fa',match,arguments), \
+    str_verilog_arg('imm20','',match,arguments) \
+  )
+
+def print_verilog_i_type(name,match,arguments):
+  print "`define %-10s 32'b%s_%s_%s_%s_%s" % \
+  ( \
+    name.replace('.','_').upper(), \
+    binary(yank(match,25,7),7), \
+    str_verilog_arg('xa','fa',match,arguments), \
+    str_verilog_arg('xb','fb',match,arguments), \
+    binary(yank(match,12,3),3), \
+    str_verilog_arg('imm','',match,arguments) \
+  )
+
+def print_verilog_rsh_type(name,match,arguments):
+  print "`define %-10s 32'b%s_00000_%s_%s_%s_%s" % \
+  ( \
+    name.replace('.','_').upper(), \
+    binary(yank(match,25,7),7), \
+    str_verilog_arg('xb','',match,arguments), \
+    binary(yank(match,11,4),4), \
+    str_verilog_arg('shamt','',match,arguments), \
+    str_verilog_arg('xc','',match,arguments) \
+  )
+
+def print_verilog_rshw_type(name,match,arguments):
+  print "`define %-10s 32'b%s_00000_%s_%s_0_%s_%s" % \
+  ( \
+    name.replace('.','_').upper(), \
+    binary(yank(match,25,7),7), \
+    str_verilog_arg('xb','',match,arguments), \
+    binary(yank(match,11,4),4), \
+    str_verilog_arg('shamtw','',match,arguments), \
+    str_verilog_arg('xc','',match,arguments) \
+  )
+
+def print_verilog_r4_type(name,match,arguments):
+  print "`define %-10s 32'b%s_%s_%s_%s_%s_%s" % \
+  ( \
+    name.replace('.','_').upper(), \
+    binary(yank(match,25,7),7), \
+    str_verilog_arg('fa','',match,arguments), \
+    str_verilog_arg('fb','',match,arguments), \
+    binary(yank(match,10,5),5), \
+    str_verilog_arg('fd','',match,arguments), \
+    str_verilog_arg('fc','',match,arguments) \
+  )
+
+def print_verilog_r_type(name,match,arguments):
+  print "`define %-10s 32'b%s_%s_%s_%s_%s" % \
+  ( \
+    name.replace('.','_').upper(), \
+    binary(yank(match,25,7),7), \
+    str_verilog_arg('xa','fa',match,arguments), \
+    str_verilog_arg('xb','fb',match,arguments), \
+    binary(yank(match,5,10),10), \
+    str_verilog_arg('xc','fc',match,arguments) \
+  )
+
+def make_verilog():
+  for name in namelist:
+    if types[name] == 0:
+      print_verilog_unimp_type(name,match[name],arguments[name])
+    elif types[name] == 1:
+      print_verilog_j_type(name,match[name],arguments[name])
+    elif types[name] == 2:
+      print_verilog_lui_type(name,match[name],arguments[name])
+    elif types[name] == 3:
+      print_verilog_i_type(name,match[name],arguments[name])
+    elif types[name] == 4:
+      print_verilog_r_type(name,match[name],arguments[name])
+    elif types[name] == 5:
+      print_verilog_r4_type(name,match[name],arguments[name])
+    elif types[name] == 6:
+      print_verilog_rsh_type(name,match[name],arguments[name])
+    elif types[name] == 7:
+      print_verilog_rshw_type(name,match[name],arguments[name])
+
 for line in sys.stdin:
   line = line.partition('#')
   tokens = line[0].split()
@@ -514,6 +623,8 @@ for line in sys.stdin:
 
 if sys.argv[1] == '-tex':
   make_latex_table()
+elif sys.argv[1] == '-verilog':
+  make_verilog()
 elif sys.argv[1] == '-disasm':
   make_disasm_table(match,mask)
 elif sys.argv[1] == '-switch':

@@ -1,4 +1,5 @@
 #!/bin/bash
 ./parse-opcodes -tex < opcodes > instr-table.tex
+./parse-opcodes -verilog < opcodes > inst.v
 ./parse-opcodes -disasm < opcodes > ../xcc/src/include/opcode/mips-riscv-opc.h
 ./parse-opcodes -switch < opcodes > ../sim/riscv/execute.h
