@@ -214,19 +214,18 @@ def print_ish_type(name,match,arguments):
   print """
 &
 \\multicolumn{2}{|c|}{%s} &
-\\multicolumn{1}{c|}{00000} &
 \\multicolumn{1}{c|}{%s} &
-\\multicolumn{2}{c|}{%s} &
-\\multicolumn{2}{c|}{%s} &
-\\multicolumn{1}{c|}{%s} & %s \\\\
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{3}{c|}{%s} &
+\\multicolumn{2}{c|}{%s} & %s \\\\
 \\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
+    str_arg('xa','',match,arguments), \
     str_arg('xb','',match,arguments), \
-    binary(yank(match,11,4),4), \
+    binary(yank(match,6,9),9), \
     str_arg('shamt','',match,arguments), \
-    str_arg('xc','',match,arguments), \
     str_inst(name,arguments) \
   )
 
@@ -234,41 +233,19 @@ def print_ishw_type(name,match,arguments):
   print """
 &
 \\multicolumn{2}{|c|}{%s} &
-\\multicolumn{1}{c|}{00000} &
-\\multicolumn{1}{c|}{%s} &
-\\multicolumn{2}{c|}{%s} &
-\\multicolumn{1}{c|}{0} &
-\\multicolumn{1}{c|}{%s} &
-\\multicolumn{1}{c|}{%s} & %s \\\\
-\\cline{2-10}
-  """ % \
-  ( \
-    binary(yank(match,25,7),7), \
-    str_arg('xb','',match,arguments), \
-    binary(yank(match,11,4),4), \
-    str_arg('shamtw','',match,arguments), \
-    str_arg('xc','',match,arguments), \
-    str_inst(name,arguments) \
-  )
-
-def print_r4_type(name,match,arguments):
-  print """
-&
-\\multicolumn{2}{|c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{3}{c|}{%s} &
-\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{0} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('fa','',match,arguments), \
-    str_arg('fb','',match,arguments), \
-    binary(yank(match,10,5),5), \
-    str_arg('fd','',match,arguments), \
-    str_arg('fc','',match,arguments), \
+    str_arg('xa','',match,arguments), \
+    str_arg('xb','',match,arguments), \
+    binary(yank(match,6,9),9), \
+    str_arg('shamtw','',match,arguments), \
     str_inst(name,arguments) \
   )
 
@@ -291,6 +268,27 @@ def print_r_type(name,match,arguments):
     str_inst(name,arguments) \
   )
 
+def print_r4_type(name,match,arguments):
+  print """
+&
+\\multicolumn{2}{|c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{2}{c|}{%s} &
+\\multicolumn{2}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} & %s \\\\
+\\cline{2-10}
+  """ % \
+  ( \
+    binary(yank(match,25,7),7), \
+    str_arg('fa','',match,arguments), \
+    str_arg('fb','',match,arguments), \
+    binary(yank(match,10,5),5), \
+    str_arg('fd','',match,arguments), \
+    str_arg('fc','',match,arguments), \
+    str_inst(name,arguments) \
+  )
+
 def print_header():
   print """
 \\newpage
@@ -305,9 +303,9 @@ def print_header():
 \\hspace*{0.5in} &
 \\hspace*{0.5in} &
 \\hspace*{0.3in} &
+\\hspace*{0.2in} &
+\\hspace*{0.4in} &
 \\hspace*{0.1in} &
-\\hspace*{0.1in} &
-\\hspace*{0.5in} &
 \\hspace*{0.5in} \\\\
                       &
 \\instbitrange{31}{27} &
@@ -315,9 +313,9 @@ def print_header():
 \\instbitrange{24}{20} &
 \\instbitrange{19}{15} &
 \\instbitrange{14}{12} &
-\\instbit{11} &
-\\instbit{10} &
-\\instbitrange{9}{5} &
+\\instbitrange{11}{10} &
+\\instbitrange{9}{6} &
+\\instbit{5} &
 \\instbitrange{4}{0} \\\\
 \\cline{2-10}
 &
@@ -338,19 +336,10 @@ def print_header():
 \\cline{2-10}
 &
 \\multicolumn{2}{|c|}{opcode} &
-\\multicolumn{1}{c|}{00000} &
-\\multicolumn{1}{c|}{rb} &
-\\multicolumn{2}{c|}{funct4} &
-\\multicolumn{2}{c|}{shamt} &
-\\multicolumn{1}{c|}{rc} & RSH-type \\\\
-\\cline{2-10}
-&
-\\multicolumn{2}{|c|}{opcode} &
 \\multicolumn{1}{c|}{ra} &
 \\multicolumn{1}{c|}{rb} &
-\\multicolumn{3}{c|}{funct5} &
-\\multicolumn{1}{c|}{rd} &
-\\multicolumn{1}{c|}{rc} & R4-type \\\\
+\\multicolumn{3}{c|}{funct9} &
+\\multicolumn{2}{c|}{shamt} & ISH-type \\\\
 \\cline{2-10}
 &
 \\multicolumn{2}{|c|}{opcode} &
@@ -358,6 +347,14 @@ def print_header():
 \\multicolumn{1}{c|}{rb} &
 \\multicolumn{4}{c|}{funct10} &
 \\multicolumn{1}{c|}{rc} & R-type \\\\
+\\cline{2-10}
+&
+\\multicolumn{2}{|c|}{opcode} &
+\\multicolumn{1}{c|}{ra} &
+\\multicolumn{1}{c|}{rb} &
+\\multicolumn{2}{c|}{funct5} &
+\\multicolumn{2}{c|}{rd} &
+\\multicolumn{1}{c|}{rc} & R4-type \\\\
 \\cline{2-10}
   """
 
@@ -504,7 +501,7 @@ def print_verilog_ish_type(name,match,arguments):
     binary(yank(match,25,7),7), \
     str_verilog_arg('xa','',match,arguments), \
     str_verilog_arg('xb','',match,arguments), \
-    binary(yank(match,5,9),9), \
+    binary(yank(match,6,9),9), \
     str_verilog_arg('shamt','',match,arguments) \
   )
 
@@ -515,7 +512,7 @@ def print_verilog_ishw_type(name,match,arguments):
     binary(yank(match,25,7),7), \
     str_verilog_arg('xa','',match,arguments), \
     str_verilog_arg('xb','',match,arguments), \
-    binary(yank(match,5,9),9), \
+    binary(yank(match,6,9),9), \
     str_verilog_arg('shamtw','',match,arguments) \
   )
 

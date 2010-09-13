@@ -11,9 +11,9 @@
 \hspace*{0.5in} &
 \hspace*{0.5in} &
 \hspace*{0.3in} &
+\hspace*{0.2in} &
+\hspace*{0.4in} &
 \hspace*{0.1in} &
-\hspace*{0.1in} &
-\hspace*{0.5in} &
 \hspace*{0.5in} \\
                       &
 \instbitrange{31}{27} &
@@ -21,9 +21,9 @@
 \instbitrange{24}{20} &
 \instbitrange{19}{15} &
 \instbitrange{14}{12} &
-\instbit{11} &
-\instbit{10} &
-\instbitrange{9}{5} &
+\instbitrange{11}{10} &
+\instbitrange{9}{6} &
+\instbit{5} &
 \instbitrange{4}{0} \\
 \cline{2-10}
 &
@@ -44,19 +44,10 @@
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rb} &
-\multicolumn{2}{c|}{funct4} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{rc} & RSH-type \\
-\cline{2-10}
-&
-\multicolumn{2}{|c|}{opcode} &
 \multicolumn{1}{c|}{ra} &
 \multicolumn{1}{c|}{rb} &
-\multicolumn{3}{c|}{funct5} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{rc} & R4-type \\
+\multicolumn{3}{c|}{funct9} &
+\multicolumn{2}{c|}{shamt} & ISH-type \\
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
@@ -64,6 +55,14 @@
 \multicolumn{1}{c|}{rb} &
 \multicolumn{4}{c|}{funct10} &
 \multicolumn{1}{c|}{rc} & R-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{2}{c|}{funct5} &
+\multicolumn{2}{c|}{rd} &
+\multicolumn{1}{c|}{rc} & R4-type \\
 \cline{2-10}
   
 
@@ -465,9 +464,9 @@
 \hspace*{0.5in} &
 \hspace*{0.5in} &
 \hspace*{0.3in} &
+\hspace*{0.2in} &
+\hspace*{0.4in} &
 \hspace*{0.1in} &
-\hspace*{0.1in} &
-\hspace*{0.5in} &
 \hspace*{0.5in} \\
                       &
 \instbitrange{31}{27} &
@@ -475,9 +474,9 @@
 \instbitrange{24}{20} &
 \instbitrange{19}{15} &
 \instbitrange{14}{12} &
-\instbit{11} &
-\instbit{10} &
-\instbitrange{9}{5} &
+\instbitrange{11}{10} &
+\instbitrange{9}{6} &
+\instbit{5} &
 \instbitrange{4}{0} \\
 \cline{2-10}
 &
@@ -498,19 +497,10 @@
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rb} &
-\multicolumn{2}{c|}{funct4} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{rc} & RSH-type \\
-\cline{2-10}
-&
-\multicolumn{2}{|c|}{opcode} &
 \multicolumn{1}{c|}{ra} &
 \multicolumn{1}{c|}{rb} &
-\multicolumn{3}{c|}{funct5} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{rc} & R4-type \\
+\multicolumn{3}{c|}{funct9} &
+\multicolumn{2}{c|}{shamt} & ISH-type \\
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
@@ -518,6 +508,14 @@
 \multicolumn{1}{c|}{rb} &
 \multicolumn{4}{c|}{funct10} &
 \multicolumn{1}{c|}{rc} & R-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{2}{c|}{funct5} &
+\multicolumn{2}{c|}{rd} &
+\multicolumn{1}{c|}{rc} & R4-type \\
 \cline{2-10}
   
 
@@ -591,31 +589,28 @@
 
 &
 \multicolumn{2}{|c|}{1110100} &
-\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1110} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{00000} & SLLI xa,xb,shamt \\
+\multicolumn{3}{c|}{111000001} &
+\multicolumn{2}{c|}{shamt} & SLLI xa,xb,shamt \\
 \cline{2-10}
   
 
 &
 \multicolumn{2}{|c|}{1110100} &
-\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1110} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{00000} & SRLI xa,xb,shamt \\
+\multicolumn{3}{c|}{111000010} &
+\multicolumn{2}{c|}{shamt} & SRLI xa,xb,shamt \\
 \cline{2-10}
   
 
 &
 \multicolumn{2}{|c|}{1110100} &
-\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1110} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{00000} & SRAI xa,xb,shamt \\
+\multicolumn{3}{c|}{111000011} &
+\multicolumn{2}{c|}{shamt} & SRAI xa,xb,shamt \\
 \cline{2-10}
   
 
@@ -799,34 +794,31 @@
 
 &
 \multicolumn{2}{|c|}{1110110} &
-\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1110} &
+\multicolumn{3}{c|}{111000001} &
 \multicolumn{1}{c|}{0} &
-\multicolumn{1}{c|}{shamtw} &
-\multicolumn{1}{c|}{00000} & SLLIW xa,xb,shamtw \\
+\multicolumn{1}{c|}{shamtw} & SLLIW xa,xb,shamtw \\
 \cline{2-10}
   
 
 &
 \multicolumn{2}{|c|}{1110110} &
-\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1110} &
+\multicolumn{3}{c|}{111000010} &
 \multicolumn{1}{c|}{0} &
-\multicolumn{1}{c|}{shamtw} &
-\multicolumn{1}{c|}{00000} & SRLIW xa,xb,shamtw \\
+\multicolumn{1}{c|}{shamtw} & SRLIW xa,xb,shamtw \\
 \cline{2-10}
   
 
 &
 \multicolumn{2}{|c|}{1110110} &
-\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1110} &
+\multicolumn{3}{c|}{111000011} &
 \multicolumn{1}{c|}{0} &
-\multicolumn{1}{c|}{shamtw} &
-\multicolumn{1}{c|}{00000} & SRAIW xa,xb,shamtw \\
+\multicolumn{1}{c|}{shamtw} & SRAIW xa,xb,shamtw \\
 \cline{2-10}
   
 
@@ -958,9 +950,9 @@
 \hspace*{0.5in} &
 \hspace*{0.5in} &
 \hspace*{0.3in} &
+\hspace*{0.2in} &
+\hspace*{0.4in} &
 \hspace*{0.1in} &
-\hspace*{0.1in} &
-\hspace*{0.5in} &
 \hspace*{0.5in} \\
                       &
 \instbitrange{31}{27} &
@@ -968,9 +960,9 @@
 \instbitrange{24}{20} &
 \instbitrange{19}{15} &
 \instbitrange{14}{12} &
-\instbit{11} &
-\instbit{10} &
-\instbitrange{9}{5} &
+\instbitrange{11}{10} &
+\instbitrange{9}{6} &
+\instbit{5} &
 \instbitrange{4}{0} \\
 \cline{2-10}
 &
@@ -991,19 +983,10 @@
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rb} &
-\multicolumn{2}{c|}{funct4} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{rc} & RSH-type \\
-\cline{2-10}
-&
-\multicolumn{2}{|c|}{opcode} &
 \multicolumn{1}{c|}{ra} &
 \multicolumn{1}{c|}{rb} &
-\multicolumn{3}{c|}{funct5} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{rc} & R4-type \\
+\multicolumn{3}{c|}{funct9} &
+\multicolumn{2}{c|}{shamt} & ISH-type \\
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
@@ -1011,6 +994,14 @@
 \multicolumn{1}{c|}{rb} &
 \multicolumn{4}{c|}{funct10} &
 \multicolumn{1}{c|}{rc} & R-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{2}{c|}{funct5} &
+\multicolumn{2}{c|}{rd} &
+\multicolumn{1}{c|}{rc} & R4-type \\
 \cline{2-10}
   
 
@@ -1212,8 +1203,8 @@
 \multicolumn{2}{|c|}{1101011} &
 \multicolumn{1}{c|}{fa} &
 \multicolumn{1}{c|}{fb} &
-\multicolumn{3}{c|}{00000} &
-\multicolumn{1}{c|}{fd} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{2}{c|}{fd} &
 \multicolumn{1}{c|}{fc} & MADD.S fc,fb,fa,fd \\
 \cline{2-10}
   
@@ -1222,8 +1213,8 @@
 \multicolumn{2}{|c|}{1101011} &
 \multicolumn{1}{c|}{fa} &
 \multicolumn{1}{c|}{fb} &
-\multicolumn{3}{c|}{00001} &
-\multicolumn{1}{c|}{fd} &
+\multicolumn{2}{c|}{00001} &
+\multicolumn{2}{c|}{fd} &
 \multicolumn{1}{c|}{fc} & MSUB.S fc,fb,fa,fd \\
 \cline{2-10}
   
@@ -1232,8 +1223,8 @@
 \multicolumn{2}{|c|}{1101011} &
 \multicolumn{1}{c|}{fa} &
 \multicolumn{1}{c|}{fb} &
-\multicolumn{3}{c|}{00010} &
-\multicolumn{1}{c|}{fd} &
+\multicolumn{2}{c|}{00010} &
+\multicolumn{2}{c|}{fd} &
 \multicolumn{1}{c|}{fc} & NMADD.S fc,fb,fa,fd \\
 \cline{2-10}
   
@@ -1242,8 +1233,8 @@
 \multicolumn{2}{|c|}{1101011} &
 \multicolumn{1}{c|}{fa} &
 \multicolumn{1}{c|}{fb} &
-\multicolumn{3}{c|}{00011} &
-\multicolumn{1}{c|}{fd} &
+\multicolumn{2}{c|}{00011} &
+\multicolumn{2}{c|}{fd} &
 \multicolumn{1}{c|}{fc} & NMSUB.S fc,fb,fa,fd \\
 \cline{2-10}
   
@@ -1252,8 +1243,8 @@
 \multicolumn{2}{|c|}{1101011} &
 \multicolumn{1}{c|}{fa} &
 \multicolumn{1}{c|}{fb} &
-\multicolumn{3}{c|}{11000} &
-\multicolumn{1}{c|}{fd} &
+\multicolumn{2}{c|}{11000} &
+\multicolumn{2}{c|}{fd} &
 \multicolumn{1}{c|}{fc} & MADD.D fc,fb,fa,fd \\
 \cline{2-10}
   
@@ -1262,8 +1253,8 @@
 \multicolumn{2}{|c|}{1101011} &
 \multicolumn{1}{c|}{fa} &
 \multicolumn{1}{c|}{fb} &
-\multicolumn{3}{c|}{11001} &
-\multicolumn{1}{c|}{fd} &
+\multicolumn{2}{c|}{11001} &
+\multicolumn{2}{c|}{fd} &
 \multicolumn{1}{c|}{fc} & MSUB.D fc,fb,fa,fd \\
 \cline{2-10}
   
@@ -1272,8 +1263,8 @@
 \multicolumn{2}{|c|}{1101011} &
 \multicolumn{1}{c|}{fa} &
 \multicolumn{1}{c|}{fb} &
-\multicolumn{3}{c|}{11010} &
-\multicolumn{1}{c|}{fd} &
+\multicolumn{2}{c|}{11010} &
+\multicolumn{2}{c|}{fd} &
 \multicolumn{1}{c|}{fc} & NMADD.D fc,fb,fa,fd \\
 \cline{2-10}
   
@@ -1282,8 +1273,8 @@
 \multicolumn{2}{|c|}{1101011} &
 \multicolumn{1}{c|}{fa} &
 \multicolumn{1}{c|}{fb} &
-\multicolumn{3}{c|}{11011} &
-\multicolumn{1}{c|}{fd} &
+\multicolumn{2}{c|}{11011} &
+\multicolumn{2}{c|}{fd} &
 \multicolumn{1}{c|}{fc} & NMSUB.D fc,fb,fa,fd \\
 \cline{2-10}
   
@@ -1369,9 +1360,9 @@
 \hspace*{0.5in} &
 \hspace*{0.5in} &
 \hspace*{0.3in} &
+\hspace*{0.2in} &
+\hspace*{0.4in} &
 \hspace*{0.1in} &
-\hspace*{0.1in} &
-\hspace*{0.5in} &
 \hspace*{0.5in} \\
                       &
 \instbitrange{31}{27} &
@@ -1379,9 +1370,9 @@
 \instbitrange{24}{20} &
 \instbitrange{19}{15} &
 \instbitrange{14}{12} &
-\instbit{11} &
-\instbit{10} &
-\instbitrange{9}{5} &
+\instbitrange{11}{10} &
+\instbitrange{9}{6} &
+\instbit{5} &
 \instbitrange{4}{0} \\
 \cline{2-10}
 &
@@ -1402,19 +1393,10 @@
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rb} &
-\multicolumn{2}{c|}{funct4} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{rc} & RSH-type \\
-\cline{2-10}
-&
-\multicolumn{2}{|c|}{opcode} &
 \multicolumn{1}{c|}{ra} &
 \multicolumn{1}{c|}{rb} &
-\multicolumn{3}{c|}{funct5} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{rc} & R4-type \\
+\multicolumn{3}{c|}{funct9} &
+\multicolumn{2}{c|}{shamt} & ISH-type \\
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
@@ -1422,6 +1404,14 @@
 \multicolumn{1}{c|}{rb} &
 \multicolumn{4}{c|}{funct10} &
 \multicolumn{1}{c|}{rc} & R-type \\
+\cline{2-10}
+&
+\multicolumn{2}{|c|}{opcode} &
+\multicolumn{1}{c|}{ra} &
+\multicolumn{1}{c|}{rb} &
+\multicolumn{2}{c|}{funct5} &
+\multicolumn{2}{c|}{rd} &
+\multicolumn{1}{c|}{rc} & R4-type \\
 \cline{2-10}
   
 
