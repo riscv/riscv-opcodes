@@ -24,7 +24,7 @@ arglut['imm'] = (11,0)
 arglut['shamt'] = (5,0)
 arglut['shamtw'] = (4,0)
 
-typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=rsh,7=rshw
+typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=ish,7=ishw
 typelut[0x00] = 0
 typelut[0x60] = 1
 typelut[0x64] = 1
@@ -210,7 +210,7 @@ def print_i_type(name,match,arguments):
     str_inst(name,arguments) \
   )
 
-def print_rsh_type(name,match,arguments):
+def print_ish_type(name,match,arguments):
   print """
 &
 \\multicolumn{2}{|c|}{%s} &
@@ -230,7 +230,7 @@ def print_rsh_type(name,match,arguments):
     str_inst(name,arguments) \
   )
 
-def print_rshw_type(name,match,arguments):
+def print_ishw_type(name,match,arguments):
   print """
 &
 \\multicolumn{2}{|c|}{%s} &
@@ -399,9 +399,9 @@ def print_insts(opcode,type,min,max):
         elif types[name] == 5:
           print_r4_type(name,match[name],arguments[name])
         elif types[name] == 6:
-          print_rsh_type(name,match[name],arguments[name])
+          print_ish_type(name,match[name],arguments[name])
         elif types[name] == 7:
-          print_rshw_type(name,match[name],arguments[name])
+          print_ishw_type(name,match[name],arguments[name])
 
 def make_latex_table():
   print_header()
@@ -497,7 +497,7 @@ def print_verilog_i_type(name,match,arguments):
     str_verilog_arg('imm','',match,arguments) \
   )
 
-def print_verilog_rsh_type(name,match,arguments):
+def print_verilog_ish_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
@@ -508,7 +508,7 @@ def print_verilog_rsh_type(name,match,arguments):
     str_verilog_arg('shamt','',match,arguments) \
   )
 
-def print_verilog_rshw_type(name,match,arguments):
+def print_verilog_ishw_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s_%s_0_%s" % \
   ( \
     name.replace('.','_').upper(), \
@@ -557,9 +557,9 @@ def make_verilog():
     elif types[name] == 5:
       print_verilog_r4_type(name,match[name],arguments[name])
     elif types[name] == 6:
-      print_verilog_rsh_type(name,match[name],arguments[name])
+      print_verilog_ish_type(name,match[name],arguments[name])
     elif types[name] == 7:
-      print_verilog_rshw_type(name,match[name],arguments[name])
+      print_verilog_ishw_type(name,match[name],arguments[name])
 
 for line in sys.stdin:
   line = line.partition('#')
