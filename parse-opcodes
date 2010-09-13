@@ -21,8 +21,8 @@ arglut['fd'] = (9,5)
 arglut['imm27'] = (26,0)
 arglut['imm20'] = (19,0)
 arglut['imm'] = (11,0)
-arglut['shamt'] = (10,5)
-arglut['shamtw'] = (9,5)
+arglut['shamt'] = (5,0)
+arglut['shamtw'] = (4,0)
 
 typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=rsh,7=rshw
 typelut[0x00] = 0

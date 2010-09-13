@@ -21,11 +21,14 @@ ble     31..25=0x73 14..12=4 xa xb imm
 bleu    31..25=0x73 14..12=5 xa xb imm
 
 addi    31..25=0x74 14..12=0 xa xb imm
-slti    31..25=0x74 14..12=1 xa xb imm
-sltiu   31..25=0x74 14..12=2 xa xb imm
-andi    31..25=0x74 14..12=3 xa xb imm
-ori     31..25=0x74 14..12=4 xa xb imm
-xori    31..25=0x74 14..12=5 xa xb imm
+slti    31..25=0x74 14..12=2 xa xb imm
+sltiu   31..25=0x74 14..12=3 xa xb imm
+andi    31..25=0x74 14..12=4 xa xb imm
+ori     31..25=0x74 14..12=5 xa xb imm
+xori    31..25=0x74 14..12=6 xa xb imm
+slli    31..25=0x74 14..12=7 11..6=1 xa xb shamt
+srli    31..25=0x74 14..12=7 11..6=2 xa xb shamt
+srai    31..25=0x74 14..12=7 11..6=3 xa xb shamt
 
 add     31..25=0x75 14..12=0 11..5=0 xc xb xa
 sub     31..25=0x75 14..12=0 11..5=1 xc xb xa
@@ -35,6 +38,9 @@ and     31..25=0x75 14..12=0 11..5=4 xc xb xa
 or      31..25=0x75 14..12=0 11..5=5 xc xb xa
 xor     31..25=0x75 14..12=0 11..5=6 xc xb xa
 nor     31..25=0x75 14..12=0 11..5=7 xc xb xa
+sllv    31..25=0x75 14..12=7 11..6=1 5=0 xc xb xa
+srlv    31..25=0x75 14..12=7 11..6=2 5=0 xc xb xa
+srav    31..25=0x75 14..12=7 11..6=3 5=0 xc xb xa
 
 mul     31..25=0x75 14..12=1 11..5=0 xc xb xa
 mulh    31..25=0x75 14..12=1 11..5=2 xc xb xa
@@ -44,17 +50,18 @@ divu    31..25=0x75 14..12=1 11..5=5 xc xb xa
 rem     31..25=0x75 14..12=1 11..5=6 xc xb xa
 remu    31..25=0x75 14..12=1 11..5=7 xc xb xa
 
-sllv    31..25=0x75 14..12=4 11..5=1 xc xb xa
-srlv    31..25=0x75 14..12=4 11..5=2 xc xb xa
-srav    31..25=0x75 14..12=4 11..5=3 xc xb xa
-sll     31..25=0x75 14..12=5 11=0 24..20=0 xc xb shamt
-srl     31..25=0x75 14..12=6 11=0 24..20=0 xc xb shamt
-sra     31..25=0x75 14..12=7 11=0 24..20=0 xc xb shamt
+
 
 addiw   31..25=0x76 14..12=0 xa xb imm
+slliw   31..25=0x76 14..12=7 11..6=1 5=0 xa xb shamtw
+srliw   31..25=0x76 14..12=7 11..6=2 5=0 xa xb shamtw
+sraiw   31..25=0x76 14..12=7 11..6=3 5=0 xa xb shamtw
 
 addw    31..25=0x77 14..12=0 11..5=0 xc xb xa
 subw    31..25=0x77 14..12=0 11..5=1 xc xb xa
+sllvw   31..25=0x77 14..12=7 11..6=1 5=0 xc xb xa
+srlvw   31..25=0x77 14..12=7 11..6=2 5=0 xc xb xa
+sravw   31..25=0x77 14..12=7 11..6=3 5=0 xc xb xa
 
 mulw    31..25=0x77 14..12=1 11..5=0 xc xb xa
 mulhw   31..25=0x77 14..12=1 11..5=2 xc xb xa
@@ -63,13 +70,6 @@ divw    31..25=0x77 14..12=1 11..5=4 xc xb xa
 divuw   31..25=0x77 14..12=1 11..5=5 xc xb xa
 remw    31..25=0x77 14..12=1 11..5=6 xc xb xa
 remuw   31..25=0x77 14..12=1 11..5=7 xc xb xa
-
-sllvw   31..25=0x77 14..12=4 11..5=1 xc xb xa
-srlvw   31..25=0x77 14..12=4 11..5=2 xc xb xa
-sravw   31..25=0x77 14..12=4 11..5=3 xc xb xa
-sllw    31..25=0x77 14..12=5 11..10=0 24..20=0 xc xb shamtw
-srlw    31..25=0x77 14..12=6 11..10=0 24..20=0 xc xb shamtw
-sraw    31..25=0x77 14..12=7 11..10=0 24..20=0 xc xb shamtw
 
 lb      31..25=0x78 14..12=0 xa xb imm
 lh      31..25=0x78 14..12=1 xa xb imm

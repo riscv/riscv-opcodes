@@ -548,7 +548,7 @@
 \multicolumn{2}{|c|}{1110100} &
 \multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{1}{c|}{001} &
+\multicolumn{1}{c|}{010} &
 \multicolumn{4}{c|}{imm} & SLTI xa,xb,imm \\
 \cline{2-10}
   
@@ -557,7 +557,7 @@
 \multicolumn{2}{|c|}{1110100} &
 \multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{1}{c|}{010} &
+\multicolumn{1}{c|}{011} &
 \multicolumn{4}{c|}{imm} & SLTIU xa,xb,imm \\
 \cline{2-10}
   
@@ -566,7 +566,7 @@
 \multicolumn{2}{|c|}{1110100} &
 \multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{1}{c|}{011} &
+\multicolumn{1}{c|}{100} &
 \multicolumn{4}{c|}{imm} & ANDI xa,xb,imm \\
 \cline{2-10}
   
@@ -575,7 +575,7 @@
 \multicolumn{2}{|c|}{1110100} &
 \multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{1}{c|}{100} &
+\multicolumn{1}{c|}{101} &
 \multicolumn{4}{c|}{imm} & ORI xa,xb,imm \\
 \cline{2-10}
   
@@ -584,8 +584,38 @@
 \multicolumn{2}{|c|}{1110100} &
 \multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
-\multicolumn{1}{c|}{101} &
+\multicolumn{1}{c|}{110} &
 \multicolumn{4}{c|}{imm} & XORI xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110100} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1110} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{00000} & SLLI xa,xb,shamt \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110100} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1110} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{00000} & SRLI xa,xb,shamt \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110100} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1110} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{00000} & SRAI xa,xb,shamt \\
 \cline{2-10}
   
 
@@ -665,6 +695,33 @@
 \multicolumn{2}{|c|}{1110101} &
 \multicolumn{1}{c|}{xa} &
 \multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1110000010} &
+\multicolumn{1}{c|}{xc} & SLLV xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1110000100} &
+\multicolumn{1}{c|}{xc} & SRLV xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1110000110} &
+\multicolumn{1}{c|}{xc} & SRAV xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110101} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
 \multicolumn{4}{c|}{0010000000} &
 \multicolumn{1}{c|}{xc} & MUL xc,xb,xa \\
 \cline{2-10}
@@ -725,63 +782,6 @@
   
 
 &
-\multicolumn{2}{|c|}{1110101} &
-\multicolumn{1}{c|}{xa} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{4}{c|}{1000000001} &
-\multicolumn{1}{c|}{xc} & SLLV xc,xb,xa \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110101} &
-\multicolumn{1}{c|}{xa} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{4}{c|}{1000000010} &
-\multicolumn{1}{c|}{xc} & SRLV xc,xb,xa \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110101} &
-\multicolumn{1}{c|}{xa} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{4}{c|}{1000000011} &
-\multicolumn{1}{c|}{xc} & SRAV xc,xb,xa \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110101} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1010} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{xc} & SLL xc,xb,shamt \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110101} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1100} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{xc} & SRL xc,xb,shamt \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110101} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1110} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{xc} & SRA xc,xb,shamt \\
-\cline{2-10}
-  
-
-&
 \multicolumn{9}{c}{} & \\
 &
 \multicolumn{9}{c}{\bf 32-bit Integer Compute Instructions} & \\
@@ -794,6 +794,39 @@
 \multicolumn{1}{c|}{xb} &
 \multicolumn{1}{c|}{000} &
 \multicolumn{4}{c|}{imm} & ADDIW xa,xb,imm \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110110} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1110} &
+\multicolumn{1}{c|}{0} &
+\multicolumn{1}{c|}{shamtw} &
+\multicolumn{1}{c|}{00000} & SLLIW xa,xb,shamtw \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110110} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1110} &
+\multicolumn{1}{c|}{0} &
+\multicolumn{1}{c|}{shamtw} &
+\multicolumn{1}{c|}{00000} & SRLIW xa,xb,shamtw \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110110} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{2}{c|}{1110} &
+\multicolumn{1}{c|}{0} &
+\multicolumn{1}{c|}{shamtw} &
+\multicolumn{1}{c|}{00000} & SRAIW xa,xb,shamtw \\
 \cline{2-10}
   
 
@@ -812,6 +845,33 @@
 \multicolumn{1}{c|}{xb} &
 \multicolumn{4}{c|}{0000000001} &
 \multicolumn{1}{c|}{xc} & SUBW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1110000010} &
+\multicolumn{1}{c|}{xc} & SLLVW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1110000100} &
+\multicolumn{1}{c|}{xc} & SRLVW xc,xb,xa \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1110111} &
+\multicolumn{1}{c|}{xa} &
+\multicolumn{1}{c|}{xb} &
+\multicolumn{4}{c|}{1110000110} &
+\multicolumn{1}{c|}{xc} & SRAVW xc,xb,xa \\
 \cline{2-10}
   
 
@@ -875,66 +935,6 @@
 \multicolumn{1}{c|}{xb} &
 \multicolumn{4}{c|}{0010000111} &
 \multicolumn{1}{c|}{xc} & REMUW xc,xb,xa \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110111} &
-\multicolumn{1}{c|}{xa} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{4}{c|}{1000000001} &
-\multicolumn{1}{c|}{xc} & SLLVW xc,xb,xa \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110111} &
-\multicolumn{1}{c|}{xa} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{4}{c|}{1000000010} &
-\multicolumn{1}{c|}{xc} & SRLVW xc,xb,xa \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110111} &
-\multicolumn{1}{c|}{xa} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{4}{c|}{1000000011} &
-\multicolumn{1}{c|}{xc} & SRAVW xc,xb,xa \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110111} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1010} &
-\multicolumn{1}{c|}{0} &
-\multicolumn{1}{c|}{shamtw} &
-\multicolumn{1}{c|}{xc} & SLLW xc,xb,shamtw \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110111} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1100} &
-\multicolumn{1}{c|}{0} &
-\multicolumn{1}{c|}{shamtw} &
-\multicolumn{1}{c|}{xc} & SRLW xc,xb,shamtw \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1110111} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{xb} &
-\multicolumn{2}{c|}{1110} &
-\multicolumn{1}{c|}{0} &
-\multicolumn{1}{c|}{shamtw} &
-\multicolumn{1}{c|}{xc} & SRAW xc,xb,shamtw \\
 \cline{2-10}
   
 
