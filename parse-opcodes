@@ -498,25 +498,25 @@ def print_verilog_i_type(name,match,arguments):
   )
 
 def print_verilog_rsh_type(name,match,arguments):
-  print "`define %-10s 32'b%s_00000_%s_%s_%s_%s" % \
+  print "`define %-10s 32'b%s_%s_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
+    str_verilog_arg('xa','',match,arguments), \
     str_verilog_arg('xb','',match,arguments), \
-    binary(yank(match,11,4),4), \
-    str_verilog_arg('shamt','',match,arguments), \
-    str_verilog_arg('xc','',match,arguments) \
+    binary(yank(match,5,9),9), \
+    str_verilog_arg('shamt','',match,arguments) \
   )
 
 def print_verilog_rshw_type(name,match,arguments):
-  print "`define %-10s 32'b%s_00000_%s_%s_0_%s_%s" % \
+  print "`define %-10s 32'b%s_%s_%s_%s_0_%s" % \
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
+    str_verilog_arg('xa','',match,arguments), \
     str_verilog_arg('xb','',match,arguments), \
-    binary(yank(match,11,4),4), \
-    str_verilog_arg('shamtw','',match,arguments), \
-    str_verilog_arg('xc','',match,arguments) \
+    binary(yank(match,5,9),9), \
+    str_verilog_arg('shamtw','',match,arguments) \
   )
 
 def print_verilog_r4_type(name,match,arguments):
