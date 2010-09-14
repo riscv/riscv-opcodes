@@ -15,10 +15,10 @@ lui     31..25=0x71 xa imm20
 
 beq     31..25=0x73 14..12=0 xa xb imm
 bne     31..25=0x73 14..12=1 xa xb imm
-blt     31..25=0x73 14..12=2 xa xb imm
-bltu    31..25=0x73 14..12=3 xa xb imm
-ble     31..25=0x73 14..12=4 xa xb imm
-bleu    31..25=0x73 14..12=5 xa xb imm
+blt     31..25=0x73 14..12=4 xa xb imm
+bge     31..25=0x73 14..12=5 xa xb imm
+bltu    31..25=0x73 14..12=6 xa xb imm
+bgeu    31..25=0x73 14..12=7 xa xb imm
 
 addi    31..25=0x74 14..12=0 xa xb imm
 slti    31..25=0x74 14..12=2 xa xb imm
