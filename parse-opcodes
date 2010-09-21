@@ -11,16 +11,14 @@ arguments = {}
 types = {}
 
 arglut = {}
-arglut['xa'] = (24,20)
-arglut['xb'] = (19,15)
-arglut['xc'] = (4,0)
-arglut['fa'] = (24,20)
-arglut['fb'] = (19,15)
-arglut['fc'] = (4,0)
-arglut['fd'] = (9,5)
+arglut['rdi'] = (24,20)
+arglut['rs2'] = (24,20)
+arglut['rs1'] = (19,15)
+arglut['rdr'] = (4,0)
+arglut['rs3'] = (9,5)
 arglut['imm27'] = (26,0)
 arglut['imm20'] = (19,0)
-arglut['imm'] = (11,0)
+arglut['imm12'] = (11,0)
 arglut['shamt'] = (5,0)
 arglut['shamtw'] = (4,0)
 
@@ -186,7 +184,7 @@ def print_lui_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('xa','fa',match,arguments), \
+    str_arg('rs1','',match,arguments), \
     str_arg('imm20','',match,arguments), \
     str_inst(name,arguments) \
   )
@@ -203,10 +201,10 @@ def print_i_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('xa','fa',match,arguments), \
-    str_arg('xb','fb',match,arguments), \
+    str_arg('rs1','',match,arguments), \
+    str_arg('rs2','',match,arguments), \
     binary(yank(match,12,3),3), \
-    str_arg('imm','',match,arguments), \
+    str_arg('imm12','',match,arguments), \
     str_inst(name,arguments) \
   )
 
@@ -222,8 +220,8 @@ def print_ish_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('xa','',match,arguments), \
-    str_arg('xb','',match,arguments), \
+    str_arg('rdi','',match,arguments), \
+    str_arg('rs1','',match,arguments), \
     binary(yank(match,6,9),9), \
     str_arg('shamt','',match,arguments), \
     str_inst(name,arguments) \
@@ -242,8 +240,8 @@ def print_ishw_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('xa','',match,arguments), \
-    str_arg('xb','',match,arguments), \
+    str_arg('rdi','',match,arguments), \
+    str_arg('rs1','',match,arguments), \
     binary(yank(match,6,9),9), \
     str_arg('shamtw','',match,arguments), \
     str_inst(name,arguments) \
@@ -261,10 +259,10 @@ def print_r_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('xa','fa',match,arguments), \
-    str_arg('xb','fb',match,arguments), \
+    str_arg('rs2','',match,arguments), \
+    str_arg('rs1','',match,arguments), \
     binary(yank(match,5,10),10), \
-    str_arg('xc','fc',match,arguments), \
+    str_arg('rdr','',match,arguments), \
     str_inst(name,arguments) \
   )
 
@@ -281,11 +279,11 @@ def print_r4_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('fa','',match,arguments), \
-    str_arg('fb','',match,arguments), \
+    str_arg('rs2','',match,arguments), \
+    str_arg('rs1','',match,arguments), \
     binary(yank(match,10,5),5), \
-    str_arg('fd','',match,arguments), \
-    str_arg('fc','',match,arguments), \
+    str_arg('rs3','',match,arguments), \
+    str_arg('rdr','',match,arguments), \
     str_inst(name,arguments) \
   )
 
@@ -479,7 +477,7 @@ def print_verilog_lui_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('xa','fa',match,arguments), \
+    str_verilog_arg('rdi','',match,arguments), \
     str_verilog_arg('imm20','',match,arguments) \
   )
 
@@ -488,10 +486,10 @@ def print_verilog_i_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('xa','fa',match,arguments), \
-    str_verilog_arg('xb','fb',match,arguments), \
+    str_verilog_arg('rdi','',match,arguments), \
+    str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,12,3),3), \
-    str_verilog_arg('imm','',match,arguments) \
+    str_verilog_arg('imm12','',match,arguments) \
   )
 
 def print_verilog_ish_type(name,match,arguments):
@@ -499,8 +497,8 @@ def print_verilog_ish_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('xa','',match,arguments), \
-    str_verilog_arg('xb','',match,arguments), \
+    str_verilog_arg('rdi','',match,arguments), \
+    str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,6,9),9), \
     str_verilog_arg('shamt','',match,arguments) \
   )
@@ -510,8 +508,8 @@ def print_verilog_ishw_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('xa','',match,arguments), \
-    str_verilog_arg('xb','',match,arguments), \
+    str_verilog_arg('rdi','',match,arguments), \
+    str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,6,9),9), \
     str_verilog_arg('shamtw','',match,arguments) \
   )
@@ -521,11 +519,11 @@ def print_verilog_r4_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('fa','',match,arguments), \
-    str_verilog_arg('fb','',match,arguments), \
+    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,10,5),5), \
-    str_verilog_arg('fd','',match,arguments), \
-    str_verilog_arg('fc','',match,arguments) \
+    str_verilog_arg('rs3','',match,arguments), \
+    str_verilog_arg('rdr','',match,arguments) \
   )
 
 def print_verilog_r_type(name,match,arguments):
@@ -533,10 +531,10 @@ def print_verilog_r_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('xa','fa',match,arguments), \
-    str_verilog_arg('xb','fb',match,arguments), \
+    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,5,10),10), \
-    str_verilog_arg('xc','fc',match,arguments) \
+    str_verilog_arg('rdr','',match,arguments) \
   )
 
 def make_verilog():
