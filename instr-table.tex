@@ -37,7 +37,7 @@
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
-\multicolumn{1}{c|}{rdi} &
+\multicolumn{1}{c|}{rdi/rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{funct3} &
 \multicolumn{4}{c|}{immediate} & I-type \\
@@ -81,7 +81,7 @@
 &
 \multicolumn{9}{c}{} & \\
 &
-\multicolumn{9}{c}{\bf Control Instructions} & \\
+\multicolumn{9}{c}{\bf Control Transfer Instructions} & \\
 \cline{2-10}
   
 
@@ -490,7 +490,7 @@
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
-\multicolumn{1}{c|}{rdi} &
+\multicolumn{1}{c|}{rdi/rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{funct3} &
 \multicolumn{4}{c|}{immediate} & I-type \\
@@ -976,7 +976,7 @@
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
-\multicolumn{1}{c|}{rdi} &
+\multicolumn{1}{c|}{rdi/rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{funct3} &
 \multicolumn{4}{c|}{immediate} & I-type \\
@@ -1104,132 +1104,6 @@
 \multicolumn{2}{|c|}{1101010} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000000101} &
-\multicolumn{1}{c|}{rdr} & SGNINJ.S rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000000110} &
-\multicolumn{1}{c|}{rdr} & SGNINJN.S rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000000111} &
-\multicolumn{1}{c|}{rdr} & SGNMUL.S rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000001000} &
-\multicolumn{1}{c|}{rdr} & TRUNC.L.S rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000001001} &
-\multicolumn{1}{c|}{rdr} & TRUNCU.L.S rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000001010} &
-\multicolumn{1}{c|}{rdr} & TRUNC.W.S rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000001011} &
-\multicolumn{1}{c|}{rdr} & TRUNCU.W.S rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000001100} &
-\multicolumn{1}{c|}{rdr} & CVT.S.L rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000001101} &
-\multicolumn{1}{c|}{rdr} & CVTU.S.L rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000001110} &
-\multicolumn{1}{c|}{rdr} & CVT.S.W rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000001111} &
-\multicolumn{1}{c|}{rdr} & CVTU.S.W rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000010101} &
-\multicolumn{1}{c|}{rdr} & C.EQ.S rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000010110} &
-\multicolumn{1}{c|}{rdr} & C.LT.S rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{0000010111} &
-\multicolumn{1}{c|}{rdr} & C.LE.S rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
 \multicolumn{4}{c|}{1100000000} &
 \multicolumn{1}{c|}{rdr} & ADD.D rdr,rs1,rs2 \\
 \cline{2-10}
@@ -1268,132 +1142,6 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{4}{c|}{1100000100} &
 \multicolumn{1}{c|}{rdr} & SQRT.D rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100000101} &
-\multicolumn{1}{c|}{rdr} & SGNINJ.D rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100000110} &
-\multicolumn{1}{c|}{rdr} & SGNINJN.D rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100000111} &
-\multicolumn{1}{c|}{rdr} & SGNMUL.D rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100001000} &
-\multicolumn{1}{c|}{rdr} & TRUNC.L.D rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100001001} &
-\multicolumn{1}{c|}{rdr} & TRUNCU.L.D rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100001010} &
-\multicolumn{1}{c|}{rdr} & TRUNC.W.D rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100001011} &
-\multicolumn{1}{c|}{rdr} & TRUNCU.W.D rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100001100} &
-\multicolumn{1}{c|}{rdr} & CVT.D.L rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100001101} &
-\multicolumn{1}{c|}{rdr} & CVTU.D.L rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100001110} &
-\multicolumn{1}{c|}{rdr} & CVT.D.W rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100001111} &
-\multicolumn{1}{c|}{rdr} & CVTU.D.W rdr,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100010101} &
-\multicolumn{1}{c|}{rdr} & C.EQ.D rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100010110} &
-\multicolumn{1}{c|}{rdr} & C.LT.D rdr,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{2}{|c|}{1101010} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{4}{c|}{1100010111} &
-\multicolumn{1}{c|}{rdr} & C.LE.D rdr,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1487,9 +1235,133 @@
 &
 \multicolumn{2}{|c|}{1101010} &
 \multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000010101} &
+\multicolumn{1}{c|}{rdr} & C.EQ.S rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000010110} &
+\multicolumn{1}{c|}{rdr} & C.LT.S rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000010111} &
+\multicolumn{1}{c|}{rdr} & C.LE.S rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100010101} &
+\multicolumn{1}{c|}{rdr} & C.EQ.D rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100010110} &
+\multicolumn{1}{c|}{rdr} & C.LT.D rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100010111} &
+\multicolumn{1}{c|}{rdr} & C.LE.D rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Floating Point Move \& Conversion Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000000101} &
+\multicolumn{1}{c|}{rdr} & SGNINJ.S rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000000110} &
+\multicolumn{1}{c|}{rdr} & SGNINJN.S rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000000111} &
+\multicolumn{1}{c|}{rdr} & SGNMUL.S rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100000101} &
+\multicolumn{1}{c|}{rdr} & SGNINJ.D rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100000110} &
+\multicolumn{1}{c|}{rdr} & SGNINJN.D rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100000111} &
+\multicolumn{1}{c|}{rdr} & SGNMUL.D rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{4}{c|}{1101011000} &
-\multicolumn{1}{c|}{rdr} & MFFH.D rdr,rs2 \\
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000110011} &
+\multicolumn{1}{c|}{rdr} & CVT.S.D rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100110000} &
+\multicolumn{1}{c|}{rdr} & CVT.D.S rdr,rs1 \\
 \cline{2-10}
   
 
@@ -1539,7 +1411,7 @@
 \cline{2-10}
 &
 \multicolumn{2}{|c|}{opcode} &
-\multicolumn{1}{c|}{rdi} &
+\multicolumn{1}{c|}{rdi/rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{funct3} &
 \multicolumn{4}{c|}{immediate} & I-type \\
@@ -1571,43 +1443,221 @@
 &
 \multicolumn{9}{c}{} & \\
 &
-\multicolumn{9}{c}{\bf Integer/Floating Point Moves\&Conversion Instructions} & \\
+\multicolumn{9}{c}{\bf Integer to Floating Point Move \& Conversion Instructions} & \\
 \cline{2-10}
   
 
 &
-\multicolumn{2}{|c|}{1101000} &
-\multicolumn{1}{c|}{rdi} &
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{010} &
-\multicolumn{4}{c|}{imm12} & L.S rdi,rs1,imm12 \\
+\multicolumn{4}{c|}{0000001100} &
+\multicolumn{1}{c|}{rdr} & CVT.S.L rdr,rs1 \\
 \cline{2-10}
   
 
 &
-\multicolumn{2}{|c|}{1101000} &
-\multicolumn{1}{c|}{rdi} &
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{011} &
-\multicolumn{4}{c|}{imm12} & L.D rdi,rs1,imm12 \\
+\multicolumn{4}{c|}{0000001101} &
+\multicolumn{1}{c|}{rdr} & CVTU.S.L rdr,rs1 \\
 \cline{2-10}
   
 
 &
-\multicolumn{2}{|c|}{1101000} &
-\multicolumn{1}{c|}{rdi} &
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{010} &
-\multicolumn{4}{c|}{imm12} & L.S rdi,rs1,imm12 \\
+\multicolumn{4}{c|}{0000001110} &
+\multicolumn{1}{c|}{rdr} & CVT.S.W rdr,rs1 \\
 \cline{2-10}
   
 
 &
-\multicolumn{2}{|c|}{1101000} &
-\multicolumn{1}{c|}{rdi} &
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{011} &
-\multicolumn{4}{c|}{imm12} & L.D rdi,rs1,imm12 \\
+\multicolumn{4}{c|}{0000001111} &
+\multicolumn{1}{c|}{rdr} & CVTU.S.W rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100001100} &
+\multicolumn{1}{c|}{rdr} & CVT.D.L rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100001101} &
+\multicolumn{1}{c|}{rdr} & CVTU.D.L rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100001110} &
+\multicolumn{1}{c|}{rdr} & CVT.D.W rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100001111} &
+\multicolumn{1}{c|}{rdr} & CVTU.D.W rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1110011001} &
+\multicolumn{1}{c|}{rdr} & MTFLH.D rdr,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0010111001} &
+\multicolumn{1}{c|}{rdr} & MTF.S rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1110111001} &
+\multicolumn{1}{c|}{rdr} & MTF.D rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{9}{c}{} & \\
+&
+\multicolumn{9}{c}{\bf Floating Point to Integer Move \& Conversion Instructions} & \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000001000} &
+\multicolumn{1}{c|}{rdr} & TRUNC.L.S rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000001001} &
+\multicolumn{1}{c|}{rdr} & TRUNCU.L.S rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000001010} &
+\multicolumn{1}{c|}{rdr} & TRUNC.W.S rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{0000001011} &
+\multicolumn{1}{c|}{rdr} & TRUNCU.W.S rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100001000} &
+\multicolumn{1}{c|}{rdr} & TRUNC.L.D rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100001001} &
+\multicolumn{1}{c|}{rdr} & TRUNCU.L.D rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100001010} &
+\multicolumn{1}{c|}{rdr} & TRUNC.W.D rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{4}{c|}{1100001011} &
+\multicolumn{1}{c|}{rdr} & TRUNCU.W.D rdr,rs1 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1100111000} &
+\multicolumn{1}{c|}{rdr} & MFFL.D rdr,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1101011000} &
+\multicolumn{1}{c|}{rdr} & MFFH.D rdr,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0001111000} &
+\multicolumn{1}{c|}{rdr} & MFF.S rdr,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{2}{|c|}{1101010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{1101111000} &
+\multicolumn{1}{c|}{rdr} & MFF.D rdr,rs2 \\
 \cline{2-10}
   
 

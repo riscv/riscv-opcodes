@@ -327,7 +327,7 @@ def print_header():
 \\cline{2-10}
 &
 \\multicolumn{2}{|c|}{opcode} &
-\\multicolumn{1}{c|}{rdi} &
+\\multicolumn{1}{c|}{rdi/rs2} &
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{1}{c|}{funct3} &
 \\multicolumn{4}{c|}{immediate} & I-type \\\\
@@ -375,76 +375,126 @@ def print_footer(caption):
 \\end{table}
   """ % (caption and '\\caption{Instruction listing for RISC-V}' or '')
 
-def print_insts(opcode,type,min,max):
-  for name in namelist:
-    if yank(match[name],25,7) == opcode:
-      if type == -1 or types[name] == type:
-        if types[name] == 0:
-          print_unimp_type(name,match[name],arguments[name])
-        elif types[name] == 1:
-          print_j_type(name,match[name],arguments[name])
-        elif types[name] == 2:
-          print_lui_type(name,match[name],arguments[name])
-        elif types[name] == 3:
-          print_i_type(name,match[name],arguments[name])
-        elif types[name] == 4 \
-          and (min == -1 or yank(match[name],5,10) >= min) \
-          and (max == -1 or yank(match[name],5,10) <= max):
-          print_r_type(name,match[name],arguments[name])
-        elif types[name] == 5:
-          print_r4_type(name,match[name],arguments[name])
-        elif types[name] == 6:
-          print_ish_type(name,match[name],arguments[name])
-        elif types[name] == 7:
-          print_ishw_type(name,match[name],arguments[name])
+def print_insts(opcode,name,type,min,max):
+  for n in namelist:
+    if yank(match[n],25,7) == opcode or n == name:
+      if type == -1 or types[n] == type:
+        if types[n] == 0:
+          print_unimp_type(n,match[n],arguments[n])
+        elif types[n] == 1:
+          print_j_type(n,match[n],arguments[n])
+        elif types[n] == 2:
+          print_lui_type(n,match[n],arguments[n])
+        elif types[n] == 3:
+          print_i_type(n,match[n],arguments[n])
+        elif types[n] == 4 \
+          and (min == -1 or yank(match[n],5,10) >= min) \
+          and (max == -1 or yank(match[n],5,10) <= max):
+          print_r_type(n,match[n],arguments[n])
+        elif types[n] == 5:
+          print_r4_type(n,match[n],arguments[n])
+        elif types[n] == 6:
+          print_ish_type(n,match[n],arguments[n])
+        elif types[n] == 7:
+          print_ishw_type(n,match[n],arguments[n])
 
 def make_latex_table():
   print_header()
   print_subtitle('Unimplemented Instruction')
-  print_insts(0x00,-1,-1,-1)
-  print_subtitle('Control Instructions')
-  print_insts(0x60,-1,-1,-1)
-  print_insts(0x64,-1,-1,-1)
-  print_insts(0x7b,-1,0x000,0x002)
-  print_insts(0x73,-1,-1,-1)
+  print_insts(0x00,'',-1,-1,-1)
+  print_subtitle('Control Transfer Instructions')
+  print_insts(0x60,'',-1,-1,-1)
+  print_insts(0x64,'',-1,-1,-1)
+  print_insts(0x7b,'',-1,0x000,0x002)
+  print_insts(0x73,'',-1,-1,-1)
   print_subtitle('Memory Instructions')
-  print_insts(0x78,-1,-1,-1)
-  print_insts(0x79,-1,-1,-1)
+  print_insts(0x78,'',-1,-1,-1)
+  print_insts(0x79,'',-1,-1,-1)
   print_subtitle('Atomic Memory Instructions')
-  print_insts(0x7a,-1,-1,-1)
+  print_insts(0x7a,'',-1,-1,-1)
   print_footer(0)
 
   print_header()
   print_subtitle('Integer Compute Instructions')
-  print_insts(0x71,-1,-1,-1)
-  print_insts(0x74,-1,-1,-1)
-  print_insts(0x75,-1,-1,-1)
+  print_insts(0x71,'',-1,-1,-1)
+  print_insts(0x74,'',-1,-1,-1)
+  print_insts(0x75,'',-1,-1,-1)
   print_subtitle('32-bit Integer Compute Instructions')
-  print_insts(0x76,-1,-1,-1)
-  print_insts(0x77,-1,-1,-1)
+  print_insts(0x76,'',-1,-1,-1)
+  print_insts(0x77,'',-1,-1,-1)
   print_footer(0)
 
   print_header()
   print_subtitle('Floating Point Memory Instructions')
-  print_insts(0x68,-1,-1,-1)
-  print_insts(0x69,-1,-1,-1)
+  print_insts(0x68,'',-1,-1,-1)
+  print_insts(0x69,'',-1,-1,-1)
   print_subtitle('Floating Point Compute Instructions')
-  print_insts(0x6a,-1,0x000,0x01F)
-  print_insts(0x6a,-1,0x300,0x31F)
-  print_insts(0x6b,-1,-1,-1)
+  print_insts(-1,'add.s',-1,-1,-1)
+  print_insts(-1,'sub.s',-1,-1,-1)
+  print_insts(-1,'mul.s',-1,-1,-1)
+  print_insts(-1,'div.s',-1,-1,-1)
+  print_insts(-1,'sqrt.s',-1,-1,-1)
+  print_insts(-1,'add.d',-1,-1,-1)
+  print_insts(-1,'sub.d',-1,-1,-1)
+  print_insts(-1,'mul.d',-1,-1,-1)
+  print_insts(-1,'div.d',-1,-1,-1)
+  print_insts(-1,'sqrt.d',-1,-1,-1)
+  print_insts(-1,'madd.s',-1,-1,-1)
+  print_insts(-1,'msub.s',-1,-1,-1)
+  print_insts(-1,'nmsub.s',-1,-1,-1)
+  print_insts(-1,'nmadd.s',-1,-1,-1)
+  print_insts(-1,'madd.d',-1,-1,-1)
+  print_insts(-1,'msub.d',-1,-1,-1)
+  print_insts(-1,'nmsub.d',-1,-1,-1)
+  print_insts(-1,'nmadd.d',-1,-1,-1)
   print_subtitle('Floating Point Compare Instructions')
-  print_insts(0x6a,-1,0x040,0x05F)
-  print_insts(0x6a,-1,0x340,0x35F)
+  print_insts(-1,'c.eq.s',-1,-1,-1)
+  print_insts(-1,'c.lt.s',-1,-1,-1)
+  print_insts(-1,'c.le.s',-1,-1,-1)
+  print_insts(-1,'c.eq.d',-1,-1,-1)
+  print_insts(-1,'c.lt.d',-1,-1,-1)
+  print_insts(-1,'c.le.d',-1,-1,-1)
+  print_subtitle('Floating Point Move \& Conversion Instructions')
+  print_insts(-1,'sgninj.s',-1,-1,-1)
+  print_insts(-1,'sgninjn.s',-1,-1,-1)
+  print_insts(-1,'sgnmul.s',-1,-1,-1)
+  print_insts(-1,'sgninj.d',-1,-1,-1)
+  print_insts(-1,'sgninjn.d',-1,-1,-1)
+  print_insts(-1,'sgnmul.d',-1,-1,-1)
+  print_insts(-1,'cvt.s.d',-1,-1,-1)
+  print_insts(-1,'cvt.d.s',-1,-1,-1)
   print_footer(0)
 
   print_header()
-  print_subtitle('Integer/Floating Point Moves\&Conversion Instructions')
-  print_insts(0x68,-1,0x020,0x03F)
-  print_insts(0x68,-1,0x320,0x33F)
+  print_subtitle('Integer to Floating Point Move \& Conversion Instructions')
+  print_insts(-1,'cvt.s.l',-1,-1,-1)
+  print_insts(-1,'cvtu.s.l',-1,-1,-1)
+  print_insts(-1,'cvt.s.w',-1,-1,-1)
+  print_insts(-1,'cvtu.s.w',-1,-1,-1)
+  print_insts(-1,'cvt.d.l',-1,-1,-1)
+  print_insts(-1,'cvtu.d.l',-1,-1,-1)
+  print_insts(-1,'cvt.d.w',-1,-1,-1)
+  print_insts(-1,'cvtu.d.w',-1,-1,-1)
+  print_insts(-1,'mtflh.d',-1,-1,-1)
+  print_insts(-1,'mtf.s',-1,-1,-1)
+  print_insts(-1,'mtf.d',-1,-1,-1)
+  print_subtitle('Floating Point to Integer Move \& Conversion Instructions')
+  print_insts(-1,'trunc.l.s',-1,-1,-1)
+  print_insts(-1,'truncu.l.s',-1,-1,-1)
+  print_insts(-1,'trunc.w.s',-1,-1,-1)
+  print_insts(-1,'truncu.w.s',-1,-1,-1)
+  print_insts(-1,'trunc.l.d',-1,-1,-1)
+  print_insts(-1,'truncu.l.d',-1,-1,-1)
+  print_insts(-1,'trunc.w.d',-1,-1,-1)
+  print_insts(-1,'truncu.w.d',-1,-1,-1)
+  print_insts(-1,'mffl.d',-1,-1,-1)
+  print_insts(-1,'mffh.d',-1,-1,-1)
+  print_insts(-1,'mff.s',-1,-1,-1)
+  print_insts(-1,'mff.d',-1,-1,-1)
   print_subtitle('Miscellaneous Instructions')
-  print_insts(0x7b,-1,0x080,0x300)
+  print_insts(0x7b,'',-1,0x080,0x300)
   print_subtitle('Privileged Instructions')
-  print_insts(0x7e,-1,-1,-1)
+  print_insts(0x7e,'',-1,-1,-1)
   print_footer(1)
 
 def str_verilog_arg(arg0,arg1,match,arguments):
@@ -486,7 +536,7 @@ def print_verilog_i_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('rdi','',match,arguments), \
+    str_verilog_arg('rdi','rs2',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,12,3),3), \
     str_verilog_arg('imm12','',match,arguments) \
