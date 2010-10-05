@@ -37,7 +37,7 @@ typelut[0x79] = 3
 typelut[0x7a] = 4
 typelut[0x7b] = 4
 typelut[0x7e] = 4
-typelut[0x68] = 4
+typelut[0x68] = 3
 typelut[0x69] = 3
 typelut[0x6a] = 4
 typelut[0x6b] = 5
@@ -184,7 +184,7 @@ def print_lui_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('rs1','',match,arguments), \
+    str_arg('rdi','',match,arguments), \
     str_arg('imm20','',match,arguments), \
     str_inst(name,arguments) \
   )
@@ -201,8 +201,8 @@ def print_i_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
+    str_arg('rdi','rs2',match,arguments), \
     str_arg('rs1','',match,arguments), \
-    str_arg('rs2','',match,arguments), \
     binary(yank(match,12,3),3), \
     str_arg('imm12','',match,arguments), \
     str_inst(name,arguments) \
@@ -322,37 +322,37 @@ def print_header():
 \\cline{2-10}
 &
 \\multicolumn{2}{|c|}{opcode} &
-\\multicolumn{1}{c|}{ra} &
+\\multicolumn{1}{c|}{rdi} &
 \\multicolumn{6}{c|}{LUI-immediate} & LUI-type \\\\
 \\cline{2-10}
 &
 \\multicolumn{2}{|c|}{opcode} &
-\\multicolumn{1}{c|}{ra} &
-\\multicolumn{1}{c|}{rb} &
+\\multicolumn{1}{c|}{rdi} &
+\\multicolumn{1}{c|}{rs1} &
 \\multicolumn{1}{c|}{funct3} &
 \\multicolumn{4}{c|}{immediate} & I-type \\\\
 \\cline{2-10}
 &
 \\multicolumn{2}{|c|}{opcode} &
-\\multicolumn{1}{c|}{ra} &
-\\multicolumn{1}{c|}{rb} &
+\\multicolumn{1}{c|}{rdi} &
+\\multicolumn{1}{c|}{rs1} &
 \\multicolumn{3}{c|}{funct9} &
 \\multicolumn{2}{c|}{shamt} & ISH-type \\\\
 \\cline{2-10}
 &
 \\multicolumn{2}{|c|}{opcode} &
-\\multicolumn{1}{c|}{ra} &
-\\multicolumn{1}{c|}{rb} &
+\\multicolumn{1}{c|}{rs2} &
+\\multicolumn{1}{c|}{rs1} &
 \\multicolumn{4}{c|}{funct10} &
-\\multicolumn{1}{c|}{rc} & R-type \\\\
+\\multicolumn{1}{c|}{rdr} & R-type \\\\
 \\cline{2-10}
 &
 \\multicolumn{2}{|c|}{opcode} &
-\\multicolumn{1}{c|}{ra} &
-\\multicolumn{1}{c|}{rb} &
+\\multicolumn{1}{c|}{rs2} &
+\\multicolumn{1}{c|}{rs1} &
 \\multicolumn{2}{c|}{funct5} &
-\\multicolumn{2}{c|}{rd} &
-\\multicolumn{1}{c|}{rc} & R4-type \\\\
+\\multicolumn{2}{c|}{rs3} &
+\\multicolumn{1}{c|}{rdr} & R4-type \\\\
 \\cline{2-10}
   """
 
@@ -426,21 +426,21 @@ def make_latex_table():
 
   print_header()
   print_subtitle('Floating Point Memory Instructions')
+  print_insts(0x68,-1,-1,-1)
   print_insts(0x69,-1,-1,-1)
   print_subtitle('Floating Point Compute Instructions')
-  print_insts(0x68,-1,0x000,0x01F)
-  print_insts(0x68,-1,0x300,0x31F)
+  print_insts(0x6a,-1,0x000,0x01F)
+  print_insts(0x6a,-1,0x300,0x31F)
   print_insts(0x6b,-1,-1,-1)
   print_subtitle('Floating Point Compare Instructions')
-  print_insts(0x68,-1,0x040,0x05F)
-  print_insts(0x68,-1,0x340,0x35F)
+  print_insts(0x6a,-1,0x040,0x05F)
+  print_insts(0x6a,-1,0x340,0x35F)
   print_footer(0)
 
   print_header()
   print_subtitle('Integer/Floating Point Moves\&Conversion Instructions')
   print_insts(0x68,-1,0x020,0x03F)
   print_insts(0x68,-1,0x320,0x33F)
-  print_insts(0x6a,-1,-1,-1)
   print_subtitle('Miscellaneous Instructions')
   print_insts(0x7b,-1,0x080,0x300)
   print_subtitle('Privileged Instructions')
