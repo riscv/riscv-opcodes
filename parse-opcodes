@@ -21,6 +21,7 @@ arglut['imm20'] = (19,0)
 arglut['imm12'] = (11,0)
 arglut['shamt'] = (5,0)
 arglut['shamtw'] = (4,0)
+arglut['rm'] = (12,11)
 
 typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=ish,7=ishw
 typelut[0x00] = 0
@@ -40,7 +41,10 @@ typelut[0x7e] = 4
 typelut[0x68] = 3
 typelut[0x69] = 3
 typelut[0x6a] = 4
-typelut[0x6b] = 5
+typelut[0x6c] = 5
+typelut[0x6d] = 5
+typelut[0x6e] = 5
+typelut[0x6f] = 5
 
 def binary(n, digits=0):
   rep = bin(n)[2:]
@@ -576,6 +580,33 @@ def print_verilog_r4_type(name,match,arguments):
     str_verilog_arg('rdr','',match,arguments) \
   )
 
+def print_verilog_r4_rm_type(name,match,arguments):
+  print "`define %-10s 32'b%s_%s_%s_%s_%s_%s_%s_%s" % \
+  ( \
+    name.replace('.','_').upper(), \
+    binary(yank(match,25,7),7), \
+    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('rs1','',match,arguments), \
+    binary(yank(match,13,2),2), \
+    str_verilog_arg('rm','',match,arguments), \
+    binary(yank(match,10,1),1), \
+    str_verilog_arg('rs3','',match,arguments), \
+    str_verilog_arg('rdr','',match,arguments) \
+  )
+
+def print_verilog_r_rm_type(name,match,arguments):
+  print "`define %-10s 32'b%s_%s_%s_%s_%s_%s_%s" % \
+  ( \
+    name.replace('.','_').upper(), \
+    binary(yank(match,25,7),7), \
+    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('rs1','',match,arguments), \
+    binary(yank(match,13,2),2), \
+    str_verilog_arg('rm','',match,arguments), \
+    binary(yank(match,5,6),6), \
+    str_verilog_arg('rdr','',match,arguments) \
+  )
+
 def print_verilog_r_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s_%s_%s" % \
   ( \
@@ -605,6 +636,10 @@ def make_verilog():
       print_verilog_ish_type(name,match[name],arguments[name])
     elif types[name] == 7:
       print_verilog_ishw_type(name,match[name],arguments[name])
+    elif types[name] == 8:
+      print_verilog_r4_rm_type(name,match[name],arguments[name])
+    elif types[name] == 9:
+      print_verilog_r_rm_type(name,match[name],arguments[name])
 
 for line in sys.stdin:
   line = line.partition('#')
@@ -664,6 +699,11 @@ for line in sys.stdin:
     types[name] = 7
   elif 'shamt' in arguments[name]:
     types[name] = 6
+  elif types[name] == 5 and 'rm' in arguments[name]:
+    types[name] = 8
+  elif types[name] == 4 and 'rm' in arguments[name]:
+    types[name] = 9
+
   namelist.append(name)
 
 if sys.argv[1] == '-tex':
