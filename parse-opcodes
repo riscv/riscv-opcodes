@@ -16,7 +16,7 @@ arglut['rs2'] = (24,20)
 arglut['rs1'] = (19,15)
 arglut['rdr'] = (4,0)
 arglut['rs3'] = (9,5)
-arglut['imm27'] = (26,0)
+arglut['imm25'] = (24,0)
 arglut['imm20'] = (19,0)
 arglut['imm12'] = (11,0)
 arglut['shamt'] = (5,0)
@@ -26,7 +26,7 @@ arglut['rm'] = (12,11)
 typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=ish,7=ishw
 typelut[0x00] = 0
 typelut[0x60] = 1
-typelut[0x64] = 1
+typelut[0x61] = 1
 typelut[0x71] = 2
 typelut[0x73] = 3
 typelut[0x74] = 3
@@ -174,8 +174,8 @@ def print_j_type(name,match,arguments):
 \\cline{2-12}
   """ % \
   ( \
-    binary(yank(match,27,5),5), \
-    str_arg('imm27','',match,arguments), \
+    binary(yank(match,25,7),7), \
+    str_arg('imm25','',match,arguments), \
     str_inst(name,arguments) \
   )
 
@@ -607,8 +607,8 @@ def print_verilog_j_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,27,5),5), \
-    str_verilog_arg('imm27','',match,arguments) \
+    binary(yank(match,25,7),7), \
+    str_verilog_arg('imm25','',match,arguments) \
   )
 
 def print_verilog_lui_type(name,match,arguments):

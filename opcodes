@@ -8,8 +8,8 @@
 
 unimp   31..0=0
 
-j       31..27=0x18 imm27 # opcodes 0x60-0x64
-jal     31..27=0x19 imm27 # opcodes 0x64-0x68
+j       31..25=0x60 imm25
+jal     31..25=0x61 imm25
 
 lui     31..25=0x71 rdi imm20
 
