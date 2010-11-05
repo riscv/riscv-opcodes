@@ -11,23 +11,25 @@ arguments = {}
 types = {}
 
 arglut = {}
-arglut['rdi'] = (24,20)
-arglut['rs2'] = (24,20)
-arglut['rs1'] = (19,15)
-arglut['rdr'] = (4,0)
-arglut['rs3'] = (9,5)
+arglut['rs2'] = (14,10)
+arglut['rs1'] = (9,5)
+arglut['rd'] = (4,0)
+arglut['rs3'] = (19,15)
 arglut['imm25'] = (24,0)
-arglut['imm20'] = (19,0)
-arglut['imm12'] = (11,0)
-arglut['shamt'] = (5,0)
-arglut['shamtw'] = (4,0)
-arglut['rm'] = (12,11)
+arglut['imm20'] = (24,5)
+arglut['imm12'] = (21,10)
+arglut['imm12lo'] = (4,0)
+arglut['imm12hi'] = (21,15)
+arglut['shamt'] = (15,10)
+arglut['shamtw'] = (14,10)
+arglut['rm'] = (21,20)
 
 typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=ish,7=ishw
 typelut[0x00] = 0
 typelut[0x60] = 1
 typelut[0x61] = 1
 typelut[0x71] = 2
+typelut[0x72] = 3
 typelut[0x73] = 3
 typelut[0x74] = 3
 typelut[0x75] = 4
@@ -37,10 +39,10 @@ typelut[0x78] = 3
 typelut[0x79] = 3
 typelut[0x7a] = 4
 typelut[0x7b] = 4
-typelut[0x7e] = 4
 typelut[0x68] = 3
 typelut[0x69] = 3
 typelut[0x6a] = 4
+typelut[0x6b] = 4
 typelut[0x6c] = 5
 typelut[0x6d] = 5
 typelut[0x6e] = 5
@@ -60,7 +62,7 @@ def make_disasm_table(match,mask):
 def make_switch(match,mask):
   opcode_base = 25
   opcode_size = 7
-  funct_base = 12
+  funct_base = 22
   funct_size = 3
 
   opcode_mask = ((1<<(opcode_base+opcode_size))-(1<<opcode_base))
@@ -189,7 +191,7 @@ def print_lui_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('rdi','',match,arguments), \
+    str_arg('rd','',match,arguments), \
     str_arg('imm20','',match,arguments), \
     str_inst(name,arguments) \
   )
@@ -206,7 +208,7 @@ def print_i_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('rdi','rs2',match,arguments), \
+    str_arg('rd','rs2',match,arguments), \
     str_arg('rs1','',match,arguments), \
     binary(yank(match,12,3),3), \
     str_arg('imm12','',match,arguments), \
@@ -225,7 +227,7 @@ def print_ish_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('rdi','',match,arguments), \
+    str_arg('rd','',match,arguments), \
     str_arg('rs1','',match,arguments), \
     binary(yank(match,6,9),9), \
     str_arg('shamt','',match,arguments), \
@@ -245,7 +247,7 @@ def print_ishw_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    str_arg('rdi','',match,arguments), \
+    str_arg('rd','',match,arguments), \
     str_arg('rs1','',match,arguments), \
     binary(yank(match,6,9),9), \
     str_arg('shamtw','',match,arguments), \
@@ -267,7 +269,7 @@ def print_r_type(name,match,arguments):
     str_arg('rs2','',match,arguments), \
     str_arg('rs1','',match,arguments), \
     binary(yank(match,5,10),10), \
-    str_arg('rdr','',match,arguments), \
+    str_arg('rd','',match,arguments), \
     str_inst(name,arguments) \
   )
 
@@ -290,7 +292,7 @@ def print_r_rm_type(name,match,arguments):
     binary(yank(match,13,2),2), \
     str_arg('rm','',match,arguments), \
     binary(yank(match,5,6),6), \
-    str_arg('rdr','',match,arguments), \
+    str_arg('rd','',match,arguments), \
     str_inst(name,arguments) \
   )
 
@@ -311,7 +313,7 @@ def print_r4_type(name,match,arguments):
     str_arg('rs1','',match,arguments), \
     binary(yank(match,10,5),5), \
     str_arg('rs3','',match,arguments), \
-    str_arg('rdr','',match,arguments), \
+    str_arg('rd','',match,arguments), \
     str_inst(name,arguments) \
   )
 
@@ -336,7 +338,7 @@ def print_r4_rm_type(name,match,arguments):
     str_arg('rm','',match,arguments), \
     binary(yank(match,10,1),1), \
     str_arg('rs3','',match,arguments), \
-    str_arg('rdr','',match,arguments), \
+    str_arg('rd','',match,arguments), \
     str_inst(name,arguments) \
   )
 
@@ -379,19 +381,19 @@ def print_header():
 \\cline{2-12}
 &
 \\multicolumn{2}{|c|}{opcode} &
-\\multicolumn{1}{c|}{rdi} &
+\\multicolumn{1}{c|}{rd} &
 \\multicolumn{8}{c|}{LUI-immediate} & LUI-type \\\\
 \\cline{2-12}
 &
 \\multicolumn{2}{|c|}{opcode} &
-\\multicolumn{1}{c|}{rdi/rs2} &
+\\multicolumn{1}{c|}{rd/rs2} &
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{2}{c|}{funct3} &
 \\multicolumn{5}{c|}{immediate} & I-type \\\\
 \\cline{2-12}
 &
 \\multicolumn{2}{|c|}{opcode} &
-\\multicolumn{1}{c|}{rdi} &
+\\multicolumn{1}{c|}{rd} &
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{5}{c|}{funct9} &
 \\multicolumn{2}{c|}{shamt} & ISH-type \\\\
@@ -401,7 +403,7 @@ def print_header():
 \\multicolumn{1}{c|}{rs2} &
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{6}{c|}{funct10} &
-\\multicolumn{1}{c|}{rdr} & R-type \\\\
+\\multicolumn{1}{c|}{rd} & R-type \\\\
 \\cline{2-12}
 &
 \\multicolumn{2}{|c|}{opcode} &
@@ -409,7 +411,7 @@ def print_header():
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{4}{c|}{funct5} &
 \\multicolumn{2}{c|}{rs3} &
-\\multicolumn{1}{c|}{rdr} & R4-type \\\\
+\\multicolumn{1}{c|}{rd} & R4-type \\\\
 \\cline{2-12}
   """
 
@@ -616,7 +618,7 @@ def print_verilog_lui_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('rdi','',match,arguments), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('imm20','',match,arguments) \
   )
 
@@ -625,7 +627,7 @@ def print_verilog_i_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('rdi','rs2',match,arguments), \
+    str_verilog_arg('rd','rs2',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,12,3),3), \
     str_verilog_arg('imm12','',match,arguments) \
@@ -636,7 +638,7 @@ def print_verilog_ish_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('rdi','',match,arguments), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,6,9),9), \
     str_verilog_arg('shamt','',match,arguments) \
@@ -647,7 +649,7 @@ def print_verilog_ishw_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    str_verilog_arg('rdi','',match,arguments), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,6,9),9), \
     str_verilog_arg('shamtw','',match,arguments) \
@@ -662,7 +664,7 @@ def print_verilog_r4_type(name,match,arguments):
     str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,10,5),5), \
     str_verilog_arg('rs3','',match,arguments), \
-    str_verilog_arg('rdr','',match,arguments) \
+    str_verilog_arg('rd','',match,arguments) \
   )
 
 def print_verilog_r4_rm_type(name,match,arguments):
@@ -676,7 +678,7 @@ def print_verilog_r4_rm_type(name,match,arguments):
     str_verilog_arg('rm','',match,arguments), \
     binary(yank(match,10,1),1), \
     str_verilog_arg('rs3','',match,arguments), \
-    str_verilog_arg('rdr','',match,arguments) \
+    str_verilog_arg('rd','',match,arguments) \
   )
 
 def print_verilog_r_rm_type(name,match,arguments):
@@ -689,7 +691,7 @@ def print_verilog_r_rm_type(name,match,arguments):
     binary(yank(match,13,2),2), \
     str_verilog_arg('rm','',match,arguments), \
     binary(yank(match,5,6),6), \
-    str_verilog_arg('rdr','',match,arguments) \
+    str_verilog_arg('rd','',match,arguments) \
   )
 
 def print_verilog_r_type(name,match,arguments):
@@ -700,7 +702,7 @@ def print_verilog_r_type(name,match,arguments):
     str_verilog_arg('rs2','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
     binary(yank(match,5,10),10), \
-    str_verilog_arg('rdr','',match,arguments) \
+    str_verilog_arg('rd','',match,arguments) \
   )
 
 def make_verilog():
