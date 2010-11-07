@@ -11,18 +11,18 @@ unimp   31..0=0
 j       31..25=0x60 imm25
 jal     31..25=0x61 imm25
 
+jalr.c  31..25=0x62 24..22=0 rd rs1 imm12
+jalr.r  31..25=0x62 24..22=1 rd rs1 imm12
+jalr.j  31..25=0x62 24..22=2 rd rs1 imm12
+
+beq     31..25=0x63 24..22=0 rs1 rs2 imm12lo imm12hi
+bne     31..25=0x63 24..22=1 rs1 rs2 imm12lo imm12hi
+blt     31..25=0x63 24..22=4 rs1 rs2 imm12lo imm12hi
+bge     31..25=0x63 24..22=5 rs1 rs2 imm12lo imm12hi
+bltu    31..25=0x63 24..22=6 rs1 rs2 imm12lo imm12hi
+bgeu    31..25=0x63 24..22=7 rs1 rs2 imm12lo imm12hi
+
 lui     31..25=0x71 rd imm20
-
-jalr.c  31..25=0x72 24..22=0 rd rs1 imm12
-jalr.r  31..25=0x72 24..22=1 rd rs1 imm12
-jalr.j  31..25=0x72 24..22=2 rd rs1 imm12
-
-beq     31..25=0x73 24..22=0 rs1 rs2 imm12lo imm12hi
-bne     31..25=0x73 24..22=1 rs1 rs2 imm12lo imm12hi
-blt     31..25=0x73 24..22=4 rs1 rs2 imm12lo imm12hi
-bge     31..25=0x73 24..22=5 rs1 rs2 imm12lo imm12hi
-bltu    31..25=0x73 24..22=6 rs1 rs2 imm12lo imm12hi
-bgeu    31..25=0x73 24..22=7 rs1 rs2 imm12lo imm12hi
 
 addi    31..25=0x74 24..22=0 rd rs1 imm12
 slti    31..25=0x74 24..22=2 rd rs1 imm12
