@@ -22,7 +22,7 @@ arglut['imm12lo'] = (4,0)
 arglut['imm12hi'] = (21,15)
 arglut['shamt'] = (15,10)
 arglut['shamtw'] = (14,10)
-arglut['rm'] = (21,20)
+arglut['rm'] = (22,20)
 
 typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=ish,7=ishw,10=b
 typelut[0x00] = 0
@@ -151,17 +151,18 @@ def str_arg(arg0,arg1,match,arguments):
 def str_inst(name,arguments):
   ret = name.upper() + ' '
   for idx in range(len(arguments)):
-    if arguments[idx] != 'rm':
-      ret = ret + arguments[idx]
-      if idx != len(arguments)-1:
-        ret = ret + ','
+    ret = ret + arguments[idx]
+    if idx != len(arguments)-1:
+      ret = ret + ','
+  ret = ret.replace('imm12lo,imm12hi','imm12')
+  ret = ret.replace(',rm','[,rm]')
   return ret
 
 def print_unimp_type(name,match,arguments):
   print """
 &
-\\multicolumn{8}{|c|}{%s} & %s \\\\
-\\cline{2-9}
+\\multicolumn{9}{|c|}{%s} & %s \\\\
+\\cline{2-10}
   """ % \
   ( \
     '0'*32, \
@@ -172,8 +173,8 @@ def print_j_type(name,match,arguments):
   print """
 &
 \\multicolumn{1}{|c|}{%s} &
-\\multicolumn{7}{c|}{%s} & %s \\\\
-\\cline{2-9}
+\\multicolumn{8}{c|}{%s} & %s \\\\
+\\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
@@ -185,9 +186,9 @@ def print_lui_type(name,match,arguments):
   print """
 &
 \\multicolumn{1}{|c|}{%s} &
-\\multicolumn{6}{c|}{%s} &
+\\multicolumn{7}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
-\\cline{2-9}
+\\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
@@ -200,12 +201,12 @@ def print_b_type(name,match,arguments):
   print """
 &
 \\multicolumn{1}{|c|}{%s} &
-\\multicolumn{1}{c|}{%s} &
+\\multicolumn{2}{c|}{%s} &
 \\multicolumn{3}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
-\\cline{2-9}
+\\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
@@ -221,11 +222,11 @@ def print_i_type(name,match,arguments):
   print """
 &
 \\multicolumn{1}{|c|}{%s} &
-\\multicolumn{1}{c|}{%s} &
+\\multicolumn{2}{c|}{%s} &
 \\multicolumn{4}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
-\\cline{2-9}
+\\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
@@ -240,12 +241,12 @@ def print_ish_type(name,match,arguments):
   print """
 &
 \\multicolumn{1}{|c|}{%s} &
-\\multicolumn{1}{c|}{%s} &
+\\multicolumn{2}{c|}{%s} &
 \\multicolumn{2}{c|}{%s} &
 \\multicolumn{2}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
-\\cline{2-9}
+\\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
@@ -261,13 +262,13 @@ def print_ishw_type(name,match,arguments):
   print """
 &
 \\multicolumn{1}{|c|}{%s} &
-\\multicolumn{1}{c|}{%s} &
+\\multicolumn{2}{c|}{%s} &
 \\multicolumn{2}{c|}{%s} &
 \\multicolumn{1}{c|}{0} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
-\\cline{2-9}
+\\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
@@ -283,11 +284,11 @@ def print_r_type(name,match,arguments):
   print """
 &
 \\multicolumn{1}{|c|}{%s} &
-\\multicolumn{4}{c|}{%s} &
+\\multicolumn{5}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
-\\cline{2-9}
+\\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
@@ -303,16 +304,16 @@ def print_r_rm_type(name,match,arguments):
 &
 \\multicolumn{1}{|c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
-\\multicolumn{1}{c|}{%s} &
+\\multicolumn{2}{c|}{%s} &
 \\multicolumn{2}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
-\\cline{2-9}
+\\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    binary(yank(match,22,3),3), \
+    binary(yank(match,23,2),2), \
     str_arg('rm','',match,arguments), \
     binary(yank(match,15,5),5), \
     str_arg('rs2','',match,arguments), \
@@ -325,12 +326,12 @@ def print_r4_type(name,match,arguments):
   print """
 &
 \\multicolumn{1}{|c|}{%s} &
-\\multicolumn{2}{c|}{%s} &
+\\multicolumn{3}{c|}{%s} &
 \\multicolumn{2}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
-\\cline{2-9}
+\\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
@@ -347,16 +348,16 @@ def print_r4_rm_type(name,match,arguments):
 &
 \\multicolumn{1}{|c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
-\\multicolumn{1}{c|}{%s} &
+\\multicolumn{2}{c|}{%s} &
 \\multicolumn{2}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
-\\cline{2-9}
+\\cline{2-10}
   """ % \
   ( \
     binary(yank(match,25,7),7), \
-    binary(yank(match,22,3),3), \
+    binary(yank(match,23,2),2), \
     str_arg('rm','',match,arguments), \
     str_arg('rs3','',match,arguments), \
     str_arg('rs2','',match,arguments), \
@@ -372,77 +373,76 @@ def print_header():
 \\begin{table}[p]
 \\begin{small}
 \\begin{center}
-\\begin{tabular}{rcccccccccccl}
+\\begin{tabular}{rcccccccccl}
                 &
 \\hspace*{0.6in} &
+\\hspace*{0.3in} &
+\\hspace*{0.1in} &
 \\hspace*{0.2in} &
-\\hspace*{0.5in} &
-\\hspace*{0.5in} &
-\\hspace*{0.5in} &
+\\hspace*{0.2in} &
 \\hspace*{0.1in} &
-\\hspace*{0.1in} &
-\\hspace*{0.1in} &
-\\hspace*{0.4in} &
-\\hspace*{0.1in} &
-\\hspace*{0.5in} \\\\
+\\hspace*{0.3in} &
+\\hspace*{0.3in} &
+\\hspace*{0.3in} \\\\
                       &
 \\instbitrange{31}{25} &
-\\instbitrange{24}{22} &
+\\instbitrange{24}{23} &
+\\instbit{22} &
 \\instbitrange{21}{20} &
 \\instbitrange{19}{16} &
 \\instbit{15} &
 \\instbitrange{14}{10} &
 \\instbitrange{9}{5} &
 \\instbitrange{4}{0} \\\\
-\\cline{2-9}
+\\cline{2-10}
 &
 \\multicolumn{1}{|c|}{opcode} &
-\\multicolumn{7}{c|}{jump target} & J-type \\\\
-\\cline{2-9}
+\\multicolumn{8}{c|}{jump target} & J-type \\\\
+\\cline{2-10}
 &
 \\multicolumn{1}{|c|}{opcode} &
-\\multicolumn{6}{c|}{LUI-immediate} &
+\\multicolumn{7}{c|}{LUI-immediate} &
 \\multicolumn{1}{c|}{rd} & LUI-type \\\\
-\\cline{2-9}
+\\cline{2-10}
 &
 \\multicolumn{1}{|c|}{opcode} &
-\\multicolumn{1}{c|}{funct3} &
+\\multicolumn{2}{c|}{funct3} &
 \\multicolumn{4}{c|}{immediate} &
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{1}{c|}{rd} & I-type \\\\
-\\cline{2-9}
+\\cline{2-10}
 &
 \\multicolumn{1}{|c|}{opcode} &
-\\multicolumn{1}{c|}{funct3} &
+\\multicolumn{2}{c|}{funct3} &
 \\multicolumn{3}{c|}{immed[11:5]} &
 \\multicolumn{1}{c|}{rs2} &
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{1}{c|}{immed[4:0]} & B-type \\\\
-\\cline{2-9}
+\\cline{2-10}
 &
 \\multicolumn{1}{|c|}{opcode} &
-\\multicolumn{4}{c|}{funct10} &
+\\multicolumn{5}{c|}{funct10} &
 \\multicolumn{1}{c|}{rs2} &
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{1}{c|}{rd} & R-type \\\\
-\\cline{2-9}
+\\cline{2-10}
 &
 \\multicolumn{1}{|c|}{opcode} &
-\\multicolumn{2}{c|}{funct5} &
+\\multicolumn{3}{c|}{funct5} &
 \\multicolumn{2}{c|}{rs3} &
 \\multicolumn{1}{c|}{rs2} &
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{1}{c|}{rd} & R4-type \\\\
-\\cline{2-9}
+\\cline{2-10}
   """
 
 def print_subtitle(title):
   print """
 &
-\\multicolumn{11}{c}{} & \\\\
+\\multicolumn{9}{c}{} & \\\\
 &
-\\multicolumn{11}{c}{\\bf %s} & \\\\
-\\cline{2-9}
+\\multicolumn{9}{c}{\\bf %s} & \\\\
+\\cline{2-10}
   """ % title
 
 def print_footer(caption):
@@ -533,24 +533,6 @@ def make_latex_table():
   print_insts(-1,'msub.d',-1,-1,-1)
   print_insts(-1,'nmsub.d',-1,-1,-1)
   print_insts(-1,'nmadd.d',-1,-1,-1)
-  print_insts(-1,'add.s.rm',-1,-1,-1)
-  print_insts(-1,'sub.s.rm',-1,-1,-1)
-  print_insts(-1,'mul.s.rm',-1,-1,-1)
-  print_insts(-1,'div.s.rm',-1,-1,-1)
-  print_insts(-1,'sqrt.s.rm',-1,-1,-1)
-  print_insts(-1,'add.d.rm',-1,-1,-1)
-  print_insts(-1,'sub.d.rm',-1,-1,-1)
-  print_insts(-1,'mul.d.rm',-1,-1,-1)
-  print_insts(-1,'div.d.rm',-1,-1,-1)
-  print_insts(-1,'sqrt.d.rm',-1,-1,-1)
-  print_insts(-1,'madd.s.rm',-1,-1,-1)
-  print_insts(-1,'msub.s.rm',-1,-1,-1)
-  print_insts(-1,'nmsub.s.rm',-1,-1,-1)
-  print_insts(-1,'nmadd.s.rm',-1,-1,-1)
-  print_insts(-1,'madd.d.rm',-1,-1,-1)
-  print_insts(-1,'msub.d.rm',-1,-1,-1)
-  print_insts(-1,'nmsub.d.rm',-1,-1,-1)
-  print_insts(-1,'nmadd.d.rm',-1,-1,-1)
   print_footer(0)
 
   print_header()
@@ -563,7 +545,6 @@ def make_latex_table():
   print_insts(-1,'sgnmul.d',-1,-1,-1)
   print_insts(-1,'cvt.s.d',-1,-1,-1)
   print_insts(-1,'cvt.d.s',-1,-1,-1)
-  print_insts(-1,'cvt.s.d.rm',-1,-1,-1)
   print_subtitle('Integer to Floating-Point Move \& Conversion Instructions')
   print_insts(-1,'cvt.s.l',-1,-1,-1)
   print_insts(-1,'cvtu.s.l',-1,-1,-1)
@@ -573,24 +554,18 @@ def make_latex_table():
   print_insts(-1,'cvtu.d.l',-1,-1,-1)
   print_insts(-1,'cvt.d.w',-1,-1,-1)
   print_insts(-1,'cvtu.d.w',-1,-1,-1)
-  print_insts(-1,'cvt.s.l.rm',-1,-1,-1)
-  print_insts(-1,'cvtu.s.l.rm',-1,-1,-1)
-  print_insts(-1,'cvt.s.w.rm',-1,-1,-1)
-  print_insts(-1,'cvtu.s.w.rm',-1,-1,-1)
-  print_insts(-1,'cvt.d.l.rm',-1,-1,-1)
-  print_insts(-1,'cvtu.d.l.rm',-1,-1,-1)
   print_insts(-1,'mtflh.d',-1,-1,-1)
   print_insts(-1,'mtf.s',-1,-1,-1)
   print_insts(-1,'mtf.d',-1,-1,-1)
   print_subtitle('Floating-Point to Integer Move \& Conversion Instructions')
-  print_insts(-1,'cvt.l.s.rm',-1,-1,-1)
-  print_insts(-1,'cvtu.l.s.rm',-1,-1,-1)
-  print_insts(-1,'cvt.w.s.rm',-1,-1,-1)
-  print_insts(-1,'cvtu.w.s.rm',-1,-1,-1)
-  print_insts(-1,'cvt.l.d.rm',-1,-1,-1)
-  print_insts(-1,'cvtu.l.d.rm',-1,-1,-1)
-  print_insts(-1,'cvt.w.d.rm',-1,-1,-1)
-  print_insts(-1,'cvtu.w.d.rm',-1,-1,-1)
+  print_insts(-1,'cvt.l.s',-1,-1,-1)
+  print_insts(-1,'cvtu.l.s',-1,-1,-1)
+  print_insts(-1,'cvt.w.s',-1,-1,-1)
+  print_insts(-1,'cvtu.w.s',-1,-1,-1)
+  print_insts(-1,'cvt.l.d',-1,-1,-1)
+  print_insts(-1,'cvtu.l.d',-1,-1,-1)
+  print_insts(-1,'cvt.w.d',-1,-1,-1)
+  print_insts(-1,'cvtu.w.d',-1,-1,-1)
   print_insts(-1,'mffl.d',-1,-1,-1)
   print_insts(-1,'mffh.d',-1,-1,-1)
   print_insts(-1,'mff.s',-1,-1,-1)
@@ -710,7 +685,7 @@ def print_verilog_r4_rm_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    binary(yank(match,22,3),3), \
+    binary(yank(match,23,2),2), \
     str_verilog_arg('rm','',match,arguments), \
     str_verilog_arg('rs3','',match,arguments), \
     str_verilog_arg('rs2','',match,arguments), \
@@ -723,7 +698,7 @@ def print_verilog_r_rm_type(name,match,arguments):
   ( \
     name.replace('.','_').upper(), \
     binary(yank(match,25,7),7), \
-    binary(yank(match,22,3),3), \
+    binary(yank(match,23,2),2), \
     str_verilog_arg('rm','',match,arguments), \
     binary(yank(match,15,5),5), \
     str_verilog_arg('rs2','',match,arguments), \
@@ -823,6 +798,8 @@ for line in sys.stdin:
   types[name] = typelut[yank(mymatch,25,7)]
   if 'shamtw' in arguments[name]:
     types[name] = 7
+  elif 'imm12' in arguments[name]:
+    types[name] = 3
   elif 'shamt' in arguments[name]:
     types[name] = 6
   elif types[name] == 5 and 'rm' in arguments[name]:
