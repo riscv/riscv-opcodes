@@ -11,18 +11,18 @@ arguments = {}
 types = {}
 
 arglut = {}
-arglut['rs2'] = (14,10)
-arglut['rs1'] = (9,5)
-arglut['rd'] = (4,0)
-arglut['rs3'] = (19,15)
-arglut['imm25'] = (24,0)
-arglut['imm20'] = (24,5)
+arglut['rd'] = (31,27)
+arglut['rs1'] = (26,22)
+arglut['rs2'] = (21,17)
+arglut['rs3'] = (16,12)
+arglut['rm'] = (11,9)
+arglut['imm25'] = (31,7)
+arglut['imm20'] = (26,7)
 arglut['imm12'] = (21,10)
-arglut['imm12lo'] = (4,0)
-arglut['imm12hi'] = (21,15)
-arglut['shamt'] = (15,10)
-arglut['shamtw'] = (14,10)
-arglut['rm'] = (22,20)
+arglut['imm12hi'] = (31,27)
+arglut['imm12lo'] = (16,10)
+arglut['shamt'] = (21,16)
+arglut['shamtw'] = (20,16)
 
 typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=ish,7=ishw,10=b
 typelut[0x00] = 0
@@ -60,9 +60,9 @@ def make_disasm_table(match,mask):
     print '#define  MASK_%s %s' % (name2, hex(mask[name]))
 
 def make_switch(match,mask):
-  opcode_base = 25
+  opcode_base = 0
   opcode_size = 7
-  funct_base = 22
+  funct_base = 7
   funct_size = 3
 
   opcode_mask = ((1<<(opcode_base+opcode_size))-(1<<opcode_base))
@@ -607,114 +607,114 @@ def print_verilog_j_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,25,7),7), \
-    str_verilog_arg('imm25','',match,arguments) \
+    str_verilog_arg('imm25','',match,arguments), \
+    binary(yank(match,0,7),7) \
   )
 
 def print_verilog_lui_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,25,7),7), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('imm20','',match,arguments), \
-    str_verilog_arg('rd','',match,arguments) \
+    binary(yank(match,0,7),7) \
   )
 
 def print_verilog_b_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,25,7),7), \
-    binary(yank(match,22,3),3), \
     str_verilog_arg('imm12hi','',match,arguments), \
-    str_verilog_arg('rs2','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('imm12lo','',match,arguments) \
+    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('imm12lo','',match,arguments), \
+    binary(yank(match,7,3),3), \
+    binary(yank(match,0,7),7) \
   )
 
 def print_verilog_i_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,25,7),7), \
-    binary(yank(match,22,3),3), \
-    str_verilog_arg('imm12','',match,arguments), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rd','',match,arguments) \
+    str_verilog_arg('imm12','',match,arguments), \
+    binary(yank(match,7,3),3), \
+    binary(yank(match,0,7),7) \
   )
 
 def print_verilog_ish_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,25,7),7), \
-    binary(yank(match,22,3),3), \
-    binary(yank(match,16,6),6), \
-    str_verilog_arg('shamt','',match,arguments), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rd','',match,arguments) \
+    str_verilog_arg('shamt','',match,arguments), \
+    binary(yank(match,10,6),6), \
+    binary(yank(match,7,3),3), \
+    binary(yank(match,0,7),7) \
   )
 
 def print_verilog_ishw_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_%s_0_%s_%s_%s" % \
+  print "`define %-10s 32'b%s_%s_0_%s_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,25,7),7), \
-    binary(yank(match,22,3),3), \
-    binary(yank(match,16,6),6), \
-    str_verilog_arg('shamtw','',match,arguments), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rd','',match,arguments) \
+    str_verilog_arg('shamtw','',match,arguments), \
+    binary(yank(match,10,6),6), \
+    binary(yank(match,7,3),3), \
+    binary(yank(match,0,7),7) \
   )
 
 def print_verilog_r4_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s_%s_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,25,7),7), \
-    binary(yank(match,22,3),3), \
-    binary(yank(match,20,2),2), \
-    str_verilog_arg('rs3','',match,arguments), \
-    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rd','',match,arguments) \
+    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('rs3','',match,arguments), \
+    binary(yank(match,9,3),3), \
+    binary(yank(match,7,2),2), \
+    binary(yank(match,0,7),7) \
   )
 
 def print_verilog_r4_rm_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s_%s_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,25,7),7), \
-    binary(yank(match,23,2),2), \
-    str_verilog_arg('rm','',match,arguments), \
-    str_verilog_arg('rs3','',match,arguments), \
-    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rd','',match,arguments) \
+    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('rs3','',match,arguments), \
+    str_verilog_arg('rm','',match,arguments), \
+    binary(yank(match,7,2),2), \
+    binary(yank(match,0,7),7) \
   )
 
 def print_verilog_r_rm_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s_%s_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,25,7),7), \
-    binary(yank(match,23,2),2), \
-    str_verilog_arg('rm','',match,arguments), \
-    binary(yank(match,15,5),5), \
-    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rd','',match,arguments) \
+    str_verilog_arg('rs2','',match,arguments), \
+    binary(yank(match,12,5),5), \
+    str_verilog_arg('rm','',match,arguments), \
+    binary(yank(match,7,2),2), \
+    binary(yank(match,0,7),7) \
   )
 
 def print_verilog_r_type(name,match,arguments):
   print "`define %-10s 32'b%s_%s_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
-    binary(yank(match,25,7),7), \
-    binary(yank(match,15,10),10), \
-    str_verilog_arg('rs2','',match,arguments), \
+    str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rd','',match,arguments) \
+    str_verilog_arg('rs2','',match,arguments), \
+    binary(yank(match,7,10),10), \
+    binary(yank(match,0,7),7) \
   )
 
 def make_verilog():
@@ -795,7 +795,7 @@ for line in sys.stdin:
 
   mask[name] = mymask
   match[name] = mymatch
-  types[name] = typelut[yank(mymatch,25,7)]
+  types[name] = typelut[yank(mymatch,0,7)]
   if 'shamtw' in arguments[name]:
     types[name] = 7
   elif 'imm12' in arguments[name]:

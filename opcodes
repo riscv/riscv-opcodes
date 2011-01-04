@@ -2,197 +2,195 @@
 # <instruction name> <opcode> <args>
 #
 # <opcode> is given by specifying one or more range/value pairs:
-# highbit..lowbit=value (e.g. 31..25=0x45 24..22=0x0)
+# highbit..lowbit=value (e.g. 6..0=0x45 9..7=0x0)
 #
 # <args> is one of xa,xb,xc,fa,fb,fc,fd,imm,imm20,imm27,shamt,shamtw
 
 unimp   31..0=0
 
-j       31..25=0x60 imm25
-jal     31..25=0x61 imm25
+j       imm25 6..0=0x60
+jal     imm25 6..0=0x61
 
-jalr.c  31..25=0x62 24..22=0 rd rs1 imm12
-jalr.r  31..25=0x62 24..22=1 rd rs1 imm12
-jalr.j  31..25=0x62 24..22=2 rd rs1 imm12
+jalr.c  rd rs1 imm12 9..7=0 6..0=0x62
+jalr.r  rd rs1 imm12 9..7=1 6..0=0x62
+jalr.j  rd rs1 imm12 9..7=2 6..0=0x62
 
-beq     31..25=0x63 24..22=0 rs1 rs2 imm12lo imm12hi
-bne     31..25=0x63 24..22=1 rs1 rs2 imm12lo imm12hi
-blt     31..25=0x63 24..22=4 rs1 rs2 imm12lo imm12hi
-bge     31..25=0x63 24..22=5 rs1 rs2 imm12lo imm12hi
-bltu    31..25=0x63 24..22=6 rs1 rs2 imm12lo imm12hi
-bgeu    31..25=0x63 24..22=7 rs1 rs2 imm12lo imm12hi
+beq     imm12hi rs1 rs2 imm12lo 9..7=0 6..0=0x63
+bne     imm12hi rs1 rs2 imm12lo 9..7=1 6..0=0x63
+blt     imm12hi rs1 rs2 imm12lo 9..7=4 6..0=0x63
+bge     imm12hi rs1 rs2 imm12lo 9..7=5 6..0=0x63
+bltu    imm12hi rs1 rs2 imm12lo 9..7=6 6..0=0x63
+bgeu    imm12hi rs1 rs2 imm12lo 9..7=7 6..0=0x63
 
-lui     31..25=0x71 rd imm20
+lui     rd imm20 6..0=0x71
 
-addi    31..25=0x74 24..22=0 rd rs1 imm12
-slti    31..25=0x74 24..22=2 rd rs1 imm12
-sltiu   31..25=0x74 24..22=3 rd rs1 imm12
-andi    31..25=0x74 24..22=4 rd rs1 imm12
-ori     31..25=0x74 24..22=5 rd rs1 imm12
-xori    31..25=0x74 24..22=6 rd rs1 imm12
-slli    31..25=0x74 24..22=7 21..16=1 rd rs1 shamt
-srli    31..25=0x74 24..22=7 21..16=2 rd rs1 shamt
-srai    31..25=0x74 24..22=7 21..16=3 rd rs1 shamt
+addi    rd rs1 imm12 9..7=0 6..0=0x74
+slti    rd rs1 imm12 9..7=2 6..0=0x74
+sltiu   rd rs1 imm12 9..7=3 6..0=0x74
+andi    rd rs1 imm12 9..7=4 6..0=0x74
+ori     rd rs1 imm12 9..7=5 6..0=0x74
+xori    rd rs1 imm12 9..7=6 6..0=0x74
+slli    rd rs1 shamt 15..10=1 9..7=7 6..0=0x74
+srli    rd rs1 shamt 15..10=2 9..7=7 6..0=0x74
+srai    rd rs1 shamt 15..10=3 9..7=7 6..0=0x74
 
-add     31..25=0x75 24..22=0 21..15=0 rd rs1 rs2
-sub     31..25=0x75 24..22=0 21..15=1 rd rs1 rs2
-slt     31..25=0x75 24..22=0 21..15=2 rd rs1 rs2
-sltu    31..25=0x75 24..22=0 21..15=3 rd rs1 rs2
-and     31..25=0x75 24..22=0 21..15=4 rd rs1 rs2
-or      31..25=0x75 24..22=0 21..15=5 rd rs1 rs2
-xor     31..25=0x75 24..22=0 21..15=6 rd rs1 rs2
-nor     31..25=0x75 24..22=0 21..15=7 rd rs1 rs2
-sll    31..25=0x75 24..22=7 21..16=1 15=0 rd rs1 rs2
-srl    31..25=0x75 24..22=7 21..16=2 15=0 rd rs1 rs2
-sra    31..25=0x75 24..22=7 21..16=3 15=0 rd rs1 rs2
+add     rd rs1 rs2 16..10=0 9..7=0 6..0=0x75
+sub     rd rs1 rs2 16..10=1 9..7=0 6..0=0x75
+slt     rd rs1 rs2 16..10=2 9..7=0 6..0=0x75
+sltu    rd rs1 rs2 16..10=3 9..7=0 6..0=0x75
+and     rd rs1 rs2 16..10=4 9..7=0 6..0=0x75
+or      rd rs1 rs2 16..10=5 9..7=0 6..0=0x75
+xor     rd rs1 rs2 16..10=6 9..7=0 6..0=0x75
+nor     rd rs1 rs2 16..10=7 9..7=0 6..0=0x75
+sll     rd rs1 rs2 16=0 15..10=1 9..7=7 6..0=0x75
+srl     rd rs1 rs2 16=0 15..10=2 9..7=7 6..0=0x75
+sra     rd rs1 rs2 16=0 15..10=3 9..7=7 6..0=0x75
 
-mul     31..25=0x75 24..22=1 21..15=0 rd rs1 rs2
-mulh    31..25=0x75 24..22=1 21..15=2 rd rs1 rs2
-mulhu   31..25=0x75 24..22=1 21..15=3 rd rs1 rs2
-div     31..25=0x75 24..22=1 21..15=4 rd rs1 rs2
-divu    31..25=0x75 24..22=1 21..15=5 rd rs1 rs2
-rem     31..25=0x75 24..22=1 21..15=6 rd rs1 rs2
-remu    31..25=0x75 24..22=1 21..15=7 rd rs1 rs2
+mul     rd rs1 rs2 16..10=0 9..7=1 6..0=0x75
+mulh    rd rs1 rs2 16..10=2 9..7=1 6..0=0x75
+mulhu   rd rs1 rs2 16..10=3 9..7=1 6..0=0x75
+div     rd rs1 rs2 16..10=4 9..7=1 6..0=0x75
+divu    rd rs1 rs2 16..10=5 9..7=1 6..0=0x75
+rem     rd rs1 rs2 16..10=6 9..7=1 6..0=0x75
+remu    rd rs1 rs2 16..10=7 9..7=1 6..0=0x75
 
+addiw   rd rs1 imm12 9..7=0 6..0=0x76
+slliw   rd rs1 21=0 shamtw 15..10=1 9..7=7 6..0=0x76
+srliw   rd rs1 21=0 shamtw 15..10=2 9..7=7 6..0=0x76
+sraiw   rd rs1 21=0 shamtw 15..10=3 9..7=7 6..0=0x76
 
+addw    rd rs1 rs2 16..10=0 9..7=0 6..0=0x77
+subw    rd rs1 rs2 16..10=1 9..7=0 6..0=0x77
+sllw    rd rs1 rs2 16=0 15..10=1 9..7=7 6..0=0x77
+srlw    rd rs1 rs2 16=0 15..10=2 9..7=7 6..0=0x77
+sraw    rd rs1 rs2 16=0 15..10=3 9..7=7 6..0=0x77
 
-addiw   31..25=0x76 24..22=0 rd rs1 imm12
-slliw   31..25=0x76 24..22=7 21..16=1 15=0 rd rs1 shamtw
-srliw   31..25=0x76 24..22=7 21..16=2 15=0 rd rs1 shamtw
-sraiw   31..25=0x76 24..22=7 21..16=3 15=0 rd rs1 shamtw
+mulw    rd rs1 rs2 16..10=0 9..7=1 6..0=0x77
+mulhw   rd rs1 rs2 16..10=2 9..7=1 6..0=0x77
+mulhuw  rd rs1 rs2 16..10=3 9..7=1 6..0=0x77
+divw    rd rs1 rs2 16..10=4 9..7=1 6..0=0x77
+divuw   rd rs1 rs2 16..10=5 9..7=1 6..0=0x77
+remw    rd rs1 rs2 16..10=6 9..7=1 6..0=0x77
+remuw   rd rs1 rs2 16..10=7 9..7=1 6..0=0x77
 
-addw    31..25=0x77 24..22=0 21..15=0 rd rs1 rs2
-subw    31..25=0x77 24..22=0 21..15=1 rd rs1 rs2
-sllw   31..25=0x77 24..22=7 21..16=1 15=0 rd rs1 rs2
-srlw   31..25=0x77 24..22=7 21..16=2 15=0 rd rs1 rs2
-sraw   31..25=0x77 24..22=7 21..16=3 15=0 rd rs1 rs2
-
-mulw    31..25=0x77 24..22=1 21..15=0 rd rs1 rs2
-mulhw   31..25=0x77 24..22=1 21..15=2 rd rs1 rs2
-mulhuw  31..25=0x77 24..22=1 21..15=3 rd rs1 rs2
-divw    31..25=0x77 24..22=1 21..15=4 rd rs1 rs2
-divuw   31..25=0x77 24..22=1 21..15=5 rd rs1 rs2
-remw    31..25=0x77 24..22=1 21..15=6 rd rs1 rs2
-remuw   31..25=0x77 24..22=1 21..15=7 rd rs1 rs2
-
-lb      31..25=0x78 24..22=0 rd rs1 imm12
-lh      31..25=0x78 24..22=1 rd rs1 imm12
-lw      31..25=0x78 24..22=2 rd rs1 imm12
-ld      31..25=0x78 24..22=3 rd rs1 imm12
-lbu     31..25=0x78 24..22=4 rd rs1 imm12
-lhu     31..25=0x78 24..22=5 rd rs1 imm12
-lwu     31..25=0x78 24..22=6 rd rs1 imm12
-synci   31..25=0x78 24..22=7 4..0=0 rs1 imm12
+lb      rd rs1 imm12 9..7=0 6..0=0x78
+lh      rd rs1 imm12 9..7=1 6..0=0x78
+lw      rd rs1 imm12 9..7=2 6..0=0x78
+ld      rd rs1 imm12 9..7=3 6..0=0x78
+lbu     rd rs1 imm12 9..7=4 6..0=0x78
+lhu     rd rs1 imm12 9..7=5 6..0=0x78
+lwu     rd rs1 imm12 9..7=6 6..0=0x78
+synci   31..27=0 rs1 imm12 9..7=7 6..0=0x78
 
 # NOTE: if you add new store instructions, make sure to modify tc-mips-riscv.c
 # and elfxx-mips.c to detect them.  this is a hack to handle the split immed.
 # just open up those files and search for MATCH_SW; should be obvious.
-sb      31..25=0x79 24..22=0 rs2 rs1 imm12lo imm12hi
-sh      31..25=0x79 24..22=1 rs2 rs1 imm12lo imm12hi
-sw      31..25=0x79 24..22=2 rs2 rs1 imm12lo imm12hi
-sd      31..25=0x79 24..22=3 rs2 rs1 imm12lo imm12hi
+sb      imm12hi rs1 rs2 imm12lo 9..7=0 6..0=0x79
+sh      imm12hi rs1 rs2 imm12lo 9..7=1 6..0=0x79
+sw      imm12hi rs1 rs2 imm12lo 9..7=2 6..0=0x79
+sd      imm12hi rs1 rs2 imm12lo 9..7=3 6..0=0x79
 
-amow.add    31..25=0x7A 24..22=2 21..15=0 rd rs1 rs2
-amow.swap   31..25=0x7A 24..22=2 21..15=1 rd rs1 rs2
-amow.and    31..25=0x7A 24..22=2 21..15=2 rd rs1 rs2
-amow.or     31..25=0x7A 24..22=2 21..15=3 rd rs1 rs2
-amow.min    31..25=0x7A 24..22=2 21..15=4 rd rs1 rs2
-amow.max    31..25=0x7A 24..22=2 21..15=5 rd rs1 rs2
-amow.minu   31..25=0x7A 24..22=2 21..15=6 rd rs1 rs2
-amow.maxu   31..25=0x7A 24..22=2 21..15=7 rd rs1 rs2
+amow.add    rd rs1 rs2 16..10=0 9..7=2 6..0=0x7A
+amow.swap   rd rs1 rs2 16..10=1 9..7=2 6..0=0x7A
+amow.and    rd rs1 rs2 16..10=2 9..7=2 6..0=0x7A
+amow.or     rd rs1 rs2 16..10=3 9..7=2 6..0=0x7A
+amow.min    rd rs1 rs2 16..10=4 9..7=2 6..0=0x7A
+amow.max    rd rs1 rs2 16..10=5 9..7=2 6..0=0x7A
+amow.minu   rd rs1 rs2 16..10=6 9..7=2 6..0=0x7A
+amow.maxu   rd rs1 rs2 16..10=7 9..7=2 6..0=0x7A
+                                        
+amo.add     rd rs1 rs2 16..10=0 9..7=3 6..0=0x7A
+amo.swap    rd rs1 rs2 16..10=1 9..7=3 6..0=0x7A
+amo.and     rd rs1 rs2 16..10=2 9..7=3 6..0=0x7A
+amo.or      rd rs1 rs2 16..10=3 9..7=3 6..0=0x7A
+amo.min     rd rs1 rs2 16..10=4 9..7=3 6..0=0x7A
+amo.max     rd rs1 rs2 16..10=5 9..7=3 6..0=0x7A
+amo.minu    rd rs1 rs2 16..10=6 9..7=3 6..0=0x7A
+amo.maxu    rd rs1 rs2 16..10=7 9..7=3 6..0=0x7A
 
-amo.add     31..25=0x7A 24..22=3 21..15=0 rd rs1 rs2
-amo.swap    31..25=0x7A 24..22=3 21..15=1 rd rs1 rs2
-amo.and     31..25=0x7A 24..22=3 21..15=2 rd rs1 rs2
-amo.or      31..25=0x7A 24..22=3 21..15=3 rd rs1 rs2
-amo.min     31..25=0x7A 24..22=3 21..15=4 rd rs1 rs2
-amo.max     31..25=0x7A 24..22=3 21..15=5 rd rs1 rs2
-amo.minu    31..25=0x7A 24..22=3 21..15=6 rd rs1 rs2
-amo.maxu    31..25=0x7A 24..22=3 21..15=7 rd rs1 rs2
+rdnpc   rd 26..17=0 16..10=0 9..7=0 6..0=0x7B
+mfcr    rd 26..22=0 rs2 16..10=0 9..7=1 6..0=0x7B
+mtcr    31..27=0 rs1 rs2 16..10=1 9..7=1 6..0=0x7B
+sync    31..17=0 16..10=0 9..7=2 6..0=0x7B
+syscall 31..22=0 imm12 9..7=3 6..0=0x7B
 
-rdnpc   31..25=0x7B 24..22=0 21..15=0 14..5=0 rd
-mfcr    31..25=0x7B 24..22=1 21..15=0  9..5=0 rd rs2
-mtcr    31..25=0x7B 24..22=1 21..15=1  4..0=0 rs1 rs2
-sync    31..25=0x7B 24..22=2 21..15=0 14..0=0
-syscall 31..25=0x7B 24..22=3           9..0=0 imm12
-
-ei      31..25=0x6B 24..22=0 21..15=0 14..5=0 rd
-di      31..25=0x6B 24..22=0 21..15=1 14..5=0 rd
-mfpcr   31..25=0x6B 24..22=1 21..15=0  9..5=0 rd rs2
-mtpcr   31..25=0x6B 24..22=1 21..15=1  4..0=0 rs1 rs2
-eret    31..25=0x6B 24..22=2 21..15=0 14..0=0
+ei      rd 26..17=0 16..10=0 9..7=0 6..0=0x6B
+di      rd 26..17=0 16..10=1 9..7=0 6..0=0x6B
+mfpcr   rd 26..22=0 rs2 16..10=0 9..7=1 6..0=0x6B
+mtpcr   31..27=0 rs1 rs2 16..10=1 9..7=1 6..0=0x6B
+eret    31..17=0 16..10=0 9..7=2 6..0=0x6B
 
 # 0x7C-0x7F are reserved for >32b instructions
 
-add.s       31..25=0x6A 24..23=0          19..15=0 rd rs1 rs2 rm
-sub.s       31..25=0x6A 24..23=0          19..15=1 rd rs1 rs2 rm
-mul.s       31..25=0x6A 24..23=0          19..15=2 rd rs1 rs2 rm
-div.s       31..25=0x6A 24..23=0          19..15=3 rd rs1 rs2 rm
-sqrt.s      31..25=0x6A 24..23=0          19..15=4 14..10=0 rd rs1 rm
-sgninj.s    31..25=0x6A 24..23=0 22..20=0 19..15=5 rd rs1 rs2
-sgninjn.s   31..25=0x6A 24..23=0 22..20=0 19..15=6 rd rs1 rs2
-sgnmul.s    31..25=0x6A 24..23=0 22..20=0 19..15=7 rd rs1 rs2
+add.s       rd rs1 rs2      16..12=0    rm      8..7=0 6..0=0x6A
+sub.s       rd rs1 rs2      16..12=1    rm      8..7=0 6..0=0x6A
+mul.s       rd rs1 rs2      16..12=2    rm      8..7=0 6..0=0x6A
+div.s       rd rs1 rs2      16..12=3    rm      8..7=0 6..0=0x6A
+sqrt.s      rd rs1 21..17=0 16..12=4    rm      8..7=0 6..0=0x6A
+sgninj.s    rd rs1 rs2      16..12=5    11..9=0 8..7=0 6..0=0x6A
+sgninjn.s   rd rs1 rs2      16..12=6    11..9=0 8..7=0 6..0=0x6A
+sgnmul.s    rd rs1 rs2      16..12=7    11..9=0 8..7=0 6..0=0x6A
 
-add.d       31..25=0x6A 24..23=3          19..15=0x0 rd rs1 rs2 rm
-sub.d       31..25=0x6A 24..23=3          19..15=0x1 rd rs1 rs2 rm
-mul.d       31..25=0x6A 24..23=3          19..15=0x2 rd rs1 rs2 rm
-div.d       31..25=0x6A 24..23=3          19..15=0x3 rd rs1 rs2 rm
-sqrt.d      31..25=0x6A 24..23=3          19..15=0x4 14..10=0 rd rs1 rm
-sgninj.d    31..25=0x6A 24..23=3 22..20=0 19..15=0x5 rd rs1 rs2
-sgninjn.d   31..25=0x6A 24..23=3 22..20=0 19..15=0x6 rd rs1 rs2
-sgnmul.d    31..25=0x6A 24..23=3 22..20=0 19..15=0x7 rd rs1 rs2
+add.d       rd rs1 rs2      16..12=0x0  rm      8..7=3 6..0=0x6A
+sub.d       rd rs1 rs2      16..12=0x1  rm      8..7=3 6..0=0x6A
+mul.d       rd rs1 rs2      16..12=0x2  rm      8..7=3 6..0=0x6A
+div.d       rd rs1 rs2      16..12=0x3  rm      8..7=3 6..0=0x6A
+sqrt.d      rd rs1 21..17=0 16..12=0x4  rm      8..7=3 6..0=0x6A
+sgninj.d    rd rs1 rs2      16..12=0x5  11..9=0 8..7=3 6..0=0x6A
+sgninjn.d   rd rs1 rs2      16..12=0x6  11..9=0 8..7=3 6..0=0x6A
+sgnmul.d    rd rs1 rs2      16..12=0x7  11..9=0 8..7=3 6..0=0x6A
 
-cvt.l.s     31..25=0x6A 24..23=0          19..15=0x8 14..10=0 rm rd rs1
-cvtu.l.s    31..25=0x6A 24..23=0          19..15=0x9 14..10=0 rm rd rs1
-cvt.w.s     31..25=0x6A 24..23=0          19..15=0xA 14..10=0 rm rd rs1
-cvtu.w.s    31..25=0x6A 24..23=0          19..15=0xB 14..10=0 rm rd rs1
+cvt.l.s     rd rs1 21..17=0 16..12=0x8  rm      8..7=0 6..0=0x6A
+cvtu.l.s    rd rs1 21..17=0 16..12=0x9  rm      8..7=0 6..0=0x6A
+cvt.w.s     rd rs1 21..17=0 16..12=0xA  rm      8..7=0 6..0=0x6A
+cvtu.w.s    rd rs1 21..17=0 16..12=0xB  rm      8..7=0 6..0=0x6A
 
-cvt.l.d     31..25=0x6A 24..23=3          19..15=0x8 14..10=0 rm rd rs1
-cvtu.l.d    31..25=0x6A 24..23=3          19..15=0x9 14..10=0 rm rd rs1
-cvt.w.d     31..25=0x6A 24..23=3          19..15=0xA 14..10=0 rm rd rs1
-cvtu.w.d    31..25=0x6A 24..23=3          19..15=0xB 14..10=0 rm rd rs1
+cvt.l.d     rd rs1 21..17=0 16..12=0x8  rm      8..7=3 6..0=0x6A
+cvtu.l.d    rd rs1 21..17=0 16..12=0x9  rm      8..7=3 6..0=0x6A
+cvt.w.d     rd rs1 21..17=0 16..12=0xA  rm      8..7=3 6..0=0x6A
+cvtu.w.d    rd rs1 21..17=0 16..12=0xB  rm      8..7=3 6..0=0x6A
 
-cvt.s.l     31..25=0x6A 24..23=0          19..15=0xC 14..10=0 rd rs1 rm
-cvtu.s.l    31..25=0x6A 24..23=0          19..15=0xD 14..10=0 rd rs1 rm
-cvt.s.w     31..25=0x6A 24..23=0          19..15=0xE 14..10=0 rd rs1 rm
-cvtu.s.w    31..25=0x6A 24..23=0          19..15=0xF 14..10=0 rd rs1 rm
+cvt.s.l     rd rs1 21..17=0 16..12=0xC  rm      8..7=0 6..0=0x6A
+cvtu.s.l    rd rs1 21..17=0 16..12=0xD  rm      8..7=0 6..0=0x6A
+cvt.s.w     rd rs1 21..17=0 16..12=0xE  rm      8..7=0 6..0=0x6A
+cvtu.s.w    rd rs1 21..17=0 16..12=0xF  rm      8..7=0 6..0=0x6A
 
-cvt.d.l     31..25=0x6A 24..23=3          19..15=0xC 14..10=0 rd rs1 rm
-cvtu.d.l    31..25=0x6A 24..23=3          19..15=0xD 14..10=0 rd rs1 rm
-cvt.d.w     31..25=0x6A 24..23=3 22..20=0 19..15=0xE 14..10=0 rd rs1
-cvtu.d.w    31..25=0x6A 24..23=3 22..20=0 19..15=0xF 14..10=0 rd rs1
+cvt.d.l     rd rs1 21..17=0 16..12=0xC  rm      8..7=3 6..0=0x6A
+cvtu.d.l    rd rs1 21..17=0 16..12=0xD  rm      8..7=3 6..0=0x6A
+cvt.d.w     rd rs1 21..17=0 16..12=0xE  11..9=0 8..7=3 6..0=0x6A
+cvtu.d.w    rd rs1 21..17=0 16..12=0xF  11..9=0 8..7=3 6..0=0x6A
 
-cvt.s.d     31..25=0x6A 24..23=0          19..15=0x13 14..10=0 rd rs1 rm
-cvt.d.s     31..25=0x6A 24..23=3 22..20=0 19..15=0x10 14..10=0 rd rs1
+cvt.s.d     rd rs1 21..17=0 16..12=0x13 rm      8..7=0 6..0=0x6A
+cvt.d.s     rd rs1 21..17=0 16..12=0x10 11..9=0 8..7=3 6..0=0x6A
 
-c.eq.s  31..25=0x6A 24..23=0 22..20=0 19..15=0x15 rd rs1 rs2
-c.lt.s  31..25=0x6A 24..23=0 22..20=0 19..15=0x16 rd rs1 rs2
-c.le.s  31..25=0x6A 24..23=0 22..20=0 19..15=0x17 rd rs1 rs2
+c.eq.s      rd rs1 rs2      16..12=0x15 11..9=0 8..7=0 6..0=0x6A
+c.lt.s      rd rs1 rs2      16..12=0x16 11..9=0 8..7=0 6..0=0x6A
+c.le.s      rd rs1 rs2      16..12=0x17 11..9=0 8..7=0 6..0=0x6A
 
-c.eq.d  31..25=0x6A 24..23=3 22..20=0 19..15=0x15 rd rs1 rs2
-c.lt.d  31..25=0x6A 24..23=3 22..20=0 19..15=0x16 rd rs1 rs2
-c.le.d  31..25=0x6A 24..23=3 22..20=0 19..15=0x17 rd rs1 rs2
+c.eq.d      rd rs1 rs2      16..12=0x15 11..9=0 8..7=3 6..0=0x6A
+c.lt.d      rd rs1 rs2      16..12=0x16 11..9=0 8..7=3 6..0=0x6A
+c.le.d      rd rs1 rs2      16..12=0x17 11..9=0 8..7=3 6..0=0x6A
 
-mff.s   31..25=0x6A 9..5=0 24..23=0 22..20=2 19..15=0x18 rd rs2
-mff.d   31..25=0x6A 9..5=0 24..23=3 22..20=2 19..15=0x18 rd rs2
-mffl.d  31..25=0x6A 9..5=0 24..23=3 22..20=2 19..15=0x19 rd rs2
-mffh.d  31..25=0x6A 9..5=0 24..23=3 22..20=2 19..15=0x1A rd rs2
-mtf.s   31..25=0x6A 14..10=0 24..23=0 22..20=2 19..15=0x1C rd rs1
-mtf.d   31..25=0x6A 14..10=0 24..23=3 22..20=2 19..15=0x1C rd rs1
-mtflh.d 31..25=0x6A          24..23=3 22..20=3 19..15=0x1C rd rs1 rs2
+mff.s       rd 26..22=0 rs2 16..12=0x18 11..9=2 8..7=0 6..0=0x6A
+mff.d       rd 26..22=0 rs2 16..12=0x18 11..9=2 8..7=3 6..0=0x6A
+mffl.d      rd 26..22=0 rs2 16..12=0x19 11..9=2 8..7=3 6..0=0x6A
+mffh.d      rd 26..22=0 rs2 16..12=0x1A 11..9=2 8..7=3 6..0=0x6A
+mtf.s       rd rs1 21..17=0 16..12=0x1C 11..9=2 8..7=0 6..0=0x6A
+mtf.d       rd rs1 21..17=0 16..12=0x1C 11..9=2 8..7=3 6..0=0x6A
+mtflh.d     rd rs1 rs2      16..12=0x1C 11..9=3 8..7=3 6..0=0x6A
 
-l.s     31..25=0x68 24..22=2 rd rs1 imm12
-l.d     31..25=0x68 24..22=3 rd rs1 imm12
+l.s         rd rs1 imm12 9..7=2 6..0=0x68
+l.d         rd rs1 imm12 9..7=3 6..0=0x68
 
-s.s     31..25=0x69 24..22=2 rs2 rs1 imm12lo imm12hi
-s.d     31..25=0x69 24..22=3 rs2 rs1 imm12lo imm12hi
+s.s         imm12hi rs1 rs2 imm12lo 9..7=2 6..0=0x69
+s.d         imm12hi rs1 rs2 imm12lo 9..7=3 6..0=0x69
 
-madd.s  31..25=0x6C 24..23=0 rd rs1 rs2 rs3 rm
-msub.s  31..25=0x6D 24..23=0 rd rs1 rs2 rs3 rm
-nmsub.s 31..25=0x6E 24..23=0 rd rs1 rs2 rs3 rm
-nmadd.s 31..25=0x6F 24..23=0 rd rs1 rs2 rs3 rm
-
-madd.d  31..25=0x6C 24..23=3 rd rs1 rs2 rs3 rm
-msub.d  31..25=0x6D 24..23=3 rd rs1 rs2 rs3 rm
-nmsub.d 31..25=0x6E 24..23=3 rd rs1 rs2 rs3 rm
-nmadd.d 31..25=0x6F 24..23=3 rd rs1 rs2 rs3 rm
+madd.s      rd rs1 rs2 rs3 rm 8..7=0 6..0=0x6C
+msub.s      rd rs1 rs2 rs3 rm 8..7=0 6..0=0x6D
+nmsub.s     rd rs1 rs2 rs3 rm 8..7=0 6..0=0x6E
+nmadd.s     rd rs1 rs2 rs3 rm 8..7=0 6..0=0x6F
+                                        
+madd.d      rd rs1 rs2 rs3 rm 8..7=3 6..0=0x6C
+msub.d      rd rs1 rs2 rs3 rm 8..7=3 6..0=0x6D
+nmsub.d     rd rs1 rs2 rs3 rm 8..7=3 6..0=0x6E
+nmadd.d     rd rs1 rs2 rs3 rm 8..7=3 6..0=0x6F
