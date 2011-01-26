@@ -197,6 +197,16 @@
 &
 \multicolumn{1}{|c|}{0000000} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{2}{c|}{000000} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rd} & SLLI rd,rs1,shamt \\
+\cline{2-10}
+  
+
+&
+\multicolumn{1}{|c|}{0000000} &
+\multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & SLTI rd,rs1,imm12 \\
@@ -217,7 +227,27 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & ANDI rd,rs1,imm12 \\
+\multicolumn{1}{c|}{rd} & XORI rd,rs1,imm12 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{1}{|c|}{0000000} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{2}{c|}{000000} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rd} & SRLI rd,rs1,shamt \\
+\cline{2-10}
+  
+
+&
+\multicolumn{1}{|c|}{0000000} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{2}{c|}{000001} &
+\multicolumn{2}{c|}{shamt} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rd} & SRAI rd,rs1,shamt \\
 \cline{2-10}
   
 
@@ -235,37 +265,7 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & XORI rd,rs1,imm12 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{2}{c|}{000} &
-\multicolumn{2}{c|}{000000} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & SLLI rd,rs1,shamt \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{2}{c|}{000} &
-\multicolumn{2}{c|}{000000} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & SRLI rd,rs1,shamt \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{2}{c|}{000} &
-\multicolumn{2}{c|}{000000} &
-\multicolumn{2}{c|}{shamt} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & SRAI rd,rs1,shamt \\
+\multicolumn{1}{c|}{rd} & ANDI rd,rs1,imm12 \\
 \cline{2-10}
   
 
@@ -280,10 +280,19 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{5}{c|}{0000000010} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & SUB rd,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{1}{|c|}{0000000} &
+\multicolumn{5}{c|}{0000000000} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rd} & SLL rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -310,7 +319,25 @@
 \multicolumn{5}{c|}{0000000000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & AND rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & XOR rd,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{1}{|c|}{0000000} &
+\multicolumn{5}{c|}{0000000000} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rd} & SRL rd,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{1}{|c|}{0000000} &
+\multicolumn{5}{c|}{0000000010} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rd} & SRA rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -328,34 +355,7 @@
 \multicolumn{5}{c|}{0000000000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & XOR rd,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & SLL rd,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & SRL rd,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & SRA rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & AND rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -456,7 +456,7 @@
 &
 \multicolumn{1}{|c|}{0000000} &
 \multicolumn{2}{c|}{000} &
-\multicolumn{2}{c|}{000000} &
+\multicolumn{2}{c|}{000001} &
 \multicolumn{1}{c|}{0} &
 \multicolumn{1}{c|}{shamtw} &
 \multicolumn{1}{c|}{rd} &
@@ -475,7 +475,7 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{5}{c|}{0000000010} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & SUBW rd,rs1,rs2 \\
@@ -502,7 +502,7 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{5}{c|}{0000000010} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & SRAW rd,rs1,rs2 \\
@@ -668,7 +668,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOADD.W rd,rs1,rs2 \\
@@ -677,7 +678,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOSWAP.W rd,rs1,rs2 \\
@@ -686,7 +688,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOAND.W rd,rs1,rs2 \\
@@ -695,7 +698,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOOR.W rd,rs1,rs2 \\
@@ -704,7 +708,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOMIN.W rd,rs1,rs2 \\
@@ -713,7 +718,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOMAX.W rd,rs1,rs2 \\
@@ -722,7 +728,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOMINU.W rd,rs1,rs2 \\
@@ -731,7 +738,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOMAXU.W rd,rs1,rs2 \\
@@ -740,7 +748,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOADD.D rd,rs1,rs2 \\
@@ -749,7 +758,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOSWAP.D rd,rs1,rs2 \\
@@ -758,7 +768,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOAND.D rd,rs1,rs2 \\
@@ -767,7 +778,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOOR.D rd,rs1,rs2 \\
@@ -776,7 +788,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOMIN.D rd,rs1,rs2 \\
@@ -785,7 +798,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOMAX.D rd,rs1,rs2 \\
@@ -794,7 +808,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOMINU.D rd,rs1,rs2 \\
@@ -803,7 +818,8 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
+\multicolumn{3}{c|}{00000} &
+\multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & AMOMAXU.D rd,rs1,rs2 \\
@@ -1408,24 +1424,6 @@
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{imm12lo} & SF.D imm12hi,rs1,rs2,imm12lo \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FSEL.S rd,rs1,rs2,rs3 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FSEL.D rd,rs1,rs2,rs3 \\
 \cline{2-10}
   
 
