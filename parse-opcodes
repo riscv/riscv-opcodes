@@ -649,20 +649,20 @@ def print_verilog_ish_type(name,match,arguments):
     name.replace('.','_').upper(), \
     str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
+    binary(yank(match,16,6),6), \
     str_verilog_arg('shamt','',match,arguments), \
-    binary(yank(match,10,6),6), \
     binary(yank(match,7,3),3), \
     binary(yank(match,0,7),7) \
   )
 
 def print_verilog_ishw_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_0_%s_%s_%s_%s" % \
+  print "`define %-10s 32'b%s_%s_%s_0_%s_%s_%s" % \
   ( \
     name.replace('.','_').upper(), \
     str_verilog_arg('rd','',match,arguments), \
     str_verilog_arg('rs1','',match,arguments), \
+    binary(yank(match,16,6),6), \
     str_verilog_arg('shamtw','',match,arguments), \
-    binary(yank(match,10,6),6), \
     binary(yank(match,7,3),3), \
     binary(yank(match,0,7),7) \
   )
