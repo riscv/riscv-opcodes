@@ -78,7 +78,6 @@ l.d     rd rs1       imm12 9..7=3 6..2=0x00 1..0=3
 l.bu    rd rs1       imm12 9..7=4 6..2=0x00 1..0=3
 l.hu    rd rs1       imm12 9..7=5 6..2=0x00 1..0=3
 l.wu    rd rs1       imm12 9..7=6 6..2=0x00 1..0=3
-synci   31..27=0 rs1 imm12 9..7=7 6..2=0x00 1..0=3
 
 # NOTE: if you add new store instructions, make sure to modify tc-mips-riscv.c
 # and elfxx-mips.c to detect them.  this is a hack to handle the split immed.
@@ -107,6 +106,7 @@ amominu.d    rd rs1 rs2 16..10=6 9..7=3 6..2=0x10 1..0=3
 amomaxu.d    rd rs1 rs2 16..10=7 9..7=3 6..2=0x10 1..0=3
 
 rdnpc   rd       26..22=0 21..17=0 16..10=0 9..7=0 6..2=0x05 1..0=3
+synci   31..27=0 26..22=0 21..17=0 16..10=0 9..7=1 6..2=0x05 1..0=3
 sync    31..27=0 26..22=0 21..17=0 16..10=0 9..7=2 6..2=0x05 1..0=3
 syscall 31..27=0 26..22=0        imm12      9..7=3 6..2=0x05 1..0=3
 
