@@ -847,24 +847,6 @@
 &
 \multicolumn{1}{|c|}{0000000} &
 \multicolumn{5}{c|}{0000000000} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rd} & MFCR rd,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{00000} & MTCR rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000000} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{00000} & SYNC  \\
@@ -1375,8 +1357,8 @@
 \multicolumn{1}{|c|}{0000000} &
 \multicolumn{5}{c|}{0000000011} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & MTF.S rd,rs1 \\
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rd} & MFFSR rd \\
 \cline{2-10}
   
 
@@ -1385,7 +1367,7 @@
 \multicolumn{5}{c|}{0000000011} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & MTF.D rd,rs1 \\
+\multicolumn{1}{c|}{rd} & MTF.S rd,rs1 \\
 \cline{2-10}
   
 
@@ -1394,7 +1376,16 @@
 \multicolumn{5}{c|}{0000000011} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & MTFLH.D rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & MTF.D rd,rs1,rs2 \\
+\cline{2-10}
+  
+
+&
+\multicolumn{1}{|c|}{0000000} &
+\multicolumn{5}{c|}{0000000011} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{00000} & MTFSR rs1 \\
 \cline{2-10}
   
 
@@ -1818,15 +1809,6 @@
 &
 \multicolumn{1}{|c|}{0000000} &
 \multicolumn{5}{c|}{0000000011} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & MTFLH.D rd,rs1,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000011} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rd} & MTF.S rd,rs1 \\
@@ -1836,9 +1818,9 @@
 &
 \multicolumn{1}{|c|}{0000000} &
 \multicolumn{5}{c|}{0000000011} &
-\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & MTF.D rd,rs1 \\
+\multicolumn{1}{c|}{rd} & MTF.D rd,rs1,rs2 \\
 \cline{2-10}
   
 
