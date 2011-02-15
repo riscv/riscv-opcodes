@@ -568,7 +568,7 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & L.B rd,rs1,imm12 \\
+\multicolumn{1}{c|}{rd} & LB rd,rs1,imm12 \\
 \cline{2-10}
   
 
@@ -577,7 +577,7 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & L.H rd,rs1,imm12 \\
+\multicolumn{1}{c|}{rd} & LH rd,rs1,imm12 \\
 \cline{2-10}
   
 
@@ -586,7 +586,7 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & L.W rd,rs1,imm12 \\
+\multicolumn{1}{c|}{rd} & LW rd,rs1,imm12 \\
 \cline{2-10}
   
 
@@ -595,7 +595,7 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & L.D rd,rs1,imm12 \\
+\multicolumn{1}{c|}{rd} & LD rd,rs1,imm12 \\
 \cline{2-10}
   
 
@@ -604,7 +604,7 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & L.BU rd,rs1,imm12 \\
+\multicolumn{1}{c|}{rd} & LBU rd,rs1,imm12 \\
 \cline{2-10}
   
 
@@ -613,7 +613,7 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & L.HU rd,rs1,imm12 \\
+\multicolumn{1}{c|}{rd} & LHU rd,rs1,imm12 \\
 \cline{2-10}
   
 
@@ -622,7 +622,7 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & L.WU rd,rs1,imm12 \\
+\multicolumn{1}{c|}{rd} & LWU rd,rs1,imm12 \\
 \cline{2-10}
   
 
@@ -632,7 +632,7 @@
 \multicolumn{3}{c|}{imm12hi} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{imm12lo} & S.B imm12hi,rs1,rs2,imm12lo \\
+\multicolumn{1}{c|}{imm12lo} & SB imm12hi,rs1,rs2,imm12lo \\
 \cline{2-10}
   
 
@@ -642,7 +642,7 @@
 \multicolumn{3}{c|}{imm12hi} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{imm12lo} & S.H imm12hi,rs1,rs2,imm12lo \\
+\multicolumn{1}{c|}{imm12lo} & SH imm12hi,rs1,rs2,imm12lo \\
 \cline{2-10}
   
 
@@ -652,7 +652,7 @@
 \multicolumn{3}{c|}{imm12hi} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{imm12lo} & S.W imm12hi,rs1,rs2,imm12lo \\
+\multicolumn{1}{c|}{imm12lo} & SW imm12hi,rs1,rs2,imm12lo \\
 \cline{2-10}
   
 
@@ -662,7 +662,7 @@
 \multicolumn{3}{c|}{imm12hi} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{imm12lo} & S.D imm12hi,rs1,rs2,imm12lo \\
+\multicolumn{1}{c|}{imm12lo} & SD imm12hi,rs1,rs2,imm12lo \\
 \cline{2-10}
   
 
@@ -967,7 +967,7 @@
 \multicolumn{5}{c|}{0000000000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FSINJ.S rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FSGNJ.S rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -976,7 +976,7 @@
 \multicolumn{5}{c|}{0000000000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FSINJN.S rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FSGNJN.S rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -985,7 +985,7 @@
 \multicolumn{5}{c|}{0000000000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FSMUL.S rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FSGNJX.S rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1049,7 +1049,7 @@
 \multicolumn{5}{c|}{0000000000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FSINJ.D rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FSGNJ.D rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1058,7 +1058,7 @@
 \multicolumn{5}{c|}{0000000000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FSINJN.D rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FSGNJN.D rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1067,7 +1067,7 @@
 \multicolumn{5}{c|}{0000000000} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FSMUL.D rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FSGNJX.D rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1089,7 +1089,7 @@
 \multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FCVTU.L.S rd,rs1[,rm] \\
+\multicolumn{1}{c|}{rd} & FCVT.LU.S rd,rs1[,rm] \\
 \cline{2-10}
   
 
@@ -1111,7 +1111,7 @@
 \multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FCVTU.W.S rd,rs1[,rm] \\
+\multicolumn{1}{c|}{rd} & FCVT.WU.S rd,rs1[,rm] \\
 \cline{2-10}
   
 
@@ -1133,7 +1133,7 @@
 \multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FCVTU.L.D rd,rs1[,rm] \\
+\multicolumn{1}{c|}{rd} & FCVT.LU.D rd,rs1[,rm] \\
 \cline{2-10}
   
 
@@ -1155,7 +1155,7 @@
 \multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FCVTU.W.D rd,rs1[,rm] \\
+\multicolumn{1}{c|}{rd} & FCVT.WU.D rd,rs1[,rm] \\
 \cline{2-10}
   
 
@@ -1177,7 +1177,7 @@
 \multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FCVTU.S.L rd,rs1[,rm] \\
+\multicolumn{1}{c|}{rd} & FCVT.S.LU rd,rs1[,rm] \\
 \cline{2-10}
   
 
@@ -1199,7 +1199,7 @@
 \multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FCVTU.S.W rd,rs1[,rm] \\
+\multicolumn{1}{c|}{rd} & FCVT.S.WU rd,rs1[,rm] \\
 \cline{2-10}
   
 
@@ -1221,7 +1221,7 @@
 \multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FCVTU.D.L rd,rs1[,rm] \\
+\multicolumn{1}{c|}{rd} & FCVT.D.LU rd,rs1[,rm] \\
 \cline{2-10}
   
 
@@ -1239,7 +1239,7 @@
 \multicolumn{5}{c|}{0000000001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FCVTU.D.W rd,rs1 \\
+\multicolumn{1}{c|}{rd} & FCVT.D.WU rd,rs1 \\
 \cline{2-10}
   
 
@@ -1256,10 +1256,12 @@
 
 &
 \multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000010} &
+\multicolumn{1}{c|}{00} &
+\multicolumn{2}{c|}{rm} &
+\multicolumn{2}{c|}{00010} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FCVT.D.S rd,rs1 \\
+\multicolumn{1}{c|}{rd} & FCVT.D.S rd,rs1[,rm] \\
 \cline{2-10}
   
 
@@ -1268,7 +1270,7 @@
 \multicolumn{5}{c|}{0000000010} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FC.EQ.S rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FEQ.S rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1277,7 +1279,7 @@
 \multicolumn{5}{c|}{0000000010} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FC.LT.S rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FLT.S rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1286,7 +1288,7 @@
 \multicolumn{5}{c|}{0000000010} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FC.LE.S rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FLE.S rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1295,7 +1297,7 @@
 \multicolumn{5}{c|}{0000000010} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FC.EQ.D rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FEQ.D rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1304,7 +1306,7 @@
 \multicolumn{5}{c|}{0000000010} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FC.LT.D rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FLT.D rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1313,7 +1315,7 @@
 \multicolumn{5}{c|}{0000000010} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & FC.LE.D rd,rs1,rs2 \\
+\multicolumn{1}{c|}{rd} & FLE.D rd,rs1,rs2 \\
 \cline{2-10}
   
 
@@ -1322,7 +1324,7 @@
 \multicolumn{5}{c|}{0000000011} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rd} & MFF.S rd,rs2 \\
+\multicolumn{1}{c|}{rd} & MFTX.S rd,rs2 \\
 \cline{2-10}
   
 
@@ -1331,7 +1333,7 @@
 \multicolumn{5}{c|}{0000000011} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rd} & MFF.D rd,rs2 \\
+\multicolumn{1}{c|}{rd} & MFTX.D rd,rs2 \\
 \cline{2-10}
   
 
@@ -1349,7 +1351,7 @@
 \multicolumn{5}{c|}{0000000011} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & MTF.S rd,rs1 \\
+\multicolumn{1}{c|}{rd} & MXTF.S rd,rs1 \\
 \cline{2-10}
   
 
@@ -1358,7 +1360,7 @@
 \multicolumn{5}{c|}{0000000011} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & MTF.D rd,rs1 \\
+\multicolumn{1}{c|}{rd} & MXTF.D rd,rs1 \\
 \cline{2-10}
   
 
@@ -1376,7 +1378,7 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & LF.W rd,rs1,imm12 \\
+\multicolumn{1}{c|}{rd} & FLW rd,rs1,imm12 \\
 \cline{2-10}
   
 
@@ -1385,7 +1387,7 @@
 \multicolumn{2}{c|}{000} &
 \multicolumn{4}{c|}{imm12} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & LF.D rd,rs1,imm12 \\
+\multicolumn{1}{c|}{rd} & FLD rd,rs1,imm12 \\
 \cline{2-10}
   
 
@@ -1395,7 +1397,7 @@
 \multicolumn{3}{c|}{imm12hi} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{imm12lo} & SF.W imm12hi,rs1,rs2,imm12lo \\
+\multicolumn{1}{c|}{imm12lo} & FSW imm12hi,rs1,rs2,imm12lo \\
 \cline{2-10}
   
 
@@ -1405,7 +1407,7 @@
 \multicolumn{3}{c|}{imm12hi} &
 \multicolumn{1}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{imm12lo} & SF.D imm12hi,rs1,rs2,imm12lo \\
+\multicolumn{1}{c|}{imm12lo} & FSD imm12hi,rs1,rs2,imm12lo \\
 \cline{2-10}
   
 
@@ -1789,45 +1791,9 @@
   
 
 &
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000011} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & MTF.S rd,rs1 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000011} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rd} & MTF.D rd,rs1 \\
-\cline{2-10}
-  
-
-&
 \multicolumn{9}{c}{} & \\
 &
 \multicolumn{9}{c}{\bf Floating-Point to Integer Move \& Conversion Instructions} & \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000011} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rd} & MFF.S rd,rs2 \\
-\cline{2-10}
-  
-
-&
-\multicolumn{1}{|c|}{0000000} &
-\multicolumn{5}{c|}{0000000011} &
-\multicolumn{1}{c|}{rs2} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{rd} & MFF.D rd,rs2 \\
 \cline{2-10}
   
 
