@@ -88,23 +88,23 @@ sh     imm12hi rs1 rs2 imm12lo 9..7=1 6..2=0x08 1..0=3
 sw     imm12hi rs1 rs2 imm12lo 9..7=2 6..2=0x08 1..0=3
 sd     imm12hi rs1 rs2 imm12lo 9..7=3 6..2=0x08 1..0=3
 
-amoadd.w    rd rs1 rs2 16..10=0 9..7=2 6..2=0x10 1..0=3
-amoswap.w   rd rs1 rs2 16..10=1 9..7=2 6..2=0x10 1..0=3
-amoand.w    rd rs1 rs2 16..10=2 9..7=2 6..2=0x10 1..0=3
-amoor.w     rd rs1 rs2 16..10=3 9..7=2 6..2=0x10 1..0=3
-amomin.w    rd rs1 rs2 16..10=4 9..7=2 6..2=0x10 1..0=3
-amomax.w    rd rs1 rs2 16..10=5 9..7=2 6..2=0x10 1..0=3
-amominu.w   rd rs1 rs2 16..10=6 9..7=2 6..2=0x10 1..0=3
-amomaxu.w   rd rs1 rs2 16..10=7 9..7=2 6..2=0x10 1..0=3
+amoadd.w    rd rs1 rs2 16..10=0 9..7=2 6..2=0x0A 1..0=3
+amoswap.w   rd rs1 rs2 16..10=1 9..7=2 6..2=0x0A 1..0=3
+amoand.w    rd rs1 rs2 16..10=2 9..7=2 6..2=0x0A 1..0=3
+amoor.w     rd rs1 rs2 16..10=3 9..7=2 6..2=0x0A 1..0=3
+amomin.w    rd rs1 rs2 16..10=4 9..7=2 6..2=0x0A 1..0=3
+amomax.w    rd rs1 rs2 16..10=5 9..7=2 6..2=0x0A 1..0=3
+amominu.w   rd rs1 rs2 16..10=6 9..7=2 6..2=0x0A 1..0=3
+amomaxu.w   rd rs1 rs2 16..10=7 9..7=2 6..2=0x0A 1..0=3
                                         
-amoadd.d     rd rs1 rs2 16..10=0 9..7=3 6..2=0x10 1..0=3
-amoswap.d    rd rs1 rs2 16..10=1 9..7=3 6..2=0x10 1..0=3
-amoand.d     rd rs1 rs2 16..10=2 9..7=3 6..2=0x10 1..0=3
-amoor.d      rd rs1 rs2 16..10=3 9..7=3 6..2=0x10 1..0=3
-amomin.d     rd rs1 rs2 16..10=4 9..7=3 6..2=0x10 1..0=3
-amomax.d     rd rs1 rs2 16..10=5 9..7=3 6..2=0x10 1..0=3
-amominu.d    rd rs1 rs2 16..10=6 9..7=3 6..2=0x10 1..0=3
-amomaxu.d    rd rs1 rs2 16..10=7 9..7=3 6..2=0x10 1..0=3
+amoadd.d     rd rs1 rs2 16..10=0 9..7=3 6..2=0x0A 1..0=3
+amoswap.d    rd rs1 rs2 16..10=1 9..7=3 6..2=0x0A 1..0=3
+amoand.d     rd rs1 rs2 16..10=2 9..7=3 6..2=0x0A 1..0=3
+amoor.d      rd rs1 rs2 16..10=3 9..7=3 6..2=0x0A 1..0=3
+amomin.d     rd rs1 rs2 16..10=4 9..7=3 6..2=0x0A 1..0=3
+amomax.d     rd rs1 rs2 16..10=5 9..7=3 6..2=0x0A 1..0=3
+amominu.d    rd rs1 rs2 16..10=6 9..7=3 6..2=0x0A 1..0=3
+amomaxu.d    rd rs1 rs2 16..10=7 9..7=3 6..2=0x0A 1..0=3
 
 fence.i rd rs1 imm12 9..7=1 6..2=0x0B 1..0=3
 fence   rd rs1 imm12 9..7=2 6..2=0x0B 1..0=3
@@ -159,7 +159,7 @@ fcvt.d.w    rd rs1 21..17=0 16..12=0xE  11..9=0 8..7=1 6..2=0x14 1..0=3
 fcvt.d.wu   rd rs1 21..17=0 16..12=0xF  11..9=0 8..7=1 6..2=0x14 1..0=3
 
 fcvt.s.d    rd rs1 21..17=0 16..14=0x4 13..12=1 rm 8..7=0 6..2=0x14 1..0=3
-fcvt.d.s    rd rs1 21..17=0 16..14=0x4 13..12=0 rm 8..7=1 6..2=0x14 1..0=3
+fcvt.d.s    rd rs1 21..17=0 16..14=0x4 13..12=0 11..9=0 8..7=1 6..2=0x14 1..0=3
 
 feq.s     rd rs1 rs2      16..12=0x15 11..9=0 8..7=0 6..2=0x14 1..0=3
 flt.s     rd rs1 rs2      16..12=0x16 11..9=0 8..7=0 6..2=0x14 1..0=3
