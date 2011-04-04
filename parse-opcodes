@@ -51,6 +51,7 @@ typelut[0x4B] = 8
 typelut[0x4F] = 8
 typelut[0x7B] = 4
 typelut[0x2B] = 4
+typelut[0x73] = 3
 
 opcode_base = 0
 opcode_size = 7
