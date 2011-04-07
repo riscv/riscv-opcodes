@@ -102,7 +102,7 @@ def make_switch(match,mask):
       for funct in range(0,1<<funct_size):
         has_some_instruction = 0
         for name in match.iterkeys():
-          if (opc << opcode_base | funct << funct_base) == (match[name] & (opcode_mask | funct_mask)):
+          if ((opc << opcode_base | funct << funct_base) & mask[name]) == (match[name] & (opcode_mask | funct_mask)):
             has_some_instruction = 1
         if not has_some_instruction: continue
         print '      case 0x%x:' % funct
@@ -120,7 +120,7 @@ def make_switch(match,mask):
           for name in match.iterkeys():
             name2 = name.replace('.','_')
             # case 2: general case: opcode + funct incompletely describe insn
-            if (opc << opcode_base | funct << funct_base) == (match[name] & (opcode_mask | funct_mask)):
+            if ((opc << opcode_base | funct << funct_base) & mask[name]) == (match[name] & (opcode_mask | funct_mask)):
               print '        if((insn.bits & 0x%x) == 0x%x)' % (mask[name],match[name])
               print '        {'
               print '          #include "insns/%s.h"' % name2
