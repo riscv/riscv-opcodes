@@ -80,7 +80,7 @@ lwu     rd rs1       imm12 9..7=6 6..2=0x00 1..0=3
 
 # NOTE: if you add new store instructions, make sure to modify tc-mips-riscv.c
 # and elfxx-mips.c to detect them.  this is a hack to handle the split immed.
-# just open up those files and search for MATCH_S_W; should be obvious.
+# just open up those files and search for MATCH_SW; should be obvious.
 sb     imm12hi rs1 rs2 imm12lo 9..7=0 6..2=0x08 1..0=3
 sh     imm12hi rs1 rs2 imm12lo 9..7=1 6..2=0x08 1..0=3
 sw     imm12hi rs1 rs2 imm12lo 9..7=2 6..2=0x08 1..0=3
@@ -318,3 +318,4 @@ vf          31..27=0 rs1 imm12    9..7=2     6..2=0x1C 1..0=3
 
 # compressed instructions
 c.addi cimm6 crd5 4..0=0
+c.li   cimm6 crd5 4..0=1
