@@ -6,8 +6,6 @@
 #
 # <args> is one of xa,xb,xc,fa,fb,fc,fd,imm,imm20,imm27,shamt,shamtw
 
-unimp   31..0=0
-
 j       imm25 6..2=0x19 1..0=3
 jal     imm25 6..2=0x1B 1..0=3
 
@@ -109,14 +107,14 @@ amomaxu.d    rd rs1 rs2 16..10=7 9..7=3 6..2=0x0A 1..0=3
 fence.i     rd rs1 imm12 9..7=1 6..2=0x0B 1..0=3
 fence       rd rs1 imm12 9..7=2 6..2=0x0B 1..0=3
 
+syscall 31..27=0 26..22=0 21..17=0 16..7=0 6..2=0x1D 1..0=3
+break   31..27=0 26..22=0 21..17=0 16..7=1 6..2=0x1D 1..0=3
+
 # vector fence instructions
 fence.l.v   rd rs1 imm12 9..7=4 6..2=0x0B 1..0=3
 fence.g.v   rd rs1 imm12 9..7=5 6..2=0x0B 1..0=3
 fence.l.cv  rd rs1 imm12 9..7=6 6..2=0x0B 1..0=3
 fence.g.cv  rd rs1 imm12 9..7=7 6..2=0x0B 1..0=3
-
-syscall 31..27=0 26..22=0 21..17=0 16..7=0 6..2=0x1D 1..0=3
-break   31..27=0 26..22=0 21..17=0 16..7=1 6..2=0x1D 1..0=3
 
 # vector scalar instructions
 stop    31..27=0 26..22=0 21..17=0 16..7=2 6..2=0x1D 1..0=3
@@ -317,3 +315,6 @@ fmov.us     rd rs1 rs2      16=1 15=1 14..12=0     11..7=3              6..2=0x0
 vcfgivl     rd       rs1 imm12    9..7=0     6..2=0x1C 1..0=3
 setvl       rd       rs1 21..10=0 9..7=1     6..2=0x1C 1..0=3
 vf          31..27=0 rs1 imm12    9..7=2     6..2=0x1C 1..0=3
+
+# compressed instructions
+c.addi cimm6 crd5 4..0=0
