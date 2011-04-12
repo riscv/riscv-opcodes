@@ -24,8 +24,11 @@ arglut['imm12lo'] = (16,10)
 arglut['shamt'] = (15,10)
 arglut['shamtw'] = (14,10)
 
-arglut['crd5'] = (9,5)
+arglut['crd'] = (9,5)
+arglut['crs2'] = (9,5)
+arglut['crs1'] = (14,10)
 arglut['cimm6'] = (15,10)
+arglut['cimm10'] = (14,5)
 
 typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=ish,7=ishw,10=b
 typelut[0x03] = 3

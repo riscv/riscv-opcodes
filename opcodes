@@ -317,5 +317,7 @@ setvl       rd       rs1 21..10=0 9..7=1     6..2=0x1C 1..0=3
 vf          31..27=0 rs1 imm12    9..7=2     6..2=0x1C 1..0=3
 
 # compressed instructions
-c.addi cimm6 crd5 4..0=0
-c.li   cimm6 crd5 4..0=1
+c.addi    cimm6  crd 4..0=0
+c.li      cimm6  crd 4..0=1
+c.move 15=0 crs1 crd 4..0=2
+c.j    15=1  cimm10  4..0=2
