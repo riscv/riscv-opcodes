@@ -318,15 +318,17 @@ setvl       rd       rs1 21..10=0 9..7=1     6..2=0x1C 1..0=3
 vf          31..27=0 rs1 imm12    9..7=2     6..2=0x1C 1..0=3
 
 # compressed instructions
-c.addi    cimm6   crd 4..0=0
-c.li      cimm6   crd 4..0=1
-c.move 15=0 crs1  crd 4..0=2
-c.j    15=1   cimm10  4..0=2
-c.ldsp    cimm6   crd 4..0=4
-c.lwsp    cimm6   crd 4..0=5
-c.sdsp    cimm6   crd 4..0=6
-c.swsp    cimm6   crd 4..0=8
-c.ld   crds crs1s cimm5 4..0=9
-c.lw   crds crs1s cimm5 4..0=10
-c.sd   crds crs1s cimm5 4..0=12
-c.sw   crds crs1s cimm5 4..0=13
+c.addi    cimm6    crd   4..0=0
+c.li      cimm6    crd   4..0=1
+c.move 15=0 crs1   crd   4..0=2
+c.j    15=1   cimm10     4..0=2
+c.ldsp    cimm6    crd   4..0=4
+c.lwsp    cimm6    crd   4..0=5
+c.sdsp    cimm6    crd   4..0=6
+c.swsp    cimm6    crd   4..0=8
+c.ld   crds  crs1s cimm5 4..0=9
+c.lw   crds  crs1s cimm5 4..0=10
+c.sd   crds  crs1s cimm5 4..0=12
+c.sw   crds  crs1s cimm5 4..0=13
+c.beq  crs2s crs1s cimm5 4..0=16
+c.bne  crs2s crs1s cimm5 4..0=17
