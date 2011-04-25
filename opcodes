@@ -354,3 +354,5 @@ c.add3 crds crs1s crs2bs 9..8=0 4..0=28
 c.sub3 crds crs1s crs2bs 9..8=1 4..0=28
 c.or3  crds crs1s crs2bs 9..8=2 4..0=28
 c.and3 crds crs1s crs2bs 9..8=3 4..0=28
+
+c.addiw cimm6 crd 4..0=29

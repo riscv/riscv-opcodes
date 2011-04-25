@@ -112,42 +112,17 @@ def make_switch(match,mask):
         break
 
     if not done:
-      print '    switch((insn.bits >> 0x%x) & 0x%x)' % (funct_base,(1<<funct_size)-1)
-      print '    {'
-      for funct in range(0,1<<funct_size):
-        has_some_instruction = 0
-        for name in match.iterkeys():
-          if ((opc << opcode_base | funct << funct_base) & mask[name]) == (match[name] & (opcode_mask | funct_mask)):
-            has_some_instruction = 1
-        if not has_some_instruction: continue
-        print '      case 0x%x:' % funct
-        print '      {'
-        done = 0
-        for name in match.iterkeys():
-          name2 = name.replace('.','_')
-          # case 1: opcode + funct code completely describe insn
-          if ((opc << opcode_base | funct << funct_base) & mask[name]) == match[name] and ((opcode_mask | funct_mask) & mask[name]) == mask[name]:
-            print '        #include "insns/%s.h"' % name2
-            print '        break;'
-            done = 1
-            break
         if not done:
           for name in match.iterkeys():
             name2 = name.replace('.','_')
             # case 2: general case: opcode + funct incompletely describe insn
-            if ((opc << opcode_base | funct << funct_base) & mask[name]) == (match[name] & (opcode_mask | funct_mask)):
+            if ((opc << opcode_base) & mask[name]) == (match[name] & opcode_mask):
               print '        if((insn.bits & 0x%x) == 0x%x)' % (mask[name],match[name])
               print '        {'
               print '          #include "insns/%s.h"' % name2
               print '          break;'
               print '        }'
           print '        throw trap_illegal_instruction;'
-        print '      }'
-      print '      default:'
-      print '      {'
-      print '        throw trap_illegal_instruction;'
-      print '      }'
-      print '    }'
     print '    break;'
     print '  }'
   print '  default:'
