@@ -1518,9 +1518,9 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{3}{c|}{10000} &
-\multicolumn{2}{c|}{000} &
+\multicolumn{2}{c|}{rm} &
 \multicolumn{1}{c|}{01} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.S rd,rs1 \\
+\multicolumn{1}{c|}{1010011} & FCVT.D.S rd,rs1[,rm] \\
 \cline{2-11}
   
 
@@ -1602,9 +1602,9 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{3}{c|}{01110} &
-\multicolumn{2}{c|}{000} &
+\multicolumn{2}{c|}{rm} &
 \multicolumn{1}{c|}{01} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.W rd,rs1 \\
+\multicolumn{1}{c|}{1010011} & FCVT.D.W rd,rs1[,rm] \\
 \cline{2-11}
   
 
@@ -1613,9 +1613,9 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{3}{c|}{01111} &
-\multicolumn{2}{c|}{000} &
+\multicolumn{2}{c|}{rm} &
 \multicolumn{1}{c|}{01} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.WU rd,rs1 \\
+\multicolumn{1}{c|}{1010011} & FCVT.D.WU rd,rs1[,rm] \\
 \cline{2-11}
   
 
@@ -2017,6 +2017,36 @@
 \multicolumn{4}{c|}{0000000} &
 \multicolumn{2}{c|}{001} &
 \multicolumn{1}{c|}{1110111} & BREAK  \\
+\cline{2-11}
+  
+
+&
+\multicolumn{1}{|c|}{rd} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000000} &
+\multicolumn{2}{c|}{100} &
+\multicolumn{1}{c|}{1110111} & RDCYCLE rd \\
+\cline{2-11}
+  
+
+&
+\multicolumn{1}{|c|}{rd} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000001} &
+\multicolumn{2}{c|}{100} &
+\multicolumn{1}{c|}{1110111} & RDTIME rd \\
+\cline{2-11}
+  
+
+&
+\multicolumn{1}{|c|}{rd} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{4}{c|}{0000010} &
+\multicolumn{2}{c|}{100} &
+\multicolumn{1}{c|}{1110111} & RDINSTRET rd \\
 \cline{2-11}
   
 
