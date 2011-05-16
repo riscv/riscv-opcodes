@@ -35,7 +35,7 @@ arglut['cimm6'] = (15,10)
 arglut['cimm10'] = (14,5)
 arglut['cimm5'] = (9,5)
 
-typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=ish,7=ishw,10=b
+typelut = {} # 0=unimp,1=j,2=lui,3=imm,4=r,5=r4,6=ish,7=ishw,,8=r4rm,9=rrm,10=b
 typelut[0x03] = 3
 typelut[0x07] = 3
 typelut[0x13] = 3
@@ -66,8 +66,8 @@ for i in range(0,3):
 
 # vector opcodes
 typelut[0x0B] = 4
-typelut[0x0F] = 5
-typelut[0x73] = 3
+typelut[0x0F] = 4
+typelut[0x73] = 4
 
 opcode_base = 0
 opcode_size = 7
@@ -295,6 +295,27 @@ def print_r_type(name,match,arguments):
     str_arg('rs2','',match,arguments), \
     binary(yank(match,10,7),7), \
     binary(yank(match,funct_base,funct_size),funct_size), \
+    binary(yank(match,opcode_base,opcode_size),opcode_size), \
+    str_inst(name,arguments) \
+  )
+
+def print_r4_type(name,match,arguments):
+  print """
+&
+\\multicolumn{1}{|c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{3}{c|}{%s} &
+\\multicolumn{3}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} & %s \\\\
+\\cline{2-11}
+  """ % \
+  ( \
+    str_arg('rd','',match,arguments), \
+    str_arg('rs1','',match,arguments), \
+    str_arg('rs2','',match,arguments), \
+    str_arg('rs3','',match,arguments), \
+    binary(yank(match,7,5),5), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
     str_inst(name,arguments) \
   )
@@ -787,10 +808,14 @@ for line in sys.stdin:
     types[name] = 3
   elif 'shamt' in arguments[name]:
     types[name] = 6
+  elif types[name] == 4 and 'rs3' in arguments[name]:
+    types[name] = 5
   elif types[name] == 5 and 'rm' in arguments[name]:
     types[name] = 8
   elif types[name] == 4 and 'rm' in arguments[name]:
     types[name] = 9
+  elif name == 'vsetvl':
+    types[name] = 3
 
   namelist.append(name)
 
