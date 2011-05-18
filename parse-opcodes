@@ -122,12 +122,12 @@ def make_switch(match,mask):
               print '          #include "insns/%s.h"' % name2
               print '          break;'
               print '        }'
-          print '        throw trap_illegal_instruction;'
+          print '        throw_illegal_instruction;'
     print '    break;'
     print '  }'
   print '  default:'
   print '  {'
-  print '    throw trap_illegal_instruction;'
+  print '    throw_illegal_instruction;'
   print '  }'
   print '}'
 
