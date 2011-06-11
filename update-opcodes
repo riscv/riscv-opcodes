@@ -3,4 +3,4 @@
 ./parse-opcodes -verilog < opcodes > inst.v
 ./parse-opcodes -disasm < opcodes > ../xcc/src/include/opcode/mips-riscv-opc.h
 ./parse-opcodes -disasm < opcodes > ../pk/pk/riscv-opc.h
-./parse-opcodes -switch ../sim/riscv < opcodes
+./parse-opcodes -switch < opcodes > ../sim/riscv/opcodes.h
