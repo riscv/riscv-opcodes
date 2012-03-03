@@ -1,6 +1,6 @@
-ISASIM_H := ../riscv-isa-run/riscv/opcodes.h
+ISASIM_H := ../riscv-isa-sim/riscv/opcodes.h
 PK_H := ../riscv-pk/pk/riscv-opc.h
-XCC_H := ../riscv-gcc/src/include/opcode/mips-riscv-opc.h
+XCC_H := ../riscv-gcc/binutils-2.21.1/include/opcode/riscv-opc.h
 
 install: $(ISASIM_H) $(PK_H) $(XCC_H) inst.v instr-table.tex
 
