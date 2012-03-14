@@ -336,6 +336,8 @@ vfmvv       rd       rs1 21..17=0                  16..11=0 10..8=1 7=0 6..2=0x1
 vfmsv       rd       rs1 21..17=0                  16..11=1 10..8=1 7=0 6..2=0x1C 1..0=3
 vfmst       rd       rs1 rs2                       16..11=2 10..8=1 7=0 6..2=0x1C 1..0=3
 vfmts       rd       rs1 rs2                       16..11=3 10..8=1 7=0 6..2=0x1C 1..0=3
+vvcfg       31..27=0 rs1 rs2                       16..11=0 10..8=4 7=0 6..2=0x1C 1..0=3
+vtcfg       31..27=0 rs1 rs2                       16..11=1 10..8=4 7=0 6..2=0x1C 1..0=3
 
 # other vector immediate instructions
 vvcfgivl    rd       rs1 imm12                               9..8=0 7=1 6..2=0x1C 1..0=3
