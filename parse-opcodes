@@ -46,6 +46,7 @@ typelut[0x2B] = 4
 typelut[0x2F] = 4
 typelut[0x33] = 4
 typelut[0x37] = 2
+typelut[0x17] = 2
 typelut[0x3B] = 4
 typelut[0x43] = 8
 typelut[0x47] = 8

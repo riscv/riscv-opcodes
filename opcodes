@@ -12,7 +12,6 @@ jal     imm25 6..2=0x1B 1..0=3
 jalr.c  rd rs1      imm12    9..7=0 6..2=0x1A 1..0=3
 jalr.r  rd rs1      imm12    9..7=1 6..2=0x1A 1..0=3
 jalr.j  rd rs1      imm12    9..7=2 6..2=0x1A 1..0=3
-rdnpc   rd 26..22=0 21..10=0 9..7=4 6..2=0x1A 1..0=3
 
 beq     imm12hi rs1 rs2 imm12lo 9..7=0 6..2=0x18 1..0=3
 bne     imm12hi rs1 rs2 imm12lo 9..7=1 6..2=0x18 1..0=3
@@ -22,6 +21,7 @@ bltu    imm12hi rs1 rs2 imm12lo 9..7=6 6..2=0x18 1..0=3
 bgeu    imm12hi rs1 rs2 imm12lo 9..7=7 6..2=0x18 1..0=3
 
 lui     rd imm20 6..2=0x0D 1..0=3
+auipc   rd imm20 6..2=0x05 1..0=3
 
 addi    rd rs1 imm12               9..7=0 6..2=0x04 1..0=3
 slli    rd rs1 21..17=0 16=0 shamt 9..7=1 6..2=0x04 1..0=3
@@ -103,6 +103,11 @@ amomin.d     rd rs1 rs2 16..10=4 9..7=3 6..2=0x0A 1..0=3
 amomax.d     rd rs1 rs2 16..10=5 9..7=3 6..2=0x0A 1..0=3
 amominu.d    rd rs1 rs2 16..10=6 9..7=3 6..2=0x0A 1..0=3
 amomaxu.d    rd rs1 rs2 16..10=7 9..7=3 6..2=0x0A 1..0=3
+
+lr.w rd rs1 21..17=0 16=1 15..10=0 9..7=2 6..2=0x0A 1..0=3
+lr.d rd rs1 21..17=0 16=1 15..10=0 9..7=3 6..2=0x0A 1..0=3
+sc.w rd rs1 rs2      16=1 15..10=1 9..7=2 6..2=0x0A 1..0=3
+sc.d rd rs1 rs2      16=1 15..10=1 9..7=3 6..2=0x0A 1..0=3
 
 fence.i     rd rs1 imm12 9..7=1 6..2=0x0B 1..0=3
 fence       rd rs1 imm12 9..7=2 6..2=0x0B 1..0=3
