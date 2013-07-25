@@ -9,9 +9,7 @@
 j       imm25 6..2=0x19 1..0=3
 jal     imm25 6..2=0x1B 1..0=3
 
-jalr.c  rd rs1      imm12    9..7=0 6..2=0x1A 1..0=3
-jalr.r  rd rs1      imm12    9..7=1 6..2=0x1A 1..0=3
-jalr.j  rd rs1      imm12    9..7=2 6..2=0x1A 1..0=3
+jalr    rd rs1      imm12    9..7=0 6..2=0x1A 1..0=3
 
 beq     imm12hi rs1 rs2 imm12lo 9..7=0 6..2=0x18 1..0=3
 bne     imm12hi rs1 rs2 imm12lo 9..7=1 6..2=0x18 1..0=3
