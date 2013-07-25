@@ -8,7 +8,6 @@ namelist = []
 match = {}
 mask = {}
 arguments = {}
-types = {}
 
 arglut = {}
 arglut['rd'] = (31,27)
@@ -114,7 +113,6 @@ def str_inst(name,arguments):
     ret = ret + arguments[idx]
     if idx != len(arguments)-1:
       ret = ret + ','
-  ret = ret.replace(',rm','[,rm]')
   return ret
 
 def print_unimp_type(name,match,arguments):
@@ -334,17 +332,6 @@ def print_header():
 \\begin{small}
 \\begin{center}
 \\begin{tabular}{rccccccccccl}
-                &
-\\hspace*{0.6in} &
-\\hspace*{0.3in} &
-\\hspace*{0.1in} &
-\\hspace*{0.1in} &
-\\hspace*{0.2in} &
-\\hspace*{0.2in} &
-\\hspace*{0.1in} &
-\\hspace*{0.3in} &
-\\hspace*{0.3in} &
-\\hspace*{0.3in} \\\\
                       &
 \\instbitrange{31}{27} &
 \\instbitrange{26}{22} &
@@ -363,8 +350,8 @@ def print_header():
 \\cline{2-11}
 &
 \\multicolumn{1}{|c|}{rd} &
-\\multicolumn{8}{c|}{LUI-immediate} &
-\\multicolumn{1}{c|}{opcode} & LUI-type \\\\
+\\multicolumn{8}{c|}{upper immediate} &
+\\multicolumn{1}{c|}{opcode} & U-type \\\\
 \\cline{2-11}
 &
 \\multicolumn{1}{|c|}{rd} &
@@ -418,296 +405,106 @@ def print_footer(caption):
 \\end{table}
   """ % (caption and '\\caption{Instruction listing for RISC-V}' or '')
 
-def print_insts(opcode,name,type,min,max):
-  for n in namelist:
-    if yank(match[n],opcode_base,opcode_size) == opcode or n == name:
-      if type == -1 or types[n] == type:
-        if types[n] == 0:
-          print_unimp_type(n,match[n],arguments[n])
-        elif types[n] == 1:
-          print_j_type(n,match[n],arguments[n])
-        elif types[n] == 2:
-          print_lui_type(n,match[n],arguments[n])
-        elif types[n] == 3:
-          print_i_type(n,match[n],arguments[n])
-        elif types[n] == 4 \
-          and (min == -1 or yank(match[n],5,10) >= min) \
-          and (max == -1 or yank(match[n],5,10) <= max):
-          print_r_type(n,match[n],arguments[n])
-        elif types[n] == 5:
-          print_r4_type(n,match[n],arguments[n])
-        elif types[n] == 6:
-          print_ish_type(n,match[n],arguments[n])
-        elif types[n] == 7:
-          print_ishw_type(n,match[n],arguments[n])
-        elif types[n] == 8:
-          print_r4_rm_type(n,match[n],arguments[n])
-        elif types[n] == 9:
-          print_r_rm_type(n,match[n],arguments[n])
-        elif types[n] == 10:
-          print_b_type(n,match[n],arguments[n])
+def print_inst(n):
+  if 'shamt' in arguments[n]:
+    print_ish_type(n, match[n], arguments[n])
+  elif 'shamtw' in arguments[n]:
+    print_ishw_type(n, match[n], arguments[n])
+  elif 'imm25' in arguments[n]:
+    print_j_type(n, match[n], arguments[n])
+  elif 'imm20' in arguments[n]:
+    print_lui_type(n, match[n], arguments[n])
+  elif 'imm12' in arguments[n]:
+    print_i_type(n, match[n], arguments[n])
+  elif 'imm12hi' in arguments[n]:
+    print_b_type(n, match[n], arguments[n])
+  elif 'rs3' in arguments[n] and 'rm' in arguments[n]:
+    print_r4_rm_type(n, match[n], arguments[n])
+  elif 'rs3' in arguments[n]:
+    print_r4_type(n, match[n], arguments[n])
+  elif 'rm' in arguments[n]:
+    print_r_rm_type(n, match[n], arguments[n])
+  else:
+    print_r_type(n, match[n], arguments[n])
+
+def print_insts(*names):
+  for n in names:
+    print_inst(n)
 
 def make_latex_table():
   print_header()
-  print_subtitle('Unimplemented Instruction')
-  print_insts(0x00,'',-1,-1,-1)
-  print_subtitle('Control Transfer Instructions')
-  print_insts(0x67,'',-1,-1,-1)
-  print_insts(0x6f,'',-1,-1,-1)
-  print_insts(0x63,'',-1,-1,-1)
-  print_insts(0x6b,'',-1,-1,-1)
-  print_subtitle('Memory Instructions')
-  print_insts(0x03,'',-1,-1,-1)
-  print_insts(0x23,'',-1,-1,-1)
-  print_subtitle('Atomic Memory Instructions')
-  print_insts(0x2b,'',-1,-1,-1)
+  print_subtitle('RV32I Instruction Subset')
+  print_insts('lui', 'auipc')
+  print_insts('j', 'jal', 'jalr', 'beq', 'bne', 'blt', 'bge', 'bltu', 'bgeu')
+  print_insts('lb', 'lh', 'lw', 'lbu', 'lhu', 'sb', 'sh', 'sw')
+  print_insts('addi', 'slli', 'slti', 'sltiu', 'xori', 'srli', 'srai', 'ori', 'andi')
+  print_insts('add', 'sub', 'sll', 'slt', 'sltu', 'xor', 'srl', 'sra', 'or', 'and')
+  print_insts('fence.i', 'fence')
+  print_insts('syscall', 'break', 'rdcycle', 'rdtime', 'rdinstret')
   print_footer(0)
 
   print_header()
-  print_subtitle('Integer Compute Instructions')
-  print_insts(0x13,'',-1,-1,-1)
-  print_insts(0x33,'',-1,-1,-1)
-  print_insts(0x37,'',-1,-1,-1)
-  print_subtitle('32-bit Integer Compute Instructions')
-  print_insts(0x1b,'',-1,-1,-1)
-  print_insts(0x3b,'',-1,-1,-1)
+  print_subtitle('RV64I Instruction Subset')
+  print_insts('lwu', 'ld', 'sd')
+  print_insts('addiw', 'slliw', 'srliw', 'sraiw')
+  print_insts('addw', 'subw', 'sllw', 'srlw', 'sraw')
+  print_subtitle('RV32M Instruction Subset')
+  print_insts('mul', 'mulh', 'mulhsu', 'mulhu')
+  print_insts('div', 'divu', 'rem', 'remu')
+  print_subtitle('RV64M Instruction Subset')
+  print_insts('mulw', 'divw', 'divuw', 'remw', 'remuw')
+  print_subtitle('RV32A Instruction Subset')
+  print_insts('amoadd.w', 'amoswap.w', 'amoand.w', 'amoor.w')
+  print_insts('amomin.w', 'amomax.w', 'amominu.w', 'amomaxu.w')
+  print_insts('lr.w', 'sc.w')
   print_footer(0)
 
   print_header()
-  print_subtitle('Floating-Point Memory Instructions')
-  print_insts(0x07,'',-1,-1,-1)
-  print_insts(0x27,'',-1,-1,-1)
-  print_subtitle('Floating-Point Compute Instructions')
-  print_insts(-1,'fadd.s',-1,-1,-1)
-  print_insts(-1,'fsub.s',-1,-1,-1)
-  print_insts(-1,'fmul.s',-1,-1,-1)
-  print_insts(-1,'fdiv.s',-1,-1,-1)
-  print_insts(-1,'fsqrt.s',-1,-1,-1)
-  print_insts(-1,'fmin.s',-1,-1,-1)
-  print_insts(-1,'fmax.s',-1,-1,-1)
-  print_insts(-1,'fadd.d',-1,-1,-1)
-  print_insts(-1,'fsub.d',-1,-1,-1)
-  print_insts(-1,'fmul.d',-1,-1,-1)
-  print_insts(-1,'fdiv.d',-1,-1,-1)
-  print_insts(-1,'fsqrt.d',-1,-1,-1)
-  print_insts(-1,'fmin.d',-1,-1,-1)
-  print_insts(-1,'fmax.d',-1,-1,-1)
-  print_insts(-1,'fmadd.s',-1,-1,-1)
-  print_insts(-1,'fmsub.s',-1,-1,-1)
-  print_insts(-1,'fnmsub.s',-1,-1,-1)
-  print_insts(-1,'fnmadd.s',-1,-1,-1)
-  print_insts(-1,'fmadd.d',-1,-1,-1)
-  print_insts(-1,'fmsub.d',-1,-1,-1)
-  print_insts(-1,'fnmsub.d',-1,-1,-1)
-  print_insts(-1,'fnmadd.d',-1,-1,-1)
+  print_subtitle('RV64A Instruction Subset')
+  print_insts('amoadd.d', 'amoswap.d', 'amoand.d', 'amoor.d')
+  print_insts('amomin.d', 'amomax.d', 'amominu.d', 'amomaxu.d')
+  print_insts('lr.d', 'sc.d')
+  print_subtitle('RV32F Instruction Subset')
+  print_insts('flw', 'fsw')
+  print_insts('fadd.s', 'fsub.s', 'fmul.s', 'fdiv.s', 'fsqrt.s', 'fmin.s', 'fmax.s')
+  print_insts('fmadd.s', 'fmsub.s', 'fnmsub.s', 'fnmadd.s')
+  print_insts('fsgnj.s', 'fsgnjn.s', 'fsgnjx.s')
+  print_insts('fcvt.s.w', 'fcvt.s.wu', 'mxtf.s', 'mtfsr')
+  print_insts('fcvt.w.s', 'fcvt.wu.s', 'mftx.s', 'mffsr')
+  print_insts('feq.s', 'flt.s', 'fle.s')
   print_footer(0)
 
   print_header()
-  print_subtitle('Floating-Point Move \& Conversion Instructions')
-  print_insts(-1,'fsgnj.s',-1,-1,-1)
-  print_insts(-1,'fsgnjn.s',-1,-1,-1)
-  print_insts(-1,'fsgnjx.s',-1,-1,-1)
-  print_insts(-1,'fsgnj.d',-1,-1,-1)
-  print_insts(-1,'fsgnjn.d',-1,-1,-1)
-  print_insts(-1,'fsgnjx.d',-1,-1,-1)
-  print_insts(-1,'fcvt.s.d',-1,-1,-1)
-  print_insts(-1,'fcvt.d.s',-1,-1,-1)
-  print_subtitle('Integer to Floating-Point Move \& Conversion Instructions')
-  print_insts(-1,'fcvt.s.l',-1,-1,-1)
-  print_insts(-1,'fcvt.s.lu',-1,-1,-1)
-  print_insts(-1,'fcvt.s.w',-1,-1,-1)
-  print_insts(-1,'fcvt.s.wu',-1,-1,-1)
-  print_insts(-1,'fcvt.d.l',-1,-1,-1)
-  print_insts(-1,'fcvt.d.lu',-1,-1,-1)
-  print_insts(-1,'fcvt.d.w',-1,-1,-1)
-  print_insts(-1,'fcvt.d.wu',-1,-1,-1)
-  print_insts(-1,'mxtf.s',-1,-1,-1)
-  print_insts(-1,'mxtf.d',-1,-1,-1)
-  print_insts(-1,'mtfsr',-1,-1,-1)
-  print_subtitle('Floating-Point to Integer Move \& Conversion Instructions')
-  print_insts(-1,'fcvt.l.s',-1,-1,-1)
-  print_insts(-1,'fcvt.lu.s',-1,-1,-1)
-  print_insts(-1,'fcvt.w.s',-1,-1,-1)
-  print_insts(-1,'fcvt.wu.s',-1,-1,-1)
-  print_insts(-1,'fcvt.l.d',-1,-1,-1)
-  print_insts(-1,'fcvt.lu.d',-1,-1,-1)
-  print_insts(-1,'fcvt.w.d',-1,-1,-1)
-  print_insts(-1,'fcvt.wu.d',-1,-1,-1)
-  print_insts(-1,'mftx.s',-1,-1,-1)
-  print_insts(-1,'mftx.d',-1,-1,-1)
-  print_insts(-1,'mffsr',-1,-1,-1)
-  print_footer(0)
-
-  print_header()
-  print_subtitle('Floating-Point Compare Instructions')
-  print_insts(-1,'feq.s',-1,-1,-1)
-  print_insts(-1,'flt.s',-1,-1,-1)
-  print_insts(-1,'fle.s',-1,-1,-1)
-  print_insts(-1,'feq.d',-1,-1,-1)
-  print_insts(-1,'flt.d',-1,-1,-1)
-  print_insts(-1,'fle.d',-1,-1,-1)
-  print_subtitle('Miscellaneous Memory Instructions')
-  print_insts(0x2f,'',-1,-1,-1)
-  print_subtitle('System Instructions')
-  print_insts(0x77,'',-1,-1,-1)
+  print_subtitle('RV64F Instruction Subset')
+  print_insts('fcvt.s.l', 'fcvt.s.lu')
+  print_insts('fcvt.l.s', 'fcvt.lu.s')
+  print_subtitle('RV32D Instruction Subset')
+  print_insts('fld', 'fsd')
+  print_insts('fadd.d', 'fsub.d', 'fmul.d', 'fdiv.d', 'fsqrt.d', 'fmin.d', 'fmax.d')
+  print_insts('fmadd.d', 'fmsub.d', 'fnmsub.d', 'fnmadd.d')
+  print_insts('fsgnj.d', 'fsgnjn.d', 'fsgnjx.d')
+  print_insts('fcvt.d.w', 'fcvt.d.wu')
+  print_insts('fcvt.w.d', 'fcvt.wu.d')
+  print_insts('feq.d', 'flt.d', 'fle.d')
+  print_subtitle('RV64D Instruction Subset')
+  print_insts('fcvt.d.l', 'fcvt.d.lu', 'mxtf.d')
+  print_insts('fcvt.l.d', 'fcvt.lu.d', 'mftx.d')
+  print_insts('fcvt.s.d', 'fcvt.d.s')
   print_footer(1)
 
-def str_verilog_arg(arg0,arg1,match,arguments):
-  if arg0 in arguments:
-    return '?' * (arglut[arg0][0] - arglut[arg0][1] + 1)
-  elif arg1 in arguments:
-    return '?' * (arglut[arg0][0] - arglut[arg0][1] + 1)
-  else:
-    start = arglut[arg0][1]
-    len = arglut[arg0][0] - arglut[arg0][1] + 1
-    return binary(yank(match,start,len),len)
-
-def print_verilog_unimp_type(name,match,arguments):
-  print "`define %-10s 32'b%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    '0'*32 \
-  )
-
-def print_verilog_j_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    str_verilog_arg('imm25','',match,arguments), \
-    binary(yank(match,0,7),7) \
-  )
-
-def print_verilog_lui_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    str_verilog_arg('rd','',match,arguments), \
-    str_verilog_arg('imm20','',match,arguments), \
-    binary(yank(match,0,7),7) \
-  )
-
-def print_verilog_b_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_%s_%s_%s_%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    str_verilog_arg('imm12hi','',match,arguments), \
-    str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rs2','',match,arguments), \
-    str_verilog_arg('imm12lo','',match,arguments), \
-    binary(yank(match,7,3),3), \
-    binary(yank(match,0,7),7) \
-  )
-
-def print_verilog_i_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_%s_%s_%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    str_verilog_arg('rd','',match,arguments), \
-    str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('imm12','',match,arguments), \
-    binary(yank(match,7,3),3), \
-    binary(yank(match,0,7),7) \
-  )
-
-def print_verilog_ish_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_%s_%s_%s_%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    str_verilog_arg('rd','',match,arguments), \
-    str_verilog_arg('rs1','',match,arguments), \
-    binary(yank(match,16,6),6), \
-    str_verilog_arg('shamt','',match,arguments), \
-    binary(yank(match,7,3),3), \
-    binary(yank(match,0,7),7) \
-  )
-
-def print_verilog_ishw_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_%s_0_%s_%s_%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    str_verilog_arg('rd','',match,arguments), \
-    str_verilog_arg('rs1','',match,arguments), \
-    binary(yank(match,16,6),6), \
-    str_verilog_arg('shamtw','',match,arguments), \
-    binary(yank(match,7,3),3), \
-    binary(yank(match,0,7),7) \
-  )
-
-def print_verilog_r4_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_%s_%s_%s_%s_%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    str_verilog_arg('rd','',match,arguments), \
-    str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rs2','',match,arguments), \
-    str_verilog_arg('rs3','',match,arguments), \
-    binary(yank(match,9,3),3), \
-    binary(yank(match,7,2),2), \
-    binary(yank(match,0,7),7) \
-  )
-
-def print_verilog_r4_rm_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_%s_%s_%s_%s_%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    str_verilog_arg('rd','',match,arguments), \
-    str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rs2','',match,arguments), \
-    str_verilog_arg('rs3','',match,arguments), \
-    str_verilog_arg('rm','',match,arguments), \
-    binary(yank(match,7,2),2), \
-    binary(yank(match,0,7),7) \
-  )
-
-def print_verilog_r_rm_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_%s_%s_%s_%s_%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    str_verilog_arg('rd','',match,arguments), \
-    str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rs2','',match,arguments), \
-    binary(yank(match,12,5),5), \
-    str_verilog_arg('rm','',match,arguments), \
-    binary(yank(match,7,2),2), \
-    binary(yank(match,0,7),7) \
-  )
-
-def print_verilog_r_type(name,match,arguments):
-  print "`define %-10s 32'b%s_%s_%s_%s_%s" % \
-  ( \
-    name.replace('.','_').upper(), \
-    str_verilog_arg('rd','',match,arguments), \
-    str_verilog_arg('rs1','',match,arguments), \
-    str_verilog_arg('rs2','',match,arguments), \
-    binary(yank(match,7,10),10), \
-    binary(yank(match,0,7),7) \
-  )
+def print_verilog_insn(name):
+  s = "`define %-10s 32'b" % name.replace('.', '_').upper()
+  for i in range(31, -1, -1):
+    if yank(mask[name], i, 1):
+      s = '%s%d' % (s, yank(match[name], i, 1))
+    else:
+      s = s + '?'
+  print s
 
 def make_verilog():
   print '/* Automatically generated by parse-opcodes */'
   for name in namelist:
-    if types[name] == 0:
-      print_verilog_unimp_type(name,match[name],arguments[name])
-    elif types[name] == 1:
-      print_verilog_j_type(name,match[name],arguments[name])
-    elif types[name] == 2:
-      print_verilog_lui_type(name,match[name],arguments[name])
-    elif types[name] == 3:
-      print_verilog_i_type(name,match[name],arguments[name])
-    elif types[name] == 4:
-      print_verilog_r_type(name,match[name],arguments[name])
-    elif types[name] == 5:
-      print_verilog_r4_type(name,match[name],arguments[name])
-    elif types[name] == 6:
-      print_verilog_ish_type(name,match[name],arguments[name])
-    elif types[name] == 7:
-      print_verilog_ishw_type(name,match[name],arguments[name])
-    elif types[name] == 8:
-      print_verilog_r4_rm_type(name,match[name],arguments[name])
-    elif types[name] == 9:
-      print_verilog_r_rm_type(name,match[name],arguments[name])
-    elif types[name] == 10:
-      print_verilog_b_type(name,match[name],arguments[name])
+    print_verilog_insn(name)
 
 for line in sys.stdin:
   line = line.partition('#')
@@ -762,22 +559,6 @@ for line in sys.stdin:
 
   mask[name] = mymask
   match[name] = mymatch
-  types[name] = typelut[yank(mymatch,0,7)]
-  if 'shamtw' in arguments[name]:
-    types[name] = 7
-  elif 'imm12' in arguments[name]:
-    types[name] = 3
-  elif 'shamt' in arguments[name]:
-    types[name] = 6
-  elif types[name] == 4 and 'rs3' in arguments[name]:
-    types[name] = 5
-  elif types[name] == 5 and 'rm' in arguments[name]:
-    types[name] = 8
-  elif types[name] == 4 and 'rm' in arguments[name]:
-    types[name] = 9
-  elif name == 'vsetvl':
-    types[name] = 3
-
   namelist.append(name)
 
 if sys.argv[1] == '-tex':

@@ -1,10 +1,11 @@
 # format of a line in this file:
-# <instruction name> <opcode> <args>
+# <instruction name> <args> <opcode>
 #
 # <opcode> is given by specifying one or more range/value pairs:
-# highbit..lowbit=value (e.g. 6..2=0x45 9..7=0x0)
+# hi..lo=value or bit=value or arg=value (e.g. 6..2=0x45 10=1 rd=0)
 #
-# <args> is one of xa,xb,xc,fa,fb,fc,fd,imm,imm20,imm27,shamt,shamtw
+# <args> is one of rd, rs1, rs2, rs3, imm25, imm20, imm12, imm12lo, imm12hi,
+# shamtw, shamt, rm
 
 j       imm25 6..2=0x19 1..0=3
 jal     imm25 6..2=0x1B 1..0=3
@@ -76,9 +77,9 @@ lbu     rd rs1       imm12 9..7=4 6..2=0x00 1..0=3
 lhu     rd rs1       imm12 9..7=5 6..2=0x00 1..0=3
 lwu     rd rs1       imm12 9..7=6 6..2=0x00 1..0=3
 
-# NOTE: if you add new store instructions, make sure to modify tc-mips-riscv.c
-# and elfxx-mips.c to detect them.  this is a hack to handle the split immed.
-# just open up those files and search for MATCH_SW; should be obvious.
+# XXX If you add new store instructions, make sure to modify tc-riscv.c and
+# elfxx-riscv.c to detect them; the split immediate is handled therein.
+# search for MATCH_SW and continue this inglorious hack in the obvious way.
 sb     imm12hi rs1 rs2 imm12lo 9..7=0 6..2=0x08 1..0=3
 sh     imm12hi rs1 rs2 imm12lo 9..7=1 6..2=0x08 1..0=3
 sw     imm12hi rs1 rs2 imm12lo 9..7=2 6..2=0x08 1..0=3
@@ -118,30 +119,12 @@ rdcycle   rd       26..22=0 21..17=0 16..10=0 9..7=4 6..2=0x1D 1..0=3
 rdtime    rd       26..22=0 21..17=0 16..10=1 9..7=4 6..2=0x1D 1..0=3
 rdinstret rd       26..22=0 21..17=0 16..10=2 9..7=4 6..2=0x1D 1..0=3
 
-# vector scalar instructions
-stop    31..27=0 26..22=0 21..17=0 16..10=0 9..7=2 6..2=0x1D 1..0=3
-utidx   rd       26..22=0 21..17=0 16..10=0 9..7=3 6..2=0x1D 1..0=3
-movz    rd       rs1      rs2      16..10=0 9..7=5 6..2=0x1D 1..0=3
-movn    rd       rs1      rs2      16..10=1 9..7=5 6..2=0x1D 1..0=3
-fmovz   rd       rs1      rs2      16..10=2 9..7=5 6..2=0x1D 1..0=3
-fmovn   rd       rs1      rs2      16..10=3 9..7=5 6..2=0x1D 1..0=3
-
+# SUPERVISOR
 clearpcr rd       rs1      imm12             9..7=0 6..2=0x1E 1..0=3
 setpcr   rd       rs1      imm12             9..7=1 6..2=0x1E 1..0=3
 mfpcr    rd       rs1      21..17=0 16..10=0 9..7=2 6..2=0x1E 1..0=3
 mtpcr    rd       rs1      rs2      16..10=0 9..7=3 6..2=0x1E 1..0=3
 eret     31..27=0 26..22=0 21..17=0 16..10=0 9..7=4 6..2=0x1E 1..0=3
-
-vxcptsave    31..27=0 rs1      21..17=0 16..10=0x0 9..7=6 6..2=0x1E 1..0=3
-vxcptrestore 31..27=0 rs1      21..17=0 16..10=0x1 9..7=6 6..2=0x1E 1..0=3
-vxcptkill    31..27=0 26..22=0 21..17=0 16..10=0x2 9..7=6 6..2=0x1E 1..0=3
-
-vxcptevac    31..27=0 rs1      21..17=0 16..10=0x8 9..7=6 6..2=0x1E 1..0=3
-vxcpthold    31..27=0 26..22=0 21..17=0 16..10=0x9 9..7=6 6..2=0x1E 1..0=3
-venqcmd      31..27=0 rs1      rs2      16..10=0xA 9..7=6 6..2=0x1E 1..0=3
-venqimm1     31..27=0 rs1      rs2      16..10=0xB 9..7=6 6..2=0x1E 1..0=3
-venqimm2     31..27=0 rs1      rs2      16..10=0xC 9..7=6 6..2=0x1E 1..0=3
-venqcnt      31..27=0 rs1      rs2      16..10=0xD 9..7=6 6..2=0x1E 1..0=3
 
 # 0x7C-0x7F are reserved for >32b instructions
 
@@ -222,6 +205,25 @@ fmadd.d     rd rs1 rs2 rs3 rm 8..7=1 6..2=0x10 1..0=3
 fmsub.d     rd rs1 rs2 rs3 rm 8..7=1 6..2=0x11 1..0=3
 fnmsub.d    rd rs1 rs2 rs3 rm 8..7=1 6..2=0x12 1..0=3
 fnmadd.d    rd rs1 rs2 rs3 rm 8..7=1 6..2=0x13 1..0=3
+
+# vector scalar instructions
+stop    31..27=0 26..22=0 21..17=0 16..10=0 9..7=2 6..2=0x1D 1..0=3
+utidx   rd       26..22=0 21..17=0 16..10=0 9..7=3 6..2=0x1D 1..0=3
+movz    rd       rs1      rs2      16..10=0 9..7=5 6..2=0x1D 1..0=3
+movn    rd       rs1      rs2      16..10=1 9..7=5 6..2=0x1D 1..0=3
+fmovz   rd       rs1      rs2      16..10=2 9..7=5 6..2=0x1D 1..0=3
+fmovn   rd       rs1      rs2      16..10=3 9..7=5 6..2=0x1D 1..0=3
+
+vxcptsave    31..27=0 rs1      21..17=0 16..10=0x0 9..7=6 6..2=0x1E 1..0=3
+vxcptrestore 31..27=0 rs1      21..17=0 16..10=0x1 9..7=6 6..2=0x1E 1..0=3
+vxcptkill    31..27=0 26..22=0 21..17=0 16..10=0x2 9..7=6 6..2=0x1E 1..0=3
+
+vxcptevac    31..27=0 rs1      21..17=0 16..10=0x8 9..7=6 6..2=0x1E 1..0=3
+vxcpthold    31..27=0 26..22=0 21..17=0 16..10=0x9 9..7=6 6..2=0x1E 1..0=3
+venqcmd      31..27=0 rs1      rs2      16..10=0xA 9..7=6 6..2=0x1E 1..0=3
+venqimm1     31..27=0 rs1      rs2      16..10=0xB 9..7=6 6..2=0x1E 1..0=3
+venqimm2     31..27=0 rs1      rs2      16..10=0xC 9..7=6 6..2=0x1E 1..0=3
+venqcnt      31..27=0 rs1      rs2      16..10=0xD 9..7=6 6..2=0x1E 1..0=3
 
 # vector load mem instructions
 
