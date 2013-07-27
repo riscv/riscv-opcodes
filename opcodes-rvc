@@ -1,0 +1,40 @@
+# compressed instructions
+c.li      cimm6    crd   4..0=0
+c.addi    cimm6    crd   4..0=1
+c.addiw   cimm6    crd   4..0=29
+c.ldsp    cimm6    crd   4..0=4
+c.lwsp    cimm6    crd   4..0=5
+c.sdsp    cimm6    crd   4..0=6
+c.swsp    cimm6    crd   4..0=8
+
+c.lw0 15=0 crs1    crd   4..0=18
+c.ld0 15=1 crs1    crd   4..0=18
+c.add 15=0 crs1    crd   4..0=26
+c.sub 15=1 crs1    crd   4..0=26
+c.move 15=0 crs1   crd   4..0=2
+
+c.j    15=1   cimm10     4..0=2
+
+c.ld   crds  crs1s cimm5 4..0=9
+c.lw   crds  crs1s cimm5 4..0=10
+c.sd   crs2s crs1s cimm5 4..0=12
+c.sw   crs2s crs1s cimm5 4..0=13
+c.beq  crs2s crs1s cimm5 4..0=16
+c.bne  crs2s crs1s cimm5 4..0=17
+c.flw  crds  crs1s cimm5 4..0=20
+c.fld  crds  crs1s cimm5 4..0=21
+c.fsw  crs2s crs1s cimm5 4..0=22
+c.fsd  crs2s crs1s cimm5 4..0=24
+
+c.slli   crds 12..10=0 cimm5 4..0=25
+c.slli32 crds 12..10=1 cimm5 4..0=25
+c.srli   crds 12..10=2 cimm5 4..0=25
+c.srli32 crds 12..10=3 cimm5 4..0=25
+c.srai   crds 12..10=4 cimm5 4..0=25
+c.srai32 crds 12..10=5 cimm5 4..0=25
+c.slliw  crds 12..10=6 cimm5 4..0=25
+
+c.add3 crds crs1s 9..8=0 crs2bs 4..0=28
+c.sub3 crds crs1s 9..8=1 crs2bs 4..0=28
+c.or3  crds crs1s 9..8=2 crs2bs 4..0=28
+c.and3 crds crs1s 9..8=3 crs2bs 4..0=28

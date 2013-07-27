@@ -469,8 +469,8 @@ def make_latex_table():
   print_insts('fadd.s', 'fsub.s', 'fmul.s', 'fdiv.s', 'fsqrt.s', 'fmin.s', 'fmax.s')
   print_insts('fmadd.s', 'fmsub.s', 'fnmsub.s', 'fnmadd.s')
   print_insts('fsgnj.s', 'fsgnjn.s', 'fsgnjx.s')
-  print_insts('fcvt.s.w', 'fcvt.s.wu', 'mxtf.s', 'mtfsr')
-  print_insts('fcvt.w.s', 'fcvt.wu.s', 'mftx.s', 'mffsr')
+  print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x', 'mtfsr')
+  print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.s', 'mffsr')
   print_insts('feq.s', 'flt.s', 'fle.s')
   print_footer(0)
 
@@ -487,8 +487,8 @@ def make_latex_table():
   print_insts('fcvt.w.d', 'fcvt.wu.d')
   print_insts('feq.d', 'flt.d', 'fle.d')
   print_subtitle('RV64D Instruction Subset')
-  print_insts('fcvt.d.l', 'fcvt.d.lu', 'mxtf.d')
-  print_insts('fcvt.l.d', 'fcvt.lu.d', 'mftx.d')
+  print_insts('fcvt.d.l', 'fcvt.d.lu', 'fmv.d.x')
+  print_insts('fcvt.l.d', 'fcvt.lu.d', 'fmv.x.d')
   print_insts('fcvt.s.d', 'fcvt.d.s')
   print_footer(1)
 
