@@ -10,11 +10,11 @@
 \instbitrange{26}{22} &
 \instbitrange{21}{17} &
 \instbit{16} &
-\instbit{15} &
-\instbitrange{14}{12} &
+ &
+\instbitrange{}{12} &
 \instbitrange{11}{10} &
 \instbit{9} &
-\instbitrange{8}{7} &
+\instbitrange{}{7} &
 \instbitrange{6}{0} \\
 \cline{2-11}
 &
@@ -507,11 +507,11 @@
 \instbitrange{26}{22} &
 \instbitrange{21}{17} &
 \instbit{16} &
-\instbit{15} &
-\instbitrange{14}{12} &
+ &
+\instbitrange{}{12} &
 \instbitrange{11}{10} &
 \instbit{9} &
-\instbitrange{8}{7} &
+\instbitrange{}{7} &
 \instbitrange{6}{0} \\
 \cline{2-11}
 &
@@ -559,7 +559,7 @@
 &
 \multicolumn{10}{c}{} & \\
 &
-\multicolumn{10}{c}{\bf RV64I Instruction Subset} & \\
+\multicolumn{10}{c}{\bf RV64I Instruction Subset (in addition to RV32I)} & \\
 \cline{2-11}
   
 
@@ -770,7 +770,7 @@
 &
 \multicolumn{10}{c}{} & \\
 &
-\multicolumn{10}{c}{\bf RV64M Instruction Subset} & \\
+\multicolumn{10}{c}{\bf RV64M Instruction Subset (in addition to RV32M)} & \\
 \cline{2-11}
   
 
@@ -950,11 +950,11 @@
 \instbitrange{26}{22} &
 \instbitrange{21}{17} &
 \instbit{16} &
-\instbit{15} &
-\instbitrange{14}{12} &
+ &
+\instbitrange{}{12} &
 \instbitrange{11}{10} &
 \instbit{9} &
-\instbitrange{8}{7} &
+\instbitrange{}{7} &
 \instbitrange{6}{0} \\
 \cline{2-11}
 &
@@ -1002,7 +1002,7 @@
 &
 \multicolumn{10}{c}{} & \\
 &
-\multicolumn{10}{c}{\bf RV64A Instruction Subset} & \\
+\multicolumn{10}{c}{\bf RV64A Instruction Subset (in addition to RV32A)} & \\
 \cline{2-11}
   
 
@@ -1191,8 +1191,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{1100000} &
+\multicolumn{3}{c|}{11000} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
 \multicolumn{1}{c|}{1010011} & FMIN.S rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1201,8 +1202,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{1100100} &
+\multicolumn{3}{c|}{11001} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
 \multicolumn{1}{c|}{1010011} & FMAX.S rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1255,8 +1257,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{0010100} &
+\multicolumn{3}{c|}{00101} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
 \multicolumn{1}{c|}{1010011} & FSGNJ.S rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1265,8 +1268,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{0011000} &
+\multicolumn{3}{c|}{00110} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
 \multicolumn{1}{c|}{1010011} & FSGNJN.S rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1275,8 +1279,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{0011100} &
+\multicolumn{3}{c|}{00111} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
 \multicolumn{1}{c|}{1010011} & FSGNJX.S rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1307,19 +1312,10 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{4}{c|}{1111000} &
+\multicolumn{3}{c|}{11110} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
 \multicolumn{1}{c|}{1010011} & FMV.S.X rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{1}{|c|}{rd} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{4}{c|}{1111100} &
-\multicolumn{2}{c|}{000} &
-\multicolumn{1}{c|}{1010011} & MTFSR rd,rs1 \\
 \cline{2-11}
   
 
@@ -1349,19 +1345,10 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{4}{c|}{1110000} &
+\multicolumn{3}{c|}{11100} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
 \multicolumn{1}{c|}{1010011} & FMV.X.S rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{1}{|c|}{rd} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{00000} &
-\multicolumn{4}{c|}{1110100} &
-\multicolumn{2}{c|}{000} &
-\multicolumn{1}{c|}{1010011} & MFFSR rd \\
 \cline{2-11}
   
 
@@ -1369,8 +1356,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{1010100} &
+\multicolumn{3}{c|}{10101} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
 \multicolumn{1}{c|}{1010011} & FEQ.S rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1379,8 +1367,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{1011000} &
+\multicolumn{3}{c|}{10110} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
 \multicolumn{1}{c|}{1010011} & FLT.S rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1389,9 +1378,32 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{1011100} &
+\multicolumn{3}{c|}{10111} &
 \multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
 \multicolumn{1}{c|}{1010011} & FLE.S rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{1}{|c|}{rd} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{3}{c|}{11111} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
+\multicolumn{1}{c|}{1010011} & MTFSR rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{1}{|c|}{rd} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{3}{c|}{11101} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{00} &
+\multicolumn{1}{c|}{1010011} & MFFSR rd \\
 \cline{2-11}
   
 
@@ -1414,11 +1426,11 @@
 \instbitrange{26}{22} &
 \instbitrange{21}{17} &
 \instbit{16} &
-\instbit{15} &
-\instbitrange{14}{12} &
+ &
+\instbitrange{}{12} &
 \instbitrange{11}{10} &
 \instbit{9} &
-\instbitrange{8}{7} &
+\instbitrange{}{7} &
 \instbitrange{6}{0} \\
 \cline{2-11}
 &
@@ -1466,7 +1478,7 @@
 &
 \multicolumn{10}{c}{} & \\
 &
-\multicolumn{10}{c}{\bf RV64F Instruction Subset} & \\
+\multicolumn{10}{c}{\bf RV64F Instruction Subset (in addition to RV32F)} & \\
 \cline{2-11}
   
 
@@ -1599,8 +1611,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{1100000} &
-\multicolumn{2}{c|}{001} &
+\multicolumn{3}{c|}{11000} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{01} &
 \multicolumn{1}{c|}{1010011} & FMIN.D rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1609,8 +1622,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{1100100} &
-\multicolumn{2}{c|}{001} &
+\multicolumn{3}{c|}{11001} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{01} &
 \multicolumn{1}{c|}{1010011} & FMAX.D rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1663,8 +1677,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{0010100} &
-\multicolumn{2}{c|}{001} &
+\multicolumn{3}{c|}{00101} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{01} &
 \multicolumn{1}{c|}{1010011} & FSGNJ.D rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1673,8 +1688,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{0011000} &
-\multicolumn{2}{c|}{001} &
+\multicolumn{3}{c|}{00110} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{01} &
 \multicolumn{1}{c|}{1010011} & FSGNJN.D rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1683,8 +1699,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{0011100} &
-\multicolumn{2}{c|}{001} &
+\multicolumn{3}{c|}{00111} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{01} &
 \multicolumn{1}{c|}{1010011} & FSGNJX.D rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1737,8 +1754,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{1010100} &
-\multicolumn{2}{c|}{001} &
+\multicolumn{3}{c|}{10101} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{01} &
 \multicolumn{1}{c|}{1010011} & FEQ.D rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1747,8 +1765,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{1011000} &
-\multicolumn{2}{c|}{001} &
+\multicolumn{3}{c|}{10110} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{01} &
 \multicolumn{1}{c|}{1010011} & FLT.D rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1757,8 +1776,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rs2} &
-\multicolumn{4}{c|}{1011100} &
-\multicolumn{2}{c|}{001} &
+\multicolumn{3}{c|}{10111} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{01} &
 \multicolumn{1}{c|}{1010011} & FLE.D rd,rs1,rs2 \\
 \cline{2-11}
   
@@ -1766,7 +1786,7 @@
 &
 \multicolumn{10}{c}{} & \\
 &
-\multicolumn{10}{c}{\bf RV64D Instruction Subset} & \\
+\multicolumn{10}{c}{\bf RV64D Instruction Subset (in addition to RV32D)} & \\
 \cline{2-11}
   
 
@@ -1796,8 +1816,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{4}{c|}{1111000} &
-\multicolumn{2}{c|}{001} &
+\multicolumn{3}{c|}{11110} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{01} &
 \multicolumn{1}{c|}{1010011} & FMV.D.X rd,rs1 \\
 \cline{2-11}
   
@@ -1828,8 +1849,9 @@
 \multicolumn{1}{|c|}{rd} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{4}{c|}{1110000} &
-\multicolumn{2}{c|}{001} &
+\multicolumn{3}{c|}{11100} &
+\multicolumn{2}{c|}{000} &
+\multicolumn{1}{c|}{01} &
 \multicolumn{1}{c|}{1010011} & FMV.X.D rd,rs1 \\
 \cline{2-11}
   

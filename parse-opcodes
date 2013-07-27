@@ -337,11 +337,11 @@ def print_header():
 \\instbitrange{26}{22} &
 \\instbitrange{21}{17} &
 \\instbit{16} &
-\\instbit{15} &
-\\instbitrange{14}{12} &
+ &
+\\instbitrange{}{12} &
 \\instbitrange{11}{10} &
 \\instbit{9} &
-\\instbitrange{8}{7} &
+\\instbitrange{}{7} &
 \\instbitrange{6}{0} \\\\
 \\cline{2-11}
 &
@@ -422,7 +422,8 @@ def print_inst(n):
     print_r4_rm_type(n, match[n], arguments[n])
   elif 'rs3' in arguments[n]:
     print_r4_type(n, match[n], arguments[n])
-  elif 'rm' in arguments[n]:
+  elif 'rm' in arguments[n] or \
+      filter(lambda x: x in n, ['fmin','fmax','fsgnj','fmv','feq','flt','fle','mtfsr','mffsr']):
     print_r_rm_type(n, match[n], arguments[n])
   else:
     print_r_type(n, match[n], arguments[n])
@@ -444,14 +445,14 @@ def make_latex_table():
   print_footer(0)
 
   print_header()
-  print_subtitle('RV64I Instruction Subset')
+  print_subtitle('RV64I Instruction Subset (in addition to RV32I)')
   print_insts('lwu', 'ld', 'sd')
   print_insts('addiw', 'slliw', 'srliw', 'sraiw')
   print_insts('addw', 'subw', 'sllw', 'srlw', 'sraw')
   print_subtitle('RV32M Instruction Subset')
   print_insts('mul', 'mulh', 'mulhsu', 'mulhu')
   print_insts('div', 'divu', 'rem', 'remu')
-  print_subtitle('RV64M Instruction Subset')
+  print_subtitle('RV64M Instruction Subset (in addition to RV32M)')
   print_insts('mulw', 'divw', 'divuw', 'remw', 'remuw')
   print_subtitle('RV32A Instruction Subset')
   print_insts('amoadd.w', 'amoswap.w', 'amoand.w', 'amoor.w')
@@ -460,7 +461,7 @@ def make_latex_table():
   print_footer(0)
 
   print_header()
-  print_subtitle('RV64A Instruction Subset')
+  print_subtitle('RV64A Instruction Subset (in addition to RV32A)')
   print_insts('amoadd.d', 'amoswap.d', 'amoand.d', 'amoor.d')
   print_insts('amomin.d', 'amomax.d', 'amominu.d', 'amomaxu.d')
   print_insts('lr.d', 'sc.d')
@@ -469,13 +470,14 @@ def make_latex_table():
   print_insts('fadd.s', 'fsub.s', 'fmul.s', 'fdiv.s', 'fsqrt.s', 'fmin.s', 'fmax.s')
   print_insts('fmadd.s', 'fmsub.s', 'fnmsub.s', 'fnmadd.s')
   print_insts('fsgnj.s', 'fsgnjn.s', 'fsgnjx.s')
-  print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x', 'mtfsr')
-  print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.s', 'mffsr')
+  print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x')
+  print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.s')
   print_insts('feq.s', 'flt.s', 'fle.s')
+  print_insts('mtfsr', 'mffsr')
   print_footer(0)
 
   print_header()
-  print_subtitle('RV64F Instruction Subset')
+  print_subtitle('RV64F Instruction Subset (in addition to RV32F)')
   print_insts('fcvt.s.l', 'fcvt.s.lu')
   print_insts('fcvt.l.s', 'fcvt.lu.s')
   print_subtitle('RV32D Instruction Subset')
@@ -486,7 +488,7 @@ def make_latex_table():
   print_insts('fcvt.d.w', 'fcvt.d.wu')
   print_insts('fcvt.w.d', 'fcvt.wu.d')
   print_insts('feq.d', 'flt.d', 'fle.d')
-  print_subtitle('RV64D Instruction Subset')
+  print_subtitle('RV64D Instruction Subset (in addition to RV32D)')
   print_insts('fcvt.d.l', 'fcvt.d.lu', 'fmv.d.x')
   print_insts('fcvt.l.d', 'fcvt.lu.d', 'fmv.x.d')
   print_insts('fcvt.s.d', 'fcvt.d.s')
