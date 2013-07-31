@@ -526,29 +526,33 @@ for line in sys.stdin:
 
   for token in tokens[1:]:
     if len(token.split('=')) == 2:
-      tmp = token.split('=')
-      val = int(tmp[1],0)
-      if len(tmp[0].split('..')) == 2:
-        tmp = tmp[0].split('..')
+      tokens = token.split('=')
+      if len(tokens[0].split('..')) == 2:
+        tmp = tokens[0].split('..')
         hi = int(tmp[0])
         lo = int(tmp[1])
         if hi <= lo:
           sys.exit("%s: bad range %d..%d" % (name,hi,lo))
       else:
-        hi = lo = int(tmp[0])
-      if val >= (1 << (hi-lo+1)):
-        sys.exit("%s: bad value %d for range %d..%d" % (name,val,hi,lo))
-      mymatch = mymatch | (val << lo)
-      mymask = mymask | ((1<<(hi+1))-(1<<lo))
+        hi = lo = int(tokens[0])
+
+      if tokens[1] != 'ignore':
+        val = int(tokens[1], 0)
+        if val >= (1 << (hi-lo+1)):
+          sys.exit("%s: bad value %d for range %d..%d" % (name,val,hi,lo))
+        mymatch = mymatch | (val << lo)
+        mymask = mymask | ((1<<(hi+1))-(1<<lo))
+
       if cover & ((1<<(hi+1))-(1<<lo)):
         sys.exit("%s: overspecified" % name)
       cover = cover | ((1<<(hi+1))-(1<<lo))
+
     elif token in arglut:
       if cover & ((1<<(arglut[token][0]+1))-(1<<arglut[token][1])):
         sys.exit("%s: overspecified" % name)
       cover = cover | ((1<<(arglut[token][0]+1))-(1<<arglut[token][1]))
-
       arguments[name].append(token)
+
     else:
       sys.exit("%s: unknown token %s" % (name,token))
 
