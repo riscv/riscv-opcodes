@@ -1,0 +1,27 @@
+custom0            rd rs1 imm12 9..7=0 6..2=0x02 1..0=3
+custom0.rs1        rd rs1 imm12 9..7=2 6..2=0x02 1..0=3
+custom0.rs1.rs2    rd rs1 imm12 9..7=3 6..2=0x02 1..0=3
+custom0.rd         rd rs1 imm12 9..7=4 6..2=0x02 1..0=3
+custom0.rd.rs1     rd rs1 imm12 9..7=6 6..2=0x02 1..0=3
+custom0.rd.rs1.rs2 rd rs1 imm12 9..7=7 6..2=0x02 1..0=3
+
+custom1            rd rs1 imm12 9..7=0 6..2=0x03 1..0=3
+custom1.rs1        rd rs1 imm12 9..7=2 6..2=0x03 1..0=3
+custom1.rs1.rs2    rd rs1 imm12 9..7=3 6..2=0x03 1..0=3
+custom1.rd         rd rs1 imm12 9..7=4 6..2=0x03 1..0=3
+custom1.rd.rs1     rd rs1 imm12 9..7=6 6..2=0x03 1..0=3
+custom1.rd.rs1.rs2 rd rs1 imm12 9..7=7 6..2=0x03 1..0=3
+
+custom2            rd rs1 imm12 9..7=0 6..2=0x15 1..0=3
+custom2.rs1        rd rs1 imm12 9..7=2 6..2=0x15 1..0=3
+custom2.rs1.rs2    rd rs1 imm12 9..7=3 6..2=0x15 1..0=3
+custom2.rd         rd rs1 imm12 9..7=4 6..2=0x15 1..0=3
+custom2.rd.rs1     rd rs1 imm12 9..7=6 6..2=0x15 1..0=3
+custom2.rd.rs1.rs2 rd rs1 imm12 9..7=7 6..2=0x15 1..0=3
+
+custom3            rd rs1 imm12 9..7=0 6..2=0x1E 1..0=3
+custom3.rs1        rd rs1 imm12 9..7=2 6..2=0x1E 1..0=3
+custom3.rs1.rs2    rd rs1 imm12 9..7=3 6..2=0x1E 1..0=3
+custom3.rd         rd rs1 imm12 9..7=4 6..2=0x1E 1..0=3
+custom3.rd.rs1     rd rs1 imm12 9..7=6 6..2=0x1E 1..0=3
+custom3.rd.rs1.rs2 rd rs1 imm12 9..7=7 6..2=0x1E 1..0=3
