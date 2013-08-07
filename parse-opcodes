@@ -22,6 +22,8 @@ arglut['imm12hi'] = (31,27)
 arglut['imm12lo'] = (16,10)
 arglut['shamt'] = (15,10)
 arglut['shamtw'] = (14,10)
+arglut['acclimm7'] = (16,10)
+arglut['vseglen'] = (16,14)
 
 arglut['crd'] = (9,5)
 arglut['crs2'] = (9,5)
