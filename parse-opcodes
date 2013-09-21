@@ -43,7 +43,7 @@ arglut['cimm5'] = (9,5)
 
 opcode_base = 0
 opcode_size = 7
-funct_base = 7
+funct_base = 12
 funct_size = 3
 
 def binary(n, digits=0):
