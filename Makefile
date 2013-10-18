@@ -11,9 +11,10 @@ $(ISASIM_H): opcodes parse-opcodes
 $(PK_H): opcodes parse-opcodes
 	./parse-opcodes -disasm < $< > $@
 
-$(GAS_H): opcodes opcodes-hwacha opcodes-rvc opcodes-custom parse-opcodes
+$(GAS_H): opcodes opcodes-hwacha opcodes-rvc opcodes-custom opcodes-hwacha-pseudo parse-opcodes
 	./parse-opcodes -disasm < $< > $@
-	#./parse-opcodes -disasm < opcodes-hwacha >> $@
+	./parse-opcodes -disasm < opcodes-hwacha >> $@
+	./parse-opcodes -disasm < opcodes-hwacha-pseudo >> $@
 	./parse-opcodes -disasm < opcodes-rvc >> $@
 	./parse-opcodes -disasm < opcodes-custom >> $@
 
