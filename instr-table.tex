@@ -4,13 +4,15 @@
 \begin{table}[p]
 \begin{small}
 \begin{center}
-\begin{tabular}{rccccccccccl}
+\begin{tabular}{p{0in}p{0.4in}p{0.05in}p{0.05in}p{0.05in}p{0.05in}p{0.4in}p{0.6in}p{0.4in}p{0.6in}p{0.7in}l}
+& & & & & & & & & & \\
                       &
 \multicolumn{1}{l}{\instbit{31}} &
 \multicolumn{1}{r}{\instbit{27}} &
 \instbit{26} &
 \instbit{25} &
-\multicolumn{2}{c}{\instbitrange{24}{20}} &
+\multicolumn{1}{l}{\instbit{24}} &
+\multicolumn{1}{r}{\instbit{20}} &
 \instbitrange{19}{15} &
 \instbitrange{14}{12} &
 \instbitrange{11}{7} &
@@ -41,18 +43,18 @@
 \multicolumn{4}{|c|}{imm[11:5]} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{imm[4:0]} &
 \multicolumn{1}{c|}{funct3} &
+\multicolumn{1}{c|}{imm[4:0]} &
 \multicolumn{1}{c|}{opcode} & S-type \\
 \cline{2-11}
 
 
 &
-\multicolumn{4}{|c|}{imm[12, 10:5]} &
+\multicolumn{4}{|c|}{imm[12$\vert$10:5]} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{funct3} &
-\multicolumn{1}{c|}{imm[4:1, 11]} &
+\multicolumn{1}{c|}{imm[4:1$\vert$11]} &
 \multicolumn{1}{c|}{opcode} & SB-type \\
 \cline{2-11}
 
@@ -65,7 +67,7 @@
 
 
 &
-\multicolumn{8}{|c|}{imm[20, 10:1, 11, 19:12]} &
+\multicolumn{8}{|c|}{imm[20$\vert$10:1$\vert$11$\vert$19:12]} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{opcode} & UJ-type \\
 \cline{2-11}
@@ -93,7 +95,7 @@
   
 
 &
-\multicolumn{8}{|c|}{imm[20, 10:1, 11, 19:12]} &
+\multicolumn{8}{|c|}{imm[20$\vert$10:1$\vert$11$\vert$19:12]} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1100111} & JAL rd,imm \\
 \cline{2-11}
@@ -109,61 +111,61 @@
   
 
 &
-\multicolumn{4}{|c|}{imm[12, 10:5]} &
+\multicolumn{4}{|c|}{imm[12$\vert$10:5]} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{imm[4:1, 11]} &
+\multicolumn{1}{c|}{imm[4:1$\vert$11]} &
 \multicolumn{1}{c|}{1100011} & BEQ rs1,rs2,imm \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{imm[12, 10:5]} &
+\multicolumn{4}{|c|}{imm[12$\vert$10:5]} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{001} &
-\multicolumn{1}{c|}{imm[4:1, 11]} &
+\multicolumn{1}{c|}{imm[4:1$\vert$11]} &
 \multicolumn{1}{c|}{1100011} & BNE rs1,rs2,imm \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{imm[12, 10:5]} &
+\multicolumn{4}{|c|}{imm[12$\vert$10:5]} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{100} &
-\multicolumn{1}{c|}{imm[4:1, 11]} &
+\multicolumn{1}{c|}{imm[4:1$\vert$11]} &
 \multicolumn{1}{c|}{1100011} & BLT rs1,rs2,imm \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{imm[12, 10:5]} &
+\multicolumn{4}{|c|}{imm[12$\vert$10:5]} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{101} &
-\multicolumn{1}{c|}{imm[4:1, 11]} &
+\multicolumn{1}{c|}{imm[4:1$\vert$11]} &
 \multicolumn{1}{c|}{1100011} & BGE rs1,rs2,imm \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{imm[12, 10:5]} &
+\multicolumn{4}{|c|}{imm[12$\vert$10:5]} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{110} &
-\multicolumn{1}{c|}{imm[4:1, 11]} &
+\multicolumn{1}{c|}{imm[4:1$\vert$11]} &
 \multicolumn{1}{c|}{1100011} & BLTU rs1,rs2,imm \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{imm[12, 10:5]} &
+\multicolumn{4}{|c|}{imm[12$\vert$10:5]} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{111} &
-\multicolumn{1}{c|}{imm[4:1, 11]} &
+\multicolumn{1}{c|}{imm[4:1$\vert$11]} &
 \multicolumn{1}{c|}{1100011} & BGEU rs1,rs2,imm \\
 \cline{2-11}
   
@@ -428,8 +430,8 @@
   
 
 &
-\multicolumn{1}{|c|}{0000} &
-\multicolumn{4}{c|}{~~~pred~~~~} &
+\multicolumn{2}{|c|}{0000} &
+\multicolumn{3}{c|}{pred} &
 \multicolumn{1}{c|}{succ} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{000} &
@@ -439,8 +441,8 @@
   
 
 &
-\multicolumn{1}{|c|}{0000} &
-\multicolumn{4}{c|}{0000} &
+\multicolumn{2}{|c|}{0000} &
+\multicolumn{3}{c|}{0000} &
 \multicolumn{1}{c|}{0000} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{001} &
@@ -512,13 +514,15 @@
 \begin{table}[p]
 \begin{small}
 \begin{center}
-\begin{tabular}{rccccccccccl}
+\begin{tabular}{p{0in}p{0.4in}p{0.05in}p{0.05in}p{0.05in}p{0.05in}p{0.4in}p{0.6in}p{0.4in}p{0.6in}p{0.7in}l}
+& & & & & & & & & & \\
                       &
 \multicolumn{1}{l}{\instbit{31}} &
 \multicolumn{1}{r}{\instbit{27}} &
 \instbit{26} &
 \instbit{25} &
-\multicolumn{2}{c}{\instbitrange{24}{20}} &
+\multicolumn{1}{l}{\instbit{24}} &
+\multicolumn{1}{r}{\instbit{20}} &
 \instbitrange{19}{15} &
 \instbitrange{14}{12} &
 \instbitrange{11}{7} &
@@ -549,8 +553,8 @@
 \multicolumn{4}{|c|}{imm[11:5]} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{imm[4:0]} &
 \multicolumn{1}{c|}{funct3} &
+\multicolumn{1}{c|}{imm[4:0]} &
 \multicolumn{1}{c|}{opcode} & S-type \\
 \cline{2-11}
 
@@ -975,13 +979,15 @@
 \begin{table}[p]
 \begin{small}
 \begin{center}
-\begin{tabular}{rccccccccccl}
+\begin{tabular}{p{0in}p{0.4in}p{0.05in}p{0.05in}p{0.05in}p{0.05in}p{0.4in}p{0.6in}p{0.4in}p{0.6in}p{0.7in}l}
+& & & & & & & & & & \\
                       &
 \multicolumn{1}{l}{\instbit{31}} &
 \multicolumn{1}{r}{\instbit{27}} &
 \instbit{26} &
 \instbit{25} &
-\multicolumn{2}{c}{\instbitrange{24}{20}} &
+\multicolumn{1}{l}{\instbit{24}} &
+\multicolumn{1}{r}{\instbit{20}} &
 \instbitrange{19}{15} &
 \instbitrange{14}{12} &
 \instbitrange{11}{7} &
@@ -1000,6 +1006,17 @@
 
 
 &
+\multicolumn{2}{|c|}{rs3} &
+\multicolumn{2}{c|}{funct2} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{funct3} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{opcode} & R4-type \\
+\cline{2-11}
+  
+
+&
 \multicolumn{6}{|c|}{imm[11:0]} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{funct3} &
@@ -1012,8 +1029,8 @@
 \multicolumn{4}{|c|}{imm[11:5]} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{imm[4:0]} &
 \multicolumn{1}{c|}{funct3} &
+\multicolumn{1}{c|}{imm[4:0]} &
 \multicolumn{1}{c|}{opcode} & S-type \\
 \cline{2-11}
 
@@ -1450,13 +1467,15 @@
 \begin{table}[p]
 \begin{small}
 \begin{center}
-\begin{tabular}{rccccccccccl}
+\begin{tabular}{p{0in}p{0.4in}p{0.05in}p{0.05in}p{0.05in}p{0.05in}p{0.4in}p{0.6in}p{0.4in}p{0.6in}p{0.7in}l}
+& & & & & & & & & & \\
                       &
 \multicolumn{1}{l}{\instbit{31}} &
 \multicolumn{1}{r}{\instbit{27}} &
 \instbit{26} &
 \instbit{25} &
-\multicolumn{2}{c}{\instbitrange{24}{20}} &
+\multicolumn{1}{l}{\instbit{24}} &
+\multicolumn{1}{r}{\instbit{20}} &
 \instbitrange{19}{15} &
 \instbitrange{14}{12} &
 \instbitrange{11}{7} &
@@ -1484,6 +1503,25 @@
 \multicolumn{1}{c|}{opcode} & R4-type \\
 \cline{2-11}
   
+
+&
+\multicolumn{6}{|c|}{imm[11:0]} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{funct3} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{opcode} & I-type \\
+\cline{2-11}
+
+
+&
+\multicolumn{4}{|c|}{imm[11:5]} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{funct3} &
+\multicolumn{1}{c|}{imm[4:0]} &
+\multicolumn{1}{c|}{opcode} & S-type \\
+\cline{2-11}
+
 
 &
 \multicolumn{10}{c}{} & \\
