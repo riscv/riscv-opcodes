@@ -22,7 +22,7 @@ lui     rd imm20 6..2=0x0D 1..0=3
 auipc   rd imm20 6..2=0x05 1..0=3
 
 addi    rd rs1 imm12           14..12=0 6..2=0x04 1..0=3
-slli    rd rs1 31..26=16 shamt 14..12=1 6..2=0x04 1..0=3
+slli    rd rs1 31..26=0  shamt 14..12=1 6..2=0x04 1..0=3
 slti    rd rs1 imm12           14..12=2 6..2=0x04 1..0=3
 sltiu   rd rs1 imm12           14..12=3 6..2=0x04 1..0=3
 xori    rd rs1 imm12           14..12=4 6..2=0x04 1..0=3
@@ -52,7 +52,7 @@ rem     rd rs1 rs2 31..25=1 14..12=6 6..2=0x0C 1..0=3
 remu    rd rs1 rs2 31..25=1 14..12=7 6..2=0x0C 1..0=3
 
 addiw   rd rs1 imm12            14..12=0 6..2=0x06 1..0=3
-slliw   rd rs1 31..25=32 shamtw 14..12=1 6..2=0x06 1..0=3
+slliw   rd rs1 31..25=0  shamtw 14..12=1 6..2=0x06 1..0=3
 srliw   rd rs1 31..25=0  shamtw 14..12=5 6..2=0x06 1..0=3
 sraiw   rd rs1 31..25=32 shamtw 14..12=5 6..2=0x06 1..0=3
 
