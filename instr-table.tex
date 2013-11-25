@@ -457,47 +457,47 @@
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{000} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{1110111} & SYSCALL  \\
+\multicolumn{1}{c|}{1110011} & SCALL  \\
 \cline{2-11}
   
 
 &
 \multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{001} &
+\multicolumn{1}{c|}{000} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{1110111} & BREAK  \\
+\multicolumn{1}{c|}{1110011} & SBREAK  \\
 \cline{2-11}
   
 
 &
 \multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{2}{c|}{00100} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{100} &
+\multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1110111} & RDCYCLE rd \\
+\multicolumn{1}{c|}{1110011} & RDCYCLE rd \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{0000001} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{00101} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{100} &
+\multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1110111} & RDTIME rd \\
+\multicolumn{1}{c|}{1110011} & RDTIME rd \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{0000010} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{00110} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{100} &
+\multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1110111} & RDINSTRET rd \\
+\multicolumn{1}{c|}{1110011} & RDINSTRET rd \\
 \cline{2-11}
   
 
@@ -1435,22 +1435,62 @@
   
 
 &
-\multicolumn{4}{|c|}{1111100} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{00011} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{001} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSSR rd,rs1 \\
+\multicolumn{1}{c|}{1110011} & FSSR rd,rs1 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{1110100} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{00011} &
 \multicolumn{1}{c|}{00000} &
-\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FRSR rd \\
+\multicolumn{1}{c|}{1110011} & FRSR rd \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{00001} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1110011} & FSFLAGS rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{00001} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{010} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1110011} & FRFLAGS rd \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{00010} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1110011} & FSRM rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{00010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{010} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1110011} & FRRM rd \\
 \cline{2-11}
   
 
