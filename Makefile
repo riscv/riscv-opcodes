@@ -7,6 +7,7 @@ install: $(ISASIM_H) $(PK_H) $(GAS_H) $(XCC_H) inst.chisel instr-table.tex
 
 $(ISASIM_H): opcodes parse-opcodes
 	./parse-opcodes -isasim < $< > $@
+	./parse-opcodes -isasim < opcodes-hwacha-ut > ../riscv-isa-sim/hwacha/opcodes_hwacha_ut_half.h
 
 $(PK_H): opcodes parse-opcodes
 	./parse-opcodes -disasm < $< > $@
