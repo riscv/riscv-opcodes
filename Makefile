@@ -14,11 +14,11 @@ $(PK_H): opcodes parse-opcodes
 
 $(GAS_H): opcodes opcodes-hwacha opcodes-hwacha-ut opcodes-rvc opcodes-custom opcodes-hwacha-pseudo parse-opcodes
 	./parse-opcodes -disasm < $< > $@
+	./parse-opcodes -disasm < opcodes-rvc >> $@
+	./parse-opcodes -disasm < opcodes-custom >> $@
 	./parse-opcodes -disasm < opcodes-hwacha >> $@
 	./parse-opcodes -disasm < opcodes-hwacha-pseudo >> $@
 	./parse-opcodes -disasm < opcodes-hwacha-ut >> $@
-	./parse-opcodes -disasm < opcodes-rvc >> $@
-	./parse-opcodes -disasm < opcodes-custom >> $@
 
 $(XCC_H): opcodes parse-opcodes
 	./parse-opcodes -disasm < $< > $@

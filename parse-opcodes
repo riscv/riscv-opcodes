@@ -77,6 +77,7 @@ def str_inst(name,arguments):
   if 'imm12hi' in arguments and 'imm12lo' in arguments:
     arguments.remove('imm12hi')
     arguments.remove('imm12lo')
+    arguments.append('imm')
   if 'bimm12hi' in arguments and 'bimm12lo' in arguments:
     arguments.remove('bimm12hi')
     arguments.remove('bimm12lo')
@@ -140,7 +141,7 @@ def print_uj_type(name,match,arguments):
 \\cline{2-11}
   """ % \
   ( \
-    str_arg('jimm20','imm[20, 10:1, 11, 19:12]',match,arguments), \
+    str_arg('jimm20','imm[20$\\vert$10:1$\\vert$11$\\vert$19:12]',match,arguments), \
     str_arg('rd','',match,arguments), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
     str_inst(name,arguments) \
@@ -179,11 +180,11 @@ def print_sb_type(name,match,arguments):
 \\cline{2-11}
   """ % \
   ( \
-    str_arg('bimm12hi','imm[12, 10:5]',match,arguments), \
+    str_arg('bimm12hi','imm[12$\\vert$10:5]',match,arguments), \
     str_arg('rs2','',match,arguments), \
     str_arg('rs1','',match,arguments), \
     binary(yank(match,funct_base,funct_size),funct_size), \
-    str_arg('bimm12lo','imm[4:1, 11]',match,arguments), \
+    str_arg('bimm12lo','imm[4:1$\\vert$11]',match,arguments), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
     str_inst(name,arguments) \
   )
@@ -319,8 +320,8 @@ def print_amo_type(name,match,arguments):
 def print_fence_type(name,match,arguments):
   print """
 &
-\\multicolumn{1}{|c|}{%s} &
-\\multicolumn{4}{c|}{%s} &
+\\multicolumn{2}{|c|}{%s} &
+\\multicolumn{3}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} &
@@ -330,7 +331,7 @@ def print_fence_type(name,match,arguments):
   """ % \
   ( \
     binary(yank(match,28,4),4), \
-    str_arg('pred','~~~pred~~~~',match,arguments), \
+    str_arg('pred','pred',match,arguments), \
     str_arg('succ','',match,arguments), \
     str_arg('rs1','',match,arguments), \
     binary(yank(match,funct_base,funct_size),funct_size), \
@@ -346,13 +347,15 @@ def print_header(*types):
 \\begin{table}[p]
 \\begin{small}
 \\begin{center}
-\\begin{tabular}{rccccccccccl}
+\\begin{tabular}{p{0in}p{0.4in}p{0.05in}p{0.05in}p{0.05in}p{0.05in}p{0.4in}p{0.6in}p{0.4in}p{0.6in}p{0.7in}l}
+& & & & & & & & & & \\\\
                       &
 \\multicolumn{1}{l}{\\instbit{31}} &
 \\multicolumn{1}{r}{\\instbit{27}} &
 \\instbit{26} &
 \\instbit{25} &
-\\multicolumn{2}{c}{\\instbitrange{24}{20}} &
+\\multicolumn{1}{l}{\\instbit{24}} &
+\\multicolumn{1}{r}{\\instbit{20}} &
 \\instbitrange{19}{15} &
 \\instbitrange{14}{12} &
 \\instbitrange{11}{7} &
@@ -398,19 +401,19 @@ def print_header(*types):
 \\multicolumn{4}{|c|}{imm[11:5]} &
 \\multicolumn{2}{c|}{rs2} &
 \\multicolumn{1}{c|}{rs1} &
-\\multicolumn{1}{c|}{imm[4:0]} &
 \\multicolumn{1}{c|}{funct3} &
+\\multicolumn{1}{c|}{imm[4:0]} &
 \\multicolumn{1}{c|}{opcode} & S-type \\\\
 \\cline{2-11}
 """
   if 'sb' in types:
     print """
 &
-\\multicolumn{4}{|c|}{imm[12, 10:5]} &
+\\multicolumn{4}{|c|}{imm[12$\\vert$10:5]} &
 \\multicolumn{2}{c|}{rs2} &
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{1}{c|}{funct3} &
-\\multicolumn{1}{c|}{imm[4:1, 11]} &
+\\multicolumn{1}{c|}{imm[4:1$\\vert$11]} &
 \\multicolumn{1}{c|}{opcode} & SB-type \\\\
 \\cline{2-11}
 """
@@ -425,7 +428,7 @@ def print_header(*types):
   if 'uj' in types:
     print """
 &
-\\multicolumn{8}{|c|}{imm[20, 10:1, 11, 19:12]} &
+\\multicolumn{8}{|c|}{imm[20$\\vert$10:1$\\vert$11$\\vert$19:12]} &
 \\multicolumn{1}{c|}{rd} &
 \\multicolumn{1}{c|}{opcode} & UJ-type \\\\
 \\cline{2-11}
@@ -507,7 +510,7 @@ def make_latex_table():
   print_insts('amomin.w', 'amomax.w', 'amominu.w', 'amomaxu.w')
   print_footer(0)
 
-  print_header('r','a','i','s')
+  print_header('r','r4','i','s')
   print_subtitle('RV64A Standard Extension (in addition to RV32A)')
   print_insts('lr.d', 'sc.d')
   print_insts('amoswap.d')
@@ -524,7 +527,7 @@ def make_latex_table():
   print_insts('fssr', 'frsr')
   print_footer(0)
 
-  print_header('r','r4')
+  print_header('r','r4','i','s')
   print_subtitle('RV64F Standard Extension (in addition to RV32F)')
   print_insts('fcvt.s.l', 'fcvt.s.lu')
   print_insts('fcvt.l.s', 'fcvt.lu.s')
