@@ -40,34 +40,34 @@ arglut['cimm6'] = (15,10)
 arglut['cimm10'] = (14,5)
 arglut['cimm5'] = (9,5)
 
-csrs = {
-  0x001 : 'fflags',
-  0x002 : 'frm',
-  0x003 : 'fcsr',
-  0x004 : 'cycle',
-  0x005 : 'time',
-  0x006 : 'instret',
-  0x500 : 'sup0',
-  0x501 : 'sup1',
-  0x502 : 'epc',
-  0x503 : 'badvaddr',
-  0x504 : 'ptbr',
-  0x505 : 'asid',
-  0x506 : 'count',
-  0x507 : 'compare',
-  0x508 : 'evec',
-  0x509 : 'cause',
-  0x50A : 'status',
-  0x50B : 'hartid',
-  0x50C : 'impl',
-  0x50D : 'fatc',
-  0x50E : 'send_ipi',
-  0x50F : 'clear_ipi',
-  0x51C : 'stats', # XXX
-  0x51D : 'reset',
-  0x51E : 'tohost',
-  0x51F : 'fromhost',
-}
+csrs = [
+  (0x001, 'fflags'),
+  (0x002, 'frm'),
+  (0x003, 'fcsr'),
+  (0x500, 'sup0'),
+  (0x501, 'sup1'),
+  (0x502, 'epc'),
+  (0x503, 'badvaddr'),
+  (0x504, 'ptbr'),
+  (0x505, 'asid'),
+  (0x506, 'count'),
+  (0x507, 'compare'),
+  (0x508, 'evec'),
+  (0x509, 'cause'),
+  (0x50A, 'status'),
+  (0x50B, 'hartid'),
+  (0x50C, 'impl'),
+  (0x50D, 'fatc'),
+  (0x50E, 'send_ipi'),
+  (0x50F, 'clear_ipi'),
+  (0x51C, 'stats'), # XXX
+  (0x51D, 'reset'),
+  (0x51E, 'tohost'),
+  (0x51F, 'fromhost'),
+  (0xC00, 'cycle'),
+  (0xC01, 'time'),
+  (0xC02, 'instret'),
+]
 
 opcode_base = 0
 opcode_size = 7
@@ -86,7 +86,7 @@ def make_c(match,mask):
     name2 = name.upper().replace('.','_')
     print '#define MATCH_%s %s' % (name2, hex(match[name]))
     print '#define MASK_%s  %s' % (name2, hex(mask[name]))
-  for num, name in csrs.items():
+  for num, name in csrs:
     print '#define CSR_%s %s' % (name.upper(), hex(num))
   print '#endif'
 
@@ -97,7 +97,7 @@ def make_c(match,mask):
   print '#endif'
 
   print '#ifdef DECLARE_CSR'
-  for num, name in csrs.items():
+  for num, name in csrs:
     print 'DECLARE_CSR(%s, CSR_%s)' % (name, name.upper())
   print '#endif'
 
@@ -564,9 +564,8 @@ def make_latex_table():
   print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x')
   print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.s')
   print_insts('feq.s', 'flt.s', 'fle.s')
-  print_insts('fssr', 'frsr')
-  print_insts('fsflags', 'frflags')
-  print_insts('fsrm', 'frrm')
+  print_insts('frcsr', 'frrm', 'frflags')
+  print_insts('fscsr', 'fsrm', 'fsflags')
   print_footer(0)
 
   print_header('r','r4','i','s')
@@ -603,11 +602,11 @@ def make_chisel():
     print_chisel_insn(name)
   print '}'
   print 'object CSRs {'
-  for num, name in csrs.items():
-    print '  val %s = %d' % (name, num)
+  for num, name in csrs:
+    print '  val %s = %s' % (name, hex(num))
   print '  val all = {'
   print '    val res = collection.mutable.ArrayBuffer[Int]()'
-  for num, name in csrs.items():
+  for num, name in csrs:
     print '    res += %s' % (name)
   print '    res.toArray'
   print '  }'
