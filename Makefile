@@ -4,7 +4,7 @@ ENV_H := ../riscv-tests/env/encoding.h
 GAS_H := ../riscv-gcc/binutils-2.21.1/include/opcode/riscv-opc.h
 XCC_H := ../riscv-gcc/gcc-4.6.1/gcc/config/riscv/riscv-opc.h 
 
-ALL_OPCODES := opcodes opcodes-pseudo opcodes-rvc opcodes-hwacha opcodes-hwacha-pseudo opcodes-custom
+ALL_OPCODES := opcodes opcodes-pseudo opcodes-rvc opcodes-hwacha opcodes-hwacha-pseudo opcodes-hwacha-ut opcodes-custom
 
 install: $(ISASIM_H) $(PK_H) $(ENV_H) $(GAS_H) $(XCC_H) inst.chisel instr-table.tex
 
