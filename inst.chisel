@@ -180,6 +180,36 @@ object Instructions {
   def CUSTOM3_RD_RS1     = Bits("b?????????????????110?????1111011")
   def CUSTOM3_RD_RS1_RS2 = Bits("b?????????????????111?????1111011")
 }
+object Causes {
+  val misaligned_fetch = 0x0
+  val fault_fetch = 0x1
+  val illegal_instruction = 0x2
+  val privileged_instruction = 0x3
+  val fp_disabled = 0x4
+  val syscall = 0x6
+  val breakpoint = 0x7
+  val misaligned_load = 0x8
+  val misaligned_store = 0x9
+  val fault_load = 0xa
+  val fault_store = 0xb
+  val accelerator_disabled = 0xc
+  val all = {
+    val res = collection.mutable.ArrayBuffer[Int]()
+    res += misaligned_fetch
+    res += fault_fetch
+    res += illegal_instruction
+    res += privileged_instruction
+    res += fp_disabled
+    res += syscall
+    res += breakpoint
+    res += misaligned_load
+    res += misaligned_store
+    res += fault_load
+    res += fault_store
+    res += accelerator_disabled
+    res.toArray
+  }
+}
 object CSRs {
   val fflags = 0x1
   val frm = 0x2

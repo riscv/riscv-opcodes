@@ -40,6 +40,21 @@ arglut['cimm6'] = (15,10)
 arglut['cimm10'] = (14,5)
 arglut['cimm5'] = (9,5)
 
+causes = [
+  (0x00, 'misaligned fetch'),
+  (0x01, 'fault fetch'),
+  (0x02, 'illegal instruction'),
+  (0x03, 'privileged instruction'),
+  (0x04, 'FP disabled'),
+  (0x06, 'syscall'),
+  (0x07, 'breakpoint'),
+  (0x08, 'misaligned load'),
+  (0x09, 'misaligned store'),
+  (0x0A, 'fault load'),
+  (0x0B, 'fault store'),
+  (0x0C, 'accelerator disabled'),
+]
+
 csrs = [
   (0x001, 'fflags'),
   (0x002, 'frm'),
@@ -88,6 +103,8 @@ def make_c(match,mask):
     print '#define MASK_%s  %s' % (name2, hex(mask[name]))
   for num, name in csrs:
     print '#define CSR_%s %s' % (name.upper(), hex(num))
+  for num, name in causes:
+    print '#define CAUSE_%s %s' % (name.upper().replace(' ', '_'), hex(num))
   print '#endif'
 
   print '#ifdef DECLARE_INSN'
@@ -600,6 +617,16 @@ def make_chisel():
   print 'object Instructions {'
   for name in namelist:
     print_chisel_insn(name)
+  print '}'
+  print 'object Causes {'
+  for num, name in causes:
+    print '  val %s = %s' % (name.lower().replace(' ', '_'), hex(num))
+  print '  val all = {'
+  print '    val res = collection.mutable.ArrayBuffer[Int]()'
+  for num, name in causes:
+    print '    res += %s' % (name.lower().replace(' ', '_'))
+  print '    res.toArray'
+  print '  }'
   print '}'
   print 'object CSRs {'
   for num, name in csrs:

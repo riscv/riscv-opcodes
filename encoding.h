@@ -26,19 +26,6 @@
 #define IMPL_SPIKE  1
 #define IMPL_ROCKET 2
 
-#define CAUSE_MISALIGNED_FETCH 0
-#define CAUSE_FAULT_FETCH 1
-#define CAUSE_ILLEGAL_INSTRUCTION 2
-#define CAUSE_PRIVILEGED_INSTRUCTION 3
-#define CAUSE_FP_DISABLED 4
-#define CAUSE_SYSCALL 6
-#define CAUSE_BREAKPOINT 7
-#define CAUSE_MISALIGNED_LOAD 8
-#define CAUSE_MISALIGNED_STORE 9
-#define CAUSE_FAULT_LOAD 10
-#define CAUSE_FAULT_STORE 11
-#define CAUSE_ACCELERATOR_DISABLED 12
-
 // page table entry (PTE) fields
 #define PTE_V    0x001 // Entry is a page Table descriptor
 #define PTE_T    0x002 // Entry is a page Table, not a terminal node
