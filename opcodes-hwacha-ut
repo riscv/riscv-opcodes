@@ -7,6 +7,14 @@
 # <args> is one of rd, rs1, rs2, rs3, imm25, imm20, imm12, imm12lo, imm12hi,
 # shamtw, shamt, rm
 
+# vector scalar instructions
+stop    31..25=0 24..20=0 19..15=0 14..12=5 11..7=0 6..2=0x1D 1..0=3
+utidx   31..25=0 24..20=0 19..15=0 14..12=6 rd      6..2=0x1D 1..0=3
+movz    31..25=0 rs2      rs1      14..12=7 rd      6..2=0x1D 1..0=3
+movn    31..25=1 rs2      rs1      14..12=7 rd      6..2=0x1D 1..0=3
+fmovz   31..25=2 rs2      rs1      14..12=7 rd      6..2=0x1D 1..0=3
+fmovn   31..25=3 rs2      rs1      14..12=7 rd      6..2=0x1D 1..0=3
+
 # half-precision floating-point operations for hwacha microthreads
 
 fadd.h      rd rs1 rs2      31..27=0x0  rm       26..25=2 6..2=0x14 1..0=3

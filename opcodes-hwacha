@@ -1,11 +1,3 @@
-# vector scalar instructions
-stop    31..25=0 24..20=0 19..15=0 14..12=5 11..7=0 6..2=0x1D 1..0=3
-utidx   31..25=0 24..20=0 19..15=0 14..12=6 rd      6..2=0x1D 1..0=3
-movz    31..25=0 rs2      rs1      14..12=7 rd      6..2=0x1D 1..0=3
-movn    31..25=1 rs2      rs1      14..12=7 rd      6..2=0x1D 1..0=3
-fmovz   31..25=2 rs2      rs1      14..12=7 rd      6..2=0x1D 1..0=3
-fmovn   31..25=3 rs2      rs1      14..12=7 rd      6..2=0x1D 1..0=3
-
 # rocc format, xd = inst[14], xs1 = inst[13], xs2 = inst[12]
 
 # vector instructions
