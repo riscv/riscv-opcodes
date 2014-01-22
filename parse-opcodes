@@ -118,6 +118,11 @@ def make_c(match,mask):
     print 'DECLARE_CSR(%s, CSR_%s)' % (name, name.upper())
   print '#endif'
 
+  print '#ifdef DECLARE_CAUSE'
+  for num, name in csrs:
+    print 'DECLARE_CAUSE("%s", CAUSE_%s)' % (name, name.upper().replace(' ', '_'))
+  print '#endif'
+
 def yank(num,start,len):
   return (num >> start) & ((1 << len) - 1)
 
