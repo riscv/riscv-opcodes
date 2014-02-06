@@ -82,6 +82,22 @@ csrs = [
   (0xC00, 'cycle'),
   (0xC01, 'time'),
   (0xC02, 'instret'),
+  (0xC10, 'uarch0'),
+  (0xC11, 'uarch1'),
+  (0xC12, 'uarch2'),
+  (0xC13, 'uarch3'),
+  (0xC14, 'uarch4'),
+  (0xC15, 'uarch5'),
+  (0xC16, 'uarch6'),
+  (0xC17, 'uarch7'),
+  (0xC18, 'uarch8'),
+  (0xC19, 'uarch9'),
+  (0xC1A, 'uarch10'),
+  (0xC1B, 'uarch11'),
+  (0xC1C, 'uarch12'),
+  (0xC1D, 'uarch13'),
+  (0xC1E, 'uarch14'),
+  (0xC1F, 'uarch15'),
 ]
 
 opcode_base = 0

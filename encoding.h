@@ -77,8 +77,16 @@
     asm volatile ("csrrc %0, " #reg ", %1" : "=r"(__tmp) : "r"(bit)); \
   __tmp; })
 
+#define rdtime() ({ unsigned long __tmp; \
+  asm volatile ("rdtime %0" : "=r"(__tmp)); \
+  __tmp; })
+
 #define rdcycle() ({ unsigned long __tmp; \
   asm volatile ("rdcycle %0" : "=r"(__tmp)); \
+  __tmp; })
+
+#define rdinstret() ({ unsigned long __tmp; \
+  asm volatile ("rdinstret %0" : "=r"(__tmp)); \
   __tmp; })
 
 #endif
