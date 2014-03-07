@@ -1206,7 +1206,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FADD.S rd,rs1,rs2,rm \\
+\multicolumn{1}{c|}{1010011} & FADD.S rd,rs1,rs2 \\
 \cline{2-11}
   
 
@@ -1216,7 +1216,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSUB.S rd,rs1,rs2,rm \\
+\multicolumn{1}{c|}{1010011} & FSUB.S rd,rs1,rs2 \\
 \cline{2-11}
   
 
@@ -1226,7 +1226,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FMUL.S rd,rs1,rs2,rm \\
+\multicolumn{1}{c|}{1010011} & FMUL.S rd,rs1,rs2 \\
 \cline{2-11}
   
 
@@ -1236,7 +1236,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FDIV.S rd,rs1,rs2,rm \\
+\multicolumn{1}{c|}{1010011} & FDIV.S rd,rs1,rs2 \\
 \cline{2-11}
   
 
@@ -1246,7 +1246,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSQRT.S rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FSQRT.S rd,rs1 \\
 \cline{2-11}
   
 
@@ -1277,7 +1277,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1000011} & FMADD.S rd,rs1,rs2,rs3,rm \\
+\multicolumn{1}{c|}{1000011} & FMADD.S rd,rs1,rs2,rs3 \\
 \cline{2-11}
   
 
@@ -1288,7 +1288,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1000111} & FMSUB.S rd,rs1,rs2,rs3,rm \\
+\multicolumn{1}{c|}{1000111} & FMSUB.S rd,rs1,rs2,rs3 \\
 \cline{2-11}
   
 
@@ -1299,7 +1299,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1001011} & FNMSUB.S rd,rs1,rs2,rs3,rm \\
+\multicolumn{1}{c|}{1001011} & FNMSUB.S rd,rs1,rs2,rs3 \\
 \cline{2-11}
   
 
@@ -1310,7 +1310,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1001111} & FNMADD.S rd,rs1,rs2,rs3,rm \\
+\multicolumn{1}{c|}{1001111} & FNMADD.S rd,rs1,rs2,rs3 \\
 \cline{2-11}
   
 
@@ -1350,7 +1350,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.S.W rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.S.W rd,rs1 \\
 \cline{2-11}
   
 
@@ -1360,7 +1360,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.S.WU rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.S.WU rd,rs1 \\
 \cline{2-11}
   
 
@@ -1380,7 +1380,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.W.S rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.W.S rd,rs1 \\
 \cline{2-11}
   
 
@@ -1390,7 +1390,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.WU.S rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.WU.S rd,rs1 \\
 \cline{2-11}
   
 
@@ -1401,6 +1401,16 @@
 \multicolumn{1}{c|}{000} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1010011} & FMV.X.S rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1110100} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCLASS.S rd,rs1 \\
 \cline{2-11}
   
 
@@ -1576,7 +1586,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.S.L rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.S.L rd,rs1 \\
 \cline{2-11}
   
 
@@ -1586,7 +1596,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.S.LU rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.S.LU rd,rs1 \\
 \cline{2-11}
   
 
@@ -1596,7 +1606,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.L.S rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.L.S rd,rs1 \\
 \cline{2-11}
   
 
@@ -1606,7 +1616,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.LU.S rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.LU.S rd,rs1 \\
 \cline{2-11}
   
 
@@ -1642,7 +1652,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FADD.D rd,rs1,rs2,rm \\
+\multicolumn{1}{c|}{1010011} & FADD.D rd,rs1,rs2 \\
 \cline{2-11}
   
 
@@ -1652,7 +1662,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSUB.D rd,rs1,rs2,rm \\
+\multicolumn{1}{c|}{1010011} & FSUB.D rd,rs1,rs2 \\
 \cline{2-11}
   
 
@@ -1662,7 +1672,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FMUL.D rd,rs1,rs2,rm \\
+\multicolumn{1}{c|}{1010011} & FMUL.D rd,rs1,rs2 \\
 \cline{2-11}
   
 
@@ -1672,7 +1682,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FDIV.D rd,rs1,rs2,rm \\
+\multicolumn{1}{c|}{1010011} & FDIV.D rd,rs1,rs2 \\
 \cline{2-11}
   
 
@@ -1682,7 +1692,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSQRT.D rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FSQRT.D rd,rs1 \\
 \cline{2-11}
   
 
@@ -1713,7 +1723,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1000011} & FMADD.D rd,rs1,rs2,rs3,rm \\
+\multicolumn{1}{c|}{1000011} & FMADD.D rd,rs1,rs2,rs3 \\
 \cline{2-11}
   
 
@@ -1724,7 +1734,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1000111} & FMSUB.D rd,rs1,rs2,rs3,rm \\
+\multicolumn{1}{c|}{1000111} & FMSUB.D rd,rs1,rs2,rs3 \\
 \cline{2-11}
   
 
@@ -1735,7 +1745,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1001011} & FNMSUB.D rd,rs1,rs2,rs3,rm \\
+\multicolumn{1}{c|}{1001011} & FNMSUB.D rd,rs1,rs2,rs3 \\
 \cline{2-11}
   
 
@@ -1746,7 +1756,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1001111} & FNMADD.D rd,rs1,rs2,rs3,rm \\
+\multicolumn{1}{c|}{1001111} & FNMADD.D rd,rs1,rs2,rs3 \\
 \cline{2-11}
   
 
@@ -1786,7 +1796,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.W rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.D.W rd,rs1 \\
 \cline{2-11}
   
 
@@ -1796,7 +1806,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.WU rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.D.WU rd,rs1 \\
 \cline{2-11}
   
 
@@ -1806,7 +1816,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.W.D rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.W.D rd,rs1 \\
 \cline{2-11}
   
 
@@ -1816,7 +1826,17 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.WU.D rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.WU.D rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1110101} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCLASS.D rd,rs1 \\
 \cline{2-11}
   
 
@@ -1863,7 +1883,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.L rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.D.L rd,rs1 \\
 \cline{2-11}
   
 
@@ -1873,7 +1893,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.LU rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.D.LU rd,rs1 \\
 \cline{2-11}
   
 
@@ -1893,7 +1913,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.L.D rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.L.D rd,rs1 \\
 \cline{2-11}
   
 
@@ -1903,7 +1923,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.LU.D rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.LU.D rd,rs1 \\
 \cline{2-11}
   
 
@@ -1923,7 +1943,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.S.D rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.S.D rd,rs1 \\
 \cline{2-11}
   
 
@@ -1933,7 +1953,7 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.S rd,rs1,rm \\
+\multicolumn{1}{c|}{1010011} & FCVT.D.S rd,rs1 \\
 \cline{2-11}
   
 

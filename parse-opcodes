@@ -174,6 +174,8 @@ def str_inst(name,arguments):
     arguments.append('shamt')
   if 'aqrl' in arguments:
     arguments.remove('aqrl')
+  if 'rm' in arguments:
+    arguments.remove('rm')
   if 'pred' in arguments:
     arguments.remove('pred')
   if 'succ' in arguments:
@@ -601,7 +603,7 @@ def make_latex_table():
   print_insts('fsgnj.s', 'fsgnjn.s', 'fsgnjx.s')
   print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x')
   print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.s')
-  print_insts('feq.s', 'flt.s', 'fle.s')
+  print_insts('fclass.s', 'feq.s', 'flt.s', 'fle.s')
   print_insts('frcsr', 'frrm', 'frflags')
   print_insts('fscsr', 'fsrm', 'fsflags')
   print_footer(0)
@@ -617,7 +619,7 @@ def make_latex_table():
   print_insts('fsgnj.d', 'fsgnjn.d', 'fsgnjx.d')
   print_insts('fcvt.d.w', 'fcvt.d.wu')
   print_insts('fcvt.w.d', 'fcvt.wu.d')
-  print_insts('feq.d', 'flt.d', 'fle.d')
+  print_insts('fclass.d', 'feq.d', 'flt.d', 'fle.d')
   print_subtitle('RV64D Standard Extension (in addition to RV32D)')
   print_insts('fcvt.d.l', 'fcvt.d.lu', 'fmv.d.x')
   print_insts('fcvt.l.d', 'fcvt.lu.d', 'fmv.x.d')
