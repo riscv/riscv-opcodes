@@ -300,8 +300,8 @@
   
 
 &
-\multicolumn{3}{|c|}{000000} &
-\multicolumn{3}{c|}{shamt} &
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{shamt} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{001} &
 \multicolumn{1}{c|}{rd} &
@@ -310,8 +310,8 @@
   
 
 &
-\multicolumn{3}{|c|}{000000} &
-\multicolumn{3}{c|}{shamt} &
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{shamt} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{101} &
 \multicolumn{1}{c|}{rd} &
@@ -320,8 +320,8 @@
   
 
 &
-\multicolumn{3}{|c|}{010000} &
-\multicolumn{3}{c|}{shamt} &
+\multicolumn{4}{|c|}{0100000} &
+\multicolumn{2}{c|}{shamt} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{101} &
 \multicolumn{1}{c|}{rd} &
@@ -591,6 +591,36 @@
 \multicolumn{1}{c|}{011} &
 \multicolumn{1}{c|}{imm[4:0]} &
 \multicolumn{1}{c|}{0100011} & SD rs1,rs2,imm \\
+\cline{2-11}
+  
+
+&
+\multicolumn{3}{|c|}{000000} &
+\multicolumn{3}{c|}{shamt} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{0010011} & SLLI rd,rs1,shamt \\
+\cline{2-11}
+  
+
+&
+\multicolumn{3}{|c|}{000000} &
+\multicolumn{3}{c|}{shamt} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{101} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{0010011} & SRLI rd,rs1,shamt \\
+\cline{2-11}
+  
+
+&
+\multicolumn{3}{|c|}{010000} &
+\multicolumn{3}{c|}{shamt} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{101} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{0010011} & SRAI rd,rs1,shamt \\
 \cline{2-11}
   
 
@@ -1201,76 +1231,6 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FADD.S rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0000100} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSUB.S rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0001000} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FMUL.S rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0001100} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FDIV.S rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0010000} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSQRT.S rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{1100000} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FMIN.S rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{1100100} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FMAX.S rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
 \multicolumn{2}{|c|}{rs3} &
 \multicolumn{2}{c|}{00} &
 \multicolumn{2}{c|}{rs2} &
@@ -1315,7 +1275,57 @@
   
 
 &
-\multicolumn{4}{|c|}{0010100} &
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FADD.S rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0000100} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FSUB.S rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0001000} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FMUL.S rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0001100} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FDIV.S rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0101100} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FSQRT.S rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0010000} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{000} &
@@ -1325,57 +1335,47 @@
   
 
 &
-\multicolumn{4}{|c|}{0011000} &
+\multicolumn{4}{|c|}{0010000} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{001} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1010011} & FSGNJN.S rd,rs1,rs2 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{0011100} &
+\multicolumn{4}{|c|}{0010000} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1010011} & FSGNJX.S rd,rs1,rs2 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{0111000} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.S.W rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0111100} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.S.WU rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{1111000} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{0010100} &
+\multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{000} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FMV.S.X rd,rs1 \\
+\multicolumn{1}{c|}{1010011} & FMIN.S rd,rs1,rs2 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{0101000} &
+\multicolumn{4}{|c|}{0010100} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FMAX.S rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1100000} &
 \multicolumn{2}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
@@ -1385,8 +1385,8 @@
   
 
 &
-\multicolumn{4}{|c|}{0101100} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{1100000} &
+\multicolumn{2}{c|}{00001} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
@@ -1405,42 +1405,72 @@
   
 
 &
-\multicolumn{4}{|c|}{1110100} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCLASS.S rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{1010100} &
+\multicolumn{4}{|c|}{1010000} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1010011} & FEQ.S rd,rs1,rs2 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{1011000} &
+\multicolumn{4}{|c|}{1010000} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{001} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1010011} & FLT.S rd,rs1,rs2 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{1011100} &
+\multicolumn{4}{|c|}{1010000} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{000} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1010011} & FLE.S rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1110000} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCLASS.S rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1101000} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCVT.S.W rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1101000} &
+\multicolumn{2}{c|}{00001} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCVT.S.WU rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1111000} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FMV.S.X rd,rs1 \\
 \cline{2-11}
   
 
@@ -1501,6 +1531,26 @@
 \multicolumn{1}{c|}{001} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1110011} & FSFLAGS rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{00010} &
+\multicolumn{1}{c|}{imm[4:0]} &
+\multicolumn{1}{c|}{101} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1110011} & FSRMI rd,imm \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0000000} &
+\multicolumn{2}{c|}{00001} &
+\multicolumn{1}{c|}{imm[4:0]} &
+\multicolumn{1}{c|}{101} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1110011} & FSFLAGSI rd,imm \\
 \cline{2-11}
   
 
@@ -1581,28 +1631,8 @@
   
 
 &
-\multicolumn{4}{|c|}{0110000} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.S.L rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0110100} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.S.LU rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0100000} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{1100000} &
+\multicolumn{2}{c|}{00010} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
@@ -1611,12 +1641,32 @@
   
 
 &
-\multicolumn{4}{|c|}{0100100} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{1100000} &
+\multicolumn{2}{c|}{00011} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1010011} & FCVT.LU.S rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1101000} &
+\multicolumn{2}{c|}{00010} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCVT.S.L rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1101000} &
+\multicolumn{2}{c|}{00011} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCVT.S.LU rd,rs1 \\
 \cline{2-11}
   
 
@@ -1643,76 +1693,6 @@
 \multicolumn{1}{c|}{011} &
 \multicolumn{1}{c|}{imm[4:0]} &
 \multicolumn{1}{c|}{0100111} & FSD rs1,rs2,imm \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0000001} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FADD.D rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0000101} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSUB.D rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0001001} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FMUL.D rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0001101} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FDIV.D rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0010001} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSQRT.D rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{1100001} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FMIN.D rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{1100101} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FMAX.D rd,rs1,rs2 \\
 \cline{2-11}
   
 
@@ -1761,62 +1741,42 @@
   
 
 &
-\multicolumn{4}{|c|}{0010101} &
+\multicolumn{4}{|c|}{0000001} &
 \multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSGNJ.D rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0011001} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSGNJN.D rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0011101} &
-\multicolumn{2}{c|}{rs2} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FSGNJX.D rd,rs1,rs2 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0111001} &
-\multicolumn{2}{c|}{00000} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.W rd,rs1 \\
+\multicolumn{1}{c|}{1010011} & FADD.D rd,rs1,rs2 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{0111101} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{0000101} &
+\multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.WU rd,rs1 \\
+\multicolumn{1}{c|}{1010011} & FSUB.D rd,rs1,rs2 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{0101001} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{0001001} &
+\multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.W.D rd,rs1 \\
+\multicolumn{1}{c|}{1010011} & FMUL.D rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0001101} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FDIV.D rd,rs1,rs2 \\
 \cline{2-11}
   
 
@@ -1826,47 +1786,157 @@
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.WU.D rd,rs1 \\
+\multicolumn{1}{c|}{1010011} & FSQRT.D rd,rs1 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{1110101} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCLASS.D rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{1010101} &
+\multicolumn{4}{|c|}{0010001} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FSGNJ.D rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0010001} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FSGNJN.D rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0010001} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{010} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FSGNJX.D rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0010101} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FMIN.D rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0010101} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FMAX.D rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0100000} &
+\multicolumn{2}{c|}{00001} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCVT.S.D rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{0100001} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCVT.D.S rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1010001} &
+\multicolumn{2}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1010011} & FEQ.D rd,rs1,rs2 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{1011001} &
+\multicolumn{4}{|c|}{1010001} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{001} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1010011} & FLT.D rd,rs1,rs2 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{1011101} &
+\multicolumn{4}{|c|}{1010001} &
 \multicolumn{2}{c|}{rs2} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{000} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1010011} & FLE.D rd,rs1,rs2 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1110001} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{001} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCLASS.D rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1100001} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCVT.W.D rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1100001} &
+\multicolumn{2}{c|}{00001} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCVT.WU.D rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1101001} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCVT.D.W rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1101001} &
+\multicolumn{2}{c|}{00001} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rm} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FCVT.D.WU rd,rs1 \\
 \cline{2-11}
   
 
@@ -1878,38 +1948,8 @@
   
 
 &
-\multicolumn{4}{|c|}{0110001} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.L rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0110101} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{rm} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.LU rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{1111001} &
-\multicolumn{2}{c|}{00000} &
-\multicolumn{1}{c|}{rs1} &
-\multicolumn{1}{c|}{000} &
-\multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FMV.D.X rd,rs1 \\
-\cline{2-11}
-  
-
-&
-\multicolumn{4}{|c|}{0100001} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{1100001} &
+\multicolumn{2}{c|}{00010} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
@@ -1918,8 +1958,8 @@
   
 
 &
-\multicolumn{4}{|c|}{0100101} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{1100001} &
+\multicolumn{2}{c|}{00011} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
@@ -1938,22 +1978,32 @@
   
 
 &
-\multicolumn{4}{|c|}{1000100} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{1101001} &
+\multicolumn{2}{c|}{00010} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.S.D rd,rs1 \\
+\multicolumn{1}{c|}{1010011} & FCVT.D.L rd,rs1 \\
 \cline{2-11}
   
 
 &
-\multicolumn{4}{|c|}{1000001} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{4}{|c|}{1101001} &
+\multicolumn{2}{c|}{00011} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{rm} &
 \multicolumn{1}{c|}{rd} &
-\multicolumn{1}{c|}{1010011} & FCVT.D.S rd,rs1 \\
+\multicolumn{1}{c|}{1010011} & FCVT.D.LU rd,rs1 \\
+\cline{2-11}
+  
+
+&
+\multicolumn{4}{|c|}{1111001} &
+\multicolumn{2}{c|}{00000} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{000} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1010011} & FMV.D.X rd,rs1 \\
 \cline{2-11}
   
 

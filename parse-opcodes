@@ -25,6 +25,7 @@ arglut['imm12hi'] = (31,25)
 arglut['bimm12hi'] = (31,25)
 arglut['imm12lo'] = (11,7)
 arglut['bimm12lo'] = (11,7)
+arglut['zimm'] = (19,15)
 arglut['shamt'] = (25,20)
 arglut['shamtw'] = (24,20)
 arglut['vseglen'] = (31,29)
@@ -151,7 +152,7 @@ def str_arg(arg0,name,match,arguments):
     return binary(yank(match,start,len),len)
 
 def str_inst(name,arguments):
-  ret = name.upper() + ' '
+  ret = name.upper().replace('-RV32','') + ' '
   if 'imm12hi' in arguments and 'imm12lo' in arguments:
     arguments.remove('imm12hi')
     arguments.remove('imm12lo')
@@ -168,6 +169,9 @@ def str_inst(name,arguments):
     arguments.append('imm')
   if 'jimm20' in arguments:
     arguments.remove('jimm20')
+    arguments.append('imm')
+  if 'zimm' in arguments:
+    arguments.remove('zimm')
     arguments.append('imm')
   if 'shamtw' in arguments:
     arguments.remove('shamtw')
@@ -344,7 +348,7 @@ def print_r_type(name,match,arguments):
   ( \
     binary(yank(match,25,7),7), \
     str_arg('rs2','',match,arguments), \
-    str_arg('rs1','',match,arguments), \
+    'zimm' in arguments and str_arg('zimm','imm[4:0]',match,arguments) or str_arg('rs1','',match,arguments), \
     str_arg('rm','',match,arguments), \
     str_arg('rd','',match,arguments), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
@@ -567,7 +571,7 @@ def make_latex_table():
   print_insts('lui', 'auipc')
   print_insts('jal', 'jalr', 'beq', 'bne', 'blt', 'bge', 'bltu', 'bgeu')
   print_insts('lb', 'lh', 'lw', 'lbu', 'lhu', 'sb', 'sh', 'sw')
-  print_insts('addi', 'slti', 'sltiu', 'xori', 'ori', 'andi', 'slli', 'srli', 'srai')
+  print_insts('addi', 'slti', 'sltiu', 'xori', 'ori', 'andi', 'slli-rv32', 'srli-rv32', 'srai-rv32')
   print_insts('add', 'sub', 'sll', 'slt', 'sltu', 'xor', 'srl', 'sra', 'or', 'and')
   print_insts('fence', 'fence.i')
   print_insts('scall', 'sbreak', 'rdcycle', 'rdtime', 'rdinstret')
@@ -576,6 +580,7 @@ def make_latex_table():
   print_header('r','a','i','s')
   print_subtitle('RV64I Base Instruction Set (in addition to RV32I)')
   print_insts('lwu', 'ld', 'sd')
+  print_insts('slli', 'srli', 'srai')
   print_insts('addiw', 'slliw', 'srliw', 'sraiw')
   print_insts('addw', 'subw', 'sllw', 'srlw', 'sraw')
   print_subtitle('RV32M Standard Extension')
@@ -598,32 +603,32 @@ def make_latex_table():
   print_insts('amomin.d', 'amomax.d', 'amominu.d', 'amomaxu.d')
   print_subtitle('RV32F Standard Extension')
   print_insts('flw', 'fsw')
-  print_insts('fadd.s', 'fsub.s', 'fmul.s', 'fdiv.s', 'fsqrt.s', 'fmin.s', 'fmax.s')
   print_insts('fmadd.s', 'fmsub.s', 'fnmsub.s', 'fnmadd.s')
-  print_insts('fsgnj.s', 'fsgnjn.s', 'fsgnjx.s')
-  print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x')
+  print_insts('fadd.s', 'fsub.s', 'fmul.s', 'fdiv.s', 'fsqrt.s')
+  print_insts('fsgnj.s', 'fsgnjn.s', 'fsgnjx.s', 'fmin.s', 'fmax.s')
   print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.s')
-  print_insts('fclass.s', 'feq.s', 'flt.s', 'fle.s')
+  print_insts('feq.s', 'flt.s', 'fle.s', 'fclass.s')
+  print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x')
   print_insts('frcsr', 'frrm', 'frflags')
-  print_insts('fscsr', 'fsrm', 'fsflags')
+  print_insts('fscsr', 'fsrm', 'fsflags', 'fsrmi', 'fsflagsi')
   print_footer(0)
 
   print_header('r','r4','i','s')
   print_subtitle('RV64F Standard Extension (in addition to RV32F)')
-  print_insts('fcvt.s.l', 'fcvt.s.lu')
   print_insts('fcvt.l.s', 'fcvt.lu.s')
+  print_insts('fcvt.s.l', 'fcvt.s.lu')
   print_subtitle('RV32D Standard Extension')
   print_insts('fld', 'fsd')
-  print_insts('fadd.d', 'fsub.d', 'fmul.d', 'fdiv.d', 'fsqrt.d', 'fmin.d', 'fmax.d')
   print_insts('fmadd.d', 'fmsub.d', 'fnmsub.d', 'fnmadd.d')
-  print_insts('fsgnj.d', 'fsgnjn.d', 'fsgnjx.d')
-  print_insts('fcvt.d.w', 'fcvt.d.wu')
-  print_insts('fcvt.w.d', 'fcvt.wu.d')
-  print_insts('fclass.d', 'feq.d', 'flt.d', 'fle.d')
-  print_subtitle('RV64D Standard Extension (in addition to RV32D)')
-  print_insts('fcvt.d.l', 'fcvt.d.lu', 'fmv.d.x')
-  print_insts('fcvt.l.d', 'fcvt.lu.d', 'fmv.x.d')
+  print_insts('fadd.d', 'fsub.d', 'fmul.d', 'fdiv.d', 'fsqrt.d')
+  print_insts('fsgnj.d', 'fsgnjn.d', 'fsgnjx.d', 'fmin.d', 'fmax.d')
   print_insts('fcvt.s.d', 'fcvt.d.s')
+  print_insts('feq.d', 'flt.d', 'fle.d', 'fclass.d')
+  print_insts('fcvt.w.d', 'fcvt.wu.d')
+  print_insts('fcvt.d.w', 'fcvt.d.wu')
+  print_subtitle('RV64D Standard Extension (in addition to RV32D)')
+  print_insts('fcvt.l.d', 'fcvt.lu.d', 'fmv.x.d')
+  print_insts('fcvt.d.l', 'fcvt.d.lu', 'fmv.d.x')
   print_footer(1)
 
 def print_chisel_insn(name):

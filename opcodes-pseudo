@@ -1,8 +1,15 @@
+# Instructions that differ slightly between rv32 and rv64
+@slli-rv32 rd rs1 31..25=0  shamtw  14..12=1 6..2=0x04 1..0=3
+@srli-rv32 rd rs1 31..25=0  shamtw  14..12=5 6..2=0x04 1..0=3
+@srai-rv32 rd rs1 31..25=32 shamtw  14..12=5 6..2=0x04 1..0=3
+
 # SYSTEM pseudo-instructions that map to csr*
-@fsflags   rd rs1      31..20=0x001 14..12=1 6..2=0x1C 1..0=3
 @frflags   rd 19..15=0 31..20=0x001 14..12=2 6..2=0x1C 1..0=3
-@fsrm      rd rs1      31..20=0x002 14..12=1 6..2=0x1C 1..0=3
+@fsflags   rd rs1      31..20=0x001 14..12=1 6..2=0x1C 1..0=3
+@fsflagsi  rd zimm     31..20=0x001 14..12=5 6..2=0x1C 1..0=3
 @frrm      rd 19..15=0 31..20=0x002 14..12=2 6..2=0x1C 1..0=3
+@fsrm      rd rs1      31..20=0x002 14..12=1 6..2=0x1C 1..0=3
+@fsrmi     rd zimm     31..20=0x002 14..12=5 6..2=0x1C 1..0=3
 @fscsr     rd rs1      31..20=0x003 14..12=1 6..2=0x1C 1..0=3
 @frcsr     rd 19..15=0 31..20=0x003 14..12=2 6..2=0x1C 1..0=3
 @rdcycle   rd 19..15=0 31..20=0xC00 14..12=2 6..2=0x1C 1..0=3
