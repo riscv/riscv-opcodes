@@ -152,7 +152,7 @@ def str_arg(arg0,name,match,arguments):
     return binary(yank(match,start,len),len)
 
 def str_inst(name,arguments):
-  ret = name.upper().replace('-RV32','') + ' '
+  ret = name.replace('.rv32','').upper() + ' '
   if 'imm12hi' in arguments and 'imm12lo' in arguments:
     arguments.remove('imm12hi')
     arguments.remove('imm12lo')
@@ -571,7 +571,7 @@ def make_latex_table():
   print_insts('lui', 'auipc')
   print_insts('jal', 'jalr', 'beq', 'bne', 'blt', 'bge', 'bltu', 'bgeu')
   print_insts('lb', 'lh', 'lw', 'lbu', 'lhu', 'sb', 'sh', 'sw')
-  print_insts('addi', 'slti', 'sltiu', 'xori', 'ori', 'andi', 'slli-rv32', 'srli-rv32', 'srai-rv32')
+  print_insts('addi', 'slti', 'sltiu', 'xori', 'ori', 'andi', 'slli.rv32', 'srli.rv32', 'srai.rv32')
   print_insts('add', 'sub', 'sll', 'slt', 'sltu', 'xor', 'srl', 'sra', 'or', 'and')
   print_insts('fence', 'fence.i')
   print_insts('scall', 'sbreak', 'rdcycle', 'rdtime', 'rdinstret')
