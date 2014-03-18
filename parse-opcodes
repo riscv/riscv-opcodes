@@ -101,6 +101,13 @@ csrs = [
   (0xCCF, 'uarch15'),
 ]
 
+csrs32 = [
+  (0x586, 'counth'),
+  (0xC80, 'cycleh'),
+  (0xC81, 'timeh'),
+  (0xC82, 'instreth'),
+]
+
 opcode_base = 0
 opcode_size = 7
 funct_base = 12
@@ -118,7 +125,7 @@ def make_c(match,mask):
     name2 = name.upper().replace('.','_')
     print '#define MATCH_%s %s' % (name2, hex(match[name]))
     print '#define MASK_%s  %s' % (name2, hex(mask[name]))
-  for num, name in csrs:
+  for num, name in csrs+csrs32:
     print '#define CSR_%s %s' % (name.upper(), hex(num))
   for num, name in causes:
     print '#define CAUSE_%s %s' % (name.upper().replace(' ', '_'), hex(num))
@@ -131,12 +138,12 @@ def make_c(match,mask):
   print '#endif'
 
   print '#ifdef DECLARE_CSR'
-  for num, name in csrs:
+  for num, name in csrs+csrs32:
     print 'DECLARE_CSR(%s, CSR_%s)' % (name, name.upper())
   print '#endif'
 
   print '#ifdef DECLARE_CAUSE'
-  for num, name in csrs:
+  for num, name in csrs+csrs32:
     print 'DECLARE_CAUSE("%s", CAUSE_%s)' % (name, name.upper().replace(' ', '_'))
   print '#endif'
 
@@ -550,7 +557,7 @@ def print_inst(n):
     print_u_type(n, match[n], arguments[n])
   elif 'jimm20' in arguments[n]:
     print_uj_type(n, match[n], arguments[n])
-  elif 'imm12' in arguments[n]:
+  elif 'imm12' in arguments[n] or (match[n] & 0x7f) == (match['scall'] & 0x7f):
     print_i_type(n, match[n], arguments[n])
   elif 'imm12hi' in arguments[n]:
     print_s_type(n, match[n], arguments[n])
@@ -574,7 +581,10 @@ def make_latex_table():
   print_insts('addi', 'slti', 'sltiu', 'xori', 'ori', 'andi', 'slli.rv32', 'srli.rv32', 'srai.rv32')
   print_insts('add', 'sub', 'sll', 'slt', 'sltu', 'xor', 'srl', 'sra', 'or', 'and')
   print_insts('fence', 'fence.i')
-  print_insts('scall', 'sbreak', 'rdcycle', 'rdtime', 'rdinstret')
+  print_insts('scall', 'sbreak')
+  print_insts('rdcycle', 'rdcycleh')
+  print_insts('rdtime', 'rdtimeh')
+  print_insts('rdinstret', 'rdinstreth')
   print_footer(0)
 
   print_header('r','a','i','s')
@@ -657,11 +667,17 @@ def make_chisel():
   print '  }'
   print '}'
   print 'object CSRs {'
-  for num, name in csrs:
+  for num, name in csrs+csrs32:
     print '  val %s = %s' % (name, hex(num))
   print '  val all = {'
   print '    val res = collection.mutable.ArrayBuffer[Int]()'
   for num, name in csrs:
+    print '    res += %s' % (name)
+  print '    res.toArray'
+  print '  }'
+  print '  val all32 = {'
+  print '    val res = collection.mutable.ArrayBuffer(all:_*)'
+  for num, name in csrs32:
     print '    res += %s' % (name)
   print '    res.toArray'
   print '  }'

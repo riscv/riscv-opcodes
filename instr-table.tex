@@ -452,8 +452,7 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{6}{|c|}{000000000000} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{000} &
 \multicolumn{1}{c|}{00000} &
@@ -462,8 +461,7 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00001} &
+\multicolumn{6}{|c|}{000000000001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{000} &
 \multicolumn{1}{c|}{00000} &
@@ -472,8 +470,7 @@
   
 
 &
-\multicolumn{4}{|c|}{1100000} &
-\multicolumn{2}{c|}{00000} &
+\multicolumn{6}{|c|}{110000000000} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
@@ -482,8 +479,16 @@
   
 
 &
-\multicolumn{4}{|c|}{1100000} &
-\multicolumn{2}{c|}{00001} &
+\multicolumn{6}{|c|}{110010000000} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{010} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1110011} & RDCYCLEH rd \\
+\cline{2-11}
+  
+
+&
+\multicolumn{6}{|c|}{110000000001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
@@ -492,12 +497,29 @@
   
 
 &
-\multicolumn{4}{|c|}{1100000} &
-\multicolumn{2}{c|}{00010} &
+\multicolumn{6}{|c|}{110010000001} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{010} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1110011} & RDTIMEH rd \\
+\cline{2-11}
+  
+
+&
+\multicolumn{6}{|c|}{110000000010} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1110011} & RDINSTRET rd \\
+\cline{2-11}
+  
+
+&
+\multicolumn{6}{|c|}{110010000010} &
+\multicolumn{1}{c|}{00000} &
+\multicolumn{1}{c|}{010} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{1110011} & RDINSTRETH rd \\
 \cline{2-11}
   
 
@@ -1475,8 +1497,7 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00011} &
+\multicolumn{6}{|c|}{000000000011} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
@@ -1485,8 +1506,7 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00010} &
+\multicolumn{6}{|c|}{000000000010} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
@@ -1495,8 +1515,7 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00001} &
+\multicolumn{6}{|c|}{000000000001} &
 \multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{010} &
 \multicolumn{1}{c|}{rd} &
@@ -1505,8 +1524,7 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00011} &
+\multicolumn{6}{|c|}{000000000011} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{001} &
 \multicolumn{1}{c|}{rd} &
@@ -1515,8 +1533,7 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00010} &
+\multicolumn{6}{|c|}{000000000010} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{001} &
 \multicolumn{1}{c|}{rd} &
@@ -1525,8 +1542,7 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00001} &
+\multicolumn{6}{|c|}{000000000001} &
 \multicolumn{1}{c|}{rs1} &
 \multicolumn{1}{c|}{001} &
 \multicolumn{1}{c|}{rd} &
@@ -1535,9 +1551,8 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00010} &
-\multicolumn{1}{c|}{imm[4:0]} &
+\multicolumn{6}{|c|}{000000000010} &
+\multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{101} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1110011} & FSRMI rd,imm \\
@@ -1545,9 +1560,8 @@
   
 
 &
-\multicolumn{4}{|c|}{0000000} &
-\multicolumn{2}{c|}{00001} &
-\multicolumn{1}{c|}{imm[4:0]} &
+\multicolumn{6}{|c|}{000000000001} &
+\multicolumn{1}{c|}{00000} &
 \multicolumn{1}{c|}{101} &
 \multicolumn{1}{c|}{rd} &
 \multicolumn{1}{c|}{1110011} & FSFLAGSI rd,imm \\
