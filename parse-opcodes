@@ -60,6 +60,7 @@ csrs = [
   (0x001, 'fflags'),
   (0x002, 'frm'),
   (0x003, 'fcsr'),
+  (0x0C0, 'stats'), # XXX
   (0x500, 'sup0'),
   (0x501, 'sup1'),
   (0x502, 'epc'),
@@ -76,7 +77,6 @@ csrs = [
   (0x50D, 'fatc'),
   (0x50E, 'send_ipi'),
   (0x50F, 'clear_ipi'),
-  (0x51C, 'stats'), # XXX
   (0x51D, 'reset'),
   (0x51E, 'tohost'),
   (0x51F, 'fromhost'),
