@@ -46,6 +46,7 @@ vlsegb      vseglen  28=0 27=0 26..25=0 24..20=0 rs1 14=0 13=1 12=0 rd 6..2=0x16
 vlsegbu     vseglen  28=0 27=1 26..25=0 24..20=0 rs1 14=0 13=1 12=0 rd 6..2=0x16 1..0=3
 vflsegd     vseglen  28=1 27=0 26..25=3 24..20=0 rs1 14=0 13=1 12=0 rd 6..2=0x16 1..0=3
 vflsegw     vseglen  28=1 27=0 26..25=2 24..20=0 rs1 14=0 13=1 12=0 rd 6..2=0x16 1..0=3
+vflsegh     vseglen  28=1 27=0 26..25=1 24..20=0 rs1 14=0 13=1 12=0 rd 6..2=0x16 1..0=3
 
 #           segment  x/f  s/u  width                 xd   xs1  xs2     opcode
 #           |        |    |    |                     |    |    |       |
@@ -58,6 +59,7 @@ vlsegstb    vseglen  28=0 27=0 26..25=0 rs2      rs1 14=0 13=1 12=1 rd 6..2=0x16
 vlsegstbu   vseglen  28=0 27=1 26..25=0 rs2      rs1 14=0 13=1 12=1 rd 6..2=0x16 1..0=3
 vflsegstd   vseglen  28=1 27=0 26..25=3 rs2      rs1 14=0 13=1 12=1 rd 6..2=0x16 1..0=3
 vflsegstw   vseglen  28=1 27=0 26..25=2 rs2      rs1 14=0 13=1 12=1 rd 6..2=0x16 1..0=3
+vflsegsth   vseglen  28=1 27=0 26..25=1 rs2      rs1 14=0 13=1 12=1 rd 6..2=0x16 1..0=3
 
 #           segment  x/f  s/u  width                 xd   xs1  xs2     opcode
 #           |        |    |    |                     |    |    |       |
@@ -67,6 +69,7 @@ vssegh      vseglen  28=0 27=0 26..25=1 24..20=0 rs1 14=0 13=1 12=0 rd 6..2=0x1E
 vssegb      vseglen  28=0 27=0 26..25=0 24..20=0 rs1 14=0 13=1 12=0 rd 6..2=0x1E 1..0=3
 vfssegd     vseglen  28=1 27=0 26..25=3 24..20=0 rs1 14=0 13=1 12=0 rd 6..2=0x1E 1..0=3
 vfssegw     vseglen  28=1 27=0 26..25=2 24..20=0 rs1 14=0 13=1 12=0 rd 6..2=0x1E 1..0=3
+vfssegh     vseglen  28=1 27=0 26..25=1 24..20=0 rs1 14=0 13=1 12=0 rd 6..2=0x1E 1..0=3
 
 #           segment  x/f  s/u  width                 xd   xs1  xs2     opcode
 #           |        |    |    |                     |    |    |       |
@@ -76,3 +79,4 @@ vssegsth    vseglen  28=0 27=0 26..25=1 rs2      rs1 14=0 13=1 12=1 rd 6..2=0x1E
 vssegstb    vseglen  28=0 27=0 26..25=0 rs2      rs1 14=0 13=1 12=1 rd 6..2=0x1E 1..0=3
 vfssegstd   vseglen  28=1 27=0 26..25=3 rs2      rs1 14=0 13=1 12=1 rd 6..2=0x1E 1..0=3
 vfssegstw   vseglen  28=1 27=0 26..25=2 rs2      rs1 14=0 13=1 12=1 rd 6..2=0x1E 1..0=3
+vfssegsth   vseglen  28=1 27=0 26..25=1 rs2      rs1 14=0 13=1 12=1 rd 6..2=0x1E 1..0=3
