@@ -11,7 +11,7 @@ install: $(ISASIM_H) $(ISASIM_HWACHA_H) $(PK_H) $(ENV_H) $(GAS_H) $(XCC_H) inst.
 
 $(ISASIM_H) $(PK_H) $(ENV_H): $(ALL_OPCODES) parse-opcodes
 	cp encoding.h $@
-	cat opcodes | ./parse-opcodes -c >> $@
+	cat opcodes opcodes-custom | ./parse-opcodes -c >> $@
 
 $(GAS_H) $(XCC_H): $(ALL_OPCODES) parse-opcodes
 	cat $(ALL_OPCODES) | ./parse-opcodes -c > $@
