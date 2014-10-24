@@ -13,7 +13,7 @@ install: $(ISASIM_H) $(PK_H) $(ENV_H) $(GAS_H) $(XCC_H) inst.chisel instr-table.
 
 $(ISASIM_H) $(PK_H) $(ENV_H): $(ALL_OPCODES) parse-opcodes
 	cp encoding.h $@
-	./parse-opcodes -c < opcodes >> $@
+	cat opcodes opcodes-custom | ./parse-opcodes -c >> $@
 
 $(GAS_H) $(XCC_H): $(ALL_OPCODES) parse-opcodes
 	cat $(ALL_OPCODES) | ./parse-opcodes -c > $@
