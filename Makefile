@@ -4,8 +4,8 @@ ISASIM_H := ../riscv-isa-sim/riscv/encoding.h
 ISASIM_HWACHA_H := ../riscv-isa-sim/hwacha/opcodes_hwacha_ut.h
 PK_H := ../riscv-pk/pk/encoding.h
 ENV_H := ../riscv-tests/env/encoding.h
-GAS_H := ../riscv-gcc/binutils-2.21.1/include/opcode/riscv-opc.h
-XCC_H := ../riscv-gcc/gcc-4.6.1/gcc/config/riscv/riscv-opc.h 
+GAS_H := ../riscv-gnu-toolchain/binutils/include/opcode/riscv-opc.h
+XCC_H := ../riscv-gnu-toolchain/gcc/gcc/config/riscv/riscv-opc.h
 
 ALL_OPCODES := opcodes opcodes-pseudo opcodes-rvc opcodes-hwacha opcodes-hwacha-pseudo opcodes-hwacha-ut opcodes-custom
 
