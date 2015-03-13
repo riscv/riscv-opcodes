@@ -45,44 +45,31 @@ causes = [
   (0x00, 'misaligned fetch'),
   (0x01, 'fault fetch'),
   (0x02, 'illegal instruction'),
-  (0x03, 'privileged instruction'),
-  (0x04, 'FP disabled'),
-  (0x06, 'syscall'),
+  (0x04, 'scall'),
+  (0x05, 'hcall'),
+  (0x06, 'mcall'),
   (0x07, 'breakpoint'),
   (0x08, 'misaligned load'),
-  (0x09, 'misaligned store'),
-  (0x0A, 'fault load'),
+  (0x09, 'fault load'),
+  (0x0A, 'misaligned store'),
   (0x0B, 'fault store'),
-  (0x0C, 'accelerator disabled'),
 ]
 
 csrs = [
+  # Standard User R/W
   (0x001, 'fflags'),
   (0x002, 'frm'),
   (0x003, 'fcsr'),
-  (0x0C0, 'stats'), # XXX
-  (0x500, 'sup0'),
-  (0x501, 'sup1'),
-  (0x502, 'epc'),
-  (0x503, 'badvaddr'),
-  (0x504, 'ptbr'),
-  (0x505, 'asid'),
-  (0x506, 'count'),
-  (0x507, 'compare'),
-  (0x508, 'evec'),
-  (0x509, 'cause'),
-  (0x50A, 'status'),
-  (0x50B, 'hartid'),
-  (0x50C, 'impl'),
-  (0x50D, 'fatc'),
-  (0x50E, 'send_ipi'),
-  (0x50F, 'clear_ipi'),
-  (0x51D, 'reset'),
-  (0x51E, 'tohost'),
-  (0x51F, 'fromhost'),
+
+  # Standard User RO
   (0xC00, 'cycle'),
   (0xC01, 'time'),
   (0xC02, 'instret'),
+
+  # Nonstandard User R/W
+  (0x0C0, 'stats'),
+
+  # Nonstandard User RO
   (0xCC0, 'uarch0'),
   (0xCC1, 'uarch1'),
   (0xCC2, 'uarch2'),
@@ -99,13 +86,52 @@ csrs = [
   (0xCCD, 'uarch13'),
   (0xCCE, 'uarch14'),
   (0xCCF, 'uarch15'),
+
+  # Standard Supervisor R/W
+  (0x100, 'sstatus'),
+  (0x101, 'stvec'),
+  (0x121, 'stimecmp'),
+  (0x140, 'sscratch'),
+  (0x141, 'sepc'),
+  (0x188, 'sptbr'),
+  (0x189, 'sasid'),
+
+  # Standard Supervisor R/W Shadows of User RO
+  (0x900, 'scycle'),
+  (0x901, 'stime'),
+  (0x902, 'sinstret'),
+
+  # Standard Supervisor RO
+  (0xD40, 'scause'),
+  (0xD41, 'sbadaddr'),
+
+  # Standard Machine R/W
+  (0x300, 'mstatus'),
+  (0x340, 'mscratch'),
+  (0x341, 'mepc'),
+  (0x342, 'mcause'),
+  (0x343, 'mbadaddr'),
+
+  # Nonstandard Machine R/W
+  (0x780, 'reset'),
+  (0x781, 'tohost'),
+  (0x782, 'fromhost'),
+  (0x783, 'send_ipi'),
+
+  # Nonstandard Machine RO
+  (0xFC0, 'hartid'),
 ]
 
 csrs32 = [
-  (0x586, 'counth'),
+  # Standard User RO
   (0xC80, 'cycleh'),
   (0xC81, 'timeh'),
   (0xC82, 'instreth'),
+
+  # Standard Supervisor R/W Shadows of User RO
+  (0x980, 'scycleh'),
+  (0x981, 'stimeh'),
+  (0x982, 'sinstreth'),
 ]
 
 opcode_base = 0
