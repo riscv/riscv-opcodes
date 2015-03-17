@@ -45,14 +45,12 @@ causes = [
   (0x00, 'misaligned fetch'),
   (0x01, 'fault fetch'),
   (0x02, 'illegal instruction'),
-  (0x04, 'scall'),
-  (0x05, 'hcall'),
-  (0x06, 'mcall'),
-  (0x07, 'breakpoint'),
-  (0x08, 'misaligned load'),
-  (0x09, 'fault load'),
-  (0x0A, 'misaligned store'),
-  (0x0B, 'fault store'),
+  (0x04, 'misaligned load'),
+  (0x05, 'fault load'),
+  (0x06, 'misaligned store'),
+  (0x07, 'fault store'),
+  (0x08, 'ecall'),
+  (0x09, 'breakpoint'),
 ]
 
 csrs = [
