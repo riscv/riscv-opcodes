@@ -14,7 +14,7 @@ install: $(ISASIM_H) $(PK_H) $(FESVR_H) $(ENV_H) $(GAS_H) $(XCC_H) inst.chisel i
 
 $(ISASIM_H) $(PK_H) $(FESVR_H) $(ENV_H): $(ALL_OPCODES) parse-opcodes
 	cp encoding.h $@
-	cat opcodes | ./parse-opcodes -c >> $@
+	cat opcodes opcodes-rvc | ./parse-opcodes -c >> $@
 
 $(GAS_H) $(XCC_H): $(ALL_OPCODES) parse-opcodes
 	cat $(ALL_OPCODES) | ./parse-opcodes -c > $@
