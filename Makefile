@@ -12,7 +12,7 @@ ALL_OPCODES := opcodes opcodes-pseudo opcodes-rvc opcodes-hwacha opcodes-hwacha-
 
 install: $(ISASIM_H) $(PK_H) $(FESVR_H) $(ENV_H) $(GAS_H) $(XCC_H) inst.chisel instr-table.tex
 
-$(ISASIM_H) $(PK_H) $(FESVR_H) $(ENV_H): $(ALL_OPCODES) parse-opcodes
+$(ISASIM_H) $(PK_H) $(FESVR_H) $(ENV_H): $(ALL_OPCODES) parse-opcodes encoding.h
 	cp encoding.h $@
 	cat opcodes opcodes-rvc | ./parse-opcodes -c >> $@
 
