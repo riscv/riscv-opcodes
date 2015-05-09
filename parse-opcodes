@@ -34,12 +34,15 @@ causes = [
   (0x00, 'misaligned fetch'),
   (0x01, 'fault fetch'),
   (0x02, 'illegal instruction'),
+  (0x03, 'breakpoint'),
   (0x04, 'misaligned load'),
   (0x05, 'fault load'),
   (0x06, 'misaligned store'),
   (0x07, 'fault store'),
-  (0x08, 'ecall'),
-  (0x09, 'breakpoint'),
+  (0x08, 'user_ecall'),
+  (0x09, 'supervisor_ecall'),
+  (0x0A, 'hypervisor_ecall'),
+  (0x0B, 'machine_ecall'),
 ]
 
 csrs = [
@@ -77,36 +80,50 @@ csrs = [
   # Standard Supervisor R/W
   (0x100, 'sstatus'),
   (0x101, 'stvec'),
+  (0x104, 'sie'),
   (0x121, 'stimecmp'),
   (0x140, 'sscratch'),
   (0x141, 'sepc'),
-  (0x188, 'sptbr'),
-  (0x189, 'sasid'),
+  (0x144, 'sip'),
+  (0x180, 'sptbr'),
+  (0x181, 'sasid'),
 
   # Standard Supervisor R/W Shadows of User RO
-  (0x900, 'scycle'),
-  (0x901, 'stime'),
-  (0x902, 'sinstret'),
+  (0x900, 'cyclew'),
+  (0x901, 'timew'),
+  (0x902, 'instretw'),
 
   # Standard Supervisor RO
-  (0xD40, 'scause'),
-  (0xD41, 'sbadaddr'),
+  (0xD01, 'stime'),
+  (0xD42, 'scause'),
+  (0xD43, 'sbadaddr'),
+
+  # Standard Hypervisor R/W Shadows of Supervisor RO
+  (0xA01, 'stimew'),
 
   # Standard Machine R/W
   (0x300, 'mstatus'),
+  (0x301, 'mtvec'),
+  (0x302, 'mtdeleg'),
+  (0x304, 'mie'),
+  (0x321, 'mtimecmp'),
   (0x340, 'mscratch'),
   (0x341, 'mepc'),
   (0x342, 'mcause'),
   (0x343, 'mbadaddr'),
+  (0x344, 'mip'),
+  (0x701, 'mtime'),
+
+  # Standard Machine RO
+  (0xF00, 'mcpuid'),
+  (0xF01, 'mimpid'),
+  (0xF10, 'mhartid'),
 
   # Nonstandard Machine R/W
-  (0x780, 'reset'),
-  (0x781, 'tohost'),
-  (0x782, 'fromhost'),
+  (0x780, 'mtohost'),
+  (0x781, 'mfromhost'),
+  (0x782, 'mreset'),
   (0x783, 'send_ipi'),
-
-  # Nonstandard Machine RO
-  (0xFC0, 'hartid'),
 ]
 
 csrs32 = [
@@ -116,9 +133,18 @@ csrs32 = [
   (0xC82, 'instreth'),
 
   # Standard Supervisor R/W Shadows of User RO
-  (0x980, 'scycleh'),
-  (0x981, 'stimeh'),
-  (0x982, 'sinstreth'),
+  (0x980, 'cyclehw'),
+  (0x981, 'timehw'),
+  (0x982, 'instrethw'),
+
+  # Standard Supervisor RO
+  (0xD81, 'stimeh'),
+
+  # Standard Hypervisor R/W Shadows of Supervisor RO
+  (0xA81, 'stimehw'),
+
+  # Standard Machine R/W
+  (0x741, 'mtimeh'),
 ]
 
 opcode_base = 0
@@ -181,6 +207,11 @@ def str_inst(name,arguments):
     arguments.remove('bimm12hi')
     arguments.remove('bimm12lo')
     arguments.append('imm')
+  if name[:3] == 'csr':
+    arguments.remove('imm12')
+    arguments.remove('rs1')
+    arguments.append('csr')
+    arguments.append('imm' if name[-1] == 'i' else 'rs1')
   if 'imm12' in arguments:
     arguments.remove('imm12')
     arguments.append('imm')
@@ -306,6 +337,25 @@ def print_i_type(name,match,arguments):
   ( \
     str_arg('imm12','imm[11:0]',match,arguments), \
     str_arg('rs1','',match,arguments), \
+    binary(yank(match,funct_base,funct_size),funct_size), \
+    str_arg('rd','',match,arguments), \
+    binary(yank(match,opcode_base,opcode_size),opcode_size), \
+    str_inst(name,arguments) \
+  )
+
+def print_csr_type(name,match,arguments):
+  print """
+&
+\\multicolumn{6}{|c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} & %s \\\\
+\\cline{2-11}
+  """ % \
+  ( \
+    str_arg('imm12','csr',match,arguments), \
+    ('zimm' if name[-1] == 'i' else 'rs1'), \
     binary(yank(match,funct_base,funct_size),funct_size), \
     str_arg('rd','',match,arguments), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
@@ -547,7 +597,7 @@ def print_subtitle(title):
 \\cline{2-11}
   """ % title
 
-def print_footer(caption):
+def print_footer(caption=''):
   print """
 \\end{tabular}
 \\end{center}
@@ -555,9 +605,11 @@ def print_footer(caption):
 %s
 \\label{instr-table}
 \\end{table}
-  """ % (caption and '\\caption{Instruction listing for RISC-V}' or '')
+  """ % caption
 
 def print_inst(n):
+  is_system = (match[n] & 0x7f) == (match['scall'] & 0x7f)
+
   if n == 'fence' or n == 'fence.i':
     print_fence_type(n, match[n], arguments[n])
   elif 'aqrl' in arguments[n]:
@@ -570,7 +622,9 @@ def print_inst(n):
     print_u_type(n, match[n], arguments[n])
   elif 'jimm20' in arguments[n]:
     print_uj_type(n, match[n], arguments[n])
-  elif 'imm12' in arguments[n] or (match[n] & 0x7f) == (match['scall'] & 0x7f):
+  elif is_system and n[:3] == 'csr':
+    print_csr_type(n, match[n], arguments[n])
+  elif 'imm12' in arguments[n] or is_system:
     print_i_type(n, match[n], arguments[n])
   elif 'imm12hi' in arguments[n]:
     print_s_type(n, match[n], arguments[n])
@@ -585,6 +639,21 @@ def print_insts(*names):
   for n in names:
     print_inst(n)
 
+def make_supervisor_latex_table():
+  print_header('i')
+  print_subtitle('Instructions to Access CSRs')
+  print_insts('csrrw', 'csrrs', 'csrrc')
+  print_insts('csrrwi', 'csrrsi', 'csrrci')
+  print_subtitle('Instructions to Change Privilege Level')
+  print_insts('ecall', 'ebreak', 'eret')
+  print_subtitle('Trap-Redirection Instructions')
+  print_insts('mrts', 'mrth', 'hrts')
+  print_subtitle('Interrupt-Management Instructions')
+  print_insts('wfi')
+  print_subtitle('Memory-Management Instructions')
+  print_insts('sfence.vm')
+  print_footer('\\caption{RISC-V Privileged Instructions}')
+
 def make_latex_table():
   print_header('r','i','s','sb','u','uj')
   print_subtitle('RV32I Base Instruction Set')
@@ -598,7 +667,7 @@ def make_latex_table():
   print_insts('rdcycle', 'rdcycleh')
   print_insts('rdtime', 'rdtimeh')
   print_insts('rdinstret', 'rdinstreth')
-  print_footer(0)
+  print_footer()
 
   print_header('r','a','i','s')
   print_subtitle('RV64I Base Instruction Set (in addition to RV32I)')
@@ -616,7 +685,7 @@ def make_latex_table():
   print_insts('amoswap.w')
   print_insts('amoadd.w', 'amoxor.w', 'amoand.w', 'amoor.w')
   print_insts('amomin.w', 'amomax.w', 'amominu.w', 'amomaxu.w')
-  print_footer(0)
+  print_footer()
 
   print_header('r','r4','i','s')
   print_subtitle('RV64A Standard Extension (in addition to RV32A)')
@@ -634,7 +703,7 @@ def make_latex_table():
   print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x')
   print_insts('frcsr', 'frrm', 'frflags')
   print_insts('fscsr', 'fsrm', 'fsflags', 'fsrmi', 'fsflagsi')
-  print_footer(0)
+  print_footer()
 
   print_header('r','r4','i','s')
   print_subtitle('RV64F Standard Extension (in addition to RV32F)')
@@ -652,7 +721,7 @@ def make_latex_table():
   print_subtitle('RV64D Standard Extension (in addition to RV32D)')
   print_insts('fcvt.l.d', 'fcvt.lu.d', 'fmv.x.d')
   print_insts('fcvt.d.l', 'fcvt.d.lu', 'fmv.d.x')
-  print_footer(1)
+  print_footer('\\caption{Instruction listing for RISC-V}')
 
 def print_chisel_insn(name):
   s = "  def %-18s = Bits(\"b" % name.replace('.', '_').upper()
@@ -761,6 +830,8 @@ for line in sys.stdin:
 
 if sys.argv[1] == '-tex':
   make_latex_table()
+elif sys.argv[1] == '-privtex':
+  make_supervisor_latex_table()
 elif sys.argv[1] == '-chisel':
   make_chisel()
 elif sys.argv[1] == '-c':
