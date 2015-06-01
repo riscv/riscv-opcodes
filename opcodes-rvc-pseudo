@@ -1,0 +1,30 @@
+# these aren't really pseudo-ops, but they overlay other encodings,
+# so they are here to prevent parse-opcodes from barfing
+
+@c.ebreak   1..0=0 15..13=0 12=1      11..7=0      6..2=0
+@c.jr       1..0=2 15..13=4 12=0      11..7=ignore 6..2=0
+@c.jalr     1..0=2 15..13=5 12=0      11..7=ignore 6..2=0
+@c.addi16sp 1..0=2 15..13=6 12=ignore 11..7=0      6..2=ignore
+
+# C0 encoding space, RV32C-only
+@c.xor      1..0=0 15..13=3 12..10=0      9..7=ignore 6..5=0 4..2=ignore
+@c.sra      1..0=0 15..13=3 12..10=0      9..7=ignore 6..5=1 4..2=ignore
+@c.sll      1..0=0 15..13=3 12..10=1      9..7=ignore 6..5=0 4..2=ignore
+@c.srl      1..0=0 15..13=3 12..10=1      9..7=ignore 6..5=1 4..2=ignore
+@c.slt      1..0=0 15..13=3 12..10=1      9..7=ignore 6..5=2 4..2=ignore
+@c.sltu     1..0=0 15..13=3 12..10=1      9..7=ignore 6..5=3 4..2=ignore
+@c.sllr     1..0=0 15..13=3 12..10=3      9..7=ignore 6..5=0 4..2=ignore
+@c.srlr     1..0=0 15..13=3 12..10=3      9..7=ignore 6..5=1 4..2=ignore
+@c.sltr     1..0=0 15..13=3 12..10=3      9..7=ignore 6..5=2 4..2=ignore
+@c.sltur    1..0=0 15..13=3 12..10=3      9..7=ignore 6..5=3 4..2=ignore
+
+# C1 encoding space, RV32C-only
+@c.bltz     1..0=1 15..13=3 12=ignore 11..2=ignore
+@c.bgez     1..0=1 15..13=7 12=ignore 11..2=ignore
+@c.addin    1..0=1 15..13=4 12..10=ignore 9..7=ignore 6..5=0 4..2=ignore
+@c.xorin    1..0=1 15..13=4 12..10=ignore 9..7=ignore 6..5=1 4..2=ignore
+@c.orin     1..0=1 15..13=4 12..10=ignore 9..7=ignore 6..5=2 4..2=ignore
+@c.andin    1..0=1 15..13=4 12..10=ignore 9..7=ignore 6..5=3 4..2=ignore
+
+# C2 encoding space, RV32C-only
+@c.andi     1..0=2 15..13=7 12=ignore 11..2=ignore
