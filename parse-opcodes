@@ -81,7 +81,6 @@ csrs = [
   (0x100, 'sstatus'),
   (0x101, 'stvec'),
   (0x104, 'sie'),
-  (0x121, 'stimecmp'),
   (0x140, 'sscratch'),
   (0x141, 'sepc'),
   (0x144, 'sip'),
@@ -144,6 +143,7 @@ csrs32 = [
   (0xA81, 'stimehw'),
 
   # Standard Machine R/W
+  (0x361, 'mtimecmph'),
   (0x741, 'mtimeh'),
 ]
 
