@@ -182,7 +182,7 @@ def make_c(match,mask):
   print '#endif'
 
   print '#ifdef DECLARE_CAUSE'
-  for num, name in csrs+csrs32:
+  for num, name in causes:
     print 'DECLARE_CAUSE("%s", CAUSE_%s)' % (name, name.upper().replace(' ', '_'))
   print '#endif'
 
