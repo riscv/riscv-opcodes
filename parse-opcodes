@@ -725,7 +725,7 @@ def make_latex_table():
   print_footer('\\caption{Instruction listing for RISC-V}')
 
 def print_chisel_insn(name):
-  s = "  def %-18s = Bits(\"b" % name.replace('.', '_').upper()
+  s = "  def %-18s = BitPat(\"b" % name.replace('.', '_').upper()
   for i in range(31, -1, -1):
     if yank(mask[name], i, 1):
       s = '%s%d' % (s, yank(match[name], i, 1))
