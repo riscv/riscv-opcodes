@@ -1,37 +1,32 @@
 # compressed instructions
 
 # C0 encoding space
-c.mv      1..0=0 15..13=0 12=0      11..2=ignore
-c.add     1..0=0 15..13=0 12=1      11..2=ignore # c.ebreak when rd=0, rs2=0
-c.srai    1..0=0 15..13=1 12=ignore 11..2=ignore
-c.sw      1..0=0 15..13=2 12=ignore 11..2=ignore
-c.sd      1..0=0 15..13=3 12=ignore 11..2=ignore
-c.sub     1..0=0 15..13=4 12=0      11..2=ignore
-c.addw    1..0=0 15..13=4 12=1      11..2=ignore
-c.add3    1..0=0 15..13=5 12..7=ignore 6..5=0 4..2=ignore
-c.sub3    1..0=0 15..13=5 12..7=ignore 6..5=1 4..2=ignore
-c.or3     1..0=0 15..13=5 12..7=ignore 6..5=2 4..2=ignore
-c.and3    1..0=0 15..13=5 12..7=ignore 6..5=3 4..2=ignore
-c.lw      1..0=0 15..13=6 12=ignore 11..2=ignore
-c.ld      1..0=0 15..13=7 12=ignore 11..2=ignore
-
+c.mv       1..0=0 15..13=0 12=0      11..2=ignore # !rs2 = c.jr
+c.add      1..0=0 15..13=0 12=1      11..2=ignore # !rs1 = c.ebreak; !rs2=c.jalr
+c.fsd      1..0=0 15..13=1 12=ignore 11..2=ignore
+c.sw       1..0=0 15..13=2 12=ignore 11..2=ignore
+c.fsw      1..0=0 15..13=3 12=ignore 11..2=ignore # c.sd for RV64
+c.addi4spn 1..0=0 15..13=4 12=ignore 11..2=ignore
+c.fld      1..0=0 15..13=5 12=ignore 11..2=ignore
+c.lw       1..0=0 15..13=6 12=ignore 11..2=ignore
+c.flw      1..0=0 15..13=7 12=ignore 11..2=ignore # c.ld for RV64
 
 # C1 encoding space
 c.slli     1..0=1 15..13=0 12=ignore 11..2=ignore
-c.srli     1..0=1 15..13=1 12=ignore 11..2=ignore
+c.fsdsp    1..0=1 15..13=1 12=ignore 11..2=ignore
 c.swsp     1..0=1 15..13=2 12=ignore 11..2=ignore
-c.sdsp     1..0=1 15..13=3 12=ignore 11..2=ignore
-c.slliw    1..0=1 15..13=4 12=ignore 11..2=ignore
-c.addi4spn 1..0=1 15..13=5 12=ignore 11..2=ignore
+c.fswsp    1..0=1 15..13=3 12=ignore 11..2=ignore # c.sdsp for RV64
+c.addw     1..0=1 15..13=4 12=0      11..2=ignore
+c.fldsp    1..0=1 15..13=5 12=ignore 11..2=ignore
 c.lwsp     1..0=1 15..13=6 12=ignore 11..2=ignore
-c.ldsp     1..0=1 15..13=7 12=ignore 11..2=ignore
+c.flwsp    1..0=1 15..13=7 12=ignore 11..2=ignore # c.ldsp for RV64
 
 # C2 encoding space
 c.j        1..0=2 15..13=0 12=ignore 11..2=ignore
 c.jal      1..0=2 15..13=1 12=ignore 11..2=ignore
 c.beqz     1..0=2 15..13=2 12=ignore 11..2=ignore
 c.bnez     1..0=2 15..13=3 12=ignore 11..2=ignore
-c.li       1..0=2 15..13=4 12=ignore 11..2=ignore # c.jr when simm=0
-c.lui      1..0=2 15..13=5 12=ignore 11..2=ignore # c.jalr when simm=0
-c.addi     1..0=2 15..13=6 12=ignore 11..2=ignore # c.addi16sp when rd=0
+c.li       1..0=2 15..13=4 12=ignore 11..2=ignore
+c.lui      1..0=2 15..13=5 12=ignore 11..2=ignore # c.addi16sp when rd=0
+c.addi     1..0=2 15..13=6 12=ignore 11..2=ignore
 c.addiw    1..0=2 15..13=7 12=ignore 11..2=ignore

@@ -7,6 +7,7 @@ import tokenize
 namelist = []
 match = {}
 mask = {}
+pseudos = {}
 arguments = {}
 
 arglut = {}
@@ -819,9 +820,11 @@ for line in sys.stdin:
   if not (cover == 0xFFFFFFFF or cover == 0xFFFF):
     sys.exit("%s: not all bits are covered" % name)
 
-  if not pseudo:
+  if pseudo:
+    pseudos[name] = 1
+  else:
     for name2,match2 in match.iteritems():
-      if (match2 & mymask) == mymatch:
+      if name2 not in pseudos and (match2 & mymask) == mymatch:
         sys.exit("%s and %s overlap" % (name,name2))
 
   mask[name] = mymask
