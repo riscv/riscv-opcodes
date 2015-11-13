@@ -123,7 +123,8 @@ csrs = [
   (0x780, 'mtohost'),
   (0x781, 'mfromhost'),
   (0x782, 'mreset'),
-  (0x783, 'send_ipi'),
+  (0x783, 'mipi'),
+  (0x784, 'miobase'),
 ]
 
 csrs32 = [
