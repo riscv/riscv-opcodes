@@ -798,6 +798,7 @@ def make_chisel():
 
 def print_go_insn(name):
   print '\tcase A%s:' % name.upper().replace('.', '')
+  # Yank bits 0-6 of the encoded instruction (i.e., the opcode) and print them.
   print '\t\treturn 0x%x' % yank(match[name], 0, 7)
 
 def make_go():
