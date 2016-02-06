@@ -84,6 +84,8 @@ csrs = [
   (0x104, 'sie'),
   (0x140, 'sscratch'),
   (0x141, 'sepc'),
+  (0x142, 'scause'),
+  (0x143, 'sbadaddr'),
   (0x144, 'sip'),
   (0x180, 'sptbr'),
   (0x181, 'sasid'),
@@ -95,8 +97,6 @@ csrs = [
 
   # Standard Supervisor RO
   (0xD01, 'stime'),
-  (0xD42, 'scause'),
-  (0xD43, 'sbadaddr'),
 
   # Standard Hypervisor R/W Shadows of Supervisor RO
   (0xA01, 'stimew'),
@@ -104,7 +104,8 @@ csrs = [
   # Standard Machine R/W
   (0x300, 'mstatus'),
   (0x301, 'mtvec'),
-  (0x302, 'mtdeleg'),
+  (0x302, 'medeleg'),
+  (0x303, 'mideleg'),
   (0x304, 'mie'),
   (0x321, 'mtimecmp'),
   (0x340, 'mscratch'),
@@ -648,8 +649,6 @@ def make_supervisor_latex_table():
   print_insts('csrrwi', 'csrrsi', 'csrrci')
   print_subtitle('Instructions to Change Privilege Level')
   print_insts('ecall', 'ebreak', 'eret')
-  print_subtitle('Trap-Redirection Instructions')
-  print_insts('mrts', 'mrth', 'hrts')
   print_subtitle('Interrupt-Management Instructions')
   print_insts('wfi')
   print_subtitle('Memory-Management Instructions')
