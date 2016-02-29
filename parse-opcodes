@@ -80,8 +80,8 @@ csrs = [
 
   # Standard Supervisor R/W
   (0x100, 'sstatus'),
-  (0x101, 'stvec'),
   (0x104, 'sie'),
+  (0x105, 'stvec'),
   (0x140, 'sscratch'),
   (0x141, 'sepc'),
   (0x142, 'scause'),
@@ -103,29 +103,31 @@ csrs = [
 
   # Standard Machine R/W
   (0x300, 'mstatus'),
-  (0x301, 'mtvec'),
   (0x302, 'medeleg'),
   (0x303, 'mideleg'),
   (0x304, 'mie'),
+  (0x305, 'mtvec'),
   (0x321, 'mtimecmp'),
   (0x340, 'mscratch'),
   (0x341, 'mepc'),
   (0x342, 'mcause'),
   (0x343, 'mbadaddr'),
   (0x344, 'mip'),
+  (0x345, 'mipi'),
   (0x701, 'mtime'),
 
   # Standard Machine RO
-  (0xF00, 'mcpuid'),
-  (0xF01, 'mimpid'),
+  (0xF00, 'misa'),
+  (0xF01, 'mvendorid'),
+  (0xF02, 'marchid'),
+  (0xF03, 'mimpid'),
+  (0xF04, 'mcfgaddr'),
   (0xF10, 'mhartid'),
 
   # Nonstandard Machine R/W
-  (0x780, 'mtohost'),
-  (0x781, 'mfromhost'),
-  (0x782, 'mreset'),
-  (0x783, 'mipi'),
-  (0x784, 'miobase'),
+  (0x7C0, 'mtohost'),
+  (0x7C1, 'mfromhost'),
+  (0x7C2, 'mreset'),
 ]
 
 csrs32 = [
@@ -147,7 +149,7 @@ csrs32 = [
 
   # Standard Machine R/W
   (0x361, 'mtimecmph'),
-  (0x741, 'mtimeh'),
+  (0x781, 'mtimeh'),
 ]
 
 opcode_base = 0
@@ -664,10 +666,9 @@ def make_latex_table():
   print_insts('addi', 'slti', 'sltiu', 'xori', 'ori', 'andi', 'slli.rv32', 'srli.rv32', 'srai.rv32')
   print_insts('add', 'sub', 'sll', 'slt', 'sltu', 'xor', 'srl', 'sra', 'or', 'and')
   print_insts('fence', 'fence.i')
-  print_insts('scall', 'sbreak')
-  print_insts('rdcycle', 'rdcycleh')
-  print_insts('rdtime', 'rdtimeh')
-  print_insts('rdinstret', 'rdinstreth')
+  print_insts('ecall', 'ebreak')
+  print_insts('csrrw', 'csrrs', 'csrrc')
+  print_insts('csrrwi', 'csrrsi', 'csrrci')
   print_footer()
 
   print_header('r','a','i','s')
@@ -702,8 +703,6 @@ def make_latex_table():
   print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.s')
   print_insts('feq.s', 'flt.s', 'fle.s', 'fclass.s')
   print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x')
-  print_insts('frcsr', 'frrm', 'frflags')
-  print_insts('fscsr', 'fsrm', 'fsflags', 'fsrmi', 'fsflagsi')
   print_footer()
 
   print_header('r','r4','i','s')

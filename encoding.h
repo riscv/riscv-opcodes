@@ -17,7 +17,8 @@
 #define MSTATUS_FS          0x00006000
 #define MSTATUS_XS          0x00018000
 #define MSTATUS_MPRV        0x00020000
-#define MSTATUS_VM          0x007C0000
+#define MSTATUS_PUM         0x00040000
+#define MSTATUS_VM          0x1F000000
 #define MSTATUS32_SD        0x80000000
 #define MSTATUS64_SD        0x8000000000000000
 
@@ -28,7 +29,7 @@
 #define SSTATUS_SPP         0x00000100
 #define SSTATUS_FS          0x00006000
 #define SSTATUS_XS          0x00018000
-#define SSTATUS_VM          0x007C0000
+#define SSTATUS_PUM         0x00040000
 #define SSTATUS32_SD        0x80000000
 #define SSTATUS64_SD        0x8000000000000000
 
@@ -63,9 +64,9 @@
 #define IRQ_COP      8
 #define IRQ_HOST     9
 
-#define IMPL_ROCKET 1
-
-#define DEFAULT_MTVEC 0x100
+#define DEFAULT_RSTVEC 0x0
+#define DEFAULT_NMIVEC 0x4
+#define DEFAULT_MTVEC  0x8
 
 // page table entry (PTE) fields
 #define PTE_V     0x001 // Valid
