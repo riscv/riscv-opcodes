@@ -90,17 +90,6 @@ csrs = [
   (0x180, 'sptbr'),
   (0x181, 'sasid'),
 
-  # Standard Supervisor R/W Shadows of User RO
-  (0x900, 'cyclew'),
-  (0x901, 'timew'),
-  (0x902, 'instretw'),
-
-  # Standard Supervisor RO
-  (0xD01, 'stime'),
-
-  # Standard Hypervisor R/W Shadows of Supervisor RO
-  (0xA01, 'stimew'),
-
   # Standard Machine R/W
   (0x300, 'mstatus'),
   (0x302, 'medeleg'),
@@ -114,15 +103,17 @@ csrs = [
   (0x343, 'mbadaddr'),
   (0x344, 'mip'),
   (0x345, 'mipi'),
-  (0x701, 'mtime'),
 
   # Standard Machine RO
-  (0xF00, 'misa'),
-  (0xF01, 'mvendorid'),
-  (0xF02, 'marchid'),
-  (0xF03, 'mimpid'),
-  (0xF04, 'mcfgaddr'),
-  (0xF10, 'mhartid'),
+  (0xF00, 'mcycle'),
+  (0xF01, 'mtime'),
+  (0xF02, 'minstret'),
+  (0xF10, 'misa'),
+  (0xF11, 'mvendorid'),
+  (0xF12, 'marchid'),
+  (0xF13, 'mimpid'),
+  (0xF14, 'mcfgaddr'),
+  (0xF15, 'mhartid'),
 
   # Nonstandard Machine R/W
   (0x7C0, 'mtohost'),
@@ -136,20 +127,13 @@ csrs32 = [
   (0xC81, 'timeh'),
   (0xC82, 'instreth'),
 
-  # Standard Supervisor R/W Shadows of User RO
-  (0x980, 'cyclehw'),
-  (0x981, 'timehw'),
-  (0x982, 'instrethw'),
-
-  # Standard Supervisor RO
-  (0xD81, 'stimeh'),
-
-  # Standard Hypervisor R/W Shadows of Supervisor RO
-  (0xA81, 'stimehw'),
-
   # Standard Machine R/W
   (0x361, 'mtimecmph'),
-  (0x781, 'mtimeh'),
+
+  # Standard Machine RO
+  (0xF80, 'mcycleh'),
+  (0xF81, 'mtimeh'),
+  (0xF82, 'minstreth'),
 ]
 
 opcode_base = 0
