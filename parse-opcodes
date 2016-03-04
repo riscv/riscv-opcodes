@@ -90,6 +90,11 @@ csrs = [
   (0x180, 'sptbr'),
   (0x181, 'sasid'),
 
+  # Standard Supervisor RO
+  (0xD00, 'scycle'),
+  (0xD01, 'stime'),
+  (0xD02, 'sinstret'),
+
   # Standard Machine R/W
   (0x300, 'mstatus'),
   (0x302, 'medeleg'),
@@ -103,6 +108,14 @@ csrs = [
   (0x343, 'mbadaddr'),
   (0x344, 'mip'),
   (0x345, 'mipi'),
+  (0x310, 'mucounteren'),
+  (0x311, 'mscounteren'),
+  (0x700, 'mucycle_delta'),
+  (0x701, 'mutime_delta'),
+  (0x702, 'muinstret_delta'),
+  (0x704, 'mscycle_delta'),
+  (0x705, 'mstime_delta'),
+  (0x706, 'msinstret_delta'),
 
   # Standard Machine RO
   (0xF00, 'mcycle'),
@@ -129,6 +142,12 @@ csrs32 = [
 
   # Standard Machine R/W
   (0x361, 'mtimecmph'),
+  (0x780, 'mucycle_deltah'),
+  (0x781, 'mutime_deltah'),
+  (0x782, 'muinstret_deltah'),
+  (0x784, 'mscycle_deltah'),
+  (0x785, 'mstime_deltah'),
+  (0x786, 'msinstret_deltah'),
 
   # Standard Machine RO
   (0xF80, 'mcycleh'),
