@@ -1,7 +1,7 @@
 SHELL := /bin/sh
 
 ISASIM_H := ../riscv-isa-sim/riscv/encoding.h
-PK_H := ../riscv-pk/pk/encoding.h
+PK_H := ../riscv-pk/machine/encoding.h
 FESVR_H := ../riscv-fesvr/fesvr/encoding.h
 ENV_H := ../riscv-tests/env/encoding.h
 GAS_H := ../riscv-gnu-toolchain/binutils/include/opcode/riscv-opc.h
