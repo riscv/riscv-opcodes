@@ -787,7 +787,11 @@ def make_go():
   print
   print 'package riscv'
   print
-  print 'import "log"'
+  print 'import ('
+  print '\t"log"'
+  print
+  print '\t"cmd/internal/obj"'
+  print ')'
   print
   print 'type inst struct {'
   print '\topcode uint32'
@@ -796,7 +800,7 @@ def make_go():
   print '\tfunct7 uint32'
   print '}'
   print
-  print 'func encode(a int16) *inst {'
+  print 'func encode(a obj.As) *inst {'
   print '\tswitch a {'
   for name in namelist:
     print_go_insn(name)
