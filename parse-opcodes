@@ -57,27 +57,6 @@ csrs = [
   (0xC01, 'time'),
   (0xC02, 'instret'),
 
-  # Nonstandard User R/W
-  (0x0C0, 'stats'),
-
-  # Nonstandard User RO
-  (0xCC0, 'uarch0'),
-  (0xCC1, 'uarch1'),
-  (0xCC2, 'uarch2'),
-  (0xCC3, 'uarch3'),
-  (0xCC4, 'uarch4'),
-  (0xCC5, 'uarch5'),
-  (0xCC6, 'uarch6'),
-  (0xCC7, 'uarch7'),
-  (0xCC8, 'uarch8'),
-  (0xCC9, 'uarch9'),
-  (0xCCA, 'uarch10'),
-  (0xCCB, 'uarch11'),
-  (0xCCC, 'uarch12'),
-  (0xCCD, 'uarch13'),
-  (0xCCE, 'uarch14'),
-  (0xCCF, 'uarch15'),
-
   # Standard Supervisor R/W
   (0x100, 'sstatus'),
   (0x104, 'sie'),
