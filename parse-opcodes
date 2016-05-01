@@ -103,8 +103,7 @@ csrs = [
   (0xF11, 'mvendorid'),
   (0xF12, 'marchid'),
   (0xF13, 'mimpid'),
-  (0xF14, 'mcfgaddr'),
-  (0xF15, 'mhartid'),
+  (0xF14, 'mhartid'),
 
   # Nonstandard Machine R/W
   (0x7C0, 'mtohost'),
