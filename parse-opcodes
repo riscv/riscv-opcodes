@@ -80,7 +80,6 @@ csrs = [
   (0x303, 'mideleg'),
   (0x304, 'mie'),
   (0x305, 'mtvec'),
-  (0x321, 'mtimecmp'),
   (0x340, 'mscratch'),
   (0x341, 'mepc'),
   (0x342, 'mcause'),
@@ -120,7 +119,6 @@ csrs32 = [
   (0xC82, 'instreth'),
 
   # Standard Machine R/W
-  (0x361, 'mtimecmph'),
   (0x780, 'mucycle_deltah'),
   (0x781, 'mutime_deltah'),
   (0x782, 'muinstret_deltah'),
