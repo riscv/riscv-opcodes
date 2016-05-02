@@ -85,7 +85,6 @@ csrs = [
   (0x342, 'mcause'),
   (0x343, 'mbadaddr'),
   (0x344, 'mip'),
-  (0x345, 'mipi'),
   (0x310, 'mucounteren'),
   (0x311, 'mscounteren'),
   (0x700, 'mucycle_delta'),
