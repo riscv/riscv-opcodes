@@ -106,8 +106,6 @@ csrs = [
   (0xF14, 'mhartid'),
 
   # Nonstandard Machine R/W
-  (0x7C0, 'mtohost'),
-  (0x7C1, 'mfromhost'),
   (0x7C2, 'mreset'),
 ]
 
