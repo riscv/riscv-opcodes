@@ -179,48 +179,7 @@ def str_arg(arg0,name,match,arguments):
     return binary(yank(match,start,len),len)
 
 def str_inst(name,arguments):
-  ret = name.replace('.rv32','').upper() + ' '
-  if 'imm12hi' in arguments and 'imm12lo' in arguments:
-    arguments.remove('imm12hi')
-    arguments.remove('imm12lo')
-    arguments.append('imm')
-  if 'bimm12hi' in arguments and 'bimm12lo' in arguments:
-    arguments.remove('bimm12hi')
-    arguments.remove('bimm12lo')
-    arguments.append('imm')
-  if name[:3] == 'csr':
-    arguments.remove('imm12')
-    arguments.remove('rs1')
-    arguments.append('csr')
-    arguments.append('imm' if name[-1] == 'i' else 'rs1')
-  if 'imm12' in arguments:
-    arguments.remove('imm12')
-    arguments.append('imm')
-  if 'imm20' in arguments:
-    arguments.remove('imm20')
-    arguments.append('imm')
-  if 'jimm20' in arguments:
-    arguments.remove('jimm20')
-    arguments.append('imm')
-  if 'zimm' in arguments:
-    arguments.remove('zimm')
-    arguments.append('imm')
-  if 'shamtw' in arguments:
-    arguments.remove('shamtw')
-    arguments.append('shamt')
-  if 'aqrl' in arguments:
-    arguments.remove('aqrl')
-  if 'rm' in arguments:
-    arguments.remove('rm')
-  if 'pred' in arguments:
-    arguments.remove('pred')
-  if 'succ' in arguments:
-    arguments.remove('succ')
-  for idx in range(len(arguments)):
-    ret = ret + arguments[idx]
-    if idx != len(arguments)-1:
-      ret = ret + ','
-  return ret
+  return name.replace('.rv32','').upper()
 
 def print_unimp_type(name,match,arguments):
   print """
