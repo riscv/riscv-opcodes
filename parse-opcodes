@@ -93,6 +93,9 @@ csrs = [
   (0x704, 'mscycle_delta'),
   (0x705, 'mstime_delta'),
   (0x706, 'msinstret_delta'),
+  (0x790, 'dcsr'),
+  (0x791, 'dpc'),
+  (0x792, 'dscratch'),
 
   # Standard Machine RO
   (0xF00, 'mcycle'),
