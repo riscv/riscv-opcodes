@@ -67,7 +67,6 @@ csrs = [
   (0x143, 'sbadaddr'),
   (0x144, 'sip'),
   (0x180, 'sptbr'),
-  (0x181, 'sasid'),
 
   # Standard Supervisor RO
   (0xD00, 'scycle'),
