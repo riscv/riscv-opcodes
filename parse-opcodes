@@ -587,11 +587,8 @@ def print_insts(*names):
 
 def make_supervisor_latex_table():
   print_header('i')
-  print_subtitle('Instructions to Access CSRs')
-  print_insts('csrrw', 'csrrs', 'csrrc')
-  print_insts('csrrwi', 'csrrsi', 'csrrci')
-  print_subtitle('Instructions to Change Privilege Level')
-  print_insts('ecall', 'ebreak', 'uret', 'sret', 'hret', 'mret')
+  print_subtitle('Trap-Return Instructions')
+  print_insts('uret', 'sret', 'hret', 'mret')
   print_subtitle('Interrupt-Management Instructions')
   print_insts('wfi')
   print_subtitle('Memory-Management Instructions')
