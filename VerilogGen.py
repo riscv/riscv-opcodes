@@ -18,6 +18,12 @@ class Instruction:
     Contains information on a single instruction.
     """
 
+    def safeName(self):
+        """
+        Returns a verilog-safe instruction name.
+        """
+        return self.name.replace(".","_")
+
     def __init__(self, name, args, fields):
         """
         Initialise the class.
@@ -98,13 +104,37 @@ class VerilogGen:
 
                 self.instructions[i_name] = Instruction(i_name,i_args,i_fields)
 
+    def writeInstructionDecode(self):
+        """
+        Writes out all of the 'wire instrX = ....' code to the output file.
+        """
 
-    def __init__(self, inputFile):
+        for i in self.instructions.keys():
+            
+            instr = self.instructions[i]
+            tr = "wire %s%s = " % (self.wire_prefix, instr.safeName())
+
+            for i in range(0,len(instr.fields)):
+                field = instr.fields[i]
+                if(i >= 1):
+                    tr += " && "
+                tr += "(%s[%d:%d] == %s)" % (self.input_signal, field[0],
+                                                field[1], field[2])
+            tr += ";\n"
+            self.outputFile.write(tr)
+
+    def __init__(self, inputFile, outputFile):
         """
         Initialise the class with all parameters.
         """
 
-        self.inputFilePath = inputFile
+        self.inputFilePath  = inputFile
+        self.outputFilePath = outputFile
+        self.outputFile     = open(self.outputFilePath,"w")
+
+        self.wire_prefix    = "gen_"
+        self.input_signal   = "decode_in"
+
         self.instructions  = {}
         self.valid_args    = ["rd", "rs1", "rs2", "rs3", "imm20", "imm12", 
             "imm12lo", "imm12hi", "shamtw", "shamt", "rm","pred","succ",
@@ -121,6 +151,7 @@ def parseArguments():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--opcodes-file", help="The opcodes file to parse.")
+    parser.add_argument("--verilog-file", help="The Verilog output file.")
 
     args = parser.parse_args()
     return args
@@ -133,8 +164,8 @@ def main():
 
     args = parseArguments()
 
-    gen  = VerilogGen(args.opcodes_file)
-    gen.printInstructions()
+    gen  = VerilogGen(args.opcodes_file, args.verilog_file)
+    gen.writeInstructionDecode()
     
     return 0
 
