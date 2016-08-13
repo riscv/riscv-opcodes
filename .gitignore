@@ -1,4 +1,5 @@
 .*.swp
+*.pyc
 inst.chisel
 instr-table.tex
 priv-instr-table.tex
