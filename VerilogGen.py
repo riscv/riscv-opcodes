@@ -10,6 +10,8 @@ Author: Ben Marshall
 import sys
 import argparse
 
+FIELD_IGNORE = -1
+FIELD_PRED   = -2
 
 class Instruction:
     """
@@ -23,7 +25,23 @@ class Instruction:
 
         self.name = name
         self.args = args
-        self.fields = fields
+        self.fields = []
+
+        for f in fields:
+            hi = int(f.split("..")[0])
+            lo = int(f.split("..")[1].split("=")[0])
+            vl = f.split("=")[1]
+            
+            if(vl.startswith("0x")):
+                vl = int(vl[2:],16)
+            elif(vl == "ignore"):
+                vl = FIELD_IGNORE
+            elif(vl == "pred"):
+                vl = FIELD_PRED
+            else:
+                vl = int(vl)
+
+            self.fields.append((hi,lo,vl))
 
 
 class VerilogGen:
@@ -47,7 +65,7 @@ class VerilogGen:
             sys.stdout.write(")")
             
             for field in ins.fields:
-                sys.stdout.write(" %s" % field)
+                sys.stdout.write(" (%d,%d,%d)" % field)
             print("")
 
 
@@ -89,7 +107,8 @@ class VerilogGen:
         self.inputFilePath = inputFile
         self.instructions  = {}
         self.valid_args    = ["rd", "rs1", "rs2", "rs3", "imm20", "imm12", 
-            "imm12lo", "imm12hi", "shamtw", "shamt", "rm"]
+            "imm12lo", "imm12hi", "shamtw", "shamt", "rm","pred","succ",
+            "aqrl"]
         
         self.__parseInputFile__()
 
