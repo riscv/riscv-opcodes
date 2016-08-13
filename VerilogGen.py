@@ -113,15 +113,24 @@ class VerilogGen:
             
             instr = self.instructions[i]
             tr = "wire %s%s = " % (self.wire_prefix, instr.safeName())
+            emitted = 0
 
             for i in range(0,len(instr.fields)):
+
                 field = instr.fields[i]
-                if(i >= 1):
-                    tr += " && "
-                tr += "(%s[%d:%d] == %s)" % (self.input_signal, field[0],
-                                                field[1], field[2])
+
+                if(field[2] >= 0):
+                    if(emitted >= 1):
+                        tr += " && "
+                    tr += "(%s[%d:%d] == %s)" % (self.input_signal, field[0],
+                                                    field[1], field[2])
+                    emitted += 1
+                else:
+                    continue
+
             tr += ";\n"
             self.outputFile.write(tr)
+
 
     def __init__(self, inputFile, outputFile):
         """
@@ -152,6 +161,8 @@ def parseArguments():
 
     parser.add_argument("--opcodes-file", help="The opcodes file to parse.")
     parser.add_argument("--verilog-file", help="The Verilog output file.")
+    parser.add_argument("--wire-prefix", help="A prefix for all generated signals.")
+    parser.add_argument("--input-signal", help="The input signal to the decoder containing the raw instruction.")
 
     args = parser.parse_args()
     return args
@@ -165,6 +176,8 @@ def main():
     args = parseArguments()
 
     gen  = VerilogGen(args.opcodes_file, args.verilog_file)
+    gen.input_signal = args.input_signal
+    gen.wire_prefix  = args.wire_prefix
     gen.writeInstructionDecode()
     
     return 0
