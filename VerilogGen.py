@@ -103,6 +103,24 @@ class VerilogGen:
                         i_fields.append(a)
 
                 self.instructions[i_name] = Instruction(i_name,i_args,i_fields)
+    
+    def writeStandardRanges(self):
+        """
+        Writes a collection of constant bit ranges, useful for the manually
+        coded parts of the decoder.
+        """
+        towrite = """
+        `define RISCV_RS1       19:15
+        `define RISCV_RS2       24:20
+        `define RISCV_RD        11:7
+        `define RISCV_IMM_11_0  31:20
+        `define RISCV_IMM_11_5  31:25
+        `define RISCV_IMM_4_0   11:7
+        `define RISCV_IMM_31_12 31:12
+        `define RISCV_FUNC_7    31:25  
+        `define RISCV_FUNC_3    14:12
+        """
+        self.outputFile.write(towrite+"\n")
 
     def writeInstructionDecode(self):
         """
@@ -112,7 +130,8 @@ class VerilogGen:
         for i in self.instructions.keys():
             
             instr = self.instructions[i]
-            tr = "wire %s%s = " % (self.wire_prefix, instr.safeName())
+            tr = "wire %s%s =    " % (self.wire_prefix, instr.safeName())
+            indent = len(tr)-4
             emitted = 0
 
             for i in range(0,len(instr.fields)):
@@ -121,9 +140,11 @@ class VerilogGen:
 
                 if(field[2] >= 0):
                     if(emitted >= 1):
-                        tr += " && "
+                        tr += "\n" + " "*indent+" && "
+                    fwidth = 1 + (field[0]-field[1])
+                    val    = "%d'd%d" % (fwidth,field[2])
                     tr += "(%s[%d:%d] == %s)" % (self.input_signal, field[0],
-                                                    field[1], field[2])
+                                                    field[1], val)
                     emitted += 1
                 else:
                     continue
@@ -176,8 +197,10 @@ def main():
     args = parseArguments()
 
     gen  = VerilogGen(args.opcodes_file, args.verilog_file)
-    gen.input_signal = args.input_signal
-    gen.wire_prefix  = args.wire_prefix
+    if(args.input_signal):
+        gen.input_signal = args.input_signal
+    if(args.wire_prefix):
+        gen.wire_prefix  = args.wire_prefix
     gen.writeInstructionDecode()
     
     return 0
