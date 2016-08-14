@@ -2,7 +2,14 @@
 
 """
 A simple module for parsing the opcodes definition file for RISCV and
-automatically generating most of the code for a Verilog decoder.
+automatically generating code for a Verilog decoder. Because RISCV is designed
+to be implemented many different ways, a full decoder cannot be generated,
+because the output interface is not known. However, all of the monotonous
+code to individually identify an individual instruction is generated, and
+can be easily integrated into an existing interface.
+
+No optimisation of the decoder is performed, it is assumed that any synthesis
+tool you use is smart enough to spot shared logic, of which there is a lot!
 
 Author: Ben Marshall
 """
@@ -22,11 +29,12 @@ class Instruction:
         """
         Returns a verilog-safe instruction name.
         """
-        return self.name.replace(".","_")
+        return self.name.replace(".","_").lower()
 
     def __init__(self, name, args, fields):
         """
-        Initialise the class.
+        Initialise the class with a given instruction name / memonic,
+        set of arguments and bitfields.
         """
 
         self.name = name
@@ -178,12 +186,21 @@ def parseArguments():
     Parse any and all command line arguments.
     """
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description=__doc__,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument("--opcodes-file", help="The opcodes file to parse.")
-    parser.add_argument("--verilog-file", help="The Verilog output file.")
-    parser.add_argument("--wire-prefix", help="A prefix for all generated signals.")
-    parser.add_argument("--input-signal", help="The input signal to the decoder containing the raw instruction.")
+    parser.add_argument("--opcodes-file", 
+                        help="The opcodes file to parse.",
+                        default="opcodes")
+    parser.add_argument("--verilog-file", 
+                        help="The Verilog output file.",
+                        default="riscv-decode.v")
+    parser.add_argument("--wire-prefix",
+                        help="A prefix for all generated signals.",
+                        default="gen_")
+    parser.add_argument("--input-signal", 
+                        help="The input signal to the decoder containing the raw instruction.",
+                        default="to_decode")
 
     args = parser.parse_args()
     return args
