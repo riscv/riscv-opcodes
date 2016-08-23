@@ -68,6 +68,10 @@
 #define MCONTROL_STORE      (1<<1)
 #define MCONTROL_LOAD       (1<<0)
 
+#define MCONTROL_MASKMAX(xlen) (0x3f<<((xlen)-11))
+#define MCONTROL_D(xlen)       (1<<((xlen)-5))
+#define MCONTROL_TYPE(xlen)    (0xfU<<((xlen)-4))
+
 #define MCONTROL_ACTION_NONE            0
 #define MCONTROL_ACTION_DEBUG_EXCEPTION 1
 #define MCONTROL_ACTION_DEBUG_MODE      2
