@@ -37,7 +37,6 @@
 #define DCSR_XDEBUGVER      (3U<<30)
 #define DCSR_NDRESET        (1<<29)
 #define DCSR_FULLRESET      (1<<28)
-#define DCSR_HWBPCOUNT      (0xfff<<16)
 #define DCSR_EBREAKM        (1<<15)
 #define DCSR_EBREAKH        (1<<14)
 #define DCSR_EBREAKS        (1<<13)
@@ -126,23 +125,6 @@
 #define CONFIG_STRING_ADDR 0x0000100C
 #define EXT_IO_BASE        0x40000000
 #define DRAM_BASE          0x80000000
-
-// breakpoint control fields
-#define BPCONTROL_X           0x00000001
-#define BPCONTROL_W           0x00000002
-#define BPCONTROL_R           0x00000004
-#define BPCONTROL_U           0x00000008
-#define BPCONTROL_S           0x00000010
-#define BPCONTROL_H           0x00000020
-#define BPCONTROL_M           0x00000040
-#define BPCONTROL_BPMATCH     0x00000780
-#ifdef __riscv64
-# define BPCONTROL_BPAMASKMAX 0x0F80000000000000
-# define BPCONTROL_TDRTYPE    0xF000000000000000
-#else
-# define BPCONTROL_BPAMASKMAX 0x0F800000
-# define BPCONTROL_TDRTYPE    0xF0000000
-#endif
 
 // page table entry (PTE) fields
 #define PTE_V     0x001 // Valid
