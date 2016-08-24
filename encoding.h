@@ -69,15 +69,16 @@
 #define MCONTROL_LOAD       (1<<0)
 
 #define MCONTROL_MASKMAX(xlen) (0x3f<<((xlen)-11))
-#define MCONTROL_D(xlen)       (1<<((xlen)-5))
+#define MCONTROL_DMODE(xlen)   (1<<((xlen)-5))
 #define MCONTROL_TYPE(xlen)    (0xfU<<((xlen)-4))
 
-#define MCONTROL_ACTION_NONE            0
-#define MCONTROL_ACTION_DEBUG_EXCEPTION 1
-#define MCONTROL_ACTION_DEBUG_MODE      2
-#define MCONTROL_ACTION_TRACE_START     3
-#define MCONTROL_ACTION_TRACE_STOP      4
-#define MCONTROL_ACTION_TRACE_EMIT      5
+#define MCONTROL_ACTION_DEBUG_EXCEPTION_BEFORE 0
+#define MCONTROL_ACTION_DEBUG_EXCEPTION_AFTER  1
+#define MCONTROL_ACTION_DEBUG_MODE_BEFORE      2
+#define MCONTROL_ACTION_DEBUG_MODE_AFTER       3
+#define MCONTROL_ACTION_TRACE_START            4
+#define MCONTROL_ACTION_TRACE_STOP             5
+#define MCONTROL_ACTION_TRACE_EMIT             6
 
 #define MCONTROL_MATCH_EQUAL     0
 #define MCONTROL_MATCH_NAPOT     1
