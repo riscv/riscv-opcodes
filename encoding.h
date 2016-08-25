@@ -56,8 +56,13 @@
 #define DCSR_CAUSE_STEP     4
 #define DCSR_CAUSE_HALT     5
 
+#define MCONTROL_TYPE(xlen)    (0xfU<<((xlen)-4))
+#define MCONTROL_DMODE(xlen)   (1<<((xlen)-5))
+#define MCONTROL_MASKMAX(xlen) (0x3f<<((xlen)-11))
+
 #define MCONTROL_SELECT     (1<<19)
-#define MCONTROL_ACTION     (0x7f<<12)
+#define MCONTROL_TIMING     (1<<18)
+#define MCONTROL_ACTION     (0x3f<<12)
 #define MCONTROL_CHAIN      (1<<11)
 #define MCONTROL_MATCH      (0xf<<7)
 #define MCONTROL_M          (1<<6)
@@ -68,17 +73,11 @@
 #define MCONTROL_STORE      (1<<1)
 #define MCONTROL_LOAD       (1<<0)
 
-#define MCONTROL_MASKMAX(xlen) (0x3f<<((xlen)-11))
-#define MCONTROL_DMODE(xlen)   (1<<((xlen)-5))
-#define MCONTROL_TYPE(xlen)    (0xfU<<((xlen)-4))
-
-#define MCONTROL_ACTION_BREAKPOINT_BEFORE 0
-#define MCONTROL_ACTION_BREAKPOINT_AFTER  1
-#define MCONTROL_ACTION_DEBUG_MODE_BEFORE 2
-#define MCONTROL_ACTION_DEBUG_MODE_AFTER  3
-#define MCONTROL_ACTION_TRACE_START       4
-#define MCONTROL_ACTION_TRACE_STOP        5
-#define MCONTROL_ACTION_TRACE_EMIT        6
+#define MCONTROL_ACTION_DEBUG_EXCEPTION   0
+#define MCONTROL_ACTION_DEBUG_MODE        1
+#define MCONTROL_ACTION_TRACE_START       2
+#define MCONTROL_ACTION_TRACE_STOP        3
+#define MCONTROL_ACTION_TRACE_EMIT        4
 
 #define MCONTROL_MATCH_EQUAL     0
 #define MCONTROL_MATCH_NAPOT     1
