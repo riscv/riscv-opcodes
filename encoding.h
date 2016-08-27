@@ -73,6 +73,9 @@
 #define MCONTROL_STORE      (1<<1)
 #define MCONTROL_LOAD       (1<<0)
 
+#define MCONTROL_TYPE_NONE      0
+#define MCONTROL_TYPE_MATCH     2
+
 #define MCONTROL_ACTION_DEBUG_EXCEPTION   0
 #define MCONTROL_ACTION_DEBUG_MODE        1
 #define MCONTROL_ACTION_TRACE_START       2
