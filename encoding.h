@@ -37,7 +37,6 @@
 #define DCSR_XDEBUGVER      (3U<<30)
 #define DCSR_NDRESET        (1<<29)
 #define DCSR_FULLRESET      (1<<28)
-#define DCSR_HWBPCOUNT      (0xfff<<16)
 #define DCSR_EBREAKM        (1<<15)
 #define DCSR_EBREAKH        (1<<14)
 #define DCSR_EBREAKS        (1<<13)
@@ -56,6 +55,39 @@
 #define DCSR_CAUSE_DEBUGINT 3
 #define DCSR_CAUSE_STEP     4
 #define DCSR_CAUSE_HALT     5
+
+#define MCONTROL_TYPE(xlen)    (0xfULL<<((xlen)-4))
+#define MCONTROL_DMODE(xlen)   (1ULL<<((xlen)-5))
+#define MCONTROL_MASKMAX(xlen) (0x3fULL<<((xlen)-11))
+
+#define MCONTROL_SELECT     (1<<19)
+#define MCONTROL_TIMING     (1<<18)
+#define MCONTROL_ACTION     (0x3f<<12)
+#define MCONTROL_CHAIN      (1<<11)
+#define MCONTROL_MATCH      (0xf<<7)
+#define MCONTROL_M          (1<<6)
+#define MCONTROL_H          (1<<5)
+#define MCONTROL_S          (1<<4)
+#define MCONTROL_U          (1<<3)
+#define MCONTROL_EXECUTE    (1<<2)
+#define MCONTROL_STORE      (1<<1)
+#define MCONTROL_LOAD       (1<<0)
+
+#define MCONTROL_TYPE_NONE      0
+#define MCONTROL_TYPE_MATCH     2
+
+#define MCONTROL_ACTION_DEBUG_EXCEPTION   0
+#define MCONTROL_ACTION_DEBUG_MODE        1
+#define MCONTROL_ACTION_TRACE_START       2
+#define MCONTROL_ACTION_TRACE_STOP        3
+#define MCONTROL_ACTION_TRACE_EMIT        4
+
+#define MCONTROL_MATCH_EQUAL     0
+#define MCONTROL_MATCH_NAPOT     1
+#define MCONTROL_MATCH_GE        2
+#define MCONTROL_MATCH_LT        3
+#define MCONTROL_MATCH_MASK_LOW  4
+#define MCONTROL_MATCH_MASK_HIGH 5
 
 #define MIP_SSIP            (1 << IRQ_S_SOFT)
 #define MIP_HSIP            (1 << IRQ_H_SOFT)
@@ -101,23 +133,6 @@
 #define EXT_IO_BASE        0x40000000
 #define DRAM_BASE          0x80000000
 
-// breakpoint control fields
-#define BPCONTROL_X           0x00000001
-#define BPCONTROL_W           0x00000002
-#define BPCONTROL_R           0x00000004
-#define BPCONTROL_U           0x00000008
-#define BPCONTROL_S           0x00000010
-#define BPCONTROL_H           0x00000020
-#define BPCONTROL_M           0x00000040
-#define BPCONTROL_BPMATCH     0x00000780
-#ifdef __riscv64
-# define BPCONTROL_BPAMASKMAX 0x0F80000000000000
-# define BPCONTROL_TDRTYPE    0xF000000000000000
-#else
-# define BPCONTROL_BPAMASKMAX 0x0F800000
-# define BPCONTROL_TDRTYPE    0xF0000000
-#endif
-
 // page table entry (PTE) fields
 #define PTE_V     0x001 // Valid
 #define PTE_R     0x002 // Read
@@ -135,7 +150,7 @@
 
 #ifdef __riscv
 
-#ifdef __riscv64
+#if __riscv_xlen == 64
 # define MSTATUS_SD MSTATUS64_SD
 # define SSTATUS_SD SSTATUS64_SD
 # define RISCV_PGLEVEL_BITS 9
