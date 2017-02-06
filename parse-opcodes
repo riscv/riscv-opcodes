@@ -3,6 +3,7 @@
 import math
 import sys
 import tokenize
+import VerilogGen as vg
 
 namelist = []
 match = {}
@@ -824,78 +825,98 @@ def make_chisel():
   print '  }'
   print '}'
 
-for line in sys.stdin:
-  line = line.partition('#')
-  tokens = line[0].split()
+def parse_stdin():
+  """
+  Parses the stdin stream for the opcode definitions. Used by everything
+  except the verilog generator.
+  """
+  for line in sys.stdin:
+    line = line.partition('#')
+    tokens = line[0].split()
 
-  if len(tokens) == 0:
-    continue
-  assert len(tokens) >= 2
+    if len(tokens) == 0:
+      continue
+    assert len(tokens) >= 2
 
-  name = tokens[0]
-  pseudo = name[0] == '@'
-  if pseudo:
-    name = name[1:]
-  mymatch = 0
-  mymask = 0
-  cover = 0
+    name = tokens[0]
+    pseudo = name[0] == '@'
+    if pseudo:
+      name = name[1:]
+    mymatch = 0
+    mymask = 0
+    cover = 0
 
-  if not name in arguments.keys():
-    arguments[name] = []
+    if not name in arguments.keys():
+      arguments[name] = []
 
-  for token in tokens[1:]:
-    if len(token.split('=')) == 2:
-      tokens = token.split('=')
-      if len(tokens[0].split('..')) == 2:
-        tmp = tokens[0].split('..')
-        hi = int(tmp[0])
-        lo = int(tmp[1])
-        if hi <= lo:
-          sys.exit("%s: bad range %d..%d" % (name,hi,lo))
+    for token in tokens[1:]:
+      if len(token.split('=')) == 2:
+        tokens = token.split('=')
+        if len(tokens[0].split('..')) == 2:
+          tmp = tokens[0].split('..')
+          hi = int(tmp[0])
+          lo = int(tmp[1])
+          if hi <= lo:
+            sys.exit("%s: bad range %d..%d" % (name,hi,lo))
+        else:
+          hi = lo = int(tokens[0])
+
+        if tokens[1] != 'ignore':
+          val = int(tokens[1], 0)
+          if val >= (1 << (hi-lo+1)):
+            sys.exit("%s: bad value %d for range %d..%d" % (name,val,hi,lo))
+          mymatch = mymatch | (val << lo)
+          mymask = mymask | ((1<<(hi+1))-(1<<lo))
+
+        if cover & ((1<<(hi+1))-(1<<lo)):
+          sys.exit("%s: overspecified" % name)
+        cover = cover | ((1<<(hi+1))-(1<<lo))
+
+      elif token in arglut:
+        if cover & ((1<<(arglut[token][0]+1))-(1<<arglut[token][1])):
+          sys.exit("%s: overspecified" % name)
+        cover = cover | ((1<<(arglut[token][0]+1))-(1<<arglut[token][1]))
+        arguments[name].append(token)
+
       else:
-        hi = lo = int(tokens[0])
+        sys.exit("%s: unknown token %s" % (name,token))
 
-      if tokens[1] != 'ignore':
-        val = int(tokens[1], 0)
-        if val >= (1 << (hi-lo+1)):
-          sys.exit("%s: bad value %d for range %d..%d" % (name,val,hi,lo))
-        mymatch = mymatch | (val << lo)
-        mymask = mymask | ((1<<(hi+1))-(1<<lo))
+    if not (cover == 0xFFFFFFFF or cover == 0xFFFF):
+      sys.exit("%s: not all bits are covered" % name)
 
-      if cover & ((1<<(hi+1))-(1<<lo)):
-        sys.exit("%s: overspecified" % name)
-      cover = cover | ((1<<(hi+1))-(1<<lo))
-
-    elif token in arglut:
-      if cover & ((1<<(arglut[token][0]+1))-(1<<arglut[token][1])):
-        sys.exit("%s: overspecified" % name)
-      cover = cover | ((1<<(arglut[token][0]+1))-(1<<arglut[token][1]))
-      arguments[name].append(token)
-
+    if pseudo:
+      pseudos[name] = 1
     else:
-      sys.exit("%s: unknown token %s" % (name,token))
+      for name2,match2 in match.iteritems():
+        if name2 not in pseudos and (match2 & mymask) == mymatch:
+          sys.exit("%s and %s overlap" % (name,name2))
 
-  if not (cover == 0xFFFFFFFF or cover == 0xFFFF):
-    sys.exit("%s: not all bits are covered" % name)
+    mask[name] = mymask
+    match[name] = mymatch
+    namelist.append(name)
 
-  if pseudo:
-    pseudos[name] = 1
-  else:
-    for name2,match2 in match.iteritems():
-      if name2 not in pseudos and (match2 & mymask) == mymatch:
-        sys.exit("%s and %s overlap" % (name,name2))
+def make_verilog():
+  """
+  Responsible for building the verilog decoder.
+  """
+  gen = vg.VerilogGen("opcodes","riscv_decode.v")
+  gen.writeInstructionDecode()
+  return 0
 
-  mask[name] = mymask
-  match[name] = mymatch
-  namelist.append(name)
 
 if sys.argv[1] == '-tex':
+  parse_stdin()
   make_latex_table()
 elif sys.argv[1] == '-privtex':
+  parse_stdin()
   make_supervisor_latex_table()
 elif sys.argv[1] == '-chisel':
+  parse_stdin()
   make_chisel()
 elif sys.argv[1] == '-c':
+  parse_stdin()
   make_c(match,mask)
+elif sys.argv[1] == '-verilog':
+  make_verilog()
 else:
   assert 0
