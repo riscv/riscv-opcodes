@@ -675,8 +675,6 @@ def print_footer(caption=''):
   """ % caption
 
 def print_inst(n):
-  is_system = (match[n] & 0x7f) == (match['scall'] & 0x7f)
-
   if n == 'fence' or n == 'fence.i':
     print_fence_type(n, match[n], arguments[n])
   elif 'aqrl' in arguments[n]:
@@ -689,9 +687,9 @@ def print_inst(n):
     print_u_type(n, match[n], arguments[n])
   elif 'jimm20' in arguments[n]:
     print_uj_type(n, match[n], arguments[n])
-  elif is_system and n[:3] == 'csr':
+  elif n[:3] == 'csr':
     print_csr_type(n, match[n], arguments[n])
-  elif 'imm12' in arguments[n] or is_system:
+  elif 'imm12' in arguments[n] or n == 'ecall' or n == 'ebreak':
     print_i_type(n, match[n], arguments[n])
   elif 'imm12hi' in arguments[n]:
     print_s_type(n, match[n], arguments[n])
@@ -713,7 +711,7 @@ def make_supervisor_latex_table():
   print_subtitle('Interrupt-Management Instructions')
   print_insts('wfi')
   print_subtitle('Memory-Management Instructions')
-  print_insts('sfence.vm')
+  print_insts('sfence.vma')
   print_footer('\\caption{RISC-V Privileged Instructions}')
 
 def make_latex_table():
