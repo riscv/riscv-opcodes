@@ -32,7 +32,8 @@
 #define SSTATUS_SPP         0x00000100
 #define SSTATUS_FS          0x00006000
 #define SSTATUS_XS          0x00018000
-#define SSTATUS_PUM         0x00040000
+#define SSTATUS_SUM         0x00040000
+#define SSTATUS_MXR         0x00080000
 #define SSTATUS32_SD        0x80000000
 #define SSTATUS64_SD        0x8000000000000000
 
@@ -122,6 +123,16 @@
 #define SPTBR_MODE_SV48 9
 #define SPTBR_MODE_SV57 10
 #define SPTBR_MODE_SV64 11
+
+#define PMP_R     0x01
+#define PMP_W     0x02
+#define PMP_X     0x04
+#define PMP_M     0x08
+#define PMP_NAPOT 0x10
+#define PMP_TOR   0x20
+#define PMP_EN    0x40
+#define PMP_LOCK  0x80
+#define PMP_SHIFT 2
 
 #define IRQ_S_SOFT   1
 #define IRQ_H_SOFT   2
