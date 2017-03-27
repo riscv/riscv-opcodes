@@ -33,17 +33,20 @@ arglut['vseglen'] = (31,29)
 
 causes = [
   (0x00, 'misaligned fetch'),
-  (0x01, 'fault fetch'),
+  (0x01, 'fetch access'),
   (0x02, 'illegal instruction'),
   (0x03, 'breakpoint'),
   (0x04, 'misaligned load'),
-  (0x05, 'fault load'),
+  (0x05, 'load access'),
   (0x06, 'misaligned store'),
-  (0x07, 'fault store'),
+  (0x07, 'store access'),
   (0x08, 'user_ecall'),
   (0x09, 'supervisor_ecall'),
   (0x0A, 'hypervisor_ecall'),
   (0x0B, 'machine_ecall'),
+  (0x0C, 'fetch page fault'),
+  (0x0D, 'load page fault'),
+  (0x0F, 'store page fault'),
 ]
 
 csrs = [
