@@ -20,6 +20,9 @@ $(GAS_H) $(XCC_H): $(ALL_OPCODES) parse-opcodes
 inst.chisel: $(ALL_OPCODES) parse-opcodes
 	cat opcodes opcodes-custom opcodes-pseudo | ./parse-opcodes -chisel > $@
 
+inst.go: opcodes opcodes-pseudo parse-opcodes
+	cat opcodes opcodes-pseudo | ./parse-opcodes -go > $@
+
 instr-table.tex: $(ALL_OPCODES) parse-opcodes
 	cat opcodes opcodes-pseudo | ./parse-opcodes -tex > $@
 
