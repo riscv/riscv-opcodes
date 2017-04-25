@@ -780,9 +780,9 @@ def make_latex_table():
   print_insts('fmadd.s', 'fmsub.s', 'fnmsub.s', 'fnmadd.s')
   print_insts('fadd.s', 'fsub.s', 'fmul.s', 'fdiv.s', 'fsqrt.s')
   print_insts('fsgnj.s', 'fsgnjn.s', 'fsgnjx.s', 'fmin.s', 'fmax.s')
-  print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.s')
+  print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.w')
   print_insts('feq.s', 'flt.s', 'fle.s', 'fclass.s')
-  print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x')
+  print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.w.x')
   print_footer()
 
   print_header('r','r4','i','s')
