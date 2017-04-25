@@ -730,7 +730,7 @@ def print_insts(*names):
 def make_supervisor_latex_table():
   print_header('i')
   print_subtitle('Trap-Return Instructions')
-  print_insts('uret', 'sret', 'hret', 'mret')
+  print_insts('uret', 'sret', 'mret')
   print_subtitle('Interrupt-Management Instructions')
   print_insts('wfi')
   print_subtitle('Memory-Management Instructions')
