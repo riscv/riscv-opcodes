@@ -17,10 +17,14 @@
 #define MSTATUS_FS          0x00006000
 #define MSTATUS_XS          0x00018000
 #define MSTATUS_MPRV        0x00020000
-#define MSTATUS_PUM         0x00040000
+#define MSTATUS_SUM         0x00040000
 #define MSTATUS_MXR         0x00080000
-#define MSTATUS_VM          0x1F000000
+#define MSTATUS_TVM         0x00100000
+#define MSTATUS_TW          0x00200000
+#define MSTATUS_TSR         0x00400000
 #define MSTATUS32_SD        0x80000000
+#define MSTATUS_UXL         0x0000000300000000
+#define MSTATUS_SXL         0x0000000C00000000
 #define MSTATUS64_SD        0x8000000000000000
 
 #define SSTATUS_UIE         0x00000001
@@ -30,8 +34,10 @@
 #define SSTATUS_SPP         0x00000100
 #define SSTATUS_FS          0x00006000
 #define SSTATUS_XS          0x00018000
-#define SSTATUS_PUM         0x00040000
+#define SSTATUS_SUM         0x00040000
+#define SSTATUS_MXR         0x00080000
 #define SSTATUS32_SD        0x80000000
+#define SSTATUS_UXL         0x0000000300000000
 #define SSTATUS64_SD        0x8000000000000000
 
 #define DCSR_XDEBUGVER      (3U<<30)
@@ -107,12 +113,30 @@
 #define PRV_H 2
 #define PRV_M 3
 
-#define VM_MBARE 0
-#define VM_MBB   1
-#define VM_MBBID 2
-#define VM_SV32  8
-#define VM_SV39  9
-#define VM_SV48  10
+#define SPTBR32_MODE 0x80000000
+#define SPTBR32_ASID 0x7FC00000
+#define SPTBR32_PPN  0x003FFFFF
+#define SPTBR64_MODE 0xF000000000000000
+#define SPTBR64_ASID 0x0FFFF00000000000
+#define SPTBR64_PPN  0x00000FFFFFFFFFFF
+
+#define SPTBR_MODE_OFF  0
+#define SPTBR_MODE_SV32 1
+#define SPTBR_MODE_SV39 8
+#define SPTBR_MODE_SV48 9
+#define SPTBR_MODE_SV57 10
+#define SPTBR_MODE_SV64 11
+
+#define PMP_R     0x01
+#define PMP_W     0x02
+#define PMP_X     0x04
+#define PMP_A     0x18
+#define PMP_L     0x80
+#define PMP_SHIFT 2
+
+#define PMP_TOR   0x08
+#define PMP_NA4   0x10
+#define PMP_NAPOT 0x18
 
 #define IRQ_S_SOFT   1
 #define IRQ_H_SOFT   2
@@ -127,9 +151,8 @@
 #define IRQ_HOST     13
 
 #define DEFAULT_RSTVEC     0x00001000
-#define DEFAULT_NMIVEC     0x00001004
-#define DEFAULT_MTVEC      0x00001010
-#define CONFIG_STRING_ADDR 0x0000100C
+#define CLINT_BASE         0x02000000
+#define CLINT_SIZE         0x000c0000
 #define EXT_IO_BASE        0x40000000
 #define DRAM_BASE          0x80000000
 
@@ -154,10 +177,12 @@
 # define MSTATUS_SD MSTATUS64_SD
 # define SSTATUS_SD SSTATUS64_SD
 # define RISCV_PGLEVEL_BITS 9
+# define SPTBR_MODE SPTBR64_MODE
 #else
 # define MSTATUS_SD MSTATUS32_SD
 # define SSTATUS_SD SSTATUS32_SD
 # define RISCV_PGLEVEL_BITS 10
+# define SPTBR_MODE SPTBR32_MODE
 #endif
 #define RISCV_PGSHIFT 12
 #define RISCV_PGSIZE (1 << RISCV_PGSHIFT)
@@ -171,30 +196,18 @@
   __tmp; })
 
 #define write_csr(reg, val) ({ \
-  if (__builtin_constant_p(val) && (unsigned long)(val) < 32) \
-    asm volatile ("csrw " #reg ", %0" :: "i"(val)); \
-  else \
-    asm volatile ("csrw " #reg ", %0" :: "r"(val)); })
+  asm volatile ("csrw " #reg ", %0" :: "rK"(val)); })
 
 #define swap_csr(reg, val) ({ unsigned long __tmp; \
-  if (__builtin_constant_p(val) && (unsigned long)(val) < 32) \
-    asm volatile ("csrrw %0, " #reg ", %1" : "=r"(__tmp) : "i"(val)); \
-  else \
-    asm volatile ("csrrw %0, " #reg ", %1" : "=r"(__tmp) : "r"(val)); \
+  asm volatile ("csrrw %0, " #reg ", %1" : "=r"(__tmp) : "rK"(val)); \
   __tmp; })
 
 #define set_csr(reg, bit) ({ unsigned long __tmp; \
-  if (__builtin_constant_p(bit) && (unsigned long)(bit) < 32) \
-    asm volatile ("csrrs %0, " #reg ", %1" : "=r"(__tmp) : "i"(bit)); \
-  else \
-    asm volatile ("csrrs %0, " #reg ", %1" : "=r"(__tmp) : "r"(bit)); \
+  asm volatile ("csrrs %0, " #reg ", %1" : "=r"(__tmp) : "rK"(bit)); \
   __tmp; })
 
 #define clear_csr(reg, bit) ({ unsigned long __tmp; \
-  if (__builtin_constant_p(bit) && (unsigned long)(bit) < 32) \
-    asm volatile ("csrrc %0, " #reg ", %1" : "=r"(__tmp) : "i"(bit)); \
-  else \
-    asm volatile ("csrrc %0, " #reg ", %1" : "=r"(__tmp) : "r"(bit)); \
+  asm volatile ("csrrc %0, " #reg ", %1" : "=r"(__tmp) : "rK"(bit)); \
   __tmp; })
 
 #define rdtime() read_csr(time)

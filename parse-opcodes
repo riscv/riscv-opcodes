@@ -33,17 +33,20 @@ arglut['vseglen'] = (31,29)
 
 causes = [
   (0x00, 'misaligned fetch'),
-  (0x01, 'fault fetch'),
+  (0x01, 'fetch access'),
   (0x02, 'illegal instruction'),
   (0x03, 'breakpoint'),
   (0x04, 'misaligned load'),
-  (0x05, 'fault load'),
+  (0x05, 'load access'),
   (0x06, 'misaligned store'),
-  (0x07, 'fault store'),
+  (0x07, 'store access'),
   (0x08, 'user_ecall'),
   (0x09, 'supervisor_ecall'),
   (0x0A, 'hypervisor_ecall'),
   (0x0B, 'machine_ecall'),
+  (0x0C, 'fetch page fault'),
+  (0x0D, 'load page fault'),
+  (0x0F, 'store page fault'),
 ]
 
 csrs = [
@@ -90,6 +93,7 @@ csrs = [
   (0x100, 'sstatus'),
   (0x104, 'sie'),
   (0x105, 'stvec'),
+  (0x106, 'scounteren'),
   (0x140, 'sscratch'),
   (0x141, 'sepc'),
   (0x142, 'scause'),
@@ -104,11 +108,32 @@ csrs = [
   (0x303, 'mideleg'),
   (0x304, 'mie'),
   (0x305, 'mtvec'),
+  (0x306, 'mcounteren'),
   (0x340, 'mscratch'),
   (0x341, 'mepc'),
   (0x342, 'mcause'),
   (0x343, 'mbadaddr'),
   (0x344, 'mip'),
+  (0x3a0, 'pmpcfg0'),
+  (0x3a1, 'pmpcfg1'),
+  (0x3a2, 'pmpcfg2'),
+  (0x3a3, 'pmpcfg3'),
+  (0x3b0, 'pmpaddr0'),
+  (0x3b1, 'pmpaddr1'),
+  (0x3b2, 'pmpaddr2'),
+  (0x3b3, 'pmpaddr3'),
+  (0x3b4, 'pmpaddr4'),
+  (0x3b5, 'pmpaddr5'),
+  (0x3b6, 'pmpaddr6'),
+  (0x3b7, 'pmpaddr7'),
+  (0x3b8, 'pmpaddr8'),
+  (0x3b9, 'pmpaddr9'),
+  (0x3ba, 'pmpaddr10'),
+  (0x3bb, 'pmpaddr11'),
+  (0x3bc, 'pmpaddr12'),
+  (0x3bd, 'pmpaddr13'),
+  (0x3be, 'pmpaddr14'),
+  (0x3bf, 'pmpaddr15'),
   (0x7a0, 'tselect'),
   (0x7a1, 'tdata1'),
   (0x7a2, 'tdata2'),
@@ -147,8 +172,6 @@ csrs = [
   (0xB1D, 'mhpmcounter29'),
   (0xB1E, 'mhpmcounter30'),
   (0xB1F, 'mhpmcounter31'),
-  (0x320, 'mucounteren'),
-  (0x321, 'mscounteren'),
   (0x323, 'mhpmevent3'),
   (0x324, 'mhpmevent4'),
   (0x325, 'mhpmevent5'),
@@ -635,7 +658,7 @@ def print_header(*types):
 \\multicolumn{1}{c|}{rs1} &
 \\multicolumn{1}{c|}{funct3} &
 \\multicolumn{1}{c|}{imm[4:1$\\vert$11]} &
-\\multicolumn{1}{c|}{opcode} & SB-type \\\\
+\\multicolumn{1}{c|}{opcode} & B-type \\\\
 \\cline{2-11}
 """
   if 'u' in types:
@@ -651,7 +674,7 @@ def print_header(*types):
 &
 \\multicolumn{8}{|c|}{imm[20$\\vert$10:1$\\vert$11$\\vert$19:12]} &
 \\multicolumn{1}{c|}{rd} &
-\\multicolumn{1}{c|}{opcode} & UJ-type \\\\
+\\multicolumn{1}{c|}{opcode} & J-type \\\\
 \\cline{2-11}
 """
 
@@ -675,8 +698,6 @@ def print_footer(caption=''):
   """ % caption
 
 def print_inst(n):
-  is_system = (match[n] & 0x7f) == (match['scall'] & 0x7f)
-
   if n == 'fence' or n == 'fence.i':
     print_fence_type(n, match[n], arguments[n])
   elif 'aqrl' in arguments[n]:
@@ -689,9 +710,9 @@ def print_inst(n):
     print_u_type(n, match[n], arguments[n])
   elif 'jimm20' in arguments[n]:
     print_uj_type(n, match[n], arguments[n])
-  elif is_system and n[:3] == 'csr':
+  elif n[:3] == 'csr':
     print_csr_type(n, match[n], arguments[n])
-  elif 'imm12' in arguments[n] or is_system:
+  elif 'imm12' in arguments[n] or n == 'ecall' or n == 'ebreak':
     print_i_type(n, match[n], arguments[n])
   elif 'imm12hi' in arguments[n]:
     print_s_type(n, match[n], arguments[n])
@@ -708,12 +729,14 @@ def print_insts(*names):
 
 def make_supervisor_latex_table():
   print_header('i')
+  print_subtitle('Environment Call and Breakpoint')
+  print_insts('ecall', 'ebreak')
   print_subtitle('Trap-Return Instructions')
-  print_insts('uret', 'sret', 'hret', 'mret')
+  print_insts('uret', 'sret', 'mret')
   print_subtitle('Interrupt-Management Instructions')
   print_insts('wfi')
   print_subtitle('Memory-Management Instructions')
-  print_insts('sfence.vm')
+  print_insts('sfence.vma')
   print_footer('\\caption{RISC-V Privileged Instructions}')
 
 def make_latex_table():
@@ -759,9 +782,9 @@ def make_latex_table():
   print_insts('fmadd.s', 'fmsub.s', 'fnmsub.s', 'fnmadd.s')
   print_insts('fadd.s', 'fsub.s', 'fmul.s', 'fdiv.s', 'fsqrt.s')
   print_insts('fsgnj.s', 'fsgnjn.s', 'fsgnjx.s', 'fmin.s', 'fmax.s')
-  print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.s')
+  print_insts('fcvt.w.s', 'fcvt.wu.s', 'fmv.x.w')
   print_insts('feq.s', 'flt.s', 'fle.s', 'fclass.s')
-  print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.s.x')
+  print_insts('fcvt.s.w', 'fcvt.s.wu', 'fmv.w.x')
   print_footer()
 
   print_header('r','r4','i','s')
