@@ -221,11 +221,11 @@ fmv.q.x   rd rs1 24..20=0 31..27=0x1E 14..12=0 26..25=3 6..2=0x14 1..0=3
 
 flw       rd rs1 imm12 14..12=2 6..2=0x01 1..0=3
 fld       rd rs1 imm12 14..12=3 6..2=0x01 1..0=3
-flq       rd rs1 imm12 14..12=4 6..2=0x01 1..0=3
+@flq      rd rs1 imm12 14..12=4 6..2=0x01 1..0=3
 
 fsw       imm12hi rs1 rs2 imm12lo 14..12=2 6..2=0x09 1..0=3
 fsd       imm12hi rs1 rs2 imm12lo 14..12=3 6..2=0x09 1..0=3
-fsq       imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x09 1..0=3
+@fsq      imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x09 1..0=3
 
 fmadd.s   rd rs1 rs2 rs3 rm 26..25=0 6..2=0x10 1..0=3
 fmsub.s   rd rs1 rs2 rs3 rm 26..25=0 6..2=0x11 1..0=3
