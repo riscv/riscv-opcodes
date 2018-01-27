@@ -29,7 +29,15 @@ arglut['bimm12lo'] = (11,7)
 arglut['zimm'] = (19,15)
 arglut['shamt'] = (25,20)
 arglut['shamtw'] = (24,20)
-arglut['vseglen'] = (31,29)
+
+arglut['vd'] = (11,7)
+arglut['vs1'] = (19,15)
+arglut['vs2'] = (24,20)
+arglut['vs3'] = (31,27)
+arglut['m'] = (13,12)
+arglut['vimm'] = (27,20)
+arglut['vlimm'] = (31,27)
+arglut['vsimm'] = (11,7)
 
 causes = [
   (0x00, 'misaligned fetch'),
@@ -584,6 +592,79 @@ def print_fence_type(name,match,arguments):
     str_inst(name,arguments) \
   )
 
+def print_vi_type(name,match,arguments):
+  print """
+&
+\\multicolumn{1}{|c|}{%s} &
+\\multicolumn{3}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} & %s \\\\
+\\cline{2-10}
+  """ % \
+  ( \
+    binary(yank(match,28,4),4), \
+    str_arg('vimm','imm[7:0]',match,arguments), \
+    str_arg('vs1','',match,arguments), \
+    binary(yank(match,14,1),1), \
+    str_arg('m','',match,arguments), \
+    str_arg('vd','',match,arguments), \
+    binary(yank(match,opcode_base,opcode_size),opcode_size), \
+    str_inst(name,arguments) \
+  )
+
+def print_vs_type(name,match,arguments):
+  print """
+&
+\\multicolumn{2}{|c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} & %s \\\\
+\\cline{2-10}
+  """ % \
+  ( \
+    'vlimm' in arguments and 'imm[4:0]' or str_arg('vs3','',match,arguments), \
+    binary(yank(match,25,2),2), \
+    str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
+    str_arg('rs1','',match,arguments), \
+    binary(yank(match,14,1),1), \
+    str_arg('m','',match,arguments), \
+    'vsimm' in arguments and 'imm[4:0]' or str_arg('vd','',match,arguments), \
+    binary(yank(match,opcode_base,opcode_size),opcode_size), \
+    str_inst(name,arguments) \
+  )
+
+def print_vr_type(name,match,arguments):
+  print """
+&
+\\multicolumn{1}{|c|}{%s} &
+\\multicolumn{2}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} & %s \\\\
+\\cline{2-10}
+  """ % \
+  ( \
+    binary(yank(match,28,4),4), \
+    binary(yank(match,25,3),3), \
+    str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
+    str_arg('rs1' in arguments and 'rs1' or 'vs1','',match,arguments), \
+    binary(yank(match,14,1),1), \
+    str_arg('m','',match,arguments), \
+    str_arg('rd' in arguments and 'rd' or 'vd','',match,arguments), \
+    binary(yank(match,opcode_base,opcode_size),opcode_size), \
+    str_inst(name,arguments) \
+  )
+
 def print_header(*types):
   print """
 \\newpage
@@ -678,14 +759,36 @@ def print_header(*types):
 \\cline{2-11}
 """
 
-def print_subtitle(title):
+def print_subtitle(title, fields=10):
   print """
 &
-\\multicolumn{10}{c}{} & \\\\
+\\multicolumn{%d}{c}{} & \\\\
 &
-\\multicolumn{10}{c}{\\bf %s} & \\\\
-\\cline{2-11}
-  """ % title
+\\multicolumn{%d}{c}{\\bf %s} & \\\\
+\\cline{2-%d}
+  """ % (fields, fields, title, fields+1)
+
+def print_vector_header():
+  print """
+\\newpage
+
+\\begin{table}[p]
+\\begin{small}
+\\begin{center}
+\\begin{tabular}{p{0in}p{0.4in}p{0.1in}p{0.3in}p{0.5in}p{0.5in}p{0.1in}p{0.3in}p{0.5in}p{0.7in}l}
+& & & & & & & & & \\\\
+                      &
+\\instbitrange{31}{28} &
+\\instbit{27} &
+\\instbitrange{26}{25} &
+\\instbitrange{24}{20} &
+\\instbitrange{19}{15} &
+\\instbit{14} &
+\\instbitrange{13}{12} &
+\\instbitrange{11}{7} &
+\\instbitrange{6}{0} \\\\
+\\cline{2-10}
+"""
 
 def print_footer(caption=''):
   print """
@@ -720,6 +823,12 @@ def print_inst(n):
     print_sb_type(n, match[n], arguments[n])
   elif 'rs3' in arguments[n]:
     print_r4_type(n, match[n], arguments[n])
+  elif 'vimm' in arguments[n]:
+    print_vi_type(n, match[n], arguments[n])
+  elif 'vlimm' in arguments[n] or 'vs3' in arguments[n]:
+    print_vs_type(n, match[n], arguments[n])
+  elif 'vs1' in arguments[n] or 'vs2' in arguments[n] or 'vd' in arguments[n]:
+    print_vr_type(n, match[n], arguments[n])
   else:
     print_r_type(n, match[n], arguments[n])
 
@@ -803,6 +912,23 @@ def make_latex_table():
   print_subtitle('RV64D Standard Extension (in addition to RV32D)')
   print_insts('fcvt.l.d', 'fcvt.lu.d', 'fmv.x.d')
   print_insts('fcvt.d.l', 'fcvt.d.lu', 'fmv.d.x')
+  print_footer()
+
+  print_vector_header()
+  print_subtitle('RV32V Standard Extension', 9)
+  print_insts('vadd', 'vsub', 'vsl', 'vsr', 'vand', 'vor', 'vxor')
+  print_insts('vseq', 'vsne', 'vslt', 'vsge')
+  print_insts('vclip', 'vinsert', 'vextract', 'vmerge', 'vselect', 'vslide')
+  print_insts('vdiv', 'vrem', 'vmul', 'vmulh')
+  print_insts('vmin', 'vmax', 'vsgnj', 'vsgnjn', 'vsgnjx')
+  print_insts('vsqrt', 'vclass')
+  print_insts('vpopc')
+  print_insts('vcvti', 'vaddi', 'vsli', 'vsri', 'vandi', 'vori', 'vxori')
+  print_insts('vclipi')
+  print_insts('vmadd', 'vmsub', 'vnmadd', 'vnmsub')
+  print_insts('vld', 'vlds', 'vldx')
+  print_insts('vst', 'vsts', 'vstx')
+  print_insts('vamoswap', 'vamoadd', 'vamoand', 'vamoor', 'vamoxor', 'vamomin', 'vamomax')
   print_footer('\\caption{Instruction listing for RISC-V}')
 
 def print_chisel_insn(name):
