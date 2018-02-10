@@ -25,7 +25,6 @@ vamomax   m vd vs3 vs2 19..15=0x14    26..25=3 14=1 6..0=0x27
 # First, all the immediates.
 vaddi     m vd vs1 vimm         31..28=0 14=1 6..0=0x67
 vsli      m vd vs1 vimm         31..28=1 14=1 6..0=0x67
-vcvti     m vd vs1 vimm         31..28=2 14=1 6..0=0x67
 vclipi    m vd vs1 vimm         31..28=3 14=1 6..0=0x67
 vxori     m vd vs1 vimm         31..28=4 14=1 6..0=0x67
 vsri      m vd vs1 vimm         31..28=5 14=1 6..0=0x67
@@ -54,13 +53,16 @@ vsge      m vd vs1 vs2 27..25=7 31..28=9 14=1 6..0=0x67
 
 # group 31..28=10 includes instructions that write xd
 # (and may also read xs1 and/or xs2).
-vextract  m rd vs1 rs2 27..25=1 31..28=10 14=1 6..0=0x67
+vextract  m rd vs1 rs2 27..25=0 31..28=10 14=1 6..0=0x67
+vmfirst   m rd vs1     27..25=7 31..28=10 14=1 6..0=0x67 24..20=0
+vmpop     m rd vs1     27..25=7 31..28=10 14=1 6..0=0x67 24..20=1
 
 # group 31..28=11 includes instructions that read xs1 and/or xs2,
 # but do not write xd.
 vclip     m vd vs1 rs2 27..25=0 31..28=11 14=1 6..0=0x67
-vinsert   m vd rs1 rs2 27..25=1 31..28=11 14=1 6..0=0x67
-vslide    m vd rs1 rs2 27..25=2 31..28=11 14=1 6..0=0x67
+vcvt      m vd vs1 rs2 27..25=1 31..28=11 14=1 6..0=0x67
+vslide    m vd vs1 rs2 27..25=2 31..28=11 14=1 6..0=0x67
+vinsert   m vd rs1 rs2 27..25=4 31..28=11 14=1 6..0=0x67
 
 # group 31..28=12
 vxor      m vd vs1 vs2 27..25=0 31..28=12 14=1 6..0=0x67

@@ -632,7 +632,7 @@ def print_vs_type(name,match,arguments):
     'vlimm' in arguments and 'imm[4:0]' or str_arg('vs3','',match,arguments), \
     binary(yank(match,25,2),2), \
     str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
-    str_arg('rs1','',match,arguments), \
+    str_arg('rs1' in arguments and 'rs1' or 'vs1','',match,arguments), \
     binary(yank(match,14,1),1), \
     str_arg('m','',match,arguments), \
     'vsimm' in arguments and 'imm[4:0]' or str_arg('vd','',match,arguments), \
@@ -918,14 +918,17 @@ def make_latex_table():
   print_subtitle('RV32V Standard Extension', 9)
   print_insts('vadd', 'vsub', 'vsl', 'vsr', 'vand', 'vor', 'vxor')
   print_insts('vseq', 'vsne', 'vslt', 'vsge')
-  print_insts('vclip', 'vinsert', 'vextract', 'vmerge', 'vselect', 'vslide')
+  print_insts('vclip', 'vcvt', 'vmpop', 'vmfirst', 'vextract', 'vinsert', 'vmerge', 'vselect', 'vslide')
   print_insts('vdiv', 'vrem', 'vmul', 'vmulh')
   print_insts('vmin', 'vmax', 'vsgnj', 'vsgnjn', 'vsgnjx')
   print_insts('vsqrt', 'vclass')
   print_insts('vpopc')
-  print_insts('vcvti', 'vaddi', 'vsli', 'vsri', 'vandi', 'vori', 'vxori')
+  print_insts('vaddi', 'vsli', 'vsri', 'vandi', 'vori', 'vxori')
   print_insts('vclipi')
   print_insts('vmadd', 'vmsub', 'vnmadd', 'vnmsub')
+  print_footer()
+  print_vector_header()
+  print_subtitle('RV32V Standard Extension (cont.)', 9)
   print_insts('vld', 'vlds', 'vldx')
   print_insts('vst', 'vsts', 'vstx')
   print_insts('vamoswap', 'vamoadd', 'vamoand', 'vamoor', 'vamoxor', 'vamomin', 'vamomax')
