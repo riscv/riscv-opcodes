@@ -62,6 +62,20 @@ csrs = [
   (0x001, 'fflags'),
   (0x002, 'frm'),
   (0x003, 'fcsr'),
+  (0x010, 'vcs'),
+  (0x011, 'vl'),
+  (0x012, 'vxrm'),
+  (0x013, 'vxsat'),
+  (0x014, 'vmaxew'),
+  (0x020, 'vcfg0'),
+  (0x022, 'vcfg2'),
+  (0x024, 'vcfg4'),
+  (0x026, 'vcfg6'),
+  (0x028, 'vcfg8'),
+  (0x02a, 'vcfg10'),
+  (0x02c, 'vcfg12'),
+  (0x02e, 'vcfg14'),
+
 
   # Standard User RO
   (0xC00, 'cycle'),
@@ -218,6 +232,16 @@ csrs = [
 ]
 
 csrs32 = [
+  # Standard User R/W
+  (0x021, 'vcfg1'),
+  (0x023, 'vcfg3'),
+  (0x025, 'vcfg5'),
+  (0x027, 'vcfg7'),
+  (0x029, 'vcfg9'),
+  (0x02b, 'vcfg11'),
+  (0x02d, 'vcfg13'),
+  (0x02f, 'vcfg15'),
+
   # Standard User RO
   (0xC80, 'cycleh'),
   (0xC81, 'timeh'),
