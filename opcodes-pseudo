@@ -26,3 +26,6 @@
 # Old names for fmv.x.w/fmv.w.x
 @fmv.x.s   rd rs1 24..20=0 31..27=0x1C 14..12=0 26..25=0 6..2=0x14 1..0=3
 @fmv.s.x   rd rs1 24..20=0 31..27=0x1E 14..12=0 26..25=0 6..2=0x14 1..0=3
+
+# specialized fences
+@fence.tso 31..28=8 27..24=3 23..20=3 19..15=ignore 14..12=0 11..7=ignore 6..2=0x03 1..0=3
