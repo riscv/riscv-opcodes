@@ -16,6 +16,7 @@ arglut['rs1'] = (19,15)
 arglut['rs2'] = (24,20)
 arglut['rs3'] = (31,27)
 arglut['aqrl'] = (26,25)
+arglut['fm'] = (31,28)
 arglut['pred'] = (27,24)
 arglut['succ'] = (23,20)
 arglut['rm'] = (14,12)
@@ -574,7 +575,7 @@ def print_fence_type(name,match,arguments):
 \\cline{2-11}
   """ % \
   ( \
-    binary(yank(match,28,4),4), \
+    str_arg('fm','fm',match,arguments), \
     str_arg('pred','pred',match,arguments), \
     str_arg('succ','',match,arguments), \
     str_arg('rs1','',match,arguments), \

@@ -66,7 +66,7 @@ sh     imm12hi rs1 rs2 imm12lo 14..12=1 6..2=0x08 1..0=3
 sw     imm12hi rs1 rs2 imm12lo 14..12=2 6..2=0x08 1..0=3
 sd     imm12hi rs1 rs2 imm12lo 14..12=3 6..2=0x08 1..0=3
 
-fence       31..28=ignore pred succ     19..15=ignore 14..12=0 11..7=ignore 6..2=0x03 1..0=3
+fence       fm            pred succ     19..15=ignore 14..12=0 11..7=ignore 6..2=0x03 1..0=3
 fence.i     31..28=ignore 27..20=ignore 19..15=ignore 14..12=1 11..7=ignore 6..2=0x03 1..0=3
 
 # RV32M
