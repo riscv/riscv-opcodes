@@ -699,7 +699,7 @@ def print_footer(caption=''):
   """ % caption
 
 def print_inst(n):
-  if n == 'fence' or n == 'fence.i':
+  if n == 'fence':
     print_fence_type(n, match[n], arguments[n])
   elif 'aqrl' in arguments[n]:
     print_amo_type(n, match[n], arguments[n])
