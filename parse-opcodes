@@ -919,8 +919,9 @@ def make_latex_table():
   print_subtitle('RV64D Standard Extension (in addition to RV32D)')
   print_insts('fcvt.l.d', 'fcvt.lu.d', 'fmv.x.d')
   print_insts('fcvt.d.l', 'fcvt.d.lu', 'fmv.d.x')
-  print_footer()
+  print_footer('\\caption{Instruction listing for RISC-V}')
 
+def make_vector_latex_table():
   print_vector_header()
   print_subtitle('RV32V Standard Extension', 9)
   print_insts('vadd', 'vsub', 'vsl', 'vsr', 'vand', 'vor', 'vxor')
@@ -1089,6 +1090,8 @@ for line in sys.stdin:
 
 if sys.argv[1] == '-tex':
   make_latex_table()
+elif sys.argv[1] == '-vtex':
+  make_vector_latex_table()
 elif sys.argv[1] == '-privtex':
   make_supervisor_latex_table()
 elif sys.argv[1] == '-chisel':
