@@ -1,10 +1,251 @@
 # Vector loads & stores
-vld       m vd     rs1 24..20=0 vlimm 26..25=0 14=1 6..0=0x07
-vlds      m vd     rs1 rs2      vlimm 26..25=1 14=1 6..0=0x07
-vldx      m vd     rs1 vs2      vlimm 26..25=2 14=1 6..0=0x07
-vst       m    vs3 rs1 24..20=0 vsimm 26..25=0 14=1 6..0=0x27
-vsts      m    vs3 rs1 rs2      vsimm 26..25=1 14=1 6..0=0x27
-vstx      m    vs3 rs1 vs2      vsimm 26..25=2 14=1 6..0=0x27
+# TODO Colin split up
+# Overlaid on FP load and store opcode
+# 7 integer load types and 4 fp loads * 3 types(unit,stride,index)
+# masks are not cleanly encodable so
+# 14 encodes predicatable or not
+# 14..12=0b000 which would be flb(doesn't exist)
+#   will be scalar shape vector loads
+# 14..12=0b1xx where xx!=00 are the normal v1.t,v1.f
+vlb.s     vd     rs1 24..20=0 vlimm 30..27=0x0 26..25=0 14..12=0 6..0=0x07
+vlb       vd     rs1 24..20=0 vlimm 30..27=0x0 26..25=0 14..12=5 6..0=0x07
+vlb.f     vd     rs1 24..20=0 vlimm 30..27=0x0 26..25=0 14..12=6 6..0=0x07
+vlb.t     vd     rs1 24..20=0 vlimm 30..27=0x0 26..25=0 14..12=7 6..0=0x07
+vlh.s     vd     rs1 24..20=0 vlimm 30..27=0x1 26..25=0 14..12=0 6..0=0x07
+vlh       vd     rs1 24..20=0 vlimm 30..27=0x1 26..25=0 14..12=5 6..0=0x07
+vlh.f     vd     rs1 24..20=0 vlimm 30..27=0x1 26..25=0 14..12=6 6..0=0x07
+vlh.t     vd     rs1 24..20=0 vlimm 30..27=0x1 26..25=0 14..12=7 6..0=0x07
+vlw.s     vd     rs1 24..20=0 vlimm 30..27=0x2 26..25=0 14..12=0 6..0=0x07
+vlw       vd     rs1 24..20=0 vlimm 30..27=0x2 26..25=0 14..12=5 6..0=0x07
+vlw.f     vd     rs1 24..20=0 vlimm 30..27=0x2 26..25=0 14..12=6 6..0=0x07
+vlw.t     vd     rs1 24..20=0 vlimm 30..27=0x2 26..25=0 14..12=7 6..0=0x07
+vld.s     vd     rs1 24..20=0 vlimm 30..27=0x3 26..25=0 14..12=0 6..0=0x07
+vld       vd     rs1 24..20=0 vlimm 30..27=0x3 26..25=0 14..12=5 6..0=0x07
+vld.f     vd     rs1 24..20=0 vlimm 30..27=0x3 26..25=0 14..12=6 6..0=0x07
+vld.t     vd     rs1 24..20=0 vlimm 30..27=0x3 26..25=0 14..12=7 6..0=0x07
+vlbu.s    vd     rs1 24..20=0 vlimm 30..27=0x4 26..25=0 14..12=0 6..0=0x07
+vlbu      vd     rs1 24..20=0 vlimm 30..27=0x4 26..25=0 14..12=5 6..0=0x07
+vlbu.f    vd     rs1 24..20=0 vlimm 30..27=0x4 26..25=0 14..12=6 6..0=0x07
+vlbu.t    vd     rs1 24..20=0 vlimm 30..27=0x4 26..25=0 14..12=7 6..0=0x07
+vlhu.s    vd     rs1 24..20=0 vlimm 30..27=0x5 26..25=0 14..12=0 6..0=0x07
+vlhu      vd     rs1 24..20=0 vlimm 30..27=0x5 26..25=0 14..12=5 6..0=0x07
+vlhu.f    vd     rs1 24..20=0 vlimm 30..27=0x5 26..25=0 14..12=6 6..0=0x07
+vlhu.t    vd     rs1 24..20=0 vlimm 30..27=0x5 26..25=0 14..12=7 6..0=0x07
+vlwu.s    vd     rs1 24..20=0 vlimm 30..27=0x6 26..25=0 14..12=0 6..0=0x07
+vlwu      vd     rs1 24..20=0 vlimm 30..27=0x6 26..25=0 14..12=5 6..0=0x07
+vlwu.f    vd     rs1 24..20=0 vlimm 30..27=0x6 26..25=0 14..12=6 6..0=0x07
+vlwu.t    vd     rs1 24..20=0 vlimm 30..27=0x6 26..25=0 14..12=7 6..0=0x07
+
+vlsb.s     vd     rs1 rs2  vlimm 30..27=0x0 26..25=1 14..12=0 6..0=0x07
+vlsb       vd     rs1 rs2  vlimm 30..27=0x0 26..25=1 14..12=5 6..0=0x07
+vlsb.f     vd     rs1 rs2  vlimm 30..27=0x0 26..25=1 14..12=6 6..0=0x07
+vlsb.t     vd     rs1 rs2  vlimm 30..27=0x0 26..25=1 14..12=7 6..0=0x07
+vlsh.s     vd     rs1 rs2  vlimm 30..27=0x1 26..25=1 14..12=0 6..0=0x07
+vlsh       vd     rs1 rs2  vlimm 30..27=0x1 26..25=1 14..12=5 6..0=0x07
+vlsh.f     vd     rs1 rs2  vlimm 30..27=0x1 26..25=1 14..12=6 6..0=0x07
+vlsh.t     vd     rs1 rs2  vlimm 30..27=0x1 26..25=1 14..12=7 6..0=0x07
+vlsw.s     vd     rs1 rs2  vlimm 30..27=0x2 26..25=1 14..12=0 6..0=0x07
+vlsw       vd     rs1 rs2  vlimm 30..27=0x2 26..25=1 14..12=5 6..0=0x07
+vlsw.f     vd     rs1 rs2  vlimm 30..27=0x2 26..25=1 14..12=6 6..0=0x07
+vlsw.t     vd     rs1 rs2  vlimm 30..27=0x2 26..25=1 14..12=7 6..0=0x07
+vlsd.s     vd     rs1 rs2  vlimm 30..27=0x3 26..25=1 14..12=0 6..0=0x07
+vlsd       vd     rs1 rs2  vlimm 30..27=0x3 26..25=1 14..12=5 6..0=0x07
+vlsd.f     vd     rs1 rs2  vlimm 30..27=0x3 26..25=1 14..12=6 6..0=0x07
+vlsd.t     vd     rs1 rs2  vlimm 30..27=0x3 26..25=1 14..12=7 6..0=0x07
+vlsbu.s    vd     rs1 rs2  vlimm 30..27=0x4 26..25=1 14..12=0 6..0=0x07
+vlsbu      vd     rs1 rs2  vlimm 30..27=0x4 26..25=1 14..12=5 6..0=0x07
+vlsbu.f    vd     rs1 rs2  vlimm 30..27=0x4 26..25=1 14..12=6 6..0=0x07
+vlsbu.t    vd     rs1 rs2  vlimm 30..27=0x4 26..25=1 14..12=7 6..0=0x07
+vlshu.s    vd     rs1 rs2  vlimm 30..27=0x5 26..25=1 14..12=0 6..0=0x07
+vlshu      vd     rs1 rs2  vlimm 30..27=0x5 26..25=1 14..12=5 6..0=0x07
+vlshu.f    vd     rs1 rs2  vlimm 30..27=0x5 26..25=1 14..12=6 6..0=0x07
+vlshu.t    vd     rs1 rs2  vlimm 30..27=0x5 26..25=1 14..12=7 6..0=0x07
+vlswu.s    vd     rs1 rs2  vlimm 30..27=0x6 26..25=1 14..12=0 6..0=0x07
+vlswu      vd     rs1 rs2  vlimm 30..27=0x6 26..25=1 14..12=5 6..0=0x07
+vlswu.f    vd     rs1 rs2  vlimm 30..27=0x6 26..25=1 14..12=6 6..0=0x07
+vlswu.t    vd     rs1 rs2  vlimm 30..27=0x6 26..25=1 14..12=7 6..0=0x07
+
+vlxb.s     vd     rs1 vs2 vlimm 30..27=0x0 26..25=2 14..12=0 6..0=0x07
+vlxb       vd     rs1 vs2 vlimm 30..27=0x0 26..25=2 14..12=5 6..0=0x07
+vlxb.f     vd     rs1 vs2 vlimm 30..27=0x0 26..25=2 14..12=6 6..0=0x07
+vlxb.t     vd     rs1 vs2 vlimm 30..27=0x0 26..25=2 14..12=7 6..0=0x07
+vlxh.s     vd     rs1 vs2 vlimm 30..27=0x1 26..25=2 14..12=0 6..0=0x07
+vlxh       vd     rs1 vs2 vlimm 30..27=0x1 26..25=2 14..12=5 6..0=0x07
+vlxh.f     vd     rs1 vs2 vlimm 30..27=0x1 26..25=2 14..12=6 6..0=0x07
+vlxh.t     vd     rs1 vs2 vlimm 30..27=0x1 26..25=2 14..12=7 6..0=0x07
+vlxw.s     vd     rs1 vs2 vlimm 30..27=0x2 26..25=2 14..12=0 6..0=0x07
+vlxw       vd     rs1 vs2 vlimm 30..27=0x2 26..25=2 14..12=5 6..0=0x07
+vlxw.f     vd     rs1 vs2 vlimm 30..27=0x2 26..25=2 14..12=6 6..0=0x07
+vlxw.t     vd     rs1 vs2 vlimm 30..27=0x2 26..25=2 14..12=7 6..0=0x07
+vlxd.s     vd     rs1 vs2 vlimm 30..27=0x3 26..25=2 14..12=0 6..0=0x07
+vlxd       vd     rs1 vs2 vlimm 30..27=0x3 26..25=2 14..12=5 6..0=0x07
+vlxd.f     vd     rs1 vs2 vlimm 30..27=0x3 26..25=2 14..12=6 6..0=0x07
+vlxd.t     vd     rs1 vs2 vlimm 30..27=0x3 26..25=2 14..12=7 6..0=0x07
+vlxbu.s    vd     rs1 vs2 vlimm 30..27=0x4 26..25=2 14..12=0 6..0=0x07
+vlxbu      vd     rs1 vs2 vlimm 30..27=0x4 26..25=2 14..12=5 6..0=0x07
+vlxbu.f    vd     rs1 vs2 vlimm 30..27=0x4 26..25=2 14..12=6 6..0=0x07
+vlxbu.t    vd     rs1 vs2 vlimm 30..27=0x4 26..25=2 14..12=7 6..0=0x07
+vlxhu.s    vd     rs1 vs2 vlimm 30..27=0x5 26..25=2 14..12=0 6..0=0x07
+vlxhu      vd     rs1 vs2 vlimm 30..27=0x5 26..25=2 14..12=5 6..0=0x07
+vlxhu.f    vd     rs1 vs2 vlimm 30..27=0x5 26..25=2 14..12=6 6..0=0x07
+vlxhu.t    vd     rs1 vs2 vlimm 30..27=0x5 26..25=2 14..12=7 6..0=0x07
+vlxwu.s    vd     rs1 vs2 vlimm 30..27=0x6 26..25=2 14..12=0 6..0=0x07
+vlxwu      vd     rs1 vs2 vlimm 30..27=0x6 26..25=2 14..12=5 6..0=0x07
+vlxwu.f    vd     rs1 vs2 vlimm 30..27=0x6 26..25=2 14..12=6 6..0=0x07
+vlxwu.t    vd     rs1 vs2 vlimm 30..27=0x6 26..25=2 14..12=7 6..0=0x07
+
+vlfh.s     vd     rs1 24..20=0 vlimm 30..27=0x8 26..25=0 14..12=0 6..0=0x07
+vlfh       vd     rs1 24..20=0 vlimm 30..27=0x8 26..25=0 14..12=5 6..0=0x07
+vlfh.f     vd     rs1 24..20=0 vlimm 30..27=0x8 26..25=0 14..12=6 6..0=0x07
+vlfh.t     vd     rs1 24..20=0 vlimm 30..27=0x8 26..25=0 14..12=7 6..0=0x07
+vlfs.s     vd     rs1 24..20=0 vlimm 30..27=0x9 26..25=0 14..12=0 6..0=0x07
+vlfs       vd     rs1 24..20=0 vlimm 30..27=0x9 26..25=0 14..12=5 6..0=0x07
+vlfs.f     vd     rs1 24..20=0 vlimm 30..27=0x9 26..25=0 14..12=6 6..0=0x07
+vlfs.t     vd     rs1 24..20=0 vlimm 30..27=0x9 26..25=0 14..12=7 6..0=0x07
+vlfd.s     vd     rs1 24..20=0 vlimm 30..27=0xa 26..25=0 14..12=0 6..0=0x07
+vlfd       vd     rs1 24..20=0 vlimm 30..27=0xa 26..25=0 14..12=5 6..0=0x07
+vlfd.f     vd     rs1 24..20=0 vlimm 30..27=0xa 26..25=0 14..12=6 6..0=0x07
+vlfd.t     vd     rs1 24..20=0 vlimm 30..27=0xa 26..25=0 14..12=7 6..0=0x07
+vlfq.s     vd     rs1 24..20=0 vlimm 30..27=0xb 26..25=0 14..12=0 6..0=0x07
+vlfq       vd     rs1 24..20=0 vlimm 30..27=0xb 26..25=0 14..12=5 6..0=0x07
+vlfq.f     vd     rs1 24..20=0 vlimm 30..27=0xb 26..25=0 14..12=6 6..0=0x07
+vlfq.t     vd     rs1 24..20=0 vlimm 30..27=0xb 26..25=0 14..12=7 6..0=0x07
+
+vlsfh.s     vd     rs1 rs2 vlimm 30..27=0x8 26..25=1 14..12=0 6..0=0x07
+vlsfh       vd     rs1 rs2 vlimm 30..27=0x8 26..25=1 14..12=5 6..0=0x07
+vlsfh.f     vd     rs1 rs2 vlimm 30..27=0x8 26..25=1 14..12=6 6..0=0x07
+vlsfh.t     vd     rs1 rs2 vlimm 30..27=0x8 26..25=1 14..12=7 6..0=0x07
+vlsfs.s     vd     rs1 rs2 vlimm 30..27=0x9 26..25=1 14..12=0 6..0=0x07
+vlsfs       vd     rs1 rs2 vlimm 30..27=0x9 26..25=1 14..12=5 6..0=0x07
+vlsfs.f     vd     rs1 rs2 vlimm 30..27=0x9 26..25=1 14..12=6 6..0=0x07
+vlsfs.t     vd     rs1 rs2 vlimm 30..27=0x9 26..25=1 14..12=7 6..0=0x07
+vlsfd.s     vd     rs1 rs2 vlimm 30..27=0xa 26..25=1 14..12=0 6..0=0x07
+vlsfd       vd     rs1 rs2 vlimm 30..27=0xa 26..25=1 14..12=5 6..0=0x07
+vlsfd.f     vd     rs1 rs2 vlimm 30..27=0xa 26..25=1 14..12=6 6..0=0x07
+vlsfd.t     vd     rs1 rs2 vlimm 30..27=0xa 26..25=1 14..12=7 6..0=0x07
+vlsfq.s     vd     rs1 rs2 vlimm 30..27=0xb 26..25=1 14..12=0 6..0=0x07
+vlsfq       vd     rs1 rs2 vlimm 30..27=0xb 26..25=1 14..12=5 6..0=0x07
+vlsfq.f     vd     rs1 rs2 vlimm 30..27=0xb 26..25=1 14..12=6 6..0=0x07
+vlsfq.t     vd     rs1 rs2 vlimm 30..27=0xb 26..25=1 14..12=7 6..0=0x07
+
+vlxfh.s     vd     rs1 vs2 vlimm 30..27=0x8 26..25=2 14..12=0 6..0=0x07
+vlxfh       vd     rs1 vs2 vlimm 30..27=0x8 26..25=2 14..12=5 6..0=0x07
+vlxfh.f     vd     rs1 vs2 vlimm 30..27=0x8 26..25=2 14..12=6 6..0=0x07
+vlxfh.t     vd     rs1 vs2 vlimm 30..27=0x8 26..25=2 14..12=7 6..0=0x07
+vlxfs.s     vd     rs1 vs2 vlimm 30..27=0x9 26..25=2 14..12=0 6..0=0x07
+vlxfs       vd     rs1 vs2 vlimm 30..27=0x9 26..25=2 14..12=5 6..0=0x07
+vlxfs.f     vd     rs1 vs2 vlimm 30..27=0x9 26..25=2 14..12=6 6..0=0x07
+vlxfs.t     vd     rs1 vs2 vlimm 30..27=0x9 26..25=2 14..12=7 6..0=0x07
+vlxfd.s     vd     rs1 vs2 vlimm 30..27=0xa 26..25=2 14..12=0 6..0=0x07
+vlxfd       vd     rs1 vs2 vlimm 30..27=0xa 26..25=2 14..12=5 6..0=0x07
+vlxfd.f     vd     rs1 vs2 vlimm 30..27=0xa 26..25=2 14..12=6 6..0=0x07
+vlxfd.t     vd     rs1 vs2 vlimm 30..27=0xa 26..25=2 14..12=7 6..0=0x07
+vlxfq.s     vd     rs1 vs2 vlimm 30..27=0xb 26..25=2 14..12=0 6..0=0x07
+vlxfq       vd     rs1 vs2 vlimm 30..27=0xb 26..25=2 14..12=5 6..0=0x07
+vlxfq.f     vd     rs1 vs2 vlimm 30..27=0xb 26..25=2 14..12=6 6..0=0x07
+vlxfq.t     vd     rs1 vs2 vlimm 30..27=0xb 26..25=2 14..12=7 6..0=0x07
+
+vsb.s       vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=0 14..12=0 6..0=0x27
+vsb         vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=0 14..12=5 6..0=0x27
+vsb.f       vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=0 14..12=6 6..0=0x27
+vsb.t       vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=0 14..12=7 6..0=0x27
+vsh.s       vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=0 14..12=0 6..0=0x27
+vsh         vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=0 14..12=5 6..0=0x27
+vsh.f       vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=0 14..12=6 6..0=0x27
+vsh.t       vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=0 14..12=7 6..0=0x27
+vsw.s       vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=0 14..12=0 6..0=0x27
+vsw         vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=0 14..12=5 6..0=0x27
+vsw.f       vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=0 14..12=6 6..0=0x27
+vsw.t       vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=0 14..12=7 6..0=0x27
+vsd.s       vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=0 14..12=0 6..0=0x27
+vsd         vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=0 14..12=5 6..0=0x27
+vsd.f       vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=0 14..12=6 6..0=0x27
+vsd.t       vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=0 14..12=7 6..0=0x27
+
+vssb.s       vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=1 14..12=0 6..0=0x27
+vssb         vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=1 14..12=5 6..0=0x27
+vssb.f       vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=1 14..12=6 6..0=0x27
+vssb.t       vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=1 14..12=7 6..0=0x27
+vssh.s       vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=1 14..12=0 6..0=0x27
+vssh         vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=1 14..12=5 6..0=0x27
+vssh.f       vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=1 14..12=6 6..0=0x27
+vssh.t       vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=1 14..12=7 6..0=0x27
+vssw.s       vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=1 14..12=0 6..0=0x27
+vssw         vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=1 14..12=5 6..0=0x27
+vssw.f       vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=1 14..12=6 6..0=0x27
+vssw.t       vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=1 14..12=7 6..0=0x27
+vssd.s       vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=1 14..12=0 6..0=0x27
+vssd         vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=1 14..12=5 6..0=0x27
+vssd.f       vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=1 14..12=6 6..0=0x27
+vssd.t       vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=1 14..12=7 6..0=0x27
+
+vsxb.s       vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=2 14..12=0 6..0=0x27
+vsxb         vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=2 14..12=5 6..0=0x27
+vsxb.f       vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=2 14..12=6 6..0=0x27
+vsxb.t       vs3 rs1 24..20=0 vsimm 9..7=0x0 26..25=2 14..12=7 6..0=0x27
+vsxh.s       vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=2 14..12=0 6..0=0x27
+vsxh         vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=2 14..12=5 6..0=0x27
+vsxh.f       vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=2 14..12=6 6..0=0x27
+vsxh.t       vs3 rs1 24..20=0 vsimm 9..7=0x1 26..25=2 14..12=7 6..0=0x27
+vsxw.s       vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=2 14..12=0 6..0=0x27
+vsxw         vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=2 14..12=5 6..0=0x27
+vsxw.f       vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=2 14..12=6 6..0=0x27
+vsxw.t       vs3 rs1 24..20=0 vsimm 9..7=0x2 26..25=2 14..12=7 6..0=0x27
+vsxd.s       vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=2 14..12=0 6..0=0x27
+vsxd         vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=2 14..12=5 6..0=0x27
+vsxd.f       vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=2 14..12=6 6..0=0x27
+vsxd.t       vs3 rs1 24..20=0 vsimm 9..7=0x3 26..25=2 14..12=7 6..0=0x27
+
+vsfh.s       vs3 rs1 24..20=0 vsimm 9..7=0x4 26..25=0 14..12=0 6..0=0x27
+vsfh         vs3 rs1 24..20=0 vsimm 9..7=0x4 26..25=0 14..12=5 6..0=0x27
+vsfh.f       vs3 rs1 24..20=0 vsimm 9..7=0x4 26..25=0 14..12=6 6..0=0x27
+vsfh.t       vs3 rs1 24..20=0 vsimm 9..7=0x4 26..25=0 14..12=7 6..0=0x27
+vsfs.s       vs3 rs1 24..20=0 vsimm 9..7=0x5 26..25=0 14..12=0 6..0=0x27
+vsfs         vs3 rs1 24..20=0 vsimm 9..7=0x5 26..25=0 14..12=5 6..0=0x27
+vsfs.f       vs3 rs1 24..20=0 vsimm 9..7=0x5 26..25=0 14..12=6 6..0=0x27
+vsfs.t       vs3 rs1 24..20=0 vsimm 9..7=0x5 26..25=0 14..12=7 6..0=0x27
+vsfd.s       vs3 rs1 24..20=0 vsimm 9..7=0x6 26..25=0 14..12=0 6..0=0x27
+vsfd         vs3 rs1 24..20=0 vsimm 9..7=0x6 26..25=0 14..12=5 6..0=0x27
+vsfd.f       vs3 rs1 24..20=0 vsimm 9..7=0x6 26..25=0 14..12=6 6..0=0x27
+vsfd.t       vs3 rs1 24..20=0 vsimm 9..7=0x6 26..25=0 14..12=7 6..0=0x27
+vsfq.s       vs3 rs1 24..20=0 vsimm 9..7=0x7 26..25=0 14..12=0 6..0=0x27
+vsfq         vs3 rs1 24..20=0 vsimm 9..7=0x7 26..25=0 14..12=5 6..0=0x27
+vsfq.f       vs3 rs1 24..20=0 vsimm 9..7=0x7 26..25=0 14..12=6 6..0=0x27
+vsfq.t       vs3 rs1 24..20=0 vsimm 9..7=0x7 26..25=0 14..12=7 6..0=0x27
+
+vssfh.s       vs3 rs1 rs2 vsimm 9..7=0x4 26..25=1 14..12=0 6..0=0x27
+vssfh         vs3 rs1 rs2 vsimm 9..7=0x4 26..25=1 14..12=5 6..0=0x27
+vssfh.f       vs3 rs1 rs2 vsimm 9..7=0x4 26..25=1 14..12=6 6..0=0x27
+vssfh.t       vs3 rs1 rs2 vsimm 9..7=0x4 26..25=1 14..12=7 6..0=0x27
+vssfs.s       vs3 rs1 rs2 vsimm 9..7=0x5 26..25=1 14..12=0 6..0=0x27
+vssfs         vs3 rs1 rs2 vsimm 9..7=0x5 26..25=1 14..12=5 6..0=0x27
+vssfs.f       vs3 rs1 rs2 vsimm 9..7=0x5 26..25=1 14..12=6 6..0=0x27
+vssfs.t       vs3 rs1 rs2 vsimm 9..7=0x5 26..25=1 14..12=7 6..0=0x27
+vssfd.s       vs3 rs1 rs2 vsimm 9..7=0x6 26..25=1 14..12=0 6..0=0x27
+vssfd         vs3 rs1 rs2 vsimm 9..7=0x6 26..25=1 14..12=5 6..0=0x27
+vssfd.f       vs3 rs1 rs2 vsimm 9..7=0x6 26..25=1 14..12=6 6..0=0x27
+vssfd.t       vs3 rs1 rs2 vsimm 9..7=0x6 26..25=1 14..12=7 6..0=0x27
+vssfq.s       vs3 rs1 rs2 vsimm 9..7=0x7 26..25=1 14..12=0 6..0=0x27
+vssfq         vs3 rs1 rs2 vsimm 9..7=0x7 26..25=1 14..12=5 6..0=0x27
+vssfq.f       vs3 rs1 rs2 vsimm 9..7=0x7 26..25=1 14..12=6 6..0=0x27
+vssfq.t       vs3 rs1 rs2 vsimm 9..7=0x7 26..25=1 14..12=7 6..0=0x27
+
+vsxfh.s       vs3 rs1 vs2 vsimm 9..7=0x4 26..25=2 14..12=0 6..0=0x27
+vsxfh         vs3 rs1 vs2 vsimm 9..7=0x4 26..25=2 14..12=5 6..0=0x27
+vsxfh.f       vs3 rs1 vs2 vsimm 9..7=0x4 26..25=2 14..12=6 6..0=0x27
+vsxfh.t       vs3 rs1 vs2 vsimm 9..7=0x4 26..25=2 14..12=7 6..0=0x27
+vsxfs.s       vs3 rs1 vs2 vsimm 9..7=0x5 26..25=2 14..12=0 6..0=0x27
+vsxfs         vs3 rs1 vs2 vsimm 9..7=0x5 26..25=2 14..12=5 6..0=0x27
+vsxfs.f       vs3 rs1 vs2 vsimm 9..7=0x5 26..25=2 14..12=6 6..0=0x27
+vsxfs.t       vs3 rs1 vs2 vsimm 9..7=0x5 26..25=2 14..12=7 6..0=0x27
+vsxfd.s       vs3 rs1 vs2 vsimm 9..7=0x6 26..25=2 14..12=0 6..0=0x27
+vsxfd         vs3 rs1 vs2 vsimm 9..7=0x6 26..25=2 14..12=5 6..0=0x27
+vsxfd.f       vs3 rs1 vs2 vsimm 9..7=0x6 26..25=2 14..12=6 6..0=0x27
+vsxfd.t       vs3 rs1 vs2 vsimm 9..7=0x6 26..25=2 14..12=7 6..0=0x27
+vsxfq.s       vs3 rs1 vs2 vsimm 9..7=0x7 26..25=2 14..12=0 6..0=0x27
+vsxfq         vs3 rs1 vs2 vsimm 9..7=0x7 26..25=2 14..12=5 6..0=0x27
+vsxfq.f       vs3 rs1 vs2 vsimm 9..7=0x7 26..25=2 14..12=6 6..0=0x27
+vsxfq.t       vs3 rs1 vs2 vsimm 9..7=0x7 26..25=2 14..12=7 6..0=0x27
 
 # Vector AMOs
 vamoswap  m vd vs3 vs2 19..15=0x01    26..25=3 14=1 6..0=0x27
@@ -16,68 +257,218 @@ vamomin   m vd vs3 vs2 19..15=0x10    26..25=3 14=1 6..0=0x27
 vamomax   m vd vs3 vs2 19..15=0x14    26..25=3 14=1 6..0=0x27
 
 # Vector FMA
-@vmadd     m vd vs1 vs2 vs3 26..25=0 14=0 6..0=0x67
-@vmsub     m vd vs1 vs2 vs3 26..25=1 14=0 6..0=0x67
-@vnmsub    m vd vs1 vs2 vs3 26..25=2 14=0 6..0=0x67
-@vnmadd    m vd vs1 vs2 vs3 26..25=3 14=0 6..0=0x67
+# Fits into the two unused rounding modes
+# predicated versions are in madd and msub
+# - With rm signifying v1.f(101) and v1.t(110)
+# Normal use of the size field for size of operands
+# non-predicated versions are in nmadd and nmsub
+# - With rm signifying scalar(101) or vector(110) dest
+vfmadd.s.f   vd vs1 vs2 vs3 14..12=0x5 26..25=0 6..2=0x10 1..0=3
+vfmadd.s.t   vd vs1 vs2 vs3 14..12=0x6 26..25=0 6..2=0x10 1..0=3
+vfmsub.s.f   vd vs1 vs2 vs3 14..12=0x5 26..25=0 6..2=0x11 1..0=3
+vfmsub.s.t   vd vs1 vs2 vs3 14..12=0x6 26..25=0 6..2=0x11 1..0=3
 
+vfmadd.d.f   vd vs1 vs2 vs3 14..12=0x5 26..25=1 6..2=0x10 1..0=3
+vfmadd.d.t   vd vs1 vs2 vs3 14..12=0x6 26..25=1 6..2=0x10 1..0=3
+vfmsub.d.f   vd vs1 vs2 vs3 14..12=0x5 26..25=1 6..2=0x11 1..0=3
+vfmsub.d.t   vd vs1 vs2 vs3 14..12=0x6 26..25=1 6..2=0x11 1..0=3
+
+vfmadd.h.f   vd vs1 vs2 vs3 14..12=0x5 26..25=2 6..2=0x10 1..0=3
+vfmadd.h.t   vd vs1 vs2 vs3 14..12=0x6 26..25=2 6..2=0x10 1..0=3
+vfmsub.h.f   vd vs1 vs2 vs3 14..12=0x5 26..25=2 6..2=0x11 1..0=3
+vfmsub.h.t   vd vs1 vs2 vs3 14..12=0x6 26..25=2 6..2=0x11 1..0=3
+
+vfmadd.q.f   vd vs1 vs2 vs3 14..12=0x5 26..25=3 6..2=0x10 1..0=3
+vfmadd.q.t   vd vs1 vs2 vs3 14..12=0x6 26..25=3 6..2=0x10 1..0=3
+vfmsub.q.f   vd vs1 vs2 vs3 14..12=0x5 26..25=3 6..2=0x11 1..0=3
+vfmsub.q.t   vd vs1 vs2 vs3 14..12=0x6 26..25=3 6..2=0x11 1..0=3
+
+vfmadd.s.s   vd vs1 vs2 vs3 14..12=0x5 26..25=0 6..2=0x12 1..0=3
+vfmadd.s     vd vs1 vs2 vs3 14..12=0x6 26..25=0 6..2=0x12 1..0=3
+vfmsub.s.s   vd vs1 vs2 vs3 14..12=0x5 26..25=0 6..2=0x13 1..0=3
+vfmsub.s     vd vs1 vs2 vs3 14..12=0x6 26..25=0 6..2=0x13 1..0=3
+
+vfmadd.d.s   vd vs1 vs2 vs3 14..12=0x5 26..25=1 6..2=0x12 1..0=3
+vfmadd.d     vd vs1 vs2 vs3 14..12=0x6 26..25=1 6..2=0x12 1..0=3
+vfmsub.d.s   vd vs1 vs2 vs3 14..12=0x5 26..25=1 6..2=0x13 1..0=3
+vfmsub.d     vd vs1 vs2 vs3 14..12=0x6 26..25=1 6..2=0x13 1..0=3
+
+vfmadd.h.s   vd vs1 vs2 vs3 14..12=0x5 26..25=2 6..2=0x12 1..0=3
+vfmadd.h     vd vs1 vs2 vs3 14..12=0x6 26..25=2 6..2=0x12 1..0=3
+vfmsub.h.s   vd vs1 vs2 vs3 14..12=0x5 26..25=2 6..2=0x13 1..0=3
+vfmsub.h     vd vs1 vs2 vs3 14..12=0x6 26..25=2 6..2=0x13 1..0=3
+
+vfmadd.q.s   vd vs1 vs2 vs3 14..12=0x5 26..25=3 6..2=0x12 1..0=3
+vfmadd.q     vd vs1 vs2 vs3 14..12=0x6 26..25=3 6..2=0x12 1..0=3
+vfmsub.q.s   vd vs1 vs2 vs3 14..12=0x5 26..25=3 6..2=0x13 1..0=3
+vfmsub.q     vd vs1 vs2 vs3 14..12=0x6 26..25=3 6..2=0x13 1..0=3
+
+# 57 opcode is empty
+# 14=1 is for integer
 # Vector arithmetic.
 # First, all the immediates.
-vaddi     m vd vs1 vimm         31..28=0 14=1 6..0=0x67
-vsli      m vd vs1 vimm         31..28=1 14=1 6..0=0x67
-vclipi    m vd vs1 vimm         31..28=3 14=1 6..0=0x67
-vxori     m vd vs1 vimm         31..28=4 14=1 6..0=0x67
-vsri      m vd vs1 vimm         31..28=5 14=1 6..0=0x67
-vori      m vd vs1 vimm         31..28=6 14=1 6..0=0x67
-vandi     m vd vs1 vimm         31..28=7 14=1 6..0=0x67
+vaddi     m vd vs1 vimm         31..28=0 14=1 6..0=0x57
+vsli      m vd vs1 vimm         31..28=1 14=1 6..0=0x57
+vsrli     m vd vs1 vimm         31..28=2 14=1 6..0=0x57
+vclipi    m vd vs1 vimm         31..28=3 14=1 6..0=0x57
+vxori     m vd vs1 vimm         31..28=4 14=1 6..0=0x57
+vsrai     m vd vs1 vimm         31..28=5 14=1 6..0=0x57
+vori      m vd vs1 vimm         31..28=6 14=1 6..0=0x57
+vandi     m vd vs1 vimm         31..28=7 14=1 6..0=0x57
 
 # group 31..28=8
-vadd      m vd vs1 vs2 27..25=0 31..28=8 14=1 6..0=0x67
-vsub      m vd vs1 vs2 27..25=1 31..28=8 14=1 6..0=0x67
-vmin      m vd vs1 vs2 27..25=2 31..28=8 14=1 6..0=0x67
-vmax      m vd vs1 vs2 27..25=3 31..28=8 14=1 6..0=0x67
-vdiv      m vd vs1 vs2 27..25=4 31..28=8 14=1 6..0=0x67
-vrem      m vd vs1 vs2 27..25=5 31..28=8 14=1 6..0=0x67
-vmul      m vd vs1 vs2 27..25=6 31..28=8 14=1 6..0=0x67
-vmulh     m vd vs1 vs2 27..25=7 31..28=8 14=1 6..0=0x67
+vadd      m vd vs1 vs2 27..25=0 31..28=8 14=1 6..0=0x57
+vsub      m vd vs1 vs2 27..25=1 31..28=8 14=1 6..0=0x57
+vdiv      m vd vs1 vs2 27..25=2 31..28=8 14=1 6..0=0x57
+vrem      m vd vs1 vs2 27..25=3 31..28=8 14=1 6..0=0x57
+vmul      m vd vs1 vs2 27..25=4 31..28=8 14=1 6..0=0x57
+vmulh     m vd vs1 vs2 27..25=5 31..28=8 14=1 6..0=0x57
+vmulhu    m vd vs1 vs2 27..25=6 31..28=8 14=1 6..0=0x57
+vmulhsu   m vd vs1 vs2 27..25=7 31..28=8 14=1 6..0=0x57
 
 # group 31..28=9
-vsl       m vd vs1 vs2 27..25=0 31..28=9 14=1 6..0=0x67
-vsgnjx    m vd vs1 vs2 27..25=1 31..28=9 14=1 6..0=0x67
-vsgnj     m vd vs1 vs2 27..25=2 31..28=9 14=1 6..0=0x67
-vsgnjn    m vd vs1 vs2 27..25=3 31..28=9 14=1 6..0=0x67
-vseq      m vd vs1 vs2 27..25=4 31..28=9 14=1 6..0=0x67
-vsne      m vd vs1 vs2 27..25=5 31..28=9 14=1 6..0=0x67
-vslt      m vd vs1 vs2 27..25=6 31..28=9 14=1 6..0=0x67
-vsge      m vd vs1 vs2 27..25=7 31..28=9 14=1 6..0=0x67
+vsl       m vd vs1 vs2 27..25=0 31..28=9 14=1 6..0=0x57
+vsr       m vd vs1 vs2 27..25=1 31..28=9 14=1 6..0=0x57
+vor       m vd vs1 vs2 27..25=2 31..28=9 14=1 6..0=0x57
+vand      m vd vs1 vs2 27..25=3 31..28=9 14=1 6..0=0x57
+vseq      m vd vs1 vs2 27..25=4 31..28=9 14=1 6..0=0x57
+vsne      m vd vs1 vs2 27..25=5 31..28=9 14=1 6..0=0x57
+vslt      m vd vs1 vs2 27..25=6 31..28=9 14=1 6..0=0x57
+vsge      m vd vs1 vs2 27..25=7 31..28=9 14=1 6..0=0x57
 
 # group 31..28=10 includes instructions that write xd
 # (and may also read xs1 and/or xs2).
-vextract  m rd vs1 rs2 27..25=0 31..28=10 14=1 6..0=0x67
-vmfirst   m rd vs1     27..25=7 31..28=10 14=1 6..0=0x67 24..20=0
-vmpop     m rd vs1     27..25=7 31..28=10 14=1 6..0=0x67 24..20=1
+vextract  m rd vs1 rs2 27..25=0 31..28=10 14=1 6..0=0x57
+vmfirst   m rd vs1     27..25=7 31..28=10 14=1 6..0=0x57 24..20=0
+vmpop     m rd vs1     27..25=7 31..28=10 14=1 6..0=0x57 24..20=1
 
 # group 31..28=11 includes instructions that read xs1 and/or xs2,
 # but do not write xd.
-vclip     m vd vs1 rs2 27..25=0 31..28=11 14=1 6..0=0x67
-vcvt      m vd vs1 rs2 27..25=1 31..28=11 14=1 6..0=0x67
-vslide    m vd vs1 rs2 27..25=2 31..28=11 14=1 6..0=0x67
-vinsert   m vd rs1 rs2 27..25=4 31..28=11 14=1 6..0=0x67
+vclip     m vd vs1 rs2 27..25=0 31..28=11 14=1 6..0=0x57
+vcvt      m vd vs1 rs2 27..25=1 31..28=11 14=1 6..0=0x57
+vslide    m vd vs1 rs2 27..25=2 31..28=11 14=1 6..0=0x57
+vinsert   m vd rs1 rs2 27..25=4 31..28=11 14=1 6..0=0x57
 
 # group 31..28=12
-vxor      m vd vs1 vs2 27..25=0 31..28=12 14=1 6..0=0x67
-vmerge    m vd vs1 vs2 27..25=1 31..28=12 14=1 6..0=0x67
-vselect   m vd vs1 vs2 27..25=2 31..28=12 14=1 6..0=0x67
+vxor      m vd vs1 vs2 27..25=0 31..28=12 14=1 6..0=0x57
+vmerge    m vd vs1 vs2 27..25=1 31..28=12 14=1 6..0=0x57
+vselect   m vd vs1 vs2 27..25=2 31..28=12 14=1 6..0=0x57
 # group 31..28=12, 27..25=7 is for single-argument instructions.
-vclass    m vd vs1     27..25=7 31..28=12 14=1 6..0=0x67 24..20=0
-vpopc     m vd vs1     27..25=7 31..28=12 14=1 6..0=0x67 24..20=1
-vsqrt     m vd vs1     27..25=7 31..28=12 14=1 6..0=0x67 24..20=2
+vclass    m vd vs1     27..25=7 31..28=12 14=1 6..0=0x57 24..20=0
+vpopc     m vd vs1     27..25=7 31..28=12 14=1 6..0=0x57 24..20=1
+vsqrt     m vd vs1     27..25=7 31..28=12 14=1 6..0=0x57 24..20=2
 
 # group 31..28=13
-vsr       m vd vs1 vs2 27..25=0 31..28=13 14=1 6..0=0x67
 
 # group 31..28=14
-vor       m vd vs1 vs2 27..25=0 31..28=14 14=1 6..0=0x67
 
 # group 31..28=15
-vand      m vd vs1 vs2 27..25=0 31..28=15 14=1 6..0=0x67
+
+# 14=0 is for fp
+# 31..27 is opcode
+# 26..25 remains fp size
+vfadd.s    m vd vs1 vs2      31..27=0x00 26..25=0 14=0 6..0=0x57
+vfsub.s    m vd vs1 vs2      31..27=0x01 26..25=0 14=0 6..0=0x57
+vfmul.s    m vd vs1 vs2      31..27=0x02 26..25=0 14=0 6..0=0x57
+vfdiv.s    m vd vs1 vs2      31..27=0x03 26..25=0 14=0 6..0=0x57
+vfsgnj.s   m vd vs1 vs2      31..27=0x04 26..25=0 14=0 6..0=0x57
+vfsgnjn.s  m vd vs1 vs2      31..27=0x05 26..25=0 14=0 6..0=0x57
+vfsgnjx.s  m vd vs1 vs2      31..27=0x06 26..25=0 14=0 6..0=0x57
+vfmin.s    m vd vs1 vs2      31..27=0x07 26..25=0 14=0 6..0=0x57
+vfmax.s    m vd vs1 vs2      31..27=0x08 26..25=0 14=0 6..0=0x57
+vfsqrt.s   m vd vs1 24..20=0 31..27=0x09 26..25=0 14=0 6..0=0x57
+vfle.s     m vd vs1 vs2      31..27=0x0A 26..25=0 14=0 6..0=0x57
+vflt.s     m vd vs1 vs2      31..27=0x0B 26..25=0 14=0 6..0=0x57
+vfeq.s     m vd vs1 vs2      31..27=0x0C 26..25=0 14=0 6..0=0x57
+vfclass.s  m vd vs1 24..20=0 31..27=0x0D 26..25=0 14=0 6..0=0x57
+vfcvt.s.w  m vd vs1 24..20=0 31..27=0x0E 26..25=0 14=0 6..0=0x57
+vfcvt.s.wu m vd vs1 24..20=1 31..27=0x0E 26..25=0 14=0 6..0=0x57
+vfcvt.s.l  m vd vs1 24..20=2 31..27=0x0E 26..25=0 14=0 6..0=0x57
+vfcvt.s.lu m vd vs1 24..20=3 31..27=0x0E 26..25=0 14=0 6..0=0x57
+vfmv.w.x   m vd vs1 24..20=4 31..27=0x0E 26..25=0 14=0 6..0=0x57
+vfcvt.w.s  m vd vs1 24..20=0 31..27=0x0F 26..25=0 14=0 6..0=0x57
+vfcvt.wu.s m vd vs1 24..20=1 31..27=0x0F 26..25=0 14=0 6..0=0x57
+vfcvt.l.s  m vd vs1 24..20=2 31..27=0x0F 26..25=0 14=0 6..0=0x57
+vfcvt.lu.s m vd vs1 24..20=3 31..27=0x0F 26..25=0 14=0 6..0=0x57
+vfmv.x.w   m vd vs1 24..20=4 31..27=0x0F 26..25=0 14=0 6..0=0x57
+
+vfadd.d    m vd vs1 vs2      31..27=0x00 26..25=1 14=0 6..0=0x57
+vfsub.d    m vd vs1 vs2      31..27=0x01 26..25=1 14=0 6..0=0x57
+vfmul.d    m vd vs1 vs2      31..27=0x02 26..25=1 14=0 6..0=0x57
+vfdiv.d    m vd vs1 vs2      31..27=0x03 26..25=1 14=0 6..0=0x57
+vfsgnj.d   m vd vs1 vs2      31..27=0x04 26..25=1 14=0 6..0=0x57
+vfsgnjn.d  m vd vs1 vs2      31..27=0x05 26..25=1 14=0 6..0=0x57
+vfsgnjx.d  m vd vs1 vs2      31..27=0x06 26..25=1 14=0 6..0=0x57
+vfmin.d    m vd vs1 vs2      31..27=0x07 26..25=1 14=0 6..0=0x57
+vfmax.d    m vd vs1 vs2      31..27=0x08 26..25=1 14=0 6..0=0x57
+vfsqrt.d   m vd vs1 24..20=0 31..27=0x09 26..25=1 14=0 6..0=0x57
+vfle.d     m vd vs1 vs2      31..27=0x0A 26..25=1 14=0 6..0=0x57
+vflt.d     m vd vs1 vs2      31..27=0x0B 26..25=1 14=0 6..0=0x57
+vfeq.d     m vd vs1 vs2      31..27=0x0C 26..25=1 14=0 6..0=0x57
+vfclass.d  m vd vs1 24..20=0 31..27=0x0D 26..25=1 14=0 6..0=0x57
+vfcvt.d.w  m vd vs1 24..20=0 31..27=0x0E 26..25=1 14=0 6..0=0x57
+vfcvt.d.wu m vd vs1 24..20=1 31..27=0x0E 26..25=1 14=0 6..0=0x57
+vfcvt.d.l  m vd vs1 24..20=2 31..27=0x0E 26..25=1 14=0 6..0=0x57
+vfcvt.d.lu m vd vs1 24..20=3 31..27=0x0E 26..25=1 14=0 6..0=0x57
+vfmv.d.x   m vd vs1 24..20=4 31..27=0x0E 26..25=1 14=0 6..0=0x57
+vfcvt.w.d  m vd vs1 24..20=0 31..27=0x0F 26..25=1 14=0 6..0=0x57
+vfcvt.wu.d m vd vs1 24..20=1 31..27=0x0F 26..25=1 14=0 6..0=0x57
+vfcvt.l.d  m vd vs1 24..20=2 31..27=0x0F 26..25=1 14=0 6..0=0x57
+vfcvt.lu.d m vd vs1 24..20=3 31..27=0x0F 26..25=1 14=0 6..0=0x57
+vfmv.x.d   m vd vs1 24..20=4 31..27=0x0F 26..25=1 14=0 6..0=0x57
+vfcvt.s.d  m vd vs1 24..20=0 31..27=0x10 26..25=1 14=0 6..0=0x57
+vfcvt.d.s  m vd vs1 24..20=1 31..27=0x10 26..25=1 14=0 6..0=0x57
+
+vfadd.h    m vd vs1 vs2      31..27=0x00 26..25=2 14=0 6..0=0x57
+vfsub.h    m vd vs1 vs2      31..27=0x01 26..25=2 14=0 6..0=0x57
+vfmul.h    m vd vs1 vs2      31..27=0x02 26..25=2 14=0 6..0=0x57
+vfdiv.h    m vd vs1 vs2      31..27=0x03 26..25=2 14=0 6..0=0x57
+vfsgnj.h   m vd vs1 vs2      31..27=0x04 26..25=2 14=0 6..0=0x57
+vfsgnjn.h  m vd vs1 vs2      31..27=0x05 26..25=2 14=0 6..0=0x57
+vfsgnjx.h  m vd vs1 vs2      31..27=0x06 26..25=2 14=0 6..0=0x57
+vfmin.h    m vd vs1 vs2      31..27=0x07 26..25=2 14=0 6..0=0x57
+vfmax.h    m vd vs1 vs2      31..27=0x08 26..25=2 14=0 6..0=0x57
+vfsqrt.h   m vd vs1 24..20=0 31..27=0x09 26..25=2 14=0 6..0=0x57
+vfle.h     m vd vs1 vs2      31..27=0x0A 26..25=2 14=0 6..0=0x57
+vflt.h     m vd vs1 vs2      31..27=0x0B 26..25=2 14=0 6..0=0x57
+vfeq.h     m vd vs1 vs2      31..27=0x0C 26..25=2 14=0 6..0=0x57
+vfclass.h  m vd vs1 24..20=0 31..27=0x0D 26..25=2 14=0 6..0=0x57
+vfcvt.h.w  m vd vs1 24..20=0 31..27=0x0E 26..25=2 14=0 6..0=0x57
+vfcvt.h.wu m vd vs1 24..20=1 31..27=0x0E 26..25=2 14=0 6..0=0x57
+vfcvt.h.l  m vd vs1 24..20=2 31..27=0x0E 26..25=2 14=0 6..0=0x57
+vfcvt.h.lu m vd vs1 24..20=3 31..27=0x0E 26..25=2 14=0 6..0=0x57
+vfmv.h.x   m vd vs1 24..20=4 31..27=0x0E 26..25=2 14=0 6..0=0x57
+vfcvt.w.h  m vd vs1 24..20=0 31..27=0x0F 26..25=2 14=0 6..0=0x57
+vfcvt.wu.h m vd vs1 24..20=1 31..27=0x0F 26..25=2 14=0 6..0=0x57
+vfcvt.l.h  m vd vs1 24..20=2 31..27=0x0F 26..25=2 14=0 6..0=0x57
+vfcvt.lu.h m vd vs1 24..20=3 31..27=0x0F 26..25=2 14=0 6..0=0x57
+vfmv.x.h   m vd vs1 24..20=4 31..27=0x0F 26..25=2 14=0 6..0=0x57
+vfcvt.s.h  m vd vs1 24..20=0 31..27=0x10 26..25=2 14=0 6..0=0x57
+vfcvt.h.s  m vd vs1 24..20=1 31..27=0x10 26..25=2 14=0 6..0=0x57
+
+vfadd.q    m vd vs1 vs2      31..27=0x00 26..25=3 14=0 6..0=0x57
+vfsub.q    m vd vs1 vs2      31..27=0x01 26..25=3 14=0 6..0=0x57
+vfmul.q    m vd vs1 vs2      31..27=0x02 26..25=3 14=0 6..0=0x57
+vfdiv.q    m vd vs1 vs2      31..27=0x03 26..25=3 14=0 6..0=0x57
+vfsgnj.q   m vd vs1 vs2      31..27=0x04 26..25=3 14=0 6..0=0x57
+vfsgnjn.q  m vd vs1 vs2      31..27=0x05 26..25=3 14=0 6..0=0x57
+vfsgnjx.q  m vd vs1 vs2      31..27=0x06 26..25=3 14=0 6..0=0x57
+vfmin.q    m vd vs1 vs2      31..27=0x07 26..25=3 14=0 6..0=0x57
+vfmax.q    m vd vs1 vs2      31..27=0x08 26..25=3 14=0 6..0=0x57
+vfsqrt.q   m vd vs1 24..20=0 31..27=0x09 26..25=3 14=0 6..0=0x57
+vfle.q     m vd vs1 vs2      31..27=0x0A 26..25=3 14=0 6..0=0x57
+vflt.q     m vd vs1 vs2      31..27=0x0B 26..25=3 14=0 6..0=0x57
+vfeq.q     m vd vs1 vs2      31..27=0x0C 26..25=3 14=0 6..0=0x57
+vfclass.q  m vd vs1 24..20=0 31..27=0x0D 26..25=3 14=0 6..0=0x57
+vfcvt.q.w  m vd vs1 24..20=0 31..27=0x0E 26..25=3 14=0 6..0=0x57
+vfcvt.q.wu m vd vs1 24..20=1 31..27=0x0E 26..25=3 14=0 6..0=0x57
+vfcvt.q.l  m vd vs1 24..20=2 31..27=0x0E 26..25=3 14=0 6..0=0x57
+vfcvt.q.lu m vd vs1 24..20=3 31..27=0x0E 26..25=3 14=0 6..0=0x57
+vfmv.q.x   m vd vs1 24..20=4 31..27=0x0E 26..25=3 14=0 6..0=0x57
+vfcvt.w.q  m vd vs1 24..20=0 31..27=0x0F 26..25=3 14=0 6..0=0x57
+vfcvt.wu.q m vd vs1 24..20=1 31..27=0x0F 26..25=3 14=0 6..0=0x57
+vfcvt.l.q  m vd vs1 24..20=2 31..27=0x0F 26..25=3 14=0 6..0=0x57
+vfcvt.lu.q m vd vs1 24..20=3 31..27=0x0F 26..25=3 14=0 6..0=0x57
+vfmv.x.q   m vd vs1 24..20=4 31..27=0x0F 26..25=3 14=0 6..0=0x57
+vfcvt.s.q  m vd vs1 24..20=0 31..27=0x10 26..25=3 14=0 6..0=0x57
+vfcvt.q.s  m vd vs1 24..20=1 31..27=0x10 26..25=3 14=0 6..0=0x57
