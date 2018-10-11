@@ -35,9 +35,10 @@ arglut['vs1'] = (19,15)
 arglut['vs2'] = (24,20)
 arglut['vs3'] = (31,27)
 arglut['m'] = (13,12)
+arglut['mm'] = (26,25)
 arglut['vimm'] = (27,20)
-arglut['vlimm'] = (31,31)
-arglut['vsimm'] = (11,10)
+arglut['vlimm'] = (31,29)
+arglut['vsimm'] = (11,9)
 
 causes = [
   (0x00, 'misaligned fetch'),
@@ -633,34 +634,35 @@ def print_vs_type(name,match,arguments):
   print """3+|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s""" % \
   ( \
     'vlimm' in arguments and 'imm[0]' or str_arg('vs3','',match,arguments), \
-    binary(yank(match,25,2),2), \
+    str_arg('mm','m',match,arguments), \
     str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
     str_arg('rs1' in arguments and 'rs1' or 'vs1','',match,arguments), \
     binary(yank(match,14,1),1), \
-    str_arg('m','',match,arguments), \
-    'vsimm' in arguments and 'imm[1:0]' or str_arg('vd','',match,arguments), \
-    binary(yank(match,7,3),3), \
+    binary(yank(match,12,2),2), \
+    'vsimm' in arguments and 'imm[2:0]' or str_arg('vd','',match,arguments), \
+    binary(yank(match,7,2),2), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
     str_inst(name,arguments) \
   )
 
 def print_vl_type(name,match,arguments):
-  print """|%s 2+|%s|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
+  print """|%s|%s|%s|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
   ( \
-    'vlimm' in arguments and 'imm[0]' or str_arg('vs3','',match,arguments), \
-    binary(yank(match,27,4),4), \
-    binary(yank(match,25,2),2), \
+    'vlimm' in arguments and 'imm[2:0]' or str_arg('vs3','',match,arguments), \
+    binary(yank(match,28,1),1), \
+    binary(yank(match,27,1),1), \
+    str_arg('mm','m',match,arguments), \
     str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
     str_arg('rs1' in arguments and 'rs1' or 'vs1','',match,arguments), \
     binary(yank(match,14,1),1), \
-    str_arg('m','',match,arguments), \
+    binary(yank(match,12,2),2), \
     'vsimm' in arguments and 'imm[1:0]' or str_arg('vd','',match,arguments), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
     str_inst(name,arguments) \
   )
 
 def print_vr4_type(name,match,arguments):
-  print """ 2+|%s 2+|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
+  print """ 3+|%s|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
   ( \
     str_arg('rs3' in arguments and 'rs3' or 'vs3','',match,arguments), \
     binary(yank(match,25,2),2), \
@@ -796,9 +798,9 @@ def print_vec_subtitle(title):
 def print_vec_header():
   print """
 .Vector Table
-[width="100%",cols="1,3,1,2,5,5,1,2,2,3,7,10"]
+[width="100%",cols="^3,^1,^1,^3,^4,^4,^1,^3,^3,^3,^7,<10"]
 |========================
-|31 |30   28 |27 |26 25 |24  20 |19    15 |14 |13 12 |11 10 |9  7 |6  0 |Opcode
+|31 29 |28 |27 |26 25 |24  20 |19    15 |14 |13 12 |11 9 |8  7 |6  0 |Opcode
 """
 
 def print_vec_footer():
@@ -1006,15 +1008,12 @@ def make_vector_adoc_table():
   print_vec_insts('vlb', 'vlh', 'vlw', 'vld', 'vlbu', 'vlhu', 'vlwu')
   print_vec_insts('vlsb', 'vlsh', 'vlsw', 'vlsd', 'vlsbu', 'vlshu', 'vlswu')
   print_vec_insts('vlxb', 'vlxh', 'vlxw', 'vlxd', 'vlxbu', 'vlxhu', 'vlxwu')
-  print_vec_insts('vlfh', 'vlfs', 'vlfd', 'vlfq')
-  print_vec_insts('vlsfh', 'vlsfs', 'vlsfd', 'vlsfq')
-  print_vec_insts('vlxfh', 'vlxfs', 'vlxfd', 'vlxfq')
+  print_vec_insts('vlfh', 'vlfs', 'vlfd')
+  print_vec_insts('vlsfh', 'vlsfs', 'vlsfd')
+  print_vec_insts('vlxfh', 'vlxfs', 'vlxfd')
   print_vec_insts('vsb', 'vsh', 'vsw', 'vsd')
   print_vec_insts('vssb', 'vssh', 'vssw', 'vssd')
   print_vec_insts('vsxb', 'vsxh', 'vsxw', 'vsxd')
-  print_vec_insts('vsfh', 'vsfs', 'vsfd', 'vsfq')
-  print_vec_insts('vssfh', 'vssfs', 'vssfd', 'vssfq')
-  print_vec_insts('vsxfh', 'vsxfs', 'vsxfd', 'vsxfq')
   print_vec_insts('vamoswap', 'vamoadd', 'vamoand', 'vamoor', 'vamoxor', 'vamomin', 'vamomax')
   print_vec_footer()
 
