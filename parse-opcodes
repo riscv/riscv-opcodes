@@ -959,6 +959,7 @@ def make_vector_adoc_table():
   print_vec_insts('vdiv', 'vrem', 'vmul', 'vmulh', 'vmulhu', 'vmulhsu')
   print_vec_insts('vpopc')
   print_vec_insts('vaddi', 'vsli', 'vsrli', 'vsrai', 'vclipi', 'vandi', 'vori', 'vxori')
+  print_vec_insts('vconfig')
   print_vec_footer()
   print_vec_header()
   print_vec_insts('vfmadd.s', 'vfmsub.s')

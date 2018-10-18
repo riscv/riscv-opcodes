@@ -175,6 +175,7 @@ vsqrt     m vd vs1     27..25=7 31..28=12 14=1 6..0=0x57 24..20=2
 # group 31..28=14
 
 # group 31..28=15
+vconfig   m vd vs1 vimm         31..28=15 14=1 6..0=0x57
 
 # 14=0 is for fp
 # 31..27 is opcode
