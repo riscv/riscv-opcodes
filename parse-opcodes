@@ -953,7 +953,7 @@ def make_latex_table():
 def make_vector_adoc_table():
   #print_vec_subtitile('RV32V Standard Extension')
   print_vec_header()
-  print_vec_insts('vadd', 'vsub', 'vsl', 'vsr', 'vand', 'vor', 'vxor')
+  print_vec_insts('vadd', 'vsub', 'vsl', 'vsr', 'vand', 'vor', 'vxor', 'vneg')
   print_vec_insts('vseq', 'vsne', 'vslt', 'vsge', 'vsltu', 'vsgeu')
   print_vec_insts('vclip', 'vcvt', 'vmpop', 'vmfirst', 'vextract', 'vinsert', 'vmerge', 'vselect', 'vslide', 'vrgather')
   print_vec_insts('vdiv', 'vrem', 'vmul', 'vmulh', 'vmulhu', 'vmulhsu')
