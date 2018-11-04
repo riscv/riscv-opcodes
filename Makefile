@@ -12,7 +12,7 @@ install: $(ISASIM_H) $(PK_H) $(FESVR_H) $(ENV_H) $(OPENOCD_H) inst.chisel instr-
 
 $(ISASIM_H) $(PK_H) $(FESVR_H) $(ENV_H) $(OPENOCD_H): $(ALL_OPCODES) parse-opcodes encoding.h
 	cp encoding.h $@
-	cat opcodes opcodes-rvc-pseudo opcodes-rvc opcodes-custom | ./parse-opcodes -c >> $@
+	cat opcodes opcodes-rvc-pseudo opcodes-rvc opcodes-custom opcodes-v | ./parse-opcodes -c >> $@
 
 inst.chisel: $(ALL_OPCODES) parse-opcodes
 	cat opcodes opcodes-custom opcodes-pseudo | ./parse-opcodes -chisel > $@
