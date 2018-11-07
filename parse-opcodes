@@ -869,7 +869,7 @@ def make_latex_table():
   print_insts('addw', 'subw', 'sllw', 'srlw', 'sraw')
   print_subtitle('RV32/RV64 \emph{Zifencei} Standard Extension')
   print_insts('fence.i')
-  print_subtitle('RV32/RV64 Control and Status Register Access Instructions')
+  print_subtitle('RV32/RV64 \emph{Zicsr} Standard Extension')
   print_insts('csrrw', 'csrrs', 'csrrc')
   print_insts('csrrwi', 'csrrsi', 'csrrci')
   print_subtitle('RV32M Standard Extension')
