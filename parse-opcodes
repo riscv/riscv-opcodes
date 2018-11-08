@@ -69,21 +69,13 @@ csrs = [
   (0x013, 'vregmask'),
   (0x014, 'vxcfg'),
   (0x020, 'vtcfg0'),
-  (0x021, 'vtcfg1'),
   (0x022, 'vtcfg2'),
-  (0x023, 'vtcfg3'),
   (0x024, 'vtcfg4'),
-  (0x025, 'vtcfg5'),
   (0x026, 'vtcfg6'),
-  (0x027, 'vtcfg7'),
   (0x028, 'vtcfg8'),
-  (0x029, 'vtcfg9'),
   (0x02a, 'vtcfg10'),
-  (0x02b, 'vtcfg11'),
   (0x02c, 'vtcfg12'),
-  (0x02d, 'vtcfg13'),
   (0x02e, 'vtcfg14'),
-  (0x02f, 'vtcfg15'),
 
 
   # Standard User RO
@@ -242,14 +234,14 @@ csrs = [
 
 csrs32 = [
   # Standard User R/W
-  (0x021, 'vcfg1'),
-  (0x023, 'vcfg3'),
-  (0x025, 'vcfg5'),
-  (0x027, 'vcfg7'),
-  (0x029, 'vcfg9'),
-  (0x02b, 'vcfg11'),
-  (0x02d, 'vcfg13'),
-  (0x02f, 'vcfg15'),
+  (0x021, 'vtcfg1'),
+  (0x023, 'vtcfg3'),
+  (0x025, 'vtcfg5'),
+  (0x027, 'vtcfg7'),
+  (0x029, 'vtcfg9'),
+  (0x02b, 'vtcfg11'),
+  (0x02d, 'vtcfg13'),
+  (0x02f, 'vtcfg15'),
 
   # Standard User RO
   (0xC80, 'cycleh'),
