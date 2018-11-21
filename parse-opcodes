@@ -697,7 +697,6 @@ def print_footer(caption=''):
 \\end{center}
 \\end{small}
 %s
-\\label{instr-table}
 \\end{table}
   """ % caption)
 
