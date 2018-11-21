@@ -732,9 +732,7 @@ def print_insts(*names):
     print_inst(n)
 
 def make_supervisor_latex_table():
-  print_header('i')
-  print_subtitle('Environment Call and Breakpoint')
-  print_insts('ecall', 'ebreak')
+  print_header('r', 'i')
   print_subtitle('Trap-Return Instructions')
   print_insts('uret', 'sret', 'mret')
   print_subtitle('Interrupt-Management Instructions')
