@@ -34,11 +34,11 @@ arglut['vd'] = (11,7)
 arglut['vs1'] = (19,15)
 arglut['vs2'] = (24,20)
 arglut['vs3'] = (31,27)
-arglut['m'] = (13,12)
-arglut['mm'] = (26,25)
-arglut['vimm'] = (27,20)
-arglut['vlimm'] = (31,29)
-arglut['vsimm'] = (11,9)
+arglut['vop'] = (14,12)
+arglut['vm'] = (26,25)
+arglut['vimm'] = (24,20)
+arglut['vmimm'] = (31,30)
+arglut['vsimm'] = (11,11)
 
 causes = [
   (0x00, 'misaligned fetch'),
@@ -618,72 +618,54 @@ def print_fence_type(name,match,arguments):
   )
 
 def print_vi_type(name,match,arguments):
-  print """2+|%s 3+|%s|%s|%s|%s 2+|%s|%s|%s""" % \
+  #print """2+|%s|%s 2+|%s|%s|%s|%s 2+|%s|%s|%s""" % \
+  print """2+|%s|%s|%s|%s|%s|%s|%s|%s""" % \
   ( \
-    binary(yank(match,28,4),4), \
-    str_arg('vimm','imm[7:0]',match,arguments), \
+    binary(yank(match,27,5),5), \
+    str_arg('vm','',match,arguments), \
+    str_arg('vimm','imm[4:0]',match,arguments), \
     str_arg('vs1','',match,arguments), \
-    binary(yank(match,14,1),1), \
-    str_arg('m','',match,arguments), \
+    binary(yank(match,12,3),3), \
     str_arg('vd','',match,arguments), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
     str_inst(name,arguments) \
   )
 
-def print_vs_type(name,match,arguments):
-  print """3+|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s""" % \
+def print_vm_type(name,match,arguments):
+  print """|%s|%s|%s|%s|%s|%s|%s|%s|%s""" % \
   ( \
-    'vlimm' in arguments and 'imm[0]' or str_arg('vs3','',match,arguments), \
-    str_arg('mm','m',match,arguments), \
-    str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
+    'vimm' in arguments and 'imm[6:5]' or 'imm[1:0]', \
+    binary(yank(match,27,3),3), \
+    str_arg('vm','m',match,arguments), \
+    'vimm'in arguments and 'imm[4:0]' or str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
     str_arg('rs1' in arguments and 'rs1' or 'vs1','',match,arguments), \
-    binary(yank(match,14,1),1), \
-    binary(yank(match,12,2),2), \
+    binary(yank(match,12,3),3), \
     'vsimm' in arguments and 'imm[2:0]' or str_arg('vd','',match,arguments), \
-    binary(yank(match,7,2),2), \
-    binary(yank(match,opcode_base,opcode_size),opcode_size), \
-    str_inst(name,arguments) \
-  )
-
-def print_vl_type(name,match,arguments):
-  print """|%s|%s|%s|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
-  ( \
-    'vlimm' in arguments and 'imm[2:0]' or str_arg('vs3','',match,arguments), \
-    binary(yank(match,28,1),1), \
-    binary(yank(match,27,1),1), \
-    str_arg('mm','m',match,arguments), \
-    str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
-    str_arg('rs1' in arguments and 'rs1' or 'vs1','',match,arguments), \
-    binary(yank(match,14,1),1), \
-    binary(yank(match,12,2),2), \
-    'vsimm' in arguments and 'imm[1:0]' or str_arg('vd','',match,arguments), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
     str_inst(name,arguments) \
   )
 
 def print_vr4_type(name,match,arguments):
-  print """ 3+|%s|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
+  print """2+|%s|%s|%s|%s|%s|%s|%s|%s""" % \
   ( \
     str_arg('rs3' in arguments and 'rs3' or 'vs3','',match,arguments), \
-    binary(yank(match,25,2),2), \
+    str_arg('vm','',match,arguments), \
     str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
     str_arg('rs1' in arguments and 'rs1' or 'vs1','',match,arguments), \
-    binary(yank(match,14,1),1), \
-    str_arg('m','',match,arguments), \
+    binary(yank(match,12,3),3), \
     str_arg('rd' in arguments and 'rd' or 'vd','',match,arguments), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
     str_inst(name,arguments) \
   )
 
 def print_vr_type(name,match,arguments):
-  print """ 2+|%s 2+|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
+  print """2+|%s|%s|%s|%s|%s|%s|%s|%s""" % \
   ( \
-    binary(yank(match,28,4),4), \
-    binary(yank(match,25,3),3), \
+    binary(yank(match,27,5),5), \
+    str_arg('vm','',match,arguments), \
     str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
     str_arg('rs1' in arguments and 'rs1' or 'vs1','',match,arguments), \
-    binary(yank(match,14,1),1), \
-    str_arg('m','',match,arguments), \
+    binary(yank(match,12,3),3), \
     str_arg('rd' in arguments and 'rd' or 'vd','',match,arguments), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
     str_inst(name,arguments) \
@@ -798,9 +780,9 @@ def print_vec_subtitle(title):
 def print_vec_header():
   print """
 .Vector Table
-[width="100%",cols="^3,^1,^1,^3,^4,^4,^1,^3,^3,^3,^7,<10"]
+[width="100%",cols="^3,^3,^3,^4,^4,^3,^4,^7,<10"]
 |========================
-|31 29 |28 |27 |26 25 |24  20 |19    15 |14 |13 12 |11 9 |8  7 |6  0 |Opcode
+|31 30 |29 27 |26 25 |24  20 |19    15 |14  12 |11 7 |6  0 |Opcode
 """
 
 def print_vec_footer():
@@ -809,12 +791,10 @@ def print_vec_footer():
 """
 
 def print_vec_inst(n):
-  if 'vimm' in arguments[n]:
+  if 'vmimm' in arguments[n]:
+    print_vm_type(n, match[n], arguments[n])
+  elif 'vimm' in arguments[n]:
     print_vi_type(n, match[n], arguments[n])
-  elif 'vsimm' in arguments[n]:
-    print_vs_type(n, match[n], arguments[n])
-  elif 'vlimm' in arguments[n]:
-    print_vl_type(n, match[n], arguments[n])
   elif 'vs3' in arguments[n]:
     print_vr4_type(n, match[n], arguments[n])
   elif 'vs1' in arguments[n] or 'vs2' in arguments[n] or 'vd' in arguments[n]:
@@ -861,8 +841,8 @@ def print_inst(n):
     print_r4_type(n, match[n], arguments[n])
   elif 'vimm' in arguments[n]:
     print_vi_type(n, match[n], arguments[n])
-  elif 'vlimm' in arguments[n] or 'vs3' in arguments[n]:
-    print_vs_type(n, match[n], arguments[n])
+  elif 'vmimm' in arguments[n] or 'vs3' in arguments[n]:
+    print_vm_type(n, match[n], arguments[n])
   elif 'vs1' in arguments[n] or 'vs2' in arguments[n] or 'vd' in arguments[n]:
     print_vr_type(n, match[n], arguments[n])
   else:
@@ -953,73 +933,53 @@ def make_latex_table():
 def make_vector_adoc_table():
   #print_vec_subtitile('RV32V Standard Extension')
   print_vec_header()
-  print_vec_insts('vadd', 'vsub', 'vsl', 'vsrl', 'vsra', 'vand', 'vor', 'vxor', 'vneg')
-  print_vec_insts('vseq', 'vsne', 'vslt', 'vsge', 'vsltu', 'vsgeu')
-  print_vec_insts('vclip', 'vcvt', 'vmpop', 'vmfirst', 'vextract', 'vfextract', 'vinsert', 'vfinsert', 'vmerge', 'vselect', 'vslideup', 'vslidedown', 'vrgather')
-  print_vec_insts('vdiv', 'vdivu', 'vrem', 'vremu', 'vmul', 'vmulh', 'vmulhu', 'vmulhsu')
-  print_vec_insts('vpopc', 'vredsum', 'vredmax', 'vredmin')
-  print_vec_insts('vaddi', 'vsli', 'vsrli', 'vsrai', 'vclipi', 'vandi', 'vori', 'vxori')
-  print_vec_insts('vsetvl', 'vconfig')
+  # Full op type field
+  print_vec_insts('vadd.vv', 'vadd.vs', 'vadd.vi', 'vaddw.vv', 'vaddw.vs', 'vaddw.wv', 'vaddw.ws')
+  print_vec_insts('vsub.vv', 'vsub.vs', 'vsub.vi', 'vsub.vv', 'vsub.vs', 'vsubw.wv', 'vsubw.ws')
+  print_vec_insts('vmul.vv', 'vmul.vs', 'vmul.vi', 'vmul.vv', 'vmul.vs', 'vmulw.wv', 'vmulw.ws')
+  print_vec_insts('vmulu.vv', 'vmulu.vs', 'vmulu.vi', 'vmulu.vv', 'vmulu.vs', 'vmuluw.wv', 'vmuluw.ws')
+  print_vec_insts('vmulsu.vv', 'vmulsu.vs', 'vmulsu.vi', 'vmulsu.vv', 'vmulsu.vs', 'vmulsuw.wv', 'vmulsuw.ws')
   print_vec_footer()
   print_vec_header()
-  print_vec_insts('vfmadd.s', 'vfmsub.s')
-  print_vec_insts('vfadd.s', 'vfsub.s', 'vfmul.s', 'vfdiv.s', 'vfsqrt.s')
-  print_vec_insts('vfredsum.s', 'vfredmax.s', 'vfredmin.s')
-  print_vec_insts('vfsgnj.s', 'vfsgnjn.s', 'vfsgnjx.s', 'vfmin.s', 'vfmax.s')
-  print_vec_insts('vfeq.s', 'vfne.s', 'vflt.s', 'vfle.s', 'vfclass.s')
-  print_vec_insts('vfcvt.w.s', 'vfcvt.wu.s')
-  print_vec_insts('vfcvt.s.w', 'vfcvt.s.wu')
-  print_vec_insts('vfcvt.l.s', 'vfcvt.lu.s')
-  print_vec_insts('vfcvt.s.l', 'vfcvt.s.lu')
+  # narrowing
+  print_vec_insts('vsrln.vv', 'vsrln.vs', 'vsrln.vi', 'vsrln.wv', 'vsrln.ws', 'vsrln.wi', 'vsran.vv', 'vsran.vs', 'vsran.vi', 'vsran.wv', 'vsran.ws', 'vsran.wi')
+  print_vec_insts('vclipn.vv', 'vclipn.vs', 'vclipn.vi', 'vclipn.wv', 'vclipn.ws', 'vclipn.wi', 'vclipun.vv', 'vclipun.vs', 'vclipun.vi', 'vclipun.wv', 'vclipun.ws', 'vclipun.wi')
+  # not-widening
+  print_vec_insts('vand.vv', 'vand.vs', 'vand.vi', 'vor.vv', 'vor.vs', 'vor.vi', 'vxor.vv', 'vxor.vs', 'vxor.vi', 'vsll.vv', 'vsll.vs', 'vsll.vi', 'vsrl.vv', 'vsrl.vs', 'vsrl.vi', 'vsra.vv', 'vsra.vs', 'vsra.vi')
+  print_vec_insts('vseq.vv', 'vseq.vs', 'vseq.vi', 'vsne.vv', 'vsne.vs', 'vsne.vi', 'vslt.vv', 'vslt.vs', 'vslt.vi', 'vsltu.vv', 'vsltu.vs', 'vsltu.vi', 'vsle.vv', 'vsle.vs', 'vsle.vi', 'vsleu.vv', 'vsleu.vs', 'vsleu.vi')
+
+  print_vec_insts('vmulh.vv', 'vmulh.vs', 'vmulh.vi', 'vdiv.vv', 'vdiv.vs', 'vdiv.vi', 'vdivu.vv', 'vdivu.vs', 'vdivu.vi', 'vrem.vv', 'vrem.vs', 'vrem.vi', 'vremu.vv', 'vremu.vs', 'vremu.vi')
+  print_vec_insts('vsqrt.vv', 'vsqrt.vs', 'vsqrt.vi', 'vfclass.vv', 'vfclass.vs', 'vfclass.vi')
+  print_vec_insts('vfsgnj.vv', 'vfsgnj.vs', 'vfsgnj.vi', 'vfsgnjn.vv', 'vfsgnjn.vs', 'vfsgnjn.vi', 'vfsgnjx.vv', 'vfsgnjx.vs', 'vfsgnjx.vi')
+  print_vec_insts('vfmin.vv', 'vfmin.vs', 'vfmin.vi', 'vfmax.vv', 'vfmax.vs', 'vfmax.vi')
   print_vec_footer()
   print_vec_header()
-  print_vec_insts('vfmadd.d', 'vfmsub.d')
-  print_vec_insts('vfadd.d', 'vfsub.d', 'vfmul.d', 'vfdiv.d', 'vfsqrt.d')
-  print_vec_insts('vfredsum.d', 'vfredmax.d', 'vfredmin.d')
-  print_vec_insts('vfsgnj.d', 'vfsgnjn.d', 'vfsgnjx.d', 'vfmin.d', 'vfmax.d')
-  print_vec_insts('vfeq.d', 'vfne.d', 'vflt.d', 'vfle.d', 'vfclass.d')
-  print_vec_insts('vfcvt.s.d', 'vfcvt.d.s')
-  print_vec_insts('vfcvt.w.d', 'vfcvt.wu.d')
-  print_vec_insts('vfcvt.d.w', 'vfcvt.d.wu')
-  print_vec_insts('vfcvt.l.d', 'vfcvt.lu.d')
-  print_vec_insts('vfcvt.d.l', 'vfcvt.d.lu')
+  print_vec_insts('vmpopc', 'vmfirst', 'vmsbf.v', 'vmsif.v', 'vmsof.v', 'viota.v')
+
+  print_vec_insts('vmerge.vv', 'vmerge.vs', 'vmerge.vi', 'vmv.x.v', 'vmv.v.x', 'vmv.s.v', 'vmv.v.s', 'vrgather.vv', 'vslideup.vs', 'vslideup.vi', 'vslidedown.vs', 'vslidedown.vi')
+
+  print_vec_insts('vredsum.v', 'vredsumw.v', 'vredmax.v', 'vredmaxu.v', 'vredmin.v', 'vredminu.v', 'vredand.v', 'vredor.v', 'vredxor.v')
+  print_vec_insts('vmadd.vvv', 'vmadd.vvs', 'vmsub.vvv', 'vmsub.vvs', 'vmaddw.vvv', 'vmaddw.vvs', 'vmsubw.vvv', 'vmsubw.vvs')
+
   print_vec_footer()
   print_vec_header()
-  print_vec_insts('vfmadd.h', 'vfmsub.h')
-  print_vec_insts('vfadd.h', 'vfsub.h', 'vfmul.h', 'vfdiv.h', 'vfsqrt.h')
-  print_vec_insts('vfredsum.h', 'vfredmax.h', 'vfredmin.h')
-  print_vec_insts('vfsgnj.h', 'vfsgnjn.h', 'vfsgnjx.h', 'vfmin.h', 'vfmax.h')
-  print_vec_insts('vfeq.h', 'vfne.h', 'vflt.h', 'vfle.h', 'vfclass.h')
-  print_vec_insts('vfcvt.s.h', 'vfcvt.h.s')
-  print_vec_insts('vfcvt.w.h', 'vfcvt.wu.h')
-  print_vec_insts('vfcvt.h.w', 'vfcvt.h.wu')
-  print_vec_insts('vfcvt.l.h', 'vfcvt.lu.h')
-  print_vec_insts('vfcvt.h.l', 'vfcvt.h.lu')
-  print_vec_footer()
-  print_vec_header()
-  print_vec_insts('vfmadd.q', 'vfmsub.q')
-  print_vec_insts('vfadd.q', 'vfsub.q', 'vfmul.q', 'vfdiv.q', 'vfsqrt.q')
-  print_vec_insts('vfredsum.q', 'vfredmax.q', 'vfredmin.q')
-  print_vec_insts('vfsgnj.q', 'vfsgnjn.q', 'vfsgnjx.q', 'vfmin.q', 'vfmax.q')
-  print_vec_insts('vfeq.q',  'vfne.q', 'vflt.q', 'vfle.q', 'vfclass.q')
-  print_vec_insts('vfcvt.s.q', 'vfcvt.q.s')
-  print_vec_insts('vfcvt.w.q', 'vfcvt.wu.q')
-  print_vec_insts('vfcvt.q.w', 'vfcvt.q.wu')
-  print_vec_insts('vfcvt.l.q', 'vfcvt.lu.q')
-  print_vec_insts('vfcvt.q.l', 'vfcvt.q.lu')
-  print_vec_footer()
-  print_vec_header()
-  #print_subtitle('RV32V Standard Extension (cont.)', 9)
-  print_vec_insts('vlb', 'vlh', 'vlw', 'vld', 'vlbu', 'vlhu', 'vlwu')
-  print_vec_insts('vlsb', 'vlsh', 'vlsw', 'vlsd', 'vlsbu', 'vlshu', 'vlswu')
-  print_vec_insts('vlxb', 'vlxh', 'vlxw', 'vlxd', 'vlxbu', 'vlxhu', 'vlxwu')
-  print_vec_insts('vlfh', 'vlfs', 'vlfd')
-  print_vec_insts('vlsfh', 'vlsfs', 'vlsfd')
-  print_vec_insts('vlxfh', 'vlxfs', 'vlxfd')
-  print_vec_insts('vsb', 'vsh', 'vsw', 'vsd')
-  print_vec_insts('vssb', 'vssh', 'vssw', 'vssd')
-  print_vec_insts('vsxb', 'vsxh', 'vsxw', 'vsxd')
-  print_vec_insts('vamoswap', 'vamoadd', 'vamoand', 'vamoor', 'vamoxor', 'vamomin', 'vamomax')
+  print_vec_insts('vlb.v', 'vlh.v', 'vlw.v', 'vle.v', 'vlbu.v', 'vlhu.v', 'vlwu.v', 'vleu.v')
+  print_vec_insts('vlsb.v', 'vlsh.v', 'vlsw.v', 'vlse.v', 'vlsbu.v', 'vlshu.v', 'vlswu.v', 'vlseu.v')
+  print_vec_insts('vlxb.v', 'vlxh.v', 'vlxw.v', 'vlxe.v', 'vlxbu.v', 'vlxhu.v', 'vlxwu.v', 'vlxeu.v')
+
+  print_vec_insts('vlb.s', 'vlh.s', 'vlw.s', 'vle.s', 'vlbu.s', 'vlhu.s', 'vlwu.s', 'vleu.s')
+  print_vec_insts('vlsb.s', 'vlsh.s', 'vlsw.s', 'vlse.s', 'vlsbu.s', 'vlshu.s', 'vlswu.s', 'vlseu.s')
+  print_vec_insts('vlxb.s', 'vlxh.s', 'vlxw.s', 'vlxe.s', 'vlxbu.s', 'vlxhu.s', 'vlxwu.s', 'vlxeu.s')
+
+  print_vec_insts('vsb.v', 'vsh.v', 'vsw.v', 'vse.v')
+  print_vec_insts('vssb.v', 'vssh.v', 'vssw.v', 'vsse.v')
+  print_vec_insts('vsxb.v', 'vsxh.v', 'vsxw.v', 'vsxe.v', 'vsuxb.v', 'vsuxh.v', 'vsuxw.v', 'vsuxe.v')
+
+  print_vec_insts('vsb.s', 'vsh.s', 'vsw.s', 'vse.s')
+  print_vec_insts('vssb.s', 'vssh.s', 'vssw.s', 'vsse.s')
+  print_vec_insts('vsxb.s', 'vsxh.s', 'vsxw.s', 'vsxe.s', 'vsuxb.s', 'vsuxh.s', 'vsuxw.s', 'vsuxe.s')
+
+  #print_vec_insts('vsetvl', 'vconfig')
   print_vec_footer()
 
 def print_chisel_insn(name):
