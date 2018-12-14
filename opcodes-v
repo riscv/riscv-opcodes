@@ -100,17 +100,8 @@ vmaddw.vvv  vm vd vs1 vs2 vs3 14..12=0x5 6..2=0x12 1..0=3
 vmaddw.vvs  vm vd vs1 vs2 vs3 14..12=0x6 6..2=0x12 1..0=3
 vmsubw.vvv  vm vd vs1 vs2 vs3 14..12=0x5 6..2=0x13 1..0=3
 vmsubw.vvs  vm vd vs1 vs2 vs3 14..12=0x6 6..2=0x13 1..0=3
-# TODO: COLIN fix commentary
-# Fits into the two unused rounding modes
-# predicated versions are in madd and msub
-# - With rm signifying v1.f(101) and v1.t(110)
-# Normal use of the size field for size of operands
-# non-predicated versions are in nmadd and nmsub
-# - With rm signifying scalar(101) or vector(110) dest
 
-# 57 opcode is empty
 # Vector arithmetic with all ops available
-# TODO: COLIN do we want these to be fully enumerated
 vadd.vv    vm vd vs1 vs2  14..12=0  31..27=0x00      6..0=0x57
 vadd.vs    vm vd vs1 vs2  14..12=4  31..27=0x00      6..0=0x57
 vadd.vi    vm vd vs1 vimm 14..12=5  31..27=0x00      6..0=0x57
@@ -296,11 +287,6 @@ vredand.v   vm vd vs1 vs2 14..12=0 31..27=0x0F 6..0=0x57
 vredor.v    vm vd vs1 vs2 14..12=1 31..27=0x0F 6..0=0x57
 vredxor.v   vm vd vs1 vs2 14..12=2 31..27=0x0F 6..0=0x57
 
-#### group 31..28=12
+# TODO(Colin): These need an encoding
 ###vselect   m vd vs1 vs2 27..25=2 31..28=12 14=1 6..0=0x57
-#### group 31..28=12, 27..25=7 is for single-argument instructions.
-###
-#### group 31..28=15 are unmasked
-###vsetvl    vd vs1 24..20=0 27..25=0 31..28=15 14=1 13..12=0 6..0=0x57
-###vconfig   vd vs1 vimm              31..28=15 14=1 13..12=1 6..0=0x57
-###
+###vsetvli   vd vs1 24..20=0 27..25=0 31..28=15 14=1 13..12=0 6..0=0x57
