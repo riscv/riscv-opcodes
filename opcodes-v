@@ -239,6 +239,7 @@ vmsbf.v    vm vd vs1 24..20=0 14=0 12=1 31..27=0x1B 13=1 6..0=0x57
 vmsif.v    vm vd vs1 24..20=1 14=0 12=1 31..27=0x1B 13=1 6..0=0x57
 vmsof.v    vm vd vs1 24..20=2 14=0 12=1 31..27=0x1B 13=1 6..0=0x57
 
+#Only destination ops
 viota.v    vm vd 19..15=0 24..20=0x1F 14..12=0 31..27=0x1B 6..0=0x57
 
 vfsgnj.vv  vm vd vs1 vs2  14=0 12=0 31..27=0x1C 13=0 6..0=0x57
@@ -262,6 +263,9 @@ vfmax.vi   vm vd vs1 vimm 14=1 12=1 31..27=0x1E 13=1 6..0=0x57
 vmerge.vv   vm vd vs1 vs2  14=0 12=0 31..27=0x1F 13=0 6..0=0x57
 vmerge.vs   vm vd vs1 vs2  14=1 12=0 31..27=0x1F 13=0 6..0=0x57
 vmerge.vi   vm vd vs1 vimm 14=1 12=1 31..27=0x1F 13=0 6..0=0x57
+vselect.vv  vm vd vs1 vs2  14=0 12=0 31..27=0x1F 13=1 6..0=0x57
+vselect.vs  vm vd vs1 vs2  14=1 12=0 31..27=0x1F 13=1 6..0=0x57
+vselect.vi  vm vd vs1 vimm 14=1 12=1 31..27=0x1F 13=1 6..0=0x57
 
 vmv.x.v       rd vs1 rs2 26..25=0 14..12=0 31..27=0x0D 6..0=0x57
 vmv.v.x       vd rs1 rs2 26..25=1 14..12=0 31..27=0x0D 6..0=0x57
@@ -287,6 +291,6 @@ vredand.v   vm vd vs1 vs2 14..12=0 31..27=0x0F 6..0=0x57
 vredor.v    vm vd vs1 vs2 14..12=1 31..27=0x0F 6..0=0x57
 vredxor.v   vm vd vs1 vs2 14..12=2 31..27=0x0F 6..0=0x57
 
+vsetvli     rd rs1 vcimmhi vcimmlo 31..27=0x02 6..0=0x57
 # TODO(Colin): These need an encoding
 ###vselect   m vd vs1 vs2 27..25=2 31..28=12 14=1 6..0=0x57
-###vsetvli   vd vs1 24..20=0 27..25=0 31..28=15 14=1 13..12=0 6..0=0x57

@@ -39,6 +39,8 @@ arglut['vm'] = (26,25)
 arglut['vimm'] = (24,20)
 arglut['vmimm'] = (31,30)
 arglut['vsimm'] = (11,11)
+arglut['vcimmhi'] = (26,20)
+arglut['vcimmlo'] = (14,12)
 
 causes = [
   (0x00, 'misaligned fetch'),
@@ -979,7 +981,7 @@ def make_vector_adoc_table():
   print_vec_insts('vssb.s', 'vssh.s', 'vssw.s', 'vsse.s')
   print_vec_insts('vsxb.s', 'vsxh.s', 'vsxw.s', 'vsxe.s', 'vsuxb.s', 'vsuxh.s', 'vsuxw.s', 'vsuxe.s')
 
-  #print_vec_insts('vsetvl', 'vconfig')
+  #print_vec_insts('vsetvli')
   print_vec_footer()
 
 def print_chisel_insn(name):
