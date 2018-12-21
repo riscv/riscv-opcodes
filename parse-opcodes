@@ -37,8 +37,8 @@ arglut['vs3'] = (31,27)
 arglut['vop'] = (14,12)
 arglut['vm'] = (26,25)
 arglut['vimm'] = (24,20)
-arglut['vmimm'] = (31,30)
-arglut['vsimm'] = (11,11)
+arglut['vlimm'] = (31,30)
+arglut['vsimm'] = (11,10)
 arglut['vcimmhi'] = (26,20)
 arglut['vcimmlo'] = (14,12)
 
@@ -621,7 +621,7 @@ def print_fence_type(name,match,arguments):
 
 def print_vi_type(name,match,arguments):
   #print """2+|%s|%s 2+|%s|%s|%s|%s 2+|%s|%s|%s""" % \
-  print """2+|%s|%s|%s|%s|%s|%s|%s|%s""" % \
+  print """2+|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
   ( \
     binary(yank(match,27,5),5), \
     str_arg('vm','',match,arguments), \
@@ -633,8 +633,8 @@ def print_vi_type(name,match,arguments):
     str_inst(name,arguments) \
   )
 
-def print_vm_type(name,match,arguments):
-  print """|%s|%s|%s|%s|%s|%s|%s|%s|%s""" % \
+def print_vl_type(name,match,arguments):
+  print """|%s|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
   ( \
     'vimm' in arguments and 'imm[6:5]' or 'imm[1:0]', \
     binary(yank(match,27,3),3), \
@@ -642,13 +642,27 @@ def print_vm_type(name,match,arguments):
     'vimm'in arguments and 'imm[4:0]' or str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
     str_arg('rs1' in arguments and 'rs1' or 'vs1','',match,arguments), \
     binary(yank(match,12,3),3), \
-    'vsimm' in arguments and 'imm[2:0]' or str_arg('vd','',match,arguments), \
+    str_arg('vd','',match,arguments), \
+    binary(yank(match,opcode_base,opcode_size),opcode_size), \
+    str_inst(name,arguments) \
+  )
+
+def print_vs_type(name,match,arguments):
+  print """2+|%s|%s|%s|%s|%s|%s|%s|%s|%s""" % \
+  ( \
+    str_arg('rs3' in arguments and 'rs3' or 'vs3','',match,arguments), \
+    str_arg('vm','m',match,arguments), \
+    'vimm'in arguments and 'imm[4:0]' or str_arg('rs2' in arguments and 'rs2' or 'vs2','',match,arguments), \
+    str_arg('rs1' in arguments and 'rs1' or 'vs1','',match,arguments), \
+    binary(yank(match,12,3),3), \
+    'vimm' in arguments and 'imm[6:5]' or 'imm[1:0]', \
+    binary(yank(match,7,3),3), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
     str_inst(name,arguments) \
   )
 
 def print_vr4_type(name,match,arguments):
-  print """2+|%s|%s|%s|%s|%s|%s|%s|%s""" % \
+  print """2+|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
   ( \
     str_arg('rs3' in arguments and 'rs3' or 'vs3','',match,arguments), \
     str_arg('vm','',match,arguments), \
@@ -661,7 +675,7 @@ def print_vr4_type(name,match,arguments):
   )
 
 def print_vr_type(name,match,arguments):
-  print """2+|%s|%s|%s|%s|%s|%s|%s|%s""" % \
+  print """2+|%s|%s|%s|%s|%s 2+|%s|%s|%s""" % \
   ( \
     binary(yank(match,27,5),5), \
     str_arg('vm','',match,arguments), \
@@ -782,9 +796,9 @@ def print_vec_subtitle(title):
 def print_vec_header():
   print """
 .Vector Table
-[width="100%",cols="^3,^3,^3,^4,^4,^3,^4,^7,<10"]
+[width="100%",cols="^3,^3,^3,^4,^4,^3,^3,^3,^7,<10"]
 |========================
-|31 30 |29 27 |26 25 |24  20 |19    15 |14  12 |11 7 |6  0 |Opcode
+|31 30 |29 27 |26 25 |24  20 |19    15 |14  12 |11 10 |9 7 |6  0 |Opcode
 """
 
 def print_vec_footer():
@@ -793,8 +807,10 @@ def print_vec_footer():
 """
 
 def print_vec_inst(n):
-  if 'vmimm' in arguments[n]:
-    print_vm_type(n, match[n], arguments[n])
+  if 'vlimm' in arguments[n]:
+    print_vl_type(n, match[n], arguments[n])
+  elif 'vsimm' in arguments[n]:
+    print_vs_type(n, match[n], arguments[n])
   elif 'vimm' in arguments[n]:
     print_vi_type(n, match[n], arguments[n])
   elif 'vs3' in arguments[n]:
