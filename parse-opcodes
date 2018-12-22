@@ -989,12 +989,12 @@ def make_vector_adoc_table():
   print_vec_insts('vlsb.s', 'vlsh.s', 'vlsw.s', 'vlse.s', 'vlsbu.s', 'vlshu.s', 'vlswu.s', 'vlseu.s')
   print_vec_insts('vlxb.s', 'vlxh.s', 'vlxw.s', 'vlxe.s', 'vlxbu.s', 'vlxhu.s', 'vlxwu.s', 'vlxeu.s')
 
-  print_vec_insts('vsb.v', 'vsh.v', 'vsw.v', 'vse.v')
-  print_vec_insts('vssb.v', 'vssh.v', 'vssw.v', 'vsse.v')
+  print_vec_insts('vsb.v', 'vsh.v', 'vsw.v', 'vse.v', 'vsub.v', 'vsuh.v', 'vsuw.v', 'vsue.v')
+  print_vec_insts('vssb.v', 'vssh.v', 'vssw.v', 'vsse.v', 'vsusb.v', 'vsush.v', 'vsusw.v', 'vsuse.v')
   print_vec_insts('vsxb.v', 'vsxh.v', 'vsxw.v', 'vsxe.v', 'vsuxb.v', 'vsuxh.v', 'vsuxw.v', 'vsuxe.v')
 
-  print_vec_insts('vsb.s', 'vsh.s', 'vsw.s', 'vse.s')
-  print_vec_insts('vssb.s', 'vssh.s', 'vssw.s', 'vsse.s')
+  print_vec_insts('vsb.s', 'vsh.s', 'vsw.s', 'vse.s', 'vsub.s', 'vsuh.s', 'vsuw.s', 'vsue.s')
+  print_vec_insts('vssb.s', 'vssh.s', 'vssw.s', 'vsse.s', 'vsusb.s', 'vsush.s', 'vsusw.s', 'vsuse.s')
   print_vec_insts('vsxb.s', 'vsxh.s', 'vsxw.s', 'vsxe.s', 'vsuxb.s', 'vsuxh.s', 'vsuxw.s', 'vsuxe.s')
 
   #print_vec_insts('vsetvli')

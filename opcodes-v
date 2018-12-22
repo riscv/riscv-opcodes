@@ -57,11 +57,19 @@ vsb.v       vm       vs3    rs1 9=0  8..7=0   vsimm vimm 14..12=0 6..0=0x27
 vsh.v       vm       vs3    rs1 9=0  8..7=0   vsimm vimm 14..12=5 6..0=0x27
 vsw.v       vm       vs3    rs1 9=0  8..7=0   vsimm vimm 14..12=6 6..0=0x27
 vse.v       vm       vs3    rs1 9=0  8..7=0   vsimm vimm 14..12=7 6..0=0x27
+vsub.v      vm       vs3    rs1 9=1  8..7=0   vsimm vimm 14..12=0 6..0=0x27
+vsuh.v      vm       vs3    rs1 9=1  8..7=0   vsimm vimm 14..12=5 6..0=0x27
+vsuw.v      vm       vs3    rs1 9=1  8..7=0   vsimm vimm 14..12=6 6..0=0x27
+vsue.v      vm       vs3    rs1 9=1  8..7=0   vsimm vimm 14..12=7 6..0=0x27
 
 vssb.v      vm       vs3    rs1 9=0  8..7=2   vsimm rs2   14..12=0 6..0=0x27
 vssh.v      vm       vs3    rs1 9=0  8..7=2   vsimm rs2   14..12=5 6..0=0x27
 vssw.v      vm       vs3    rs1 9=0  8..7=2   vsimm rs2   14..12=6 6..0=0x27
 vsse.v      vm       vs3    rs1 9=0  8..7=2   vsimm rs2   14..12=7 6..0=0x27
+vsusb.v     vm       vs3    rs1 9=1  8..7=2   vsimm rs2   14..12=0 6..0=0x27
+vsush.v     vm       vs3    rs1 9=1  8..7=2   vsimm rs2   14..12=5 6..0=0x27
+vsusw.v     vm       vs3    rs1 9=1  8..7=2   vsimm rs2   14..12=6 6..0=0x27
+vsuse.v     vm       vs3    rs1 9=1  8..7=2   vsimm rs2   14..12=7 6..0=0x27
 
 vsxb.v      vm       vs3    rs1 9=0  8..7=3   vsimm vs2   14..12=0 6..0=0x27
 vsxh.v      vm       vs3    rs1 9=0  8..7=3   vsimm vs2   14..12=5 6..0=0x27
@@ -76,11 +84,19 @@ vsuxe.v     vm       vs3    rs1 9=1  8..7=3   vsimm vs2   14..12=7 6..0=0x27
 @vsh.s      26..25=2 vs3    rs1 9=0  8..7=0   vsimm vimm 14..12=5 6..0=0x27
 @vsw.s      26..25=2 vs3    rs1 9=0  8..7=0   vsimm vimm 14..12=6 6..0=0x27
 @vse.s      26..25=2 vs3    rs1 9=0  8..7=0   vsimm vimm 14..12=7 6..0=0x27
+@vsub.s     26..25=2 vs3    rs1 9=1  8..7=0   vsimm vimm 14..12=0 6..0=0x27
+@vsuh.s     26..25=2 vs3    rs1 9=1  8..7=0   vsimm vimm 14..12=5 6..0=0x27
+@vsuw.s     26..25=2 vs3    rs1 9=1  8..7=0   vsimm vimm 14..12=6 6..0=0x27
+@vsue.s     26..25=2 vs3    rs1 9=1  8..7=0   vsimm vimm 14..12=7 6..0=0x27
 
 @vssb.s     26..25=2 vs3    rs1 9=0  8..7=2   vsimm rs2   14..12=0 6..0=0x27
 @vssh.s     26..25=2 vs3    rs1 9=0  8..7=2   vsimm rs2   14..12=5 6..0=0x27
 @vssw.s     26..25=2 vs3    rs1 9=0  8..7=2   vsimm rs2   14..12=6 6..0=0x27
 @vsse.s     26..25=2 vs3    rs1 9=0  8..7=2   vsimm rs2   14..12=7 6..0=0x27
+@vsusb.s    26..25=2 vs3    rs1 9=1  8..7=2   vsimm rs2   14..12=0 6..0=0x27
+@vsush.s    26..25=2 vs3    rs1 9=1  8..7=2   vsimm rs2   14..12=5 6..0=0x27
+@vsusw.s    26..25=2 vs3    rs1 9=1  8..7=2   vsimm rs2   14..12=6 6..0=0x27
+@vsuse.s    26..25=2 vs3    rs1 9=1  8..7=2   vsimm rs2   14..12=7 6..0=0x27
 
 @vsxb.s     26..25=2 vs3    rs1 9=0  8..7=3   vsimm vs2   14..12=0 6..0=0x27
 @vsxh.s     26..25=2 vs3    rs1 9=0  8..7=3   vsimm vs2   14..12=5 6..0=0x27
@@ -292,5 +308,3 @@ vredor.v    vm vd vs1 vs2 14..12=1 31..27=0x0F 6..0=0x57
 vredxor.v   vm vd vs1 vs2 14..12=2 31..27=0x0F 6..0=0x57
 
 vsetvli     rd rs1 vcimmhi vcimmlo 31..27=0x02 6..0=0x57
-# TODO(Colin): These need an encoding
-###vselect   m vd vs1 vs2 27..25=2 31..28=12 14=1 6..0=0x57
