@@ -160,28 +160,28 @@ vsrln.vs    vm vd vs1 vs2  14..12=4  31..27=0x04      6..0=0x57
 vsrln.vi    vm vd vs1 vimm 14..12=5  31..27=0x04      6..0=0x57
 vsrln.wv    vm vd vs1 vs2  14..12=2  31..27=0x04      6..0=0x57
 vsrln.ws    vm vd vs1 vs2  14..12=6  31..27=0x04      6..0=0x57
-vsrln.wi    vm vd vs1 vs2  14..12=7  31..27=0x04      6..0=0x57
+vsrln.wi    vm vd vs1 vimm 14..12=7  31..27=0x04      6..0=0x57
 
 vsran.vv    vm vd vs1 vs2  14..12=0  31..27=0x05      6..0=0x57
 vsran.vs    vm vd vs1 vs2  14..12=4  31..27=0x05      6..0=0x57
 vsran.vi    vm vd vs1 vimm 14..12=5  31..27=0x05      6..0=0x57
 vsran.wv    vm vd vs1 vs2  14..12=2  31..27=0x05      6..0=0x57
 vsran.ws    vm vd vs1 vs2  14..12=6  31..27=0x05      6..0=0x57
-vsran.wi    vm vd vs1 vs2  14..12=7  31..27=0x05      6..0=0x57
+vsran.wi    vm vd vs1 vimm 14..12=7  31..27=0x05      6..0=0x57
 
 vclipn.vv   vm vd vs1 vs2  14..12=0  31..27=0x06      6..0=0x57
 vclipn.vs   vm vd vs1 vs2  14..12=4  31..27=0x06      6..0=0x57
 vclipn.vi   vm vd vs1 vimm 14..12=5  31..27=0x06      6..0=0x57
 vclipn.wv   vm vd vs1 vs2  14..12=2  31..27=0x06      6..0=0x57
 vclipn.ws   vm vd vs1 vs2  14..12=6  31..27=0x06      6..0=0x57
-vclipn.wi   vm vd vs1 vs2  14..12=7  31..27=0x06      6..0=0x57
+vclipn.wi   vm vd vs1 vimm 14..12=7  31..27=0x06      6..0=0x57
 
 vclipun.vv  vm vd vs1 vs2  14..12=0  31..27=0x07      6..0=0x57
 vclipun.vs  vm vd vs1 vs2  14..12=4  31..27=0x07      6..0=0x57
 vclipun.vi  vm vd vs1 vimm 14..12=5  31..27=0x07      6..0=0x57
 vclipun.wv  vm vd vs1 vs2  14..12=2  31..27=0x07      6..0=0x57
 vclipun.ws  vm vd vs1 vs2  14..12=6  31..27=0x07      6..0=0x57
-vclipun.wi  vm vd vs1 vs2  14..12=7  31..27=0x07      6..0=0x57
+vclipun.wi  vm vd vs1 vimm 14..12=7  31..27=0x07      6..0=0x57
 
 # Vector arith with no widening variants
 # Uses 14 and 12 for the normal meaning scalar vs imm and 13 can be opcode
