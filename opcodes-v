@@ -274,9 +274,6 @@ vfmax.vi   vm vd vs1 vimm 14=1 12=1 31..27=0x1E 13=1 6..0=0x57
 vmerge.vv   vm vd vs1 vs2  14=0 12=0 31..27=0x1F 13=0 6..0=0x57
 vmerge.vs   vm vd vs1 vs2  14=1 12=0 31..27=0x1F 13=0 6..0=0x57
 vmerge.vi   vm vd vs1 vimm 14=1 12=1 31..27=0x1F 13=0 6..0=0x57
-vselect.vv  vm vd vs1 vs2  14=0 12=0 31..27=0x1F 13=1 6..0=0x57
-vselect.vs  vm vd vs1 vs2  14=1 12=0 31..27=0x1F 13=1 6..0=0x57
-vselect.vi  vm vd vs1 vimm 14=1 12=1 31..27=0x1F 13=1 6..0=0x57
 
 vmv.x.v       rd vs1 rs2 26..25=0 14..12=0 31..27=0x0D 6..0=0x57
 vmv.v.x       vd rs1 rs2 26..25=1 14..12=0 31..27=0x0D 6..0=0x57
