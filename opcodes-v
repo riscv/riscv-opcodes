@@ -242,18 +242,13 @@ vremu.vs   vm vd vs1 vs2  14=1 12=0 31..27=0x1A 13=1 6..0=0x57
 vremu.vi   vm vd vs1 vimm 14=1 12=1 31..27=0x1A 13=1 6..0=0x57
 
 #unary ops
-vsqrt.vv   vm vd vs1 24..20=0 14=0 12=0 31..27=0x1B 13=0 6..0=0x57
-vsqrt.vs   vm vd vs1 24..20=0 14=1 12=0 31..27=0x1B 13=0 6..0=0x57
-vsqrt.vi   vm vd vs1 24..20=0 14=1 12=1 31..27=0x1B 13=0 6..0=0x57
-vfclass.vv vm vd vs1 24..20=1 14=0 12=0 31..27=0x1B 13=0 6..0=0x57
-vfclass.vs vm vd vs1 24..20=1 14=1 12=0 31..27=0x1B 13=0 6..0=0x57
-vfclass.vi vm vd vs1 24..20=1 14=1 12=1 31..27=0x1B 13=0 6..0=0x57
-
-vmpopc     vm rd vs1 24..20=0 14=0 12=0 31..27=0x1B 13=1 6..0=0x57
-vmfirst    vm rd vs1 24..20=1 14=0 12=0 31..27=0x1B 13=1 6..0=0x57
-vmsbf.v    vm vd vs1 24..20=0 14=0 12=1 31..27=0x1B 13=1 6..0=0x57
-vmsif.v    vm vd vs1 24..20=1 14=0 12=1 31..27=0x1B 13=1 6..0=0x57
-vmsof.v    vm vd vs1 24..20=2 14=0 12=1 31..27=0x1B 13=1 6..0=0x57
+vsqrt.v    vm vd vs1 24..20=0 14=0 12=0 31..27=0x1B 13=0 6..0=0x57
+vfclass.v  vm vd vs1 24..20=1 14=0 12=0 31..27=0x1B 13=0 6..0=0x57
+vmpopc     vm rd vs1 24..20=2 14=0 12=0 31..27=0x1B 13=0 6..0=0x57
+vmfirst    vm rd vs1 24..20=3 14=0 12=0 31..27=0x1B 13=0 6..0=0x57
+vmsbf.v    vm vd vs1 24..20=4 14=0 12=0 31..27=0x1B 13=0 6..0=0x57
+vmsif.v    vm vd vs1 24..20=5 14=0 12=0 31..27=0x1B 13=0 6..0=0x57
+vmsof.v    vm vd vs1 24..20=6 14=0 12=0 31..27=0x1B 13=0 6..0=0x57
 
 #Only destination ops
 viota.v    vm vd 19..15=0 24..20=0x1F 14..12=0 31..27=0x1B 6..0=0x57
@@ -290,9 +285,9 @@ vmv.v.s       vd vs1 rs2 26..25=3 14..12=0 31..27=0x0D 6..0=0x57
 
 vrgather.vv   vm vd vs1 vs2  14..12=3 31..27=0x0D 6..0=0x57
 
-vslideup.vs   vm vd vs1 vs2  14..12=4 31..27=0x0D 6..0=0x57
-vslideup.vi   vm vd rs1 vimm 14..12=5 31..27=0x0D 6..0=0x57
-vslidedown.vs vm vd vs1 vs2  14..12=6 31..27=0x0D 6..0=0x57
+vslideup.vs   vm vd vs1 rs2  14..12=4 31..27=0x0D 6..0=0x57
+vslideup.vi   vm vd vs1 vimm 14..12=5 31..27=0x0D 6..0=0x57
+vslidedown.vs vm vd vs1 rs2  14..12=6 31..27=0x0D 6..0=0x57
 vslidedown.vi vm vd vs1 vimm 14..12=7 31..27=0x0D 6..0=0x57
 
 #13 is maintained as widening bit or unsigned bit
