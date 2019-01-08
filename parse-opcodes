@@ -977,7 +977,7 @@ def make_vector_adoc_table():
   print_vec_insts('vssb.s', 'vssh.s', 'vssw.s', 'vsse.s', 'vsusb.s', 'vsush.s', 'vsusw.s', 'vsuse.s')
   print_vec_insts('vsxb.s', 'vsxh.s', 'vsxw.s', 'vsxe.s', 'vsuxb.s', 'vsuxh.s', 'vsuxw.s', 'vsuxe.s')
 
-  #print_vec_insts('vsetvli')
+  #print_vec_insts('vsetvl', 'vsetvli')
   print_vec_footer()
 
 def print_chisel_insn(name):

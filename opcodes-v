@@ -299,4 +299,5 @@ vredand.v   vm vd vs1 vs2 14..12=0 31..27=0x0F 6..0=0x57
 vredor.v    vm vd vs1 vs2 14..12=1 31..27=0x0F 6..0=0x57
 vredxor.v   vm vd vs1 vs2 14..12=2 31..27=0x0F 6..0=0x57
 
-vsetvli     rd rs1 vcimmhi vcimmlo 31..27=0x02 6..0=0x57
+vsetvli     rd rs1 vcimmhi      vcimmlo  31..27=0x02 6..0=0x57
+vsetvl      rd rs1 rs2 26..25=0 14..12=0 31..27=0x03 6..0=0x57
