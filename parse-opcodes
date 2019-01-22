@@ -120,6 +120,23 @@ csrs = [
   (0xA03, 'hideleg'),
   (0xA80, 'hgatp'),
 
+  # Tentative CSR assignment for CLIC
+  (0x007, 'utvt'),
+  (0x045, 'unxti'),
+  (0x046, 'uintstatus'),
+  (0x048, 'uscratchcsw'),
+  (0x049, 'uscratchcswl'),
+  (0x107, 'stvt'),
+  (0x145, 'snxti'),
+  (0x146, 'sintstatus'),
+  (0x148, 'sscratchcsw'),
+  (0x149, 'sscratchcswl'),
+  (0x307, 'mtvt'),
+  (0x345, 'mnxti'),
+  (0x346, 'mintstatus'),
+  (0x348, 'mscratchcsw'),
+  (0x349, 'mscratchcswl'),
+
   # Standard Machine R/W
   (0x300, 'mstatus'),
   (0x301, 'misa'),
