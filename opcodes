@@ -128,6 +128,10 @@ csrrwi    rd      rs1      imm12        14..12=5 6..2=0x1C 1..0=3
 csrrsi    rd      rs1      imm12        14..12=6 6..2=0x1C 1..0=3
 csrrci    rd      rs1      imm12        14..12=7 6..2=0x1C 1..0=3
 
+# Hypervisor extension
+hfence.bvma 11..7=0 rs1 rs2 31..25=0x11  14..12=0 6..2=0x1C 1..0=3
+hfence.gvma 11..7=0 rs1 rs2 31..25=0x51  14..12=0 6..2=0x1C 1..0=3
+
 # F/D EXTENSIONS
 fadd.s    rd rs1 rs2      31..27=0x00 rm       26..25=0 6..2=0x14 1..0=3
 fsub.s    rd rs1 rs2      31..27=0x01 rm       26..25=0 6..2=0x14 1..0=3
