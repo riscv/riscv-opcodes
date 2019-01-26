@@ -928,70 +928,83 @@ def make_go():
   print('\treturn nil, false')
   print('}')
 
-for line in sys.stdin:
-  line = line.partition('#')
-  tokens = line[0].split()
+inputs = []
+for index in range(2, len(sys.argv)):
+    try:
+        inputs.append(open(sys.argv[index]))
+    except:
+        assert(0)
+if not inputs:
+    inputs.append(sys.stdin)
 
-  if len(tokens) == 0:
-    continue
-  assert len(tokens) >= 2
+for f in inputs:
+    for line in f:
+      line = line.partition('#')
+      tokens = line[0].split()
 
-  name = tokens[0]
-  pseudo = name[0] == '@'
-  if pseudo:
-    name = name[1:]
-  mymatch = 0
-  mymask = 0
-  cover = 0
+      if len(tokens) == 0:
+        continue
+      assert len(tokens) >= 2
 
-  if not name in list(arguments.keys()):
-    arguments[name] = []
+      name = tokens[0]
+      pseudo = name[0] == '@'
+      if pseudo:
+        name = name[1:]
+      mymatch = 0
+      mymask = 0
+      cover = 0
 
-  for token in tokens[1:]:
-    if len(token.split('=')) == 2:
-      tokens = token.split('=')
-      if len(tokens[0].split('..')) == 2:
-        tmp = tokens[0].split('..')
-        hi = int(tmp[0])
-        lo = int(tmp[1])
-        if hi <= lo:
-          sys.exit("%s: bad range %d..%d" % (name,hi,lo))
+      if not name in list(arguments.keys()):
+        arguments[name] = []
+
+      for token in tokens[1:]:
+        if len(token.split('=')) == 2:
+          tokens = token.split('=')
+          if len(tokens[0].split('..')) == 2:
+            tmp = tokens[0].split('..')
+            hi = int(tmp[0])
+            lo = int(tmp[1])
+            if hi <= lo:
+              sys.exit("%s: bad range %d..%d" % (name,hi,lo))
+          else:
+            hi = lo = int(tokens[0])
+
+          if tokens[1] != 'ignore':
+            val = int(tokens[1], 0)
+            if val >= (1 << (hi-lo+1)):
+              sys.exit("%s: bad value %d for range %d..%d" % (name,val,hi,lo))
+            mymatch = mymatch | (val << lo)
+            mymask = mymask | ((1<<(hi+1))-(1<<lo))
+
+          if cover & ((1<<(hi+1))-(1<<lo)):
+            sys.exit("%s: overspecified" % name)
+          cover = cover | ((1<<(hi+1))-(1<<lo))
+
+        elif token in arglut:
+          if cover & ((1<<(arglut[token][0]+1))-(1<<arglut[token][1])):
+            sys.exit("%s: overspecified" % name)
+          cover = cover | ((1<<(arglut[token][0]+1))-(1<<arglut[token][1]))
+          arguments[name].append(token)
+
+        else:
+          sys.exit("%s: unknown token %s" % (name,token))
+
+      if not (cover == 0xFFFFFFFF or cover == 0xFFFF):
+        sys.exit("%s: not all bits are covered" % name)
+
+      if pseudo:
+        pseudos[name] = 1
       else:
-        hi = lo = int(tokens[0])
+        for name2,match2 in match.items():
+          if name2 not in pseudos and (match2 & mymask) == mymatch:
+            sys.exit("%s and %s overlap" % (name,name2))
 
-      if tokens[1] != 'ignore':
-        val = int(tokens[1], 0)
-        if val >= (1 << (hi-lo+1)):
-          sys.exit("%s: bad value %d for range %d..%d" % (name,val,hi,lo))
-        mymatch = mymatch | (val << lo)
-        mymask = mymask | ((1<<(hi+1))-(1<<lo))
+      mask[name] = mymask
+      match[name] = mymatch
+      namelist.append(name)
 
-      if cover & ((1<<(hi+1))-(1<<lo)):
-        sys.exit("%s: overspecified" % name)
-      cover = cover | ((1<<(hi+1))-(1<<lo))
-
-    elif token in arglut:
-      if cover & ((1<<(arglut[token][0]+1))-(1<<arglut[token][1])):
-        sys.exit("%s: overspecified" % name)
-      cover = cover | ((1<<(arglut[token][0]+1))-(1<<arglut[token][1]))
-      arguments[name].append(token)
-
-    else:
-      sys.exit("%s: unknown token %s" % (name,token))
-
-  if not (cover == 0xFFFFFFFF or cover == 0xFFFF):
-    sys.exit("%s: not all bits are covered" % name)
-
-  if pseudo:
-    pseudos[name] = 1
-  else:
-    for name2,match2 in match.items():
-      if name2 not in pseudos and (match2 & mymask) == mymatch:
-        sys.exit("%s and %s overlap" % (name,name2))
-
-  mask[name] = mymask
-  match[name] = mymatch
-  namelist.append(name)
+    if f is not sys.stdin:
+        f.close()
 
 if sys.argv[1] == '-tex':
   make_latex_table()
