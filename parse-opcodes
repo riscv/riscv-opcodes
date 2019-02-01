@@ -39,8 +39,8 @@ arglut['vm'] = (25,25)
 arglut['vwd'] = (26,26)
 arglut['vimm'] = (19,15)
 arglut['vmimm'] = (31,29)
-arglut['vcimmhi'] = (24,20)
-arglut['vcimmlo'] = (31,26)
+arglut['vcimmhi'] = (31,26)
+arglut['vcimmlo'] = (24,20)
 
 causes = [
   (0x00, 'misaligned fetch'),
