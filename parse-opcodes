@@ -105,6 +105,38 @@ csrs = [
   (0x144, 'sip'),
   (0x180, 'satp'),
 
+  # Standard Hypervisor R/w
+  (0x200, 'bsstatus'),
+  (0x204, 'bsie'),
+  (0x205, 'bstvec'),
+  (0x240, 'bsscratch'),
+  (0x241, 'bsepc'),
+  (0x242, 'bscause'),
+  (0x243, 'bstval'),
+  (0x244, 'bsip'),
+  (0x280, 'bsatp'),
+  (0xA00, 'hstatus'),
+  (0xA02, 'hedeleg'),
+  (0xA03, 'hideleg'),
+  (0xA80, 'hgatp'),
+
+  # Tentative CSR assignment for CLIC
+  (0x007, 'utvt'),
+  (0x045, 'unxti'),
+  (0x046, 'uintstatus'),
+  (0x048, 'uscratchcsw'),
+  (0x049, 'uscratchcswl'),
+  (0x107, 'stvt'),
+  (0x145, 'snxti'),
+  (0x146, 'sintstatus'),
+  (0x148, 'sscratchcsw'),
+  (0x149, 'sscratchcswl'),
+  (0x307, 'mtvt'),
+  (0x345, 'mnxti'),
+  (0x346, 'mintstatus'),
+  (0x348, 'mscratchcsw'),
+  (0x349, 'mscratchcswl'),
+
   # Standard Machine R/W
   (0x300, 'mstatus'),
   (0x301, 'misa'),
@@ -736,8 +768,11 @@ def make_supervisor_latex_table():
   print_insts('uret', 'sret', 'mret')
   print_subtitle('Interrupt-Management Instructions')
   print_insts('wfi')
-  print_subtitle('Memory-Management Instructions')
+  print_subtitle('Supervisor Memory-Management Instructions')
   print_insts('sfence.vma')
+  print_subtitle('Hypervisor Memory-Management Instructions')
+  print_insts('hfence.bvma')
+  print_insts('hfence.gvma')
   print_footer('\\caption{RISC-V Privileged Instructions}')
 
 def make_latex_table():
