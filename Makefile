@@ -20,6 +20,9 @@ inst.chisel: $(ALL_OPCODES) parse-opcodes
 inst.go: opcodes opcodes-pseudo parse-opcodes
 	cat opcodes opcodes-pseudo | ./parse-opcodes -go > $@
 
+inst.sverilog: opcodes opcodes-pseudo parse-opcodes
+	cat opcodes opcodes-rvc opcodes-rvc-pseudo opcodes-custom opcodes-pseudo | ./parse-opcodes -sverilog > $@
+
 instr-table.tex: $(ALL_OPCODES) parse-opcodes
 	cat opcodes opcodes-pseudo | ./parse-opcodes -tex > $@
 
