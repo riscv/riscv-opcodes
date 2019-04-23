@@ -58,6 +58,14 @@ csrs = [
   (0x001, 'fflags'),
   (0x002, 'frm'),
   (0x003, 'fcsr'),
+  (0x000, 'ustatus'),
+  (0x004, 'uie'),
+  (0x005, 'utvec'),
+  (0x040, 'uscratch'),
+  (0x041, 'uepc'),
+  (0x042, 'ucause'),
+  (0x043, 'utval'),
+  (0x044, 'uip'),
 
   # Standard User RO
   (0xC00, 'cycle'),
