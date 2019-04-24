@@ -2,10 +2,10 @@
 
 # C0 encoding space
 c.addi4spn 1..0=0 15..13=0 12=ignore 11..2=ignore
-c.fld      1..0=0 15..13=1 12=ignore 11..2=ignore
+c.fld      1..0=0 15..13=1 12=ignore 11..2=ignore # c.lq for RV128
 c.lw       1..0=0 15..13=2 12=ignore 11..2=ignore
 c.flw      1..0=0 15..13=3 12=ignore 11..2=ignore # c.ld for RV64
-c.fsd      1..0=0 15..13=5 12=ignore 11..2=ignore
+c.fsd      1..0=0 15..13=5 12=ignore 11..2=ignore # c.sq for RV128
 c.sw       1..0=0 15..13=6 12=ignore 11..2=ignore
 c.fsw      1..0=0 15..13=7 12=ignore 11..2=ignore # c.sd for RV64
 
@@ -29,11 +29,11 @@ c.bnez     1..0=1 15..13=7 12=ignore 11..2=ignore
 
 # C2 encoding space
 c.slli     1..0=2 15..13=0 12=ignore 11..2=ignore
-c.fldsp    1..0=2 15..13=1 12=ignore 11..2=ignore
+c.fldsp    1..0=2 15..13=1 12=ignore 11..2=ignore # c.lqsp for RV128
 c.lwsp     1..0=2 15..13=2 12=ignore 11..2=ignore
 c.flwsp    1..0=2 15..13=3 12=ignore 11..2=ignore # c.ldsp for RV64
 c.mv       1..0=2 15..13=4 12=0      11..2=ignore # !rs2 = c.jr
 c.add      1..0=2 15..13=4 12=1      11..2=ignore # !rs1 = c.ebreak; !rs2=c.jalr
-c.fsdsp    1..0=2 15..13=5 12=ignore 11..2=ignore
+c.fsdsp    1..0=2 15..13=5 12=ignore 11..2=ignore # c.sqsp for RV128
 c.swsp     1..0=2 15..13=6 12=ignore 11..2=ignore
 c.fswsp    1..0=2 15..13=7 12=ignore 11..2=ignore # c.sdsp for RV64
