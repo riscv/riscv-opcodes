@@ -853,6 +853,22 @@ def make_latex_table():
   print_subtitle('RV64D Standard Extension (in addition to RV32D)')
   print_insts('fcvt.l.d', 'fcvt.lu.d', 'fmv.x.d')
   print_insts('fcvt.d.l', 'fcvt.d.lu', 'fmv.d.x')
+  print_footer()
+
+  print_header('r','r4','i','s')
+  print_subtitle('RV32Q Standard Extension')
+  print_insts('flq', 'fsq')
+  print_insts('fmadd.q', 'fmsub.q', 'fnmsub.q', 'fnmadd.q')
+  print_insts('fadd.q', 'fsub.q', 'fmul.q', 'fdiv.q', 'fsqrt.q')
+  print_insts('fsgnj.q', 'fsgnjn.q', 'fsgnjx.q', 'fmin.q', 'fmax.q')
+  print_insts('fcvt.s.q', 'fcvt.q.s')
+  print_insts('fcvt.d.q', 'fcvt.q.d')
+  print_insts('feq.q', 'flt.q', 'fle.q', 'fclass.q')
+  print_insts('fcvt.w.q', 'fcvt.wu.q')
+  print_insts('fcvt.q.w', 'fcvt.q.wu')
+  print_subtitle('RV64Q Standard Extension (in addition to RV32Q)')
+  print_insts('fcvt.l.q', 'fcvt.lu.q')
+  print_insts('fcvt.q.l', 'fcvt.q.lu')
   print_footer('\\caption{Instruction listing for RISC-V}')
 
 def print_chisel_insn(name):
