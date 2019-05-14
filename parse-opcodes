@@ -489,7 +489,7 @@ def print_csr_type(name,match,arguments):
   """ % \
   ( \
     str_arg('imm12','csr',match,arguments), \
-    ('zimm' if name[-1] == 'i' else 'rs1'), \
+    ('uimm' if name[-1] == 'i' else 'rs1'), \
     binary(yank(match,funct_base,funct_size),funct_size), \
     str_arg('rd','',match,arguments), \
     binary(yank(match,opcode_base,opcode_size),opcode_size), \
@@ -803,7 +803,7 @@ def make_latex_table():
   print_insts('addw', 'subw', 'sllw', 'srlw', 'sraw')
   print_subtitle('RV32/RV64 \emph{Zifencei} Standard Extension')
   print_insts('fence.i')
-  print_subtitle('RV32/RV64 Control and Status Register Access Instructions')
+  print_subtitle('RV32/RV64 \emph{Zicsr} Standard Extension')
   print_insts('csrrw', 'csrrs', 'csrrc')
   print_insts('csrrwi', 'csrrsi', 'csrrci')
   print_subtitle('RV32M Standard Extension')
