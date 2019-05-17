@@ -82,7 +82,7 @@ vfmax.vf       31..26=0x06 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfsgnj.vf      31..26=0x08 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfsgnjn.vf     31..26=0x09 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfsgnjx.vf     31..26=0x0a vm vs2 rs1 14..12=0x5 vd 6..0=0x57
-vfmv.s.f       31..26=0x0d vm 24..20=0 rs1      14..12=0x5 vd 6..0=0x57
+vfmv.s.f       31..26=0x0d 25=1 24..20=0 rs1      14..12=0x5 vd 6..0=0x57
 
 vfmerge.vf     31..26=0x17 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfeq.vf        31..26=0x18 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
@@ -127,7 +127,7 @@ vfredmax.vs    31..26=0x07 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfsgnj.vv      31..26=0x08 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfsgnjn.vv     31..26=0x09 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfsgnjx.vv     31..26=0x0a vm vs2 vs1 14..12=0x1 vd 6..0=0x57
-vfmv.f.s       31..26=0x0c vm vs2      19..15=0 14..12=0x1 rd 6..0=0x57
+vfmv.f.s       31..26=0x0c 25=1 vs2      19..15=0 14..12=0x1 rd 6..0=0x57
 
 vfeq.vv        31..26=0x18 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfle.vv        31..26=0x19 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
@@ -299,7 +299,7 @@ vredminu.vs    31..26=0x04 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vredmin.vs     31..26=0x05 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vredmaxu.vs    31..26=0x06 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vredmax.vs     31..26=0x07 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vext.x.v       31..26=0x0c vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vext.x.v       31..26=0x0c 25=1 vs2 vs1 14..12=0x2 vd 6..0=0x57
 
 vmpopc.m       31..26=0x14 vm vs2 vs1 14..12=0x2 rd 6..0=0x57
 vmfirst.m      31..26=0x15 vm vs2 vs1 14..12=0x2 rd 6..0=0x57
@@ -344,7 +344,7 @@ vwmsacu.vv     31..26=0x3e vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vwmsac.vv      31..26=0x3f vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 
 # OPMVX
-vmv.s.x        31..26=0x0d vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+vmv.s.x        31..26=0x0d 25=1 vs2 rs1 14..12=0x6 vd 6..0=0x57
 vslide1up.vx   31..26=0x0e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vslide1down.vx 31..26=0x0f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 
