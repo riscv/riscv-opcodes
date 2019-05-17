@@ -1,0 +1,10 @@
+# Split merge instructions into masked and unmasked cases for easier decoding
+@vfmerge.masked.vf     31..26=0x17 25=0 vs2 rs1 14..12=0x5 vd 6..0=0x57
+@vmerge.masked.vx      31..26=0x17 25=0 vs2 rs1 14..12=0x4 vd 6..0=0x57
+@vmerge.masked.vv      31..26=0x17 25=0 vs2 rs1 14..12=0x0 vd 6..0=0x57
+@vmerge.masked.vi      31..26=0x17 25=0 vs2 simm5 14..12=0x3 vd 6..0=0x57
+
+@vfmerge.unmasked.vf   31..26=0x17 25=1 24..20=0 rs1 14..12=0x5 vd 6..0=0x57
+@vmerge.unmasked.vx    31..26=0x17 25=1 24..20=0 rs1 14..12=0x4 vd 6..0=0x57
+@vmerge.unmasked.vv    31..26=0x17 25=1 24..20=0 rs1 14..12=0x0 vd 6..0=0x57
+@vmerge.unmasked.vi    31..26=0x17 25=1 24..20=0 simm5 14..12=0x3 vd 6..0=0x57
