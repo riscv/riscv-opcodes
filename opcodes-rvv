@@ -64,13 +64,13 @@ vsuxe.v        31..29=0 28..26=7 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Unit-stride F31..29=0ault-Only-First Loads
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#77-unit-stride-fault-only-first-loads
-vlbff.v        31..29=0 28..26=4 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
-vlhff.v        31..29=0 28..26=4 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
-vlwff.v        31..29=0 28..26=4 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
-vleff.v        31..29=0 28..26=0 vm 24..20=0x10 rs1 14..12=0x7 vd  6..0=0x07
-vlbuff.v       31..29=0 28..26=0 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
-vlhuff.v       31..29=0 28..26=0 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
-vlwuff.v       31..29=0 28..26=0 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
+vlbff.v        nf 28..26=4 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
+vlhff.v        nf 28..26=4 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
+vlwff.v        nf 28..26=4 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
+vleff.v        nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x7 vd  6..0=0x07
+vlbuff.v       nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
+vlhuff.v       nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
+vlwuff.v       nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
 
 # Vector Floating-Point Instructions
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#14-vector-floating-point-instructions
