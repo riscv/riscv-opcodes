@@ -4,7 +4,7 @@
 # <opcode> is given by specifying one or more range/value pairs:
 # hi..lo=value or bit=value or arg=value (e.g. 6..2=0x45 10=1 rd=0)
 #
-# <args> is one of vd, vs3, vs1, vs2, vm, nf simm5, zimm11
+# <args> is one of vd, vs3, vs1, vs2, vm, nf, wd, simm5, zimm11
 
 # configuration setting
 # https://github.com/riscv/riscv-v-spec/blob/master/vcfg-format.adoc
@@ -389,3 +389,34 @@ vwmaccu.vx     31..26=0x3c vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmacc.vx      31..26=0x3d vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmaccsu.vx    31..26=0x3e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmaccus.vx    31..26=0x3f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+
+# Zvamo
+vamoswapw.v    31..27=0x01 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoaddw.v     31..27=0x00 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoxorw.v     31..27=0x04 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoandw.v     31..27=0x0c wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoorw.v      31..27=0x08 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamominw.v     31..27=0x10 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamomaxw.v     31..27=0x14 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamominuw.v    31..27=0x18 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamomaxuw.v    31..27=0x1c wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+
+vamoswapd.v    31..27=0x01 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoaddd.v     31..27=0x00 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoxord.v     31..27=0x04 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoandd.v     31..27=0x0c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoord.v      31..27=0x08 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomind.v     31..27=0x10 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomaxd.v     31..27=0x14 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamominud.v    31..27=0x18 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomaxud.v    31..27=0x1c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+
+vamoswapq.v    31..27=0x01 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoaddq.v     31..27=0x00 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoxorq.v     31..27=0x04 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoandq.v     31..27=0x0c wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoorq.v      31..27=0x08 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamominq.v     31..27=0x10 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamomaxq.v     31..27=0x14 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamominuq.v    31..27=0x18 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamomaxuq.v    31..27=0x1c wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
