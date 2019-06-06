@@ -84,7 +84,8 @@ vfsgnjn.vf     31..26=0x09 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfsgnjx.vf     31..26=0x0a vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfmv.s.f       31..26=0x0d 25=1 24..20=0 rs1      14..12=0x5 vd 6..0=0x57
 
-vfmerge.vf     31..26=0x17 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
+vfmerge.vfm    31..26=0x17 25=0 vs2 rs1 14..12=0x5 vd 6..0=0x57
+vfmv.v.f       31..26=0x17 25=1 24..20=0 rs1 14..12=0x5 vd 6..0=0x57
 vfeq.vf        31..26=0x18 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfle.vf        31..26=0x19 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vford.vf       31..26=0x1a vm vs2 rs1 14..12=0x5 vd 6..0=0x57
@@ -176,9 +177,12 @@ vrgather.vx    31..26=0x0c vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vslideup.vx    31..26=0x0e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vslidedown.vx  31..26=0x0f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 
-vadc.vx        31..26=0x10 25=1 vs2 rs1 14..12=0x4 vd 6..0=0x57
-vsbc.vx        31..26=0x12 25=1 vs2 rs1 14..12=0x4 vd 6..0=0x57
-vmerge.vx      31..26=0x17 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vadc.vxm       31..26=0x10 25=1 vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmadc.vxm      31..26=0x11 25=1 vs2 rs1 14..12=0x4 vd 6..0=0x57
+vsbc.vxm       31..26=0x12 25=1 vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmsbc.vxm      31..26=0x13 25=1 vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmerge.vxm     31..26=0x17 25=0 vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmv.v.x        31..26=0x17 25=1 24..20=0 rs1 14..12=0x4 vd 6..0=0x57
 vseq.vx        31..26=0x18 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vsne.vx        31..26=0x19 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vsltu.vx       31..26=0x1a vm vs2 rs1 14..12=0x4 vd 6..0=0x57
@@ -222,9 +226,12 @@ vor.vv         31..26=0x0a vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vxor.vv        31..26=0x0b vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vrgather.vv    31..26=0x0c vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 
-vadc.vv        31..26=0x10 25=1 vs2 rs1 14..12=0x0 vd 6..0=0x57
-vsbc.vv        31..26=0x12 25=1 vs2 rs1 14..12=0x0 vd 6..0=0x57
-vmerge.vv      31..26=0x17 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vadc.vvm       31..26=0x10 25=1 vs2 rs1 14..12=0x0 vd 6..0=0x57
+vmadc.vvm      31..26=0x11 25=1 vs2 rs1 14..12=0x0 vd 6..0=0x57
+vsbc.vvm       31..26=0x12 25=1 vs2 rs1 14..12=0x0 vd 6..0=0x57
+vmsbc.vvm      31..26=0x13 25=1 vs2 rs1 14..12=0x0 vd 6..0=0x57
+vmerge.vvm     31..26=0x17 25=0 vs2 rs1 14..12=0x0 vd 6..0=0x57
+vmv.v.v        31..26=0x17 25=1 24..20=0 rs1 14..12=0x0 vd 6..0=0x57
 vseq.vv        31..26=0x18 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vsne.vv        31..26=0x19 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vsltu.vv       31..26=0x1a vm vs2 rs1 14..12=0x0 vd 6..0=0x57
@@ -268,8 +275,10 @@ vrgather.vi    31..26=0x0c vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vslideup.vi    31..26=0x0e vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vslidedown.vi  31..26=0x0f vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 
-vadc.vi        31..26=0x10 25=1 vs2 simm5 14..12=0x3 vd 6..0=0x57
-vmerge.vi      31..26=0x17 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vadc.vim       31..26=0x10 25=1 vs2 simm5 14..12=0x3 vd 6..0=0x57
+vmadc.vim      31..26=0x11 25=1 vs2 simm5 14..12=0x3 vd 6..0=0x57
+vmerge.vim     31..26=0x17 25=0 vs2 simm5 14..12=0x3 vd 6..0=0x57
+vmv.v.i        31..26=0x17 25=1 24..20=0 simm5 14..12=0x3 vd 6..0=0x57
 vseq.vi        31..26=0x18 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vsne.vi        31..26=0x19 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vsleu.vi       31..26=0x1c vm vs2 simm5 14..12=0x3 vd 6..0=0x57
