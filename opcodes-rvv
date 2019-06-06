@@ -211,8 +211,8 @@ vnclip.vx      31..26=0x2f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 
 vwsmaccu.vx    31..26=0x3c vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vwsmacc.vx     31..26=0x3d vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vwsmsacu.vx    31..26=0x3e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vwsmsac.vx     31..26=0x3f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vwsmaccsu.vx   31..26=0x3e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vwsmaccus.vx   31..26=0x3f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 
 # OPIVV
 vadd.vv        31..26=0x00 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
@@ -262,8 +262,7 @@ vdotu.vv       31..26=0x38 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vdot.vv        31..26=0x39 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vwsmaccu.vv    31..26=0x3c vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vwsmacc.vv     31..26=0x3d vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vwsmsacu.vv    31..26=0x3e vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vwsmsac.vv     31..26=0x3f vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vwsmaccsu.vv   31..26=0x3e vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 
 # OPIVI
 vadd.vi        31..26=0x00 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
@@ -337,9 +336,9 @@ vmul.vv        31..26=0x25 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vmulhsu.vv     31..26=0x26 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vmulh.vv       31..26=0x27 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vmadd.vv       31..26=0x29 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vmsub.vv       31..26=0x2b vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vnmsub.vv      31..26=0x2b vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vmacc.vv       31..26=0x2d vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vmsac.vv       31..26=0x2f vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vnmsac.vv      31..26=0x2f vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 
 vwaddu.vv      31..26=0x30 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vwadd.vv       31..26=0x31 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
@@ -354,8 +353,7 @@ vwmulsu.vv     31..26=0x3a vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vwmul.vv       31..26=0x3b vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vwmaccu.vv     31..26=0x3c vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vwmacc.vv      31..26=0x3d vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vwmsacu.vv     31..26=0x3e vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vwmsac.vv      31..26=0x3f vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vwmaccsu.vv    31..26=0x3e vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 
 # OPMVX
 vmv.s.x        31..26=0x0d 25=1 24..20=0 rs1 14..12=0x6 vd 6..0=0x57
@@ -371,9 +369,9 @@ vmul.vx        31..26=0x25 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vmulhsu.vx     31..26=0x26 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vmulh.vx       31..26=0x27 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vmadd.vx       31..26=0x29 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
-vmsub.vx       31..26=0x2b vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+vnmsub.vx      31..26=0x2b vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vmacc.vx       31..26=0x2d vm vs2 rs1 14..12=0x6 vd 6..0=0x57
-vmsac.vx       31..26=0x2f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+vnmsac.vx      31..26=0x2f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 
 vwaddu.vx      31..26=0x30 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwadd.vx       31..26=0x31 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
@@ -388,5 +386,5 @@ vwmulsu.vx     31..26=0x3a vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmul.vx       31..26=0x3b vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmaccu.vx     31..26=0x3c vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmacc.vx      31..26=0x3d vm vs2 rs1 14..12=0x6 vd 6..0=0x57
-vwmsacu.vx     31..26=0x3e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
-vwmsac.vx      31..26=0x3f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+vwmaccsu.vx    31..26=0x3e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+vwmaccus.vx    31..26=0x3f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
