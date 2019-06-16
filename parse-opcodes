@@ -797,7 +797,7 @@ def make_supervisor_latex_table():
   print_subtitle('Supervisor Memory-Management Instructions')
   print_insts('sfence.vma')
   print_subtitle('Hypervisor Memory-Management Instructions')
-  print_insts('hfence.bvma')
+  print_insts('hfence.vvma')
   print_insts('hfence.gvma')
   print_footer('\\caption{RISC-V Privileged Instructions}')
 
