@@ -15,7 +15,7 @@ $(ISASIM_H) $(PK_H) $(FESVR_H) $(ENV_H) $(OPENOCD_H): $(ALL_OPCODES) parse-opcod
 	cat opcodes opcodes-rvc-pseudo opcodes-rvc opcodes-custom opcodes-rvv | python ./parse-opcodes -c >> $@
 
 inst.chisel: $(ALL_OPCODES) parse-opcodes
-	cat opcodes opcodes-rvc opcodes-rvc-pseudo opcodes-custom opcodes-rvv opcodes-rvv-pseudo opcodes-pseudo | ./parse-opcodes -chisel > $@
+	cat opcodes opcodes-rvc opcodes-rvc-pseudo opcodes-custom opcodes-rvv opcodes-rvv-pseudo opcodes-pseudo opcodes-pseudo-rvc | ./parse-opcodes -chisel > $@
 
 inst.go: opcodes opcodes-pseudo parse-opcodes
 	cat opcodes opcodes-pseudo | ./parse-opcodes -go > $@
