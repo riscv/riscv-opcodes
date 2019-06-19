@@ -4,7 +4,7 @@
 # <opcode> is given by specifying one or more range/value pairs:
 # hi..lo=value or bit=value or arg=value (e.g. 6..2=0x45 10=1 rd=0)
 #
-# <args> is one of vd, vs3, vs1, vs2, vm, nf simm5, zimm11
+# <args> is one of vd, vs3, vs1, vs2, vm, nf, wd, simm5, zimm11
 
 # configuration setting
 # https://github.com/riscv/riscv-v-spec/blob/master/vcfg-format.adoc
@@ -64,13 +64,13 @@ vsuxe.v        31..29=0 28..26=7 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Unit-stride F31..29=0ault-Only-First Loads
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#77-unit-stride-fault-only-first-loads
-vlbff.v        31..29=0 28..26=4 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
-vlhff.v        31..29=0 28..26=4 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
-vlwff.v        31..29=0 28..26=4 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
-vleff.v        31..29=0 28..26=0 vm 24..20=0x10 rs1 14..12=0x7 vd  6..0=0x07
-vlbuff.v       31..29=0 28..26=0 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
-vlhuff.v       31..29=0 28..26=0 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
-vlwuff.v       31..29=0 28..26=0 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
+vlbff.v        nf 28..26=4 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
+vlhff.v        nf 28..26=4 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
+vlwff.v        nf 28..26=4 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
+vleff.v        nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x7 vd  6..0=0x07
+vlbuff.v       nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
+vlhuff.v       nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
+vlwuff.v       nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
 
 # Vector Floating-Point Instructions
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#14-vector-floating-point-instructions
@@ -86,17 +86,18 @@ vfmv.s.f       31..26=0x0d 25=1 24..20=0 rs1      14..12=0x5 vd 6..0=0x57
 
 vfmerge.vfm    31..26=0x17 25=0 vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfmv.v.f       31..26=0x17 25=1 24..20=0 rs1 14..12=0x5 vd 6..0=0x57
-vfeq.vf        31..26=0x18 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
-vfle.vf        31..26=0x19 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
-vford.vf       31..26=0x1a vm vs2 rs1 14..12=0x5 vd 6..0=0x57
-vflt.vf        31..26=0x1b vm vs2 rs1 14..12=0x5 vd 6..0=0x57
-vfne.vf        31..26=0x1c vm vs2 rs1 14..12=0x5 vd 6..0=0x57
-vfgt.vf        31..26=0x1d vm vs2 rs1 14..12=0x5 vd 6..0=0x57
-vfge.vf        31..26=0x1f vm vs2 rs1 14..12=0x5 vd 6..0=0x57
+vmfeq.vf       31..26=0x18 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
+vmfle.vf       31..26=0x19 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
+vmford.vf      31..26=0x1a vm vs2 rs1 14..12=0x5 vd 6..0=0x57
+vmflt.vf       31..26=0x1b vm vs2 rs1 14..12=0x5 vd 6..0=0x57
+vmfne.vf       31..26=0x1c vm vs2 rs1 14..12=0x5 vd 6..0=0x57
+vmfgt.vf       31..26=0x1d vm vs2 rs1 14..12=0x5 vd 6..0=0x57
+vmfge.vf       31..26=0x1f vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 
 vfdiv.vf       31..26=0x20 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfrdiv.vf      31..26=0x21 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfmul.vf       31..26=0x24 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
+vfrsub.vf      31..26=0x27 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfmadd.vf      31..26=0x28 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfnmadd.vf     31..26=0x29 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfmsub.vf      31..26=0x2a vm vs2 rs1 14..12=0x5 vd 6..0=0x57
@@ -130,11 +131,11 @@ vfsgnjn.vv     31..26=0x09 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfsgnjx.vv     31..26=0x0a vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfmv.f.s       31..26=0x0c 25=1 vs2      19..15=0 14..12=0x1 rd 6..0=0x57
 
-vfeq.vv        31..26=0x18 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
-vfle.vv        31..26=0x19 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
-vford.vv       31..26=0x1a vm vs2 vs1 14..12=0x1 vd 6..0=0x57
-vflt.vv        31..26=0x1b vm vs2 vs1 14..12=0x1 vd 6..0=0x57
-vfne.vv        31..26=0x1c vm vs2 vs1 14..12=0x1 vd 6..0=0x57
+vmfeq.vv       31..26=0x18 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
+vmfle.vv       31..26=0x19 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
+vmford.vv      31..26=0x1a vm vs2 vs1 14..12=0x1 vd 6..0=0x57
+vmflt.vv       31..26=0x1b vm vs2 vs1 14..12=0x1 vd 6..0=0x57
+vmfne.vv       31..26=0x1c vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 
 vfdiv.vv       31..26=0x20 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfmul.vv       31..26=0x24 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
@@ -201,14 +202,14 @@ vsbc.vxm       31..26=0x12 25=1 vs2 rs1 14..12=0x4 vd 6..0=0x57
 vmsbc.vxm      31..26=0x13 25=1 vs2 rs1 14..12=0x4 vd 6..0=0x57
 vmerge.vxm     31..26=0x17 25=0 vs2 rs1 14..12=0x4 vd 6..0=0x57
 vmv.v.x        31..26=0x17 25=1 24..20=0 rs1 14..12=0x4 vd 6..0=0x57
-vseq.vx        31..26=0x18 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vsne.vx        31..26=0x19 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vsltu.vx       31..26=0x1a vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vslt.vx        31..26=0x1b vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vsleu.vx       31..26=0x1c vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vsle.vx        31..26=0x1d vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vsgtu.vx       31..26=0x1e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vsgt.vx        31..26=0x1f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmseq.vx       31..26=0x18 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmsne.vx       31..26=0x19 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmsltu.vx      31..26=0x1a vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmslt.vx       31..26=0x1b vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmsleu.vx      31..26=0x1c vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmsle.vx       31..26=0x1d vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmsgtu.vx      31..26=0x1e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vmsgt.vx       31..26=0x1f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 
 vsaddu.vx      31..26=0x20 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vsadd.vx       31..26=0x21 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
@@ -250,12 +251,12 @@ vsbc.vvm       31..26=0x12 25=1 vs2 rs1 14..12=0x0 vd 6..0=0x57
 vmsbc.vvm      31..26=0x13 25=1 vs2 rs1 14..12=0x0 vd 6..0=0x57
 vmerge.vvm     31..26=0x17 25=0 vs2 rs1 14..12=0x0 vd 6..0=0x57
 vmv.v.v        31..26=0x17 25=1 24..20=0 rs1 14..12=0x0 vd 6..0=0x57
-vseq.vv        31..26=0x18 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vsne.vv        31..26=0x19 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vsltu.vv       31..26=0x1a vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vslt.vv        31..26=0x1b vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vsleu.vv       31..26=0x1c vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vsle.vv        31..26=0x1d vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vmseq.vv       31..26=0x18 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vmsne.vv       31..26=0x19 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vmsltu.vv      31..26=0x1a vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vmslt.vv       31..26=0x1b vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vmsleu.vv      31..26=0x1c vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vmsle.vv       31..26=0x1d vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 
 vsaddu.vv      31..26=0x20 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vsadd.vv       31..26=0x21 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
@@ -296,12 +297,12 @@ vadc.vim       31..26=0x10 25=1 vs2 simm5 14..12=0x3 vd 6..0=0x57
 vmadc.vim      31..26=0x11 25=1 vs2 simm5 14..12=0x3 vd 6..0=0x57
 vmerge.vim     31..26=0x17 25=0 vs2 simm5 14..12=0x3 vd 6..0=0x57
 vmv.v.i        31..26=0x17 25=1 24..20=0 simm5 14..12=0x3 vd 6..0=0x57
-vseq.vi        31..26=0x18 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
-vsne.vi        31..26=0x19 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
-vsleu.vi       31..26=0x1c vm vs2 simm5 14..12=0x3 vd 6..0=0x57
-vsle.vi        31..26=0x1d vm vs2 simm5 14..12=0x3 vd 6..0=0x57
-vsgtu.vi       31..26=0x1e vm vs2 simm5 14..12=0x3 vd 6..0=0x57
-vsgt.vi        31..26=0x1f vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vmseq.vi       31..26=0x18 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vmsne.vi       31..26=0x19 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vmsleu.vi      31..26=0x1c vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vmsle.vi       31..26=0x1d vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vmsgtu.vi      31..26=0x1e vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vmsgt.vi       31..26=0x1f vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 
 vsaddu.vi      31..26=0x20 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vsadd.vi       31..26=0x21 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
@@ -343,7 +344,7 @@ vmsbf.m        31..26=0x16 vm vs2 19..15=0x01 14..12=0x2 vd 6..0=0x57
 vmsof.m        31..26=0x16 vm vs2 19..15=0x02 14..12=0x2 vd 6..0=0x57
 vmsif.m        31..26=0x16 vm vs2 19..15=0x03 14..12=0x2 vd 6..0=0x57
 viota.m        31..26=0x16 vm vs2 19..15=0x10 14..12=0x2 vd 6..0=0x57
-vid.v          31..26=0x16 vm vs2 19..15=0x11 14..12=0x2 vd 6..0=0x57
+vid.v          31..26=0x16 vm 24..20=0 19..15=0x11 14..12=0x2 vd 6..0=0x57
 
 vdivu.vv       31..26=0x20 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vdiv.vv        31..26=0x21 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
@@ -406,3 +407,34 @@ vwmaccu.vx     31..26=0x3c vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmacc.vx      31..26=0x3d vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmaccsu.vx    31..26=0x3e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmaccus.vx    31..26=0x3f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+
+# Zvamo
+vamoswapw.v    31..27=0x01 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoaddw.v     31..27=0x00 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoxorw.v     31..27=0x04 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoandw.v     31..27=0x0c wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoorw.v      31..27=0x08 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamominw.v     31..27=0x10 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamomaxw.v     31..27=0x14 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamominuw.v    31..27=0x18 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamomaxuw.v    31..27=0x1c wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+
+vamoswapd.v    31..27=0x01 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoaddd.v     31..27=0x00 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoxord.v     31..27=0x04 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoandd.v     31..27=0x0c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoord.v      31..27=0x08 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomind.v     31..27=0x10 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomaxd.v     31..27=0x14 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamominud.v    31..27=0x18 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomaxud.v    31..27=0x1c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+
+vamoswapq.v    31..27=0x01 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoaddq.v     31..27=0x00 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoxorq.v     31..27=0x04 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoandq.v     31..27=0x0c wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoorq.v      31..27=0x08 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamominq.v     31..27=0x10 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamomaxq.v     31..27=0x14 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamominuq.v    31..27=0x18 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamomaxuq.v    31..27=0x1c wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
