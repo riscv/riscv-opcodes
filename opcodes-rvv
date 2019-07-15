@@ -326,7 +326,7 @@ vredminu.vs    31..26=0x04 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vredmin.vs     31..26=0x05 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vredmaxu.vs    31..26=0x06 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vredmax.vs     31..26=0x07 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vext.x.v       31..26=0x0c 25=1 vs2 rs1 14..12=0x2 vd 6..0=0x57
+vmv.x.s        31..26=0x0c 25=1 vs2 19..15=0 14..12=0x2 vd 6..0=0x57
 
 vcompress.vm   31..26=0x17 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vmandnot.mm    31..26=0x18 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
