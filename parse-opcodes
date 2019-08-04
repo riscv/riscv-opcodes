@@ -990,16 +990,17 @@ def make_go():
   print('\treturn nil, false')
   print('}')
 
-inputs = []
-for index in range(2, len(sys.argv)):
-    try:
-        inputs.append(open(sys.argv[index]))
-    except:
-        assert(0)
-if not inputs:
-    inputs.append(sys.stdin)
+def parse_inputs(args):
+  inputs = []
+  for fn in args:
+      try:
+          inputs.append(open(fn))
+      except:
+          assert(0)
+  if not inputs:
+      inputs.append(sys.stdin)
 
-for f in inputs:
+  for f in inputs:
     for line in f:
       line = line.partition('#')
       tokens = line[0].split()
@@ -1067,18 +1068,22 @@ for f in inputs:
 
     if f is not sys.stdin:
         f.close()
+  return (namelist, pseudos, mask, match, arguments)
 
-if sys.argv[1] == '-tex':
-  make_latex_table()
-elif sys.argv[1] == '-privtex':
-  make_supervisor_latex_table()
-elif sys.argv[1] == '-chisel':
-  make_chisel()
-elif sys.argv[1] == '-sverilog':
-  make_sverilog()
-elif sys.argv[1] == '-c':
-  make_c(match,mask)
-elif sys.argv[1] == '-go':
-  make_go()
-else:
-  assert 0
+if __name__ == "__main__":
+  parse_inputs(sys.argv[1:])
+
+  if sys.argv[1] == '-tex':
+    make_latex_table()
+  elif sys.argv[1] == '-privtex':
+    make_supervisor_latex_table()
+  elif sys.argv[1] == '-chisel':
+    make_chisel()
+  elif sys.argv[1] == '-sverilog':
+    make_sverilog()
+  elif sys.argv[1] == '-c':
+    make_c(match,mask)
+  elif sys.argv[1] == '-go':
+    make_go()
+  else:
+    assert 0
