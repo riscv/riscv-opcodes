@@ -1071,7 +1071,7 @@ def parse_inputs(args):
   return (namelist, pseudos, mask, match, arguments)
 
 if __name__ == "__main__":
-  parse_inputs(sys.argv[1:])
+  parse_inputs(sys.argv[2:])
 
   if sys.argv[1] == '-tex':
     make_latex_table()
