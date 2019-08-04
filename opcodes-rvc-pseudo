@@ -1,5 +1,5 @@
 # these aren't really pseudo-ops, but they overlay other encodings,
-# so they are here to prevent parse-opcodes from barfing
+# so they are here to prevent parse_opcodes from barfing
 
 @c.nop      1..0=1 15..13=0 12=0      11..7=0      6..2=0
 @c.addi16sp 1..0=1 15..13=3 12=ignore 11..7=2      6..2=ignore
