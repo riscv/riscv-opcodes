@@ -228,8 +228,8 @@ vnclip.vx      31..26=0x2f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 
 vwsmaccu.vx    31..26=0x3c vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vwsmacc.vx     31..26=0x3d vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vwsmaccsu.vx   31..26=0x3e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vwsmaccus.vx   31..26=0x3f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vwsmaccus.vx   31..26=0x3e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vwsmaccsu.vx   31..26=0x3f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 
 # OPIVV
 vadd.vv        31..26=0x00 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
@@ -279,7 +279,7 @@ vdotu.vv       31..26=0x38 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vdot.vv        31..26=0x39 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vwsmaccu.vv    31..26=0x3c vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vwsmacc.vv     31..26=0x3d vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vwsmaccsu.vv   31..26=0x3e vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vwsmaccsu.vv   31..26=0x3f vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 
 # OPIVI
 vadd.vi        31..26=0x00 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
@@ -370,7 +370,7 @@ vwmulsu.vv     31..26=0x3a vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vwmul.vv       31..26=0x3b vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vwmaccu.vv     31..26=0x3c vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vwmacc.vv      31..26=0x3d vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vwmaccsu.vv    31..26=0x3e vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vwmaccsu.vv    31..26=0x3f vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 
 # OPMVX
 vmv.s.x        31..26=0x10 25=1 24..20=0 rs1 14..12=0x6 vd 6..0=0x57
@@ -403,8 +403,8 @@ vwmulsu.vx     31..26=0x3a vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmul.vx       31..26=0x3b vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmaccu.vx     31..26=0x3c vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmacc.vx      31..26=0x3d vm vs2 rs1 14..12=0x6 vd 6..0=0x57
-vwmaccsu.vx    31..26=0x3e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
-vwmaccus.vx    31..26=0x3f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+vwmaccus.vx    31..26=0x3e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+vwmaccsu.vx    31..26=0x3f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 
 # Zvamo
 vamoswapw.v    31..27=0x01 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
