@@ -327,7 +327,7 @@ vasub.vv       31..26=0x0b vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 
 vmv.x.s        31..26=0x10 25=1 vs2 19..15=0 14..12=0x2 vd 6..0=0x57
 
-vcompress.vm   31..26=0x17 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vcompress.vm   31..26=0x17 25=1 vs2 vs1 14..12=0x2 vd 6..0=0x57
 vmandnot.mm    31..26=0x18 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vmand.mm       31..26=0x19 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vmor.mm        31..26=0x1a vm vs2 vs1 14..12=0x2 vd 6..0=0x57
