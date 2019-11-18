@@ -118,6 +118,7 @@ csrs = [
   (0xC1F, 'hpmcounter31'),
   (0xC20, 'vl'),
   (0xC21, 'vtype'),
+  (0xC22, 'vlenb'),
 
   # Standard Supervisor R/W
   (0x100, 'sstatus'),
