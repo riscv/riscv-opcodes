@@ -225,10 +225,10 @@ vsrl.vx        31..26=0x28 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vsra.vx        31..26=0x29 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vssrl.vx       31..26=0x2a vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vssra.vx       31..26=0x2b vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vnsrl.vx       31..26=0x2c vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vnsra.vx       31..26=0x2d vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vnclipu.vx     31..26=0x2e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vnclip.vx      31..26=0x2f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vnsrl.wx       31..26=0x2c vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vnsra.wx       31..26=0x2d vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vnclipu.wx     31..26=0x2e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+vnclip.wx      31..26=0x2f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 
 vqmaccu.vx     31..26=0x3c vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vqmacc.vx      31..26=0x3d vm vs2 rs1 14..12=0x4 vd 6..0=0x57
@@ -270,10 +270,10 @@ vsrl.vv        31..26=0x28 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vsra.vv        31..26=0x29 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vssrl.vv       31..26=0x2a vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vssra.vv       31..26=0x2b vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vnsrl.vv       31..26=0x2c vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vnsra.vv       31..26=0x2d vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vnclipu.vv     31..26=0x2e vm vs2 rs1 14..12=0x0 vd 6..0=0x57
-vnclip.vv      31..26=0x2f vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vnsrl.wv       31..26=0x2c vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vnsra.wv       31..26=0x2d vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vnclipu.wv     31..26=0x2e vm vs2 rs1 14..12=0x0 vd 6..0=0x57
+vnclip.wv      31..26=0x2f vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 
 vwredsumu.vs   31..26=0x30 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
 vwredsum.vs    31..26=0x31 vm vs2 rs1 14..12=0x0 vd 6..0=0x57
@@ -312,10 +312,10 @@ vsrl.vi        31..26=0x28 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vsra.vi        31..26=0x29 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vssrl.vi       31..26=0x2a vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vssra.vi       31..26=0x2b vm vs2 simm5 14..12=0x3 vd 6..0=0x57
-vnsrl.vi       31..26=0x2c vm vs2 simm5 14..12=0x3 vd 6..0=0x57
-vnsra.vi       31..26=0x2d vm vs2 simm5 14..12=0x3 vd 6..0=0x57
-vnclipu.vi     31..26=0x2e vm vs2 simm5 14..12=0x3 vd 6..0=0x57
-vnclip.vi      31..26=0x2f vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vnsrl.wi       31..26=0x2c vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vnsra.wi       31..26=0x2d vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vnclipu.wi     31..26=0x2e vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vnclip.wi      31..26=0x2f vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 
 # OPMVV
 vredsum.vs     31..26=0x00 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
