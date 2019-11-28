@@ -1,0 +1,2 @@
+# vmv1r.v, vmv2r.v, vmv4r.v, vmv8r.v
+@vmvnfr.v     31..26=0x27 25=1 vs2 simm5 14..12=0x3 vd 6..0=0x57

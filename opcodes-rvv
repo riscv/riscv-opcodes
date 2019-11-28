@@ -308,6 +308,10 @@ vmsgt.vi       31..26=0x1f vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vsaddu.vi      31..26=0x20 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vsadd.vi       31..26=0x21 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vsll.vi        31..26=0x25 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
+vmv1r.v        31..26=0x27 25=1 vs2 19..15=0 14..12=0x3 vd 6..0=0x57
+vmv2r.v        31..26=0x27 25=1 vs2 19..15=1 14..12=0x3 vd 6..0=0x57
+vmv4r.v        31..26=0x27 25=1 vs2 19..15=3 14..12=0x3 vd 6..0=0x57
+vmv8r.v        31..26=0x27 25=1 vs2 19..15=7 14..12=0x3 vd 6..0=0x57
 vsrl.vi        31..26=0x28 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vsra.vi        31..26=0x29 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
 vssrl.vi       31..26=0x2a vm vs2 simm5 14..12=0x3 vd 6..0=0x57
