@@ -433,22 +433,12 @@ vamomaxw.v     31..27=0x14 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
 vamominuw.v    31..27=0x18 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
 vamomaxuw.v    31..27=0x1c wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
 
-vamoswapd.v    31..27=0x01 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamoaddd.v     31..27=0x00 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamoxord.v     31..27=0x04 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamoandd.v     31..27=0x0c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamoord.v      31..27=0x08 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamomind.v     31..27=0x10 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamomaxd.v     31..27=0x14 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamominud.v    31..27=0x18 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamomaxud.v    31..27=0x1c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-
-vamoswapq.v    31..27=0x01 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
-vamoaddq.v     31..27=0x00 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
-vamoxorq.v     31..27=0x04 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
-vamoandq.v     31..27=0x0c wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
-vamoorq.v      31..27=0x08 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
-vamominq.v     31..27=0x10 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
-vamomaxq.v     31..27=0x14 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
-vamominuq.v    31..27=0x18 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
-vamomaxuq.v    31..27=0x1c wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoswape.v    31..27=0x01 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoadde.v     31..27=0x00 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoxore.v     31..27=0x04 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoande.v     31..27=0x0c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoore.v      31..27=0x08 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomine.v     31..27=0x10 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomaxe.v     31..27=0x14 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamominue.v    31..27=0x18 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomaxue.v    31..27=0x1c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
