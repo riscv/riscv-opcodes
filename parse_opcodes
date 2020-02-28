@@ -175,6 +175,7 @@ csrs = [
   (0x304, 'mie'),
   (0x305, 'mtvec'),
   (0x306, 'mcounteren'),
+  (0x320, 'mcountinhibit'),
   (0x340, 'mscratch'),
   (0x341, 'mepc'),
   (0x342, 'mcause'),
