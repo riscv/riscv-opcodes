@@ -1,0 +1,6 @@
+# RV128C additions to RVC
+
+@c.lq      1..0=0 15..13=1 12=ignore 11..2=ignore # c.fld for RV32/64
+@c.sq      1..0=0 15..13=5 12=ignore 11..2=ignore # c.fsd for RV32/64
+@c.lqsp    1..0=2 15..13=1 12=ignore 11..2=ignore # c.fldsp for RV32/64
+@c.sqsp    1..0=2 15..13=5 12=ignore 11..2=ignore # c.fsdsp for RV32/64
