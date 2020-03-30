@@ -6,10 +6,11 @@ from builtins import range
 import math
 import sys
 import tokenize
+from collections import OrderedDict
 
 namelist = []
-match = {}
-mask = {}
+match = OrderedDict()
+mask = OrderedDict()
 pseudos = {}
 arguments = {}
 
