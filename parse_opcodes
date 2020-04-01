@@ -148,8 +148,16 @@ csrs = [
   (0x600, 'hstatus'),
   (0x602, 'hedeleg'),
   (0x603, 'hideleg'),
+  (0x604, 'hie'),
+  (0x605, 'htimedelta'),
   (0x606, 'hcounteren'),
+  (0x607, 'hgeie'),
+  (0x643, 'htval'),
+  (0x644, 'hip'),
+  (0x645, 'hvip'),
+  (0x64A, 'htinst'),
   (0x680, 'hgatp'),
+  (0xE12, 'hgeip'),
 
   # Tentative CSR assignment for CLIC
   (0x007, 'utvt'),
@@ -182,6 +190,8 @@ csrs = [
   (0x342, 'mcause'),
   (0x343, 'mtval'),
   (0x344, 'mip'),
+  (0x34a, 'mtinst'),
+  (0x34b, 'mtval2'),
   (0x3a0, 'pmpcfg0'),
   (0x3a1, 'pmpcfg1'),
   (0x3a2, 'pmpcfg2'),
@@ -208,7 +218,8 @@ csrs = [
   (0x7a3, 'tdata3'),
   (0x7b0, 'dcsr'),
   (0x7b1, 'dpc'),
-  (0x7b2, 'dscratch'),
+  (0x7b2, 'dscratch0'),
+  (0x7b3, 'dscratch1'),
   (0xB00, 'mcycle'),
   (0xB02, 'minstret'),
   (0xB03, 'mhpmcounter3'),
@@ -278,6 +289,9 @@ csrs = [
 ]
 
 csrs32 = [
+  # Standard Hypervisor R/w
+  (0x615, 'htimedeltah'),
+
   # Standard User RO
   (0xC80, 'cycleh'),
   (0xC81, 'timeh'),
@@ -313,6 +327,7 @@ csrs32 = [
   (0xC9F, 'hpmcounter31h'),
 
   # Standard Machine RW
+  (0x310, 'mstatush'),
   (0xB80, 'mcycleh'),
   (0xB82, 'minstreth'),
   (0xB83, 'mhpmcounter3h'),
