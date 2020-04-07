@@ -33,8 +33,9 @@ arglut['bimm12hi'] = (31,25)
 arglut['imm12lo'] = (11,7)
 arglut['bimm12lo'] = (11,7)
 arglut['zimm'] = (19,15)
-arglut['shamt'] = (25,20)
+arglut['shamt'] = (26,20)
 arglut['shamtw'] = (24,20)
+arglut['shamtd'] = (25,20)
 
 # for vectors
 arglut['vd'] = (11,7)
@@ -547,7 +548,7 @@ def print_ish_type(name,match,arguments):
 \\cline{2-11}
   """ % \
   ( \
-    binary(yank(match,26,6),6), \
+    binary(yank(match,27,5),5), \
     str_arg('shamt','shamt',match,arguments), \
     str_arg('rs1','',match,arguments), \
     binary(yank(match,funct_base,funct_size),funct_size), \
@@ -570,6 +571,27 @@ def print_ishw_type(name,match,arguments):
   ( \
     binary(yank(match,25,7),7), \
     str_arg('shamtw','shamt',match,arguments), \
+    str_arg('rs1','',match,arguments), \
+    binary(yank(match,funct_base,funct_size),funct_size), \
+    str_arg('rd','',match,arguments), \
+    binary(yank(match,opcode_base,opcode_size),opcode_size), \
+    str_inst(name,arguments) \
+  ))
+
+def print_ishd_type(name,match,arguments):
+  print("""
+&
+\\multicolumn{4}{|c|}{%s} &
+\\multicolumn{2}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} & %s \\\\
+\\cline{2-11}
+  """ % \
+  ( \
+    binary(yank(match,26,6),6), \
+    str_arg('shamtd','shamt',match,arguments), \
     str_arg('rs1','',match,arguments), \
     binary(yank(match,funct_base,funct_size),funct_size), \
     str_arg('rd','',match,arguments), \
@@ -788,6 +810,8 @@ def print_inst(n):
     print_ish_type(n, match[n], arguments[n])
   elif 'shamtw' in arguments[n]:
     print_ishw_type(n, match[n], arguments[n])
+  elif 'shamtd' in arguments[n]:
+    print_ishd_type(n, match[n], arguments[n])
   elif 'imm20' in arguments[n]:
     print_u_type(n, match[n], arguments[n])
   elif 'jimm20' in arguments[n]:
