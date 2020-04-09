@@ -34,8 +34,9 @@ arglut['bimm12hi'] = (31,25)
 arglut['imm12lo'] = (11,7)
 arglut['bimm12lo'] = (11,7)
 arglut['zimm'] = (19,15)
-arglut['shamt'] = (25,20)
+arglut['shamt'] = (26,20)
 arglut['shamtw'] = (24,20)
+arglut['shamtd'] = (25,20)
 arglut['bs'] = (31,30) # byte select for RV32K AES
 arglut['rnum'] = (23,20) # round constant for RV64 AES
 arglut['rc'] = (29,25)
@@ -426,7 +427,7 @@ def str_arg(arg0,name,match,arguments):
     return binary(yank(match,start,len),len)
 
 def str_inst(name,arguments):
-  return name.replace('.rv32','').upper()
+  return name.replace('.rv32','').replace('.rv64', '').upper()
 
 def print_unimp_type(name,match,arguments):
   print("""
@@ -561,7 +562,7 @@ def print_ish_type(name,match,arguments):
 \\cline{2-11}
   """ % \
   ( \
-    binary(yank(match,26,6),6), \
+    binary(yank(match,27,5),5), \
     str_arg('shamt','shamt',match,arguments), \
     str_arg('rs1','',match,arguments), \
     binary(yank(match,funct_base,funct_size),funct_size), \
@@ -584,6 +585,27 @@ def print_ishw_type(name,match,arguments):
   ( \
     binary(yank(match,25,7),7), \
     str_arg('shamtw','shamt',match,arguments), \
+    str_arg('rs1','',match,arguments), \
+    binary(yank(match,funct_base,funct_size),funct_size), \
+    str_arg('rd','',match,arguments), \
+    binary(yank(match,opcode_base,opcode_size),opcode_size), \
+    str_inst(name,arguments) \
+  ))
+
+def print_ishd_type(name,match,arguments):
+  print("""
+&
+\\multicolumn{3}{|c|}{%s} &
+\\multicolumn{3}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} &
+\\multicolumn{1}{c|}{%s} & %s \\\\
+\\cline{2-11}
+  """ % \
+  ( \
+    binary(yank(match,26,6),6), \
+    str_arg('shamtd','shamt',match,arguments), \
     str_arg('rs1','',match,arguments), \
     binary(yank(match,funct_base,funct_size),funct_size), \
     str_arg('rd','',match,arguments), \
@@ -802,6 +824,8 @@ def print_inst(n):
     print_ish_type(n, match[n], arguments[n])
   elif 'shamtw' in arguments[n]:
     print_ishw_type(n, match[n], arguments[n])
+  elif 'shamtd' in arguments[n]:
+    print_ishd_type(n, match[n], arguments[n])
   elif 'imm20' in arguments[n]:
     print_u_type(n, match[n], arguments[n])
   elif 'jimm20' in arguments[n]:
@@ -857,7 +881,7 @@ def make_latex_table():
   print_header('r','a','i','s')
   print_subtitle('RV64I Base Instruction Set (in addition to RV32I)')
   print_insts('lwu', 'ld', 'sd')
-  print_insts('slli', 'srli', 'srai')
+  print_insts('slli.rv64', 'srli.rv64', 'srai.rv64')
   print_insts('addiw', 'slliw', 'srliw', 'sraiw')
   print_insts('addw', 'subw', 'sllw', 'srlw', 'sraw')
   print_subtitle('RV32/RV64 \emph{Zifencei} Standard Extension')
