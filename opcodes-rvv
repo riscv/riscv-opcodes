@@ -428,22 +428,42 @@ vwmaccus.vx    31..26=0x3e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmaccsu.vx    31..26=0x3f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 
 # Zvamo
-vamoswapw.v    31..27=0x01 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
-vamoaddw.v     31..27=0x00 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
-vamoxorw.v     31..27=0x04 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
-vamoandw.v     31..27=0x0c wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
-vamoorw.v      31..27=0x08 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
-vamominw.v     31..27=0x10 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
-vamomaxw.v     31..27=0x14 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
-vamominuw.v    31..27=0x18 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
-vamomaxuw.v    31..27=0x1c wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoswapei8.v  31..27=0x01 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoaddei8.v   31..27=0x00 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoxorei8.v   31..27=0x04 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoandei8.v   31..27=0x0c wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamoorei8.v    31..27=0x08 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamominei8.v   31..27=0x10 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamomaxei8.v   31..27=0x14 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamominuei8.v  31..27=0x18 wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
+vamomaxuei8.v  31..27=0x1c wd vm vs2 rs1 14..12=0x0 vd 6..0=0x2f
 
-vamoswape.v    31..27=0x01 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamoadde.v     31..27=0x00 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamoxore.v     31..27=0x04 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamoande.v     31..27=0x0c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamoore.v      31..27=0x08 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamomine.v     31..27=0x10 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamomaxe.v     31..27=0x14 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamominue.v    31..27=0x18 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
-vamomaxue.v    31..27=0x1c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoswapei16.v 31..27=0x01 wd vm vs2 rs1 14..12=0x5 vd 6..0=0x2f
+vamoaddei16.v  31..27=0x00 wd vm vs2 rs1 14..12=0x5 vd 6..0=0x2f
+vamoxorei16.v  31..27=0x04 wd vm vs2 rs1 14..12=0x5 vd 6..0=0x2f
+vamoandei16.v  31..27=0x0c wd vm vs2 rs1 14..12=0x5 vd 6..0=0x2f
+vamoorei16.v   31..27=0x08 wd vm vs2 rs1 14..12=0x5 vd 6..0=0x2f
+vamominei16.v  31..27=0x10 wd vm vs2 rs1 14..12=0x5 vd 6..0=0x2f
+vamomaxei16.v  31..27=0x14 wd vm vs2 rs1 14..12=0x5 vd 6..0=0x2f
+vamominuei16.v 31..27=0x18 wd vm vs2 rs1 14..12=0x5 vd 6..0=0x2f
+vamomaxuei16.v 31..27=0x1c wd vm vs2 rs1 14..12=0x5 vd 6..0=0x2f
+
+vamoswapei32.v 31..27=0x01 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoaddei32.v  31..27=0x00 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoxorei32.v  31..27=0x04 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoandei32.v  31..27=0x0c wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamoorei32.v   31..27=0x08 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamominei32.v  31..27=0x10 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamomaxei32.v  31..27=0x14 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamominuei32.v 31..27=0x18 wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+vamomaxuei32.v 31..27=0x1c wd vm vs2 rs1 14..12=0x6 vd 6..0=0x2f
+
+vamoswapei64.v 31..27=0x01 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoaddei64.v  31..27=0x00 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoxorei64.v  31..27=0x04 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoandei64.v  31..27=0x0c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamoorei64.v   31..27=0x08 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamominei64.v  31..27=0x10 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomaxei64.v  31..27=0x14 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamominuei64.v 31..27=0x18 wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
+vamomaxuei64.v 31..27=0x1c wd vm vs2 rs1 14..12=0x7 vd 6..0=0x2f
