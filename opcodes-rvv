@@ -17,60 +17,48 @@ vsetvl       31=1 30..25=0x0 rs2 rs1 14..12=0x7 rd 6..0=0x57
 #
 # Vector Unit-Stride Instructions (including segment part)
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#74-vector-unit-stride-instructions
-vlb.v          nf 28..26=4 vm 24..20=0 rs1 14..12=0x0 vd  6..0=0x07
-vlh.v          nf 28..26=4 vm 24..20=0 rs1 14..12=0x5 vd  6..0=0x07
-vlw.v          nf 28..26=4 vm 24..20=0 rs1 14..12=0x6 vd  6..0=0x07
-vle.v          nf 28..26=0 vm 24..20=0 rs1 14..12=0x7 vd  6..0=0x07
-vlbu.v         nf 28..26=0 vm 24..20=0 rs1 14..12=0x0 vd  6..0=0x07
-vlhu.v         nf 28..26=0 vm 24..20=0 rs1 14..12=0x5 vd  6..0=0x07
-vlwu.v         nf 28..26=0 vm 24..20=0 rs1 14..12=0x6 vd  6..0=0x07
-vsb.v          nf 28..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
-vsh.v          nf 28..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
-vsw.v          nf 28..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
-vse.v          nf 28..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
+vle8.v         nf 28..26=0 vm 24..20=0 rs1 14..12=0x0 vd  6..0=0x07
+vle16.v        nf 28..26=0 vm 24..20=0 rs1 14..12=0x5 vd  6..0=0x07
+vle32.v        nf 28..26=0 vm 24..20=0 rs1 14..12=0x6 vd  6..0=0x07
+vle64.v        nf 28..26=0 vm 24..20=0 rs1 14..12=0x7 vd  6..0=0x07
+vse8.v         nf 28..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
+vse16.v        nf 28..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
+vse32.v        nf 28..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
+vse64.v        nf 28..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Vector Strided Instructions (including segment part)
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#75-vector-strided-instructions
-vlsb.v         nf 28..26=6 vm rs2 rs1 14..12=0x0 vd  6..0=0x07
-vlsh.v         nf 28..26=6 vm rs2 rs1 14..12=0x5 vd  6..0=0x07
-vlsw.v         nf 28..26=6 vm rs2 rs1 14..12=0x6 vd  6..0=0x07
-vlse.v         nf 28..26=2 vm rs2 rs1 14..12=0x7 vd  6..0=0x07
-vlsbu.v        nf 28..26=2 vm rs2 rs1 14..12=0x0 vd  6..0=0x07
-vlshu.v        nf 28..26=2 vm rs2 rs1 14..12=0x5 vd  6..0=0x07
-vlswu.v        nf 28..26=2 vm rs2 rs1 14..12=0x6 vd  6..0=0x07
-vssb.v         nf 28..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
-vssh.v         nf 28..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
-vssw.v         nf 28..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
-vsse.v         nf 28..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
+vlse8.v        nf 28..26=2 vm rs2 rs1 14..12=0x0 vd  6..0=0x07
+vlse16.v       nf 28..26=2 vm rs2 rs1 14..12=0x5 vd  6..0=0x07
+vlse32.v       nf 28..26=2 vm rs2 rs1 14..12=0x6 vd  6..0=0x07
+vlse64.v       nf 28..26=2 vm rs2 rs1 14..12=0x7 vd  6..0=0x07
+vsse8.v        nf 28..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsse16.v       nf 28..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsse32.v       nf 28..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsse64.v       nf 28..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Vector Indexed Instructions (including segment part)
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#76-vector-indexed-instructions
-vlxb.v         nf 28..26=7 vm vs2 rs1 14..12=0x0 vd  6..0=0x07
-vlxh.v         nf 28..26=7 vm vs2 rs1 14..12=0x5 vd  6..0=0x07
-vlxw.v         nf 28..26=7 vm vs2 rs1 14..12=0x6 vd  6..0=0x07
-vlxe.v         nf 28..26=3 vm vs2 rs1 14..12=0x7 vd  6..0=0x07
-vlxbu.v        nf 28..26=3 vm vs2 rs1 14..12=0x0 vd  6..0=0x07
-vlxhu.v        nf 28..26=3 vm vs2 rs1 14..12=0x5 vd  6..0=0x07
-vlxwu.v        nf 28..26=3 vm vs2 rs1 14..12=0x6 vd  6..0=0x07
-vsxb.v         nf 28..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
-vsxh.v         nf 28..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
-vsxw.v         nf 28..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
-vsxe.v         nf 28..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vlxei8.v       nf 28..26=3 vm vs2 rs1 14..12=0x0 vd  6..0=0x07
+vlxei16.v      nf 28..26=3 vm vs2 rs1 14..12=0x5 vd  6..0=0x07
+vlxei32.v      nf 28..26=3 vm vs2 rs1 14..12=0x6 vd  6..0=0x07
+vlxei64.v      nf 28..26=3 vm vs2 rs1 14..12=0x7 vd  6..0=0x07
+vsxei8.v       nf 28..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsxei16.v      nf 28..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsxei32.v      nf 28..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsxei64.v      nf 28..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 
-vsuxb.v        31..29=0 28..26=7 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
-vsuxh.v        31..29=0 28..26=7 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
-vsuxw.v        31..29=0 28..26=7 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
-vsuxe.v        31..29=0 28..26=7 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsuxei8.v      31..29=0 28..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsuxei16.v     31..29=0 28..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsuxei32.v     31..29=0 28..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsuxei64.v     31..29=0 28..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Unit-stride F31..29=0ault-Only-First Loads
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#77-unit-stride-fault-only-first-loads
-vlbff.v        nf 28..26=4 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
-vlhff.v        nf 28..26=4 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
-vlwff.v        nf 28..26=4 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
-vleff.v        nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x7 vd  6..0=0x07
-vlbuff.v       nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
-vlhuff.v       nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
-vlwuff.v       nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
+vle8ff.v       nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x0 vd  6..0=0x07
+vle16ff.v      nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x5 vd  6..0=0x07
+vle32ff.v      nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
+vle64ff.v      nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x7 vd  6..0=0x07
 
 # Vector Load/Store Whole Registers
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#74-vector-unit-stride-instructions
