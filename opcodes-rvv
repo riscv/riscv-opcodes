@@ -61,7 +61,7 @@ vle32ff.v      nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x6 vd  6..0=0x07
 vle64ff.v      nf 28..26=0 vm 24..20=0x10 rs1 14..12=0x7 vd  6..0=0x07
 
 # Vector Load/Store Whole Registers
-# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#74-vector-unit-stride-instructions
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#79-vector-loadstore-whole-register-instructions
 vl1re8.v       31..29=0 28=0 27..26=0 25=1 24..20=0x08 rs1 14..12=0x0 vd  6..0=0x07
 vl1re16.v      31..29=0 28=0 27..26=0 25=1 24..20=0x08 rs1 14..12=0x5 vd  6..0=0x07
 vl1re32.v      31..29=0 28=0 27..26=0 25=1 24..20=0x08 rs1 14..12=0x6 vd  6..0=0x07
