@@ -60,11 +60,15 @@ causes = [
   (0x07, 'store access'),
   (0x08, 'user_ecall'),
   (0x09, 'supervisor_ecall'),
-  (0x0A, 'hypervisor_ecall'),
+  (0x0A, 'virtual_supervisor_ecall'),
   (0x0B, 'machine_ecall'),
   (0x0C, 'fetch page fault'),
   (0x0D, 'load page fault'),
   (0x0F, 'store page fault'),
+  (0x14, 'fetch guest page fault'),
+  (0x15, 'load guest page fault'),
+  (0x16, 'virtual instruction'),
+  (0x17, 'store guest page fault'),
 ]
 
 csrs = [
