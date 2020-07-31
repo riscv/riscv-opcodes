@@ -25,6 +25,8 @@
 #define MSTATUS32_SD        0x80000000
 #define MSTATUS_UXL         0x0000000300000000
 #define MSTATUS_SXL         0x0000000C00000000
+#define MSTATUS_GVA         0x0000004000000000
+#define MSTATUS_MPV         0x0000008000000000
 #define MSTATUS64_SD        0x8000000000000000
 
 #define SSTATUS_UIE         0x00000001
@@ -40,6 +42,21 @@
 #define SSTATUS32_SD        0x80000000
 #define SSTATUS_UXL         0x0000000300000000
 #define SSTATUS64_SD        0x8000000000000000
+
+#define SSTATUS_VS_MASK     (SSTATUS_SIE | SSTATUS_SPIE | \
+                             SSTATUS_SPP | SSTATUS_SUM | \
+                             SSTATUS_MXR | SSTATUS_UXL)
+
+#define HSTATUS_VSXL        0x300000000
+#define HSTATUS_VTSR        0x00400000
+#define HSTATUS_VTW         0x00200000
+#define HSTATUS_VTVM        0x00100000
+#define HSTATUS_VGEIN       0x0003f000
+#define HSTATUS_HU          0x00000200
+#define HSTATUS_SPVP        0x00000100
+#define HSTATUS_SPV         0x00000080
+#define HSTATUS_GVA         0x00000040
+#define HSTATUS_VSBE        0x00000020
 
 #define USTATUS_UIE         0x00000001
 #define USTATUS_UPIE        0x00000010
@@ -102,24 +119,32 @@
 
 #define MIP_USIP            (1 << IRQ_U_SOFT)
 #define MIP_SSIP            (1 << IRQ_S_SOFT)
-#define MIP_HSIP            (1 << IRQ_H_SOFT)
+#define MIP_VSSIP           (1 << IRQ_VS_SOFT)
 #define MIP_MSIP            (1 << IRQ_M_SOFT)
 #define MIP_UTIP            (1 << IRQ_U_TIMER)
 #define MIP_STIP            (1 << IRQ_S_TIMER)
-#define MIP_HTIP            (1 << IRQ_H_TIMER)
+#define MIP_VSTIP           (1 << IRQ_VS_TIMER)
 #define MIP_MTIP            (1 << IRQ_M_TIMER)
 #define MIP_UEIP            (1 << IRQ_U_EXT)
 #define MIP_SEIP            (1 << IRQ_S_EXT)
-#define MIP_HEIP            (1 << IRQ_H_EXT)
+#define MIP_VSEIP           (1 << IRQ_VS_EXT)
 #define MIP_MEIP            (1 << IRQ_M_EXT)
+#define MIP_SGEIP           (1 << IRQ_S_GEXT)
+
+#define MIP_S_MASK          (MIP_SSIP | MIP_STIP | MIP_SEIP)
+#define MIP_VS_MASK         (MIP_VSSIP | MIP_VSTIP | MIP_VSEIP)
+#define MIP_HS_MASK         (MIP_VS_MASK | MIP_SGEIP)
+
+#define MIDELEG_FORCED_MASK MIP_HS_MASK
 
 #define SIP_SSIP MIP_SSIP
 #define SIP_STIP MIP_STIP
 
 #define PRV_U 0
 #define PRV_S 1
-#define PRV_H 2
 #define PRV_M 3
+
+#define PRV_HS (PRV_S + 1)
 
 #define SATP32_MODE 0x80000000
 #define SATP32_ASID 0x7FC00000
@@ -135,6 +160,19 @@
 #define SATP_MODE_SV57 10
 #define SATP_MODE_SV64 11
 
+#define HGATP32_MODE 0x80000000
+#define HGATP32_VMID 0x1FC00000
+#define HGATP32_PPN 0x003FFFFF
+
+#define HGATP64_MODE 0xF000000000000000
+#define HGATP64_VMID 0x03FFF00000000000
+#define HGATP64_PPN 0x00000FFFFFFFFFFF
+
+#define HGATP_MODE_OFF 0
+#define HGATP_MODE_SV32X4 1
+#define HGATP_MODE_SV39X4 8
+#define HGATP_MODE_SV48X4 9
+
 #define PMP_R     0x01
 #define PMP_W     0x02
 #define PMP_X     0x04
@@ -148,16 +186,17 @@
 
 #define IRQ_U_SOFT   0
 #define IRQ_S_SOFT   1
-#define IRQ_H_SOFT   2
+#define IRQ_VS_SOFT  2
 #define IRQ_M_SOFT   3
 #define IRQ_U_TIMER  4
 #define IRQ_S_TIMER  5
-#define IRQ_H_TIMER  6
+#define IRQ_VS_TIMER 6
 #define IRQ_M_TIMER  7
 #define IRQ_U_EXT    8
 #define IRQ_S_EXT    9
-#define IRQ_H_EXT    10
+#define IRQ_VS_EXT   10
 #define IRQ_M_EXT    11
+#define IRQ_S_GEXT   12
 #define IRQ_COP      12
 #define IRQ_HOST     13
 
