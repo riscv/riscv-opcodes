@@ -278,11 +278,6 @@ vnsra.wx       31..26=0x2d vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vnclipu.wx     31..26=0x2e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vnclip.wx      31..26=0x2f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 
-vqmaccu.vx     31..26=0x3c vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vqmacc.vx      31..26=0x3d vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vqmaccus.vx    31..26=0x3e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-vqmaccsu.vx    31..26=0x3f vm vs2 rs1 14..12=0x4 vd 6..0=0x57
-
 # OPIVV
 vadd.vv         31..26=0x00 vm vs2 vs1 14..12=0x0 vd 6..0=0x57
 vsub.vv         31..26=0x02 vm vs2 vs1 14..12=0x0 vd 6..0=0x57
