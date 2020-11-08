@@ -27,6 +27,9 @@ inst.chisel: $(ALL_OPCODES) parse_opcodes
 inst.go: $(ALL_REAL_ILEN32_OPCODES) parse_opcodes
 	cat $(ALL_REAL_ILEN32_OPCODES) | ./parse_opcodes -go > $@
 
+inst.rs: $(ALL_OPCODES) parse_opcodes
+	cat $(ALL_OPCODES) | ./parse_opcodes -rust > $@
+
 inst.sverilog: $(ALL_OPCODES) parse_opcodes
 	cat $(ALL_OPCODES) | ./parse_opcodes -sverilog > $@
 
