@@ -38,6 +38,12 @@ arglut['shamt'] = (25,20)
 arglut['shamtw'] = (24,20)
 arglut['bs'] = (31,30) # byte select for RV32K AES
 arglut['rnum'] = (23,20) # round constant for RV64 AES
+arglut['rc'] = (29,25)
+arglut['imm2'] = (21,20)
+arglut['imm3'] = (22,20)
+arglut['imm4'] = (23,20)
+arglut['imm5'] = (24,20)
+arglut['imm6'] = (25,20)
 
 # for vectors
 arglut['vd'] = (11,7)
@@ -294,6 +300,9 @@ csrs = [
   (0x33D, 'mhpmevent29'),
   (0x33E, 'mhpmevent30'),
   (0x33F, 'mhpmevent31'),
+  
+  # rvp
+  (0x801, 'ucode'),
 
   # Standard Machine RO
   (0xF11, 'mvendorid'),
