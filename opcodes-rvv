@@ -34,6 +34,25 @@ vse256.v       nf 28=1 27..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
 vse512.v       nf 28=1 27..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
 vse1024.v      nf 28=1 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
 
+# Vector Indexed-Unordered Instructions (including segment part)
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#76-vector-indexed-instructions
+vluxei8.v      nf 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vluxei16.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vluxei32.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vluxei64.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vluxei128.v    nf 28=1 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vluxei256.v    nf 28=1 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vluxei512.v    nf 28=1 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vluxei1024.v   nf 28=1 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vsuxei8.v      nf 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsuxei16.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsuxei32.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsuxei64.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsuxei128.v    nf 28=1 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsuxei256.v    nf 28=1 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsuxei512.v    nf 28=1 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsuxei1024.v   nf 28=1 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+
 # Vector Strided Instructions (including segment part)
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#75-vector-strided-instructions
 vlse8.v         nf 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
@@ -53,33 +72,24 @@ vsse256.v       nf 28=1 27..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
 vsse512.v       nf 28=1 27..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
 vsse1024.v      nf 28=1 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
 
-# Vector Indexed Instructions (including segment part)
+# Vector Indexed-Ordered Instructions (including segment part)
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#76-vector-indexed-instructions
-vlxei8.v         nf 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
-vlxei16.v        nf 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
-vlxei32.v        nf 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
-vlxei64.v        nf 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
-vlxei128.v       nf 28=1 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
-vlxei256.v       nf 28=1 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
-vlxei512.v       nf 28=1 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
-vlxei1024.v      nf 28=1 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
-vsxei8.v         nf 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
-vsxei16.v        nf 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
-vsxei32.v        nf 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
-vsxei64.v        nf 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
-vsxei128.v       nf 28=1 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
-vsxei256.v       nf 28=1 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
-vsxei512.v       nf 28=1 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
-vsxei1024.v      nf 28=1 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
-
-vsuxei8.v        nf 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
-vsuxei16.v       nf 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
-vsuxei32.v       nf 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
-vsuxei64.v       nf 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
-vsuxei128.v      nf 28=1 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
-vsuxei256.v      nf 28=1 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
-vsuxei512.v      nf 28=1 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
-vsuxei1024.v     nf 28=1 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vloxei8.v        nf 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vloxei16.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vloxei32.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vloxei64.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vloxei128.v      nf 28=1 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vloxei256.v      nf 28=1 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vloxei512.v      nf 28=1 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vloxei1024.v     nf 28=1 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vsoxei8.v        nf 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsoxei16.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsoxei32.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsoxei64.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsoxei128.v      nf 28=1 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsoxei256.v      nf 28=1 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsoxei512.v      nf 28=1 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsoxei1024.v     nf 28=1 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Unit-stride F31..29=0ault-Only-First Loads
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#77-unit-stride-fault-only-first-loads
