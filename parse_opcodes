@@ -300,9 +300,6 @@ csrs = [
   (0x33D, 'mhpmevent29'),
   (0x33E, 'mhpmevent30'),
   (0x33F, 'mhpmevent31'),
-  
-  # rvp
-  (0x801, 'ucode'),
 
   # Standard Machine RO
   (0xF11, 'mvendorid'),
