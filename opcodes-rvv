@@ -17,6 +17,8 @@ vsetvl       31=1 30..25=0x0 rs2 rs1 14..12=0x7 rd 6..0=0x57
 #
 # Vector Unit-Stride Instructions (including segment part)
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#74-vector-unit-stride-instructions
+vle1.v         31..28=0 27..26=0 25=1 24..20=0xb rs1 14..12=0x0  vd 6..0=0x07
+vse1.v         31..28=0 27..26=0 25=1 24..20=0xb rs1 14..12=0x0 vs3 6..0=0x27
 vle8.v         nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
 vle16.v        nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5  vd 6..0=0x07
 vle32.v        nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6  vd 6..0=0x07
