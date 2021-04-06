@@ -853,7 +853,7 @@ def print_footer(caption=''):
   """ % caption)
 
 def print_inst(n):
-  if n == 'fence':
+  if n == 'fence' or n == 'fence.tso' or n == 'pause':
     print_fence_type(n, match[n], arguments[n])
   elif 'aqrl' in arguments[n]:
     print_amo_type(n, match[n], arguments[n])
@@ -903,7 +903,7 @@ def make_latex_table():
   print_insts('lb', 'lh', 'lw', 'lbu', 'lhu', 'sb', 'sh', 'sw')
   print_insts('addi', 'slti', 'sltiu', 'xori', 'ori', 'andi', 'slli.rv32', 'srli.rv32', 'srai.rv32')
   print_insts('add', 'sub', 'sll', 'slt', 'sltu', 'xor', 'srl', 'sra', 'or', 'and')
-  print_insts('fence')
+  print_insts('fence', 'fence.tso', 'pause')
   print_insts('ecall', 'ebreak')
   print_footer()
 
