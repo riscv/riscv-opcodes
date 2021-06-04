@@ -37,7 +37,7 @@ arglut['zimm'] = (19,15)
 arglut['shamt'] = (25,20)
 arglut['shamtw'] = (24,20)
 arglut['bs'] = (31,30) # byte select for RV32K AES
-arglut['rcon'] = (23,20) # round constant for RV64 AES
+arglut['rnum'] = (23,20) # round constant for RV64 AES
 
 # for vectors
 arglut['vd'] = (11,7)
