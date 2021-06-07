@@ -887,7 +887,7 @@ def make_supervisor_latex_table():
   print_subtitle('Trap-Return Instructions')
   print_insts('uret', 'sret', 'mret')
   print_subtitle('Interrupt-Management Instructions')
-  print_insts('wfi')
+  print_insts('wfi', 'wfmi')
   print_subtitle('Supervisor Memory-Management Instructions')
   print_insts('sfence.vma')
   print_subtitle('Hypervisor Memory-Management Instructions')
