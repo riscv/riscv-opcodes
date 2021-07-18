@@ -893,6 +893,12 @@ def make_supervisor_latex_table():
   print_subtitle('Hypervisor Memory-Management Instructions')
   print_insts('hfence.vvma')
   print_insts('hfence.gvma')
+  print_subtitle('Svinval Memory-Management Instructions')
+  print_insts('sinval.vma')
+  print_insts('sfence.w.inval')
+  print_insts('sfence.inval.ir')
+  print_insts('hinval.vvma')
+  print_insts('hinval.gvma')
   print_footer('\\caption{RISC-V Privileged Instructions}')
 
 def make_latex_table():
