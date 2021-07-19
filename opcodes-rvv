@@ -240,7 +240,6 @@ vfwredosum.vs  31..26=0x33 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfwadd.wv      31..26=0x34 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfwsub.wv      31..26=0x36 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfwmul.vv      31..26=0x38 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
-vfdot.vv       31..26=0x39 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfwmacc.vv     31..26=0x3c vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfwnmacc.vv    31..26=0x3d vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfwmsac.vv     31..26=0x3e vm vs2 vs1 14..12=0x1 vd 6..0=0x57
@@ -338,12 +337,6 @@ vnclip.wv      31..26=0x2f vm vs2 vs1 14..12=0x0 vd 6..0=0x57
 
 vwredsumu.vs   31..26=0x30 vm vs2 vs1 14..12=0x0 vd 6..0=0x57
 vwredsum.vs    31..26=0x31 vm vs2 vs1 14..12=0x0 vd 6..0=0x57
-vdotu.vv       31..26=0x38 vm vs2 vs1 14..12=0x0 vd 6..0=0x57
-vdot.vv        31..26=0x39 vm vs2 vs1 14..12=0x0 vd 6..0=0x57
-
-vqmaccu.vv     31..26=0x3c vm vs2 vs1 14..12=0x0 vd 6..0=0x57
-vqmacc.vv      31..26=0x3d vm vs2 vs1 14..12=0x0 vd 6..0=0x57
-vqmaccsu.vv    31..26=0x3f vm vs2 vs1 14..12=0x0 vd 6..0=0x57
 
 # OPIVI
 vadd.vi        31..26=0x00 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
