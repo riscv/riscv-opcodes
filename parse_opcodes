@@ -58,10 +58,6 @@ arglut['zimm11'] = (30,20)
 
 # Instructions which are _only_ in RV32
 rv32_only = [
-    "aes32esmi",
-    "aes32esi",
-    "aes32dsmi",
-    "aes32dsi",
     "sha512sum0r",
     "sha512sum1r",
     "sha512sig0l",
@@ -75,10 +71,6 @@ rv64_only = [
     "aes64ks1i",
     "aes64im",
     "aes64ks2",
-    "aes64esm",
-    "aes64es",
-    "aes64dsm",
-    "aes64ds",
     "sha512sum0",
     "sha512sum1",
     "sha512sig0",
