@@ -53,44 +53,6 @@ arglut['zimm10'] = (29,20)
 arglut['zimm11'] = (30,20)
 
 #
-# These lists allow instructions which only appear in either the RV32 or
-# RV64 base architectures to overlap their opcodes.
-
-# Instructions which are _only_ in RV32
-rv32_only = [
-    "sha512sum0r",
-    "sha512sum1r",
-    "sha512sig0l",
-    "sha512sig0h",
-    "sha512sig1l",
-    "sha512sig1h"
-]
-
-# Instructions which are _only_ in RV64
-rv64_only = [
-    "aes64ks1i",
-    "aes64im",
-    "aes64ks2",
-    "sha512sum0",
-    "sha512sum1",
-    "sha512sig0",
-    "sha512sig1"
-]
-
-# Check rv32_only and rv64_only don't have shared elements.
-for a in rv32_only:
-    assert (not a in rv64_only), ("Instruction '%s' marked as both RV32 only, and RV64 only." % a)
-
-def different_base_isa(name1, name2):
-    """
-    Check if the two supplied instructions are mutually exclusive on
-    the base ISA they depend on. That is, they can never both be decoded
-    under the same XLEN.
-    """
-    return (name1 in rv32_only) and (name2 in rv64_only) or \
-           (name2 in rv32_only) and (name1 in rv64_only)
-
-#
 # Trap cause codes
 causes = [
   (0x00, 'misaligned fetch'),
@@ -442,17 +404,6 @@ def make_c(match,mask):
   for name in namelist:
     name2 = name.replace('.','_')
     print('DECLARE_INSN(%s, MATCH_%s, MASK_%s)' % (name2, name2.upper(), name2.upper()))
-  print("#ifdef DECLARE_RV32_ONLY")
-  for name in namelist:
-    if name in rv32_only:
-      print("DECLARE_RV32_ONLY(%s)" % name)
-  print("#endif") #ifdef DECLARE_RV32_ONLY
-
-  print("#ifdef DECLARE_RV64_ONLY")
-  for name in namelist:
-    if name in rv64_only:
-      print("DECLARE_RV64_ONLY(%s)" % name)
-  print("#endif") # #ifdef DECLARE_RV64_ONLY
   print('#endif') # #ifdef DECLARE_INSN
 
   print('#ifdef DECLARE_CSR')
@@ -1162,11 +1113,6 @@ def parse_inputs(args):
       else:
         for name2,match2 in match.items():
           if name2 not in pseudos and (match2 & mymask) == mymatch:
-            if(different_base_isa(name, name2)):
-              # The instructions cannot collide, as they exist under
-              # different base ISAs.
-              continue
-            else:
               sys.exit("%s and %s overlap" % (name,name2))
 
       mask[name] = mymask
