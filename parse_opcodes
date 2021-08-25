@@ -87,18 +87,10 @@ csrs = [
   (0x001, 'fflags'),
   (0x002, 'frm'),
   (0x003, 'fcsr'),
-  (0x000, 'ustatus'),
-  (0x004, 'uie'),
-  (0x005, 'utvec'),
   (0x008, 'vstart'),
   (0x009, 'vxsat'),
   (0x00A, 'vxrm'),
   (0x00F, 'vcsr'),
-  (0x040, 'uscratch'),
-  (0x041, 'uepc'),
-  (0x042, 'ucause'),
-  (0x043, 'utval'),
-  (0x044, 'uip'),
 
   # Standard User RO
   (0xC00, 'cycle'),
@@ -834,7 +826,7 @@ def print_insts(*names):
 def make_supervisor_latex_table():
   print_header('r', 'i')
   print_subtitle('Trap-Return Instructions')
-  print_insts('uret', 'sret', 'mret')
+  print_insts('sret', 'mret')
   print_subtitle('Interrupt-Management Instructions')
   print_insts('wfi')
   print_subtitle('Supervisor Memory-Management Instructions')
