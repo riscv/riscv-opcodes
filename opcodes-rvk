@@ -5,10 +5,6 @@
 # These instructions appear in _both_ RV32 and RV64.
 # ------------------------------------------------------------
 
-# Poll Entropy / Get Noise Pseudo Instructions
-@pollentropy  rd 19..15=0 31..20=0xF15 14..12=0 6..0=0b1110011
-@getnoise     rd 19..15=0 31..20=0x7A9 14..12=0 6..0=0b1110011
-
 # Scalar SM4 - RV32, RV64
 sm4ed         rd rs1 rs2 bs 29..25=0b11000 14..12=0 6..0=0x33
 sm4ks         rd rs1 rs2 bs 29..25=0b11010 14..12=0 6..0=0x33
