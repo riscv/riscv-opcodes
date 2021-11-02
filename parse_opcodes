@@ -143,6 +143,7 @@ csrs = [
   (0x143, 'stval'),
   (0x144, 'sip'),
   (0x180, 'satp'),
+  (0x5A8, 'scontext'),
 
   # Standard Hypervisor R/w
   (0x200, 'vsstatus'),
@@ -166,6 +167,7 @@ csrs = [
   (0x645, 'hvip'),
   (0x64A, 'htinst'),
   (0x680, 'hgatp'),
+  (0x6A8, 'hcontext'),
   (0xE12, 'hgeip'),
 
   # Tentative CSR assignment for CLIC
@@ -228,7 +230,7 @@ csrs = [
   (0x7a4, 'tinfo'),
   (0x7a5, 'tcontrol'),
   (0x7a8, 'mcontext'),
-  (0x7aa, 'scontext'),
+  (0x7aa, 'mscontext'),
   (0x7b0, 'dcsr'),
   (0x7b1, 'dpc'),
   (0x7b2, 'dscratch0'),
