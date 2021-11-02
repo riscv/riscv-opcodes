@@ -91,6 +91,7 @@ csrs = [
   (0x009, 'vxsat'),
   (0x00A, 'vxrm'),
   (0x00F, 'vcsr'),
+  (0x015, 'seed'), # Zkr
 
   # Standard User RO
   (0xC00, 'cycle'),
@@ -298,7 +299,6 @@ csrs = [
   (0xF12, 'marchid'),
   (0xF13, 'mimpid'),
   (0xF14, 'mhartid'),
-  (0x546, 'sentropy'), # crypto ext
 ]
 
 csrs32 = [
