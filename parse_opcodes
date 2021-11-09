@@ -206,6 +206,10 @@ csrs = [
   (0x344, 'mip'),
   (0x34a, 'mtinst'),
   (0x34b, 'mtval2'),
+  (0x350, 'mnscratch'),
+  (0x351, 'mnepc'),
+  (0x352, 'mncause'),
+  (0x353, 'mnstatus'),
   (0x3a0, 'pmpcfg0'),
   (0x3a1, 'pmpcfg1'),
   (0x3a2, 'pmpcfg2'),
@@ -895,7 +899,7 @@ def print_insts(*names):
 def make_supervisor_latex_table():
   print_header('r', 'i')
   print_subtitle('Trap-Return Instructions')
-  print_insts('sret', 'mret')
+  print_insts('sret', 'mret', 'mnret')
   print_subtitle('Interrupt-Management Instructions')
   print_insts('wfi')
   print_subtitle('Supervisor Memory-Management Instructions')
