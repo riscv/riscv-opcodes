@@ -162,6 +162,7 @@ csrs = [
   (0x605, 'htimedelta'),
   (0x606, 'hcounteren'),
   (0x607, 'hgeie'),
+  (0x60A, 'henvcfg'),
   (0x643, 'htval'),
   (0x644, 'hip'),
   (0x645, 'hvip'),
@@ -369,6 +370,7 @@ csrs = [
 csrs32 = [
   # Standard Hypervisor R/w
   (0x615, 'htimedeltah'),
+  (0x61A, 'henvcfgh'),
 
   # Standard User RO
   (0xC80, 'cycleh'),
