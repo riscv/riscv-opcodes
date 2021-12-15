@@ -137,6 +137,7 @@ csrs = [
   (0x104, 'sie'),
   (0x105, 'stvec'),
   (0x106, 'scounteren'),
+  (0x10A, 'senvcfg'),
   (0x140, 'sscratch'),
   (0x141, 'sepc'),
   (0x142, 'scause'),
