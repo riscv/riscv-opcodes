@@ -1,4 +1,5 @@
 .*.swp
+encoding.out.h
 inst.chisel
 inst.go
 instr-table.tex
