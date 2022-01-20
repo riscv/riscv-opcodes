@@ -1005,6 +1005,23 @@ def make_latex_table():
   print_subtitle('RV64Q Standard Extension (in addition to RV32Q)')
   print_insts('fcvt.l.q', 'fcvt.lu.q')
   print_insts('fcvt.q.l', 'fcvt.q.lu')
+  print_footer()
+
+  print_header('r','r4','i','s')
+  print_subtitle('RV32Zfh Standard Extension')
+  print_insts('flh', 'fsh')
+  print_insts('fmadd.h', 'fmsub.h', 'fnmsub.h', 'fnmadd.h')
+  print_insts('fadd.h', 'fsub.h', 'fmul.h', 'fdiv.h', 'fsqrt.h')
+  print_insts('fsgnj.h', 'fsgnjn.h', 'fsgnjx.h', 'fmin.h', 'fmax.h')
+  print_insts('fcvt.s.h', 'fcvt.h.s')
+  print_insts('fcvt.d.h', 'fcvt.h.d')
+  print_insts('fcvt.q.h', 'fcvt.h.q')
+  print_insts('feq.h', 'flt.h', 'fle.h', 'fclass.h')
+  print_insts('fcvt.w.h', 'fcvt.wu.h', 'fmv.x.h')
+  print_insts('fcvt.h.w', 'fcvt.h.wu', 'fmv.h.x')
+  print_subtitle('RV64Zfh Standard Extension (in addition to RV32Zfh)')
+  print_insts('fcvt.l.h', 'fcvt.lu.h')
+  print_insts('fcvt.h.l', 'fcvt.h.lu')
   print_footer('\\caption{Instruction listing for RISC-V}')
 
 def print_chisel_insn(name):
