@@ -502,7 +502,7 @@ def print_unimp_type(name,match,arguments):
 &
 \\multicolumn{10}{|c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     '0'*32, \
     'UNIMP' \
@@ -515,7 +515,7 @@ def print_u_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     str_arg('imm20','imm[31:12]',match,arguments), \
     str_arg('rd','',match,arguments), \
@@ -530,7 +530,7 @@ def print_uj_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     str_arg('jimm20','imm[20$\\vert$10:1$\\vert$11$\\vert$19:12]',match,arguments), \
     str_arg('rd','',match,arguments), \
@@ -548,7 +548,7 @@ def print_s_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     str_arg('imm12hi','imm[11:5]',match,arguments), \
     str_arg('rs2','',match,arguments), \
@@ -569,7 +569,7 @@ def print_sb_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     str_arg('bimm12hi','imm[12$\\vert$10:5]',match,arguments), \
     str_arg('rs2','',match,arguments), \
@@ -589,7 +589,7 @@ def print_i_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     str_arg('imm12','imm[11:0]',match,arguments), \
     str_arg('rs1','',match,arguments), \
@@ -608,7 +608,7 @@ def print_csr_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     str_arg('imm12','csr',match,arguments), \
     ('uimm' if name[-1] == 'i' else 'rs1'), \
@@ -628,7 +628,7 @@ def print_ish_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     binary(yank(match,26,6),6), \
     str_arg('shamt','shamt',match,arguments), \
@@ -649,7 +649,7 @@ def print_ishw_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     binary(yank(match,25,7),7), \
     str_arg('shamtw','shamt',match,arguments), \
@@ -670,7 +670,7 @@ def print_r_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     binary(yank(match,25,7),7), \
     str_arg('rs2','',match,arguments), \
@@ -692,7 +692,7 @@ def print_r4_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     str_arg('rs3','',match,arguments), \
     binary(yank(match,25,2),2), \
@@ -716,7 +716,7 @@ def print_amo_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     binary(yank(match,27,5),5), \
     str_arg('rs2','',match,arguments), \
@@ -738,7 +738,7 @@ def print_fence_type(name,match,arguments):
 \\multicolumn{1}{c|}{%s} &
 \\multicolumn{1}{c|}{%s} & %s \\\\
 \\cline{2-11}
-  """ % \
+""" % \
   ( \
     str_arg('fm','fm',match,arguments), \
     str_arg('pred','pred',match,arguments), \
@@ -794,7 +794,7 @@ def print_header(*types):
 \\multicolumn{1}{c|}{rd} &
 \\multicolumn{1}{c|}{opcode} & R4-type \\\\
 \\cline{2-11}
-  """)
+""")
   if 'i' in types:
     print("""
 &
@@ -851,7 +851,7 @@ def print_subtitle(title):
 &
 \\multicolumn{10}{c}{\\bf %s} & \\\\
 \\cline{2-11}
-  """ % title)
+""" % title)
 
 def print_footer(caption=''):
   print("""
@@ -860,7 +860,7 @@ def print_footer(caption=''):
 \\end{small}
 %s
 \\end{table}
-  """ % caption)
+""" % caption)
 
 def print_inst(n):
   if n == 'fence' or n == 'fence.tso' or n == 'pause':
