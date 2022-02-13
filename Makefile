@@ -6,7 +6,7 @@ ENV_H := ../riscv-tests/env/encoding.h
 OPENOCD_H := ../riscv-openocd/src/target/riscv/encoding.h
 INSTALL_HEADER_FILES := $(ISASIM_H) $(PK_H) $(ENV_H) $(OPENOCD_H)
 
-ALL_REAL_ILEN32_OPCODES := opcodes-rv32i opcodes-rv64i opcodes-rv32m opcodes-rv64m opcodes-rv32a opcodes-rv64a opcodes-rv32h opcodes-rv64h opcodes-rv32f opcodes-rv64f opcodes-rv32d opcodes-rv64d opcodes-rv32q opcodes-rv64q opcodes-rv32b opcodes-rv64b opcodes-system opcodes-svinval opcodes-rv32zfh opcodes-rv32d-zfh opcodes-rv32q-zfh opcodes-rv64zfh opcodes-rvk opcodes-rv32k opcodes-rv64k opcodes-zicbo
+ALL_REAL_ILEN32_OPCODES := opcodes-rv32i opcodes-rv64i opcodes-rv32m opcodes-rv64m opcodes-rv32a opcodes-rv64a opcodes-rv32h opcodes-rv64h opcodes-rv32f opcodes-rv64f opcodes-rv32d opcodes-rv64d opcodes-rv32q opcodes-rv64q opcodes-rv32xbitmanip opcodes-rv64xbitmanip opcodes-system opcodes-svinval opcodes-rv32zfh opcodes-rv32d-zfh opcodes-rv32q-zfh opcodes-rv64zfh opcodes-rvk opcodes-rv32k opcodes-rv64k opcodes-zicbo opcodes-rv32zba opcodes-rv32zbb opcodes-rv32zbc opcodes-rv32zbkb opcodes-rv32zbkx opcodes-rv32zbs opcodes-rv64zba opcodes-rv64zbb opcodes-rv64zbkb
 ALL_REAL_OPCODES := $(ALL_REAL_ILEN32_OPCODES) opcodes-rvc opcodes-rv32c opcodes-rv64c opcodes-custom opcodes-rvv opcodes-rvp
 
 ALL_OPCODES := opcodes-pseudo $(ALL_REAL_OPCODES) opcodes-rvv-pseudo

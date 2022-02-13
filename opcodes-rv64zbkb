@@ -1,0 +1,3 @@
+# This file includes only the RV64Zbkb instructions that are not in RV64Zbb
+
+packw      rd rs1 rs2 31..25=4  14..12=4 6..2=0x0E 1..0=3
