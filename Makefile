@@ -21,7 +21,7 @@ encoding.out.h: $(ALL_OPCODES) parse_opcodes encoding.h
 	echo " */" >> $@
 	echo >> $@
 	cat encoding.h >> $@
-	cat $(ALL_OPCODES) | python ./parse_opcodes -c >> $@
+	cat $(ALL_OPCODES) | ./parse_opcodes -c >> $@
 
 inst.chisel: $(ALL_OPCODES) parse_opcodes
 	cat $(ALL_OPCODES) | ./parse_opcodes -chisel > $@
