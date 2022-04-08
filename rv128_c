@@ -1,0 +1,15 @@
+# quadrant 0
+c.lq rd_p rs1_p c_uimm9lo c_uimm9hi     1..0=0 15..13=1 
+c.ld rd_p rs1_p c_uimm8lo c_uimm8hi     1..0=0 15..13=3
+c.sq rs1_p rs2_p c_uimm9hi c_uimm9lo    1..0=0 15..13=5
+c.sd rs1_p rs2_p c_uimm8hi c_uimm8lo    1..0=0 15..13=7
+
+#quadrant 1
+c.addiw rd_rs1 c_imm6lo c_imm6hi        1..0=1 15..13=1
+
+#quadrant 2
+c.lqsp rd c_uimm10sphi c_uimm10splo     1..0=2 15..13=1
+c.ldsp  rd_n0 c_uimm9sphi c_uimm9splo   1..0=2 15..13=3
+c.sqsp c_rs2 c_uimm10sp_s               1..0=2 15..13=5
+c.sdsp c_rs2 c_uimm9sp_s                1..0=2 15..13=7
+
