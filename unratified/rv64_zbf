@@ -1,0 +1,3 @@
+bfpw       rd rs1 rs2 31..25=36 14..12=7 6..2=0x0E 1..0=3
+$import rv64_zbe::packw
+
