@@ -4,3 +4,10 @@ inst.chisel
 inst.go
 instr-table.tex
 priv-instr-table.tex
+inst.rs
+
+inst.sverilog
+
+instr_dict.yaml
+
+__pycache__/
