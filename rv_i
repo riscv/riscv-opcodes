@@ -35,5 +35,13 @@ sra     rd rs1 rs2 31..25=32 14..12=5 6..2=0x0C 1..0=3
 or      rd rs1 rs2 31..25=0  14..12=6 6..2=0x0C 1..0=3
 and     rd rs1 rs2 31..25=0  14..12=7 6..2=0x0C 1..0=3
 fence fm pred succ rs1 14..12=0 rd 6..2=0x03 1..0=3
+#specialized fences
+$pseudo_op rv_i::fence fence.tso 31..28=8 27..24=3 23..20=3 19..15=0 14..12=0 11..7=0 6..2=0x03 1..0=3
+$pseudo_op rv_i::fence pause     31..28=0 27..24=1 23..20=0 19..15=0      14..12=0 11..7=0      6..2=0x03 1..0=3
 ecall    31..20=0x000 19..7=0 6..2=0x1C 1..0=3
 ebreak   31..20=0x001 19..7=0 6..2=0x1C 1..0=3
+
+#Old names for ecall/ebreak
+$pseudo_op rv_i::ecall scall     11..7=0 19..15=0 31..20=0x000 14..12=0 6..2=0x1C 1..0=3
+$pseudo_op rv_i::ebreak sbreak    11..7=0 19..15=0 31..20=0x001 14..12=0 6..2=0x1C 1..0=3
+
