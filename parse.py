@@ -409,7 +409,8 @@ def make_latex_table():
     # instructions listed in list_of_instructions will be dumped into latex.
     caption = ''
     type_list = ['R-type','I-type','S-type','B-type','U-type','J-type']
-    dataset_list = [(['_i','32_i'], 'RV32I Base Instruction Set', [], True)]
+    dataset_list = [(['_i','32_i'], 'RV32I Base Instruction Set', [], False)]
+    dataset_list.append((['_i'], '', ['fence_tso','pause'], True))
     make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
     type_list = ['R-type','I-type','S-type']
