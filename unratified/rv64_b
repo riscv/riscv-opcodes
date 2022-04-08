@@ -1,0 +1,9 @@
+# RV64B additions to RV32B
+
+
+slow       rd rs1 rs2 31..25=16 14..12=1 6..2=0x0E 1..0=3
+srow       rd rs1 rs2 31..25=16 14..12=5 6..2=0x0E 1..0=3
+
+sloiw      rd rs1 31..26=8  25=0 shamtw 14..12=1 6..2=0x06 1..0=3
+sroiw      rd rs1 31..26=8  25=0 shamtw 14..12=5 6..2=0x06 1..0=3
+
