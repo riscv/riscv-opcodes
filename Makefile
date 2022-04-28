@@ -29,7 +29,6 @@ inst.chisel: $(ALL_OPCODES) parse_opcodes
 inst.spinalhdl: $(ALL_OPCODES) parse_opcodes
 	cat $(ALL_OPCODES) | ./parse_opcodes -spinalhdl > $@
 
-
 inst.go: $(ALL_REAL_ILEN32_OPCODES) parse_opcodes
 	cat $(ALL_REAL_ILEN32_OPCODES) | ./parse_opcodes -go > $@
 

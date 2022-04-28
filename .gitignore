@@ -1,6 +1,7 @@
 .*.swp
 encoding.out.h
 inst.chisel
+inst.spinalhdl
 inst.go
 instr-table.tex
 priv-instr-table.tex
