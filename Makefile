@@ -11,7 +11,7 @@ ALL_REAL_OPCODES := $(ALL_REAL_ILEN32_OPCODES) opcodes-rvc opcodes-rv32c opcodes
 
 ALL_OPCODES := opcodes-pseudo $(ALL_REAL_OPCODES) opcodes-rvv-pseudo
 
-install: encoding.out.h inst.chisel instr-table.tex priv-instr-table.tex
+install: encoding.out.h inst.chisel inst.spinalhdl instr-table.tex priv-instr-table.tex
 	set -e; for FILE in $(INSTALL_HEADER_FILES); do cp -f encoding.out.h $$FILE; done
 
 encoding.out.h: $(ALL_OPCODES) parse_opcodes encoding.h
@@ -25,6 +25,10 @@ encoding.out.h: $(ALL_OPCODES) parse_opcodes encoding.h
 
 inst.chisel: $(ALL_OPCODES) parse_opcodes
 	cat $(ALL_OPCODES) | ./parse_opcodes -chisel > $@
+
+inst.spinalhdl: $(ALL_OPCODES) parse_opcodes
+	cat $(ALL_OPCODES) | ./parse_opcodes -spinalhdl > $@
+
 
 inst.go: $(ALL_REAL_ILEN32_OPCODES) parse_opcodes
 	cat $(ALL_REAL_ILEN32_OPCODES) | ./parse_opcodes -go > $@
