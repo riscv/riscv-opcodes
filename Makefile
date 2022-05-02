@@ -12,7 +12,7 @@ install: everything
 
 .PHONY : everything
 everything:
-	@./parse.py -c -chisel -sverilog -rust -latex $(EXTENSIONS)
+	@./parse.py -c -chisel -sverilog -rust -latex -spinalhdl $(EXTENSIONS)
 
 .PHONY : encoding.out.h
 encoding.out.h:
@@ -47,3 +47,7 @@ instr-table.tex: latex
 
 .PHONY: priv-instr-table.tex
 priv-instr-table.tex: latex
+
+.PHONY: inst.spinalhdl
+inst.spinalhdl:
+	@./parse.py -spinalhdl $(EXTENSIONS)

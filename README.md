@@ -124,6 +124,7 @@ The following artifacts can be generated using parse.py:
 - inst.chisel : chisel code to decode instructions
 - inst.sverilog : system verilog code to decode instructions
 - inst.rs : rust code containing mask and match variables for all instructions
+- inst.spinalhdl : spinalhdl code to decode instructions
 
 Make sure you install the required python pre-requisites are installed by executing the following
 command:

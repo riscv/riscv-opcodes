@@ -5,9 +5,8 @@ inst.go
 instr-table.tex
 priv-instr-table.tex
 inst.rs
-
+inst.spinalhdl
 inst.sverilog
-
 instr_dict.yaml
 
 __pycache__/
