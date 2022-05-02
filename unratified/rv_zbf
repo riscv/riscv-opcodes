@@ -1,0 +1,4 @@
+bfp        rd rs1 rs2 31..25=36 14..12=7 6..2=0x0C 1..0=3
+$import rv_zbe::pack
+$import rv_zbe::packh
+

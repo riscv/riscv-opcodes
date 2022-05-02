@@ -16,6 +16,6 @@ jobs:
       with:
         python-version: 3.8
     - name: Generation C code
-      run: cat opcodes-* | ./parse_opcodes -c > result.h
+      run: ./parse.py -c -chisel -sverilog -rust -latex "rv*" "unratified/rv*"
     - name: Check C output
-      run: cat result.h  | cpp
+      run: cat encoding.out.h  | cpp

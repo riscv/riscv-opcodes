@@ -1,0 +1,7 @@
+bmatflip   rd rs1 31..20=0x603 14..12=1 6..2=0x04 1..0=3
+bmator     rd rs1 rs2 31..25=4  14..12=3 6..2=0x0C 1..0=3
+bmatxor    rd rs1 rs2 31..25=36 14..12=3 6..2=0x0C 1..0=3
+$pseudo_op rv64_zbp::unshfli  unzip16 rd rs1 31..25=4 24..20=16 14..12=5 6..2=4 1..0=3
+$pseudo_op rv64_zbp::unshfli  unzip8 rd rs1 31..25=4 24..20=24 14..12=5 6..2=4 1..0=3
+$import rv_zbe::pack
+$import rv_zbp::packu

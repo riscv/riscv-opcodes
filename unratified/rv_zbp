@@ -1,0 +1,15 @@
+$import rv_zbb::andn
+$import rv_zbb::orn
+$import rv_zbb::xnor
+$import rv_zbe::pack
+$import rv_zbe::packh
+$import rv_zbb::rol
+$import rv_zbb::ror
+grev       rd rs1 rs2 31..25=52 14..12=5 6..2=0x0C 1..0=3
+gorc       rd rs1 rs2 31..25=20 14..12=5 6..2=0x0C 1..0=3
+shfl       rd rs1 rs2 31..25=4  14..12=1 6..2=0x0C 1..0=3
+unshfl     rd rs1 rs2 31..25=4  14..12=5 6..2=0x0C 1..0=3
+xperm4     rd rs1 rs2 31..25=20 14..12=2 6..2=0x0C 1..0=3
+xperm8     rd rs1 rs2 31..25=20 14..12=4 6..2=0x0C 1..0=3
+xperm16    rd rs1 rs2 31..25=20 14..12=6 6..2=0x0C 1..0=3
+packu      rd rs1 rs2 31..25=36 14..12=4 6..2=0x0C 1..0=3

@@ -1,0 +1,12 @@
+# Zicbom: cache-block management instructions
+cbo.clean rs1 31..20=1 14..12=2 11..7=0 6..2=0x03 1..0=3
+cbo.flush rs1 31..20=2 14..12=2 11..7=0 6..2=0x03 1..0=3
+cbo.inval rs1 31..20=0 14..12=2 11..7=0 6..2=0x03 1..0=3
+
+# Zicboz: cache-block zero instruction
+cbo.zero  rs1 31..20=4 14..12=2 11..7=0 6..2=0x03 1..0=3
+
+# Zicbop: prefetch hint pseudoinstructions
+$pseudo_op rv_i::ori prefetch.i rs1 imm12hi 24..20=0 14..12=6 11..7=0 6..2=0x04 1..0=3
+$pseudo_op rv_i::ori prefetch.r rs1 imm12hi 24..20=1 14..12=6 11..7=0 6..2=0x04 1..0=3
+$pseudo_op rv_i::ori prefetch.w rs1 imm12hi 24..20=3 14..12=6 11..7=0 6..2=0x04 1..0=3
