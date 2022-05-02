@@ -57,7 +57,7 @@ Instruction syntaxes used in this project are broadly categorized into three:
     - *single bit assignment* : here the value of a single bit is assigned using syntax `<bit-position>=<value>`. For e.g. `6=1` means bit 6 should be 1. Here the value must be 1 or 0.
     - *range assignment*: here a range of bits is assigned a value using syntax: `<msb>..<lsb>=<val>`. For e.g. `31..24=0xab`. The value here can be either unsigned integer, hex (0x) or binary (0b). 
 
-- **pseudo\_instructions** (a.k.a pseudo\_ops) - These are instructions which are aliases of regular instructions. Their encodings force 
+- **pseudo_instructions** (a.k.a pseudo\_ops) - These are instructions which are aliases of regular instructions. Their encodings force 
   certain restrictions over the regular instruction. The syntax for such instructions uses the `$pseudo_op` keyword as follows:
   ```
   $pseudo_op <extension>::<base-instruction> <instruction name> <instruction args> <bit-encodings>
@@ -77,7 +77,7 @@ Instruction syntaxes used in this project are broadly categorized into three:
   instruction, as this avoids existence of overlapping opcodes for users who are
   experimenting with unratified extensions as well.
   
-- **imported\_instructions** - these are instructions which are borrowed from an extension into a new/different extension/sub-extension. Only regular instructions can be imported. Pseudo-op instructions cannot be imported. Example:
+- **imported_instructions** - these are instructions which are borrowed from an extension into a new/different extension/sub-extension. Only regular instructions can be imported. Pseudo-op instructions cannot be imported. Example:
   ```
   $import rv32_zkne::aes32esmi
   ```
@@ -116,14 +116,22 @@ of extensions are being processed such that the *base-instruction* is not includ
 The following artifacts can be generated using parse.py:
 
 - instr\_dict.yaml : This is file generated always by parse.py and contains the
-  entire main dictionary `instr_dict` in YAML format. Note, in this yaml the
+  entire main dictionary `instr\_dict` in YAML format. Note, in this yaml the
   *dots* in an instruction are replaced with *underscores*
-- encoding.h : this is the header file that is used by tools like spike, pk, etc
+- encoding.out.h : this is the header file that is used by tools like spike, pk, etc
 - instr-table.tex : the latex table of instructions used in the riscv-unpriv spec
 - priv-instr-table.tex : the latex table of instruction used in the riscv-priv spec
 - inst.chisel : chisel code to decode instructions
 - inst.sverilog : system verilog code to decode instructions
 - inst.rs : rust code containing mask and match variables for all instructions
+
+Make sure you install the required python pre-requisites are installed by executing the following
+command:
+
+```
+sudo apt-get install python-pip3
+pip3 install -r requirements.txt
+```
 
 To generate all the above artifacts for all instructions currently checked in, simply run `make` from the root-directory. This should print the following log on the command-line:
 
