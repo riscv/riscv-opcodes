@@ -25,7 +25,7 @@ def process_enc_line(line, ext):
         - value assigned is representable in the bit range
         - also checks that the mapping of arguments of an instruction exists in
           arg_lut.
-    
+
     If the above checks pass, then the function returns a tuple of the name and
     a dictionary containing basic information of the instruction which includes:
         - variables: list of arguments used by the instruction whose mapping
@@ -43,7 +43,7 @@ def process_enc_line(line, ext):
     single_dict = {}
 
     # fill all bits with don't care. we use '-' to represent don't care
-    # TODO: hardcoded for 32-bits. 
+    # TODO: hardcoded for 32-bits.
     encoding = ['-'] * 32
 
     # get the name of instruction by splitting based on the first space
@@ -158,7 +158,7 @@ def create_inst_dict(file_filter, include_pseudo=False):
           this instruction
         - mask: hex value representin the bits that need to be masked to extract
           the value required for matching.
-   
+
     In order to build this dictionary, the function does 2 passes over the same
     rv<file_filter> file. The first pass is to extract all standard
     instructions. In this pass, all pseudo ops and imported instructions are
@@ -211,8 +211,8 @@ def create_inst_dict(file_filter, include_pseudo=False):
             # instruction
             (name, single_dict) = process_enc_line(line, f)
 
-            # if an instruction has already been added to the filtered 
-            # instruction dictionary throw an error saying the given 
+            # if an instruction has already been added to the filtered
+            # instruction dictionary throw an error saying the given
             # instruction is already imported and raise SystemExit
             if name in instr_dict:
                 var = instr_dict[name]["extension"]
@@ -226,7 +226,7 @@ def create_inst_dict(file_filter, include_pseudo=False):
 
             # update the final dict with the instruction
             instr_dict[name] = single_dict
-    
+
     # second pass if for pseudo instructions
     logging.debug('Collecting pseudo instructions now')
     for f in file_names:
@@ -277,7 +277,7 @@ def create_inst_dict(file_filter, include_pseudo=False):
 
 
             # add the pseudo_op to the dictionary only if the original
-            # instruction is not already in the dictionary.    
+            # instruction is not already in the dictionary.
             if orig_inst.replace('.','_') not in instr_dict or include_pseudo:
                 (name, single_dict) = process_enc_line(pseudo_inst + ' ' + line, f)
 
@@ -312,7 +312,7 @@ def create_inst_dict(file_filter, include_pseudo=False):
             logging.debug(f'     Processing line: {line}')
 
             (import_ext, reg_instr) = imported_regex.findall(line)[0]
-            
+
             # check if the file of the dependent extension exist. Throw error if
             # it doesn't
             if not os.path.exists(import_ext):
@@ -343,8 +343,8 @@ def create_inst_dict(file_filter, include_pseudo=False):
             # instruction
             (name, single_dict) = process_enc_line(oline, f)
 
-            # if an instruction has already been added to the filtered 
-            # instruction dictionary throw an error saying the given 
+            # if an instruction has already been added to the filtered
+            # instruction dictionary throw an error saying the given
             # instruction is already imported and raise SystemExit
             if name in instr_dict:
                 var = instr_dict[name]["extension"]
@@ -368,7 +368,7 @@ def make_priv_latex_table():
     dataset_list.append((system_instr, 'Interrupt-Management Instructions',['wfi'], False))
     dataset_list.append((system_instr, 'Supervisor Memory-Management Instructions',['sfence_vma'], False))
     dataset_list.append((system_instr, 'Hypervisor Memory-Management Instructions',['hfence_vvma', 'hfence_gvma'], False))
-    dataset_list.append((system_instr, 'Hypervisor Virtual-Machine Load and Store Instructions', 
+    dataset_list.append((system_instr, 'Hypervisor Virtual-Machine Load and Store Instructions',
         ['hlv_b','hlv_bu', 'hlv_h','hlv_hu', 'hlv_w', 'hlvx_hu', 'hlvx_wu', 'hsv_b', 'hsv_h','hsv_w'], False))
     dataset_list.append((system_instr, 'Hypervisor Virtual-Machine Load and Store Instructions, RV64 only', ['hlv_wu','hlv_d','hsv_d'], False))
     dataset_list.append((system_instr, 'Svinval Memory-Management Instructions', ['sinval_vma', 'sfence_w_inval','sfence_inval_ir', 'hinval_vvma','hinval_gvma'], False))
@@ -389,7 +389,7 @@ def make_latex_table():
     list of extensions ('_i, '32_i', etc) whose instructions are required to
     populate the table. For each extension or collection of extension we can
     assign Title, such that in the end they appear as subheadings within
-    the table (note these are inlined headings and not captions of the table). 
+    the table (note these are inlined headings and not captions of the table).
 
     All of the above information is collected/created and sent to
     make_ext_latex_table function to dump out the latex contents into a file.
@@ -402,8 +402,8 @@ def make_latex_table():
 
     # create the rv32i table first. Here we set the caption to empty. We use the
     # files rv_i and rv32_i to capture instructions relevant for rv32i
-    # configuration. The dataset is a list of 4-element tuples : 
-    # (list_of_extensions, title, list_of_instructions, include_pseudo_ops). If list_of_instructions 
+    # configuration. The dataset is a list of 4-element tuples :
+    # (list_of_extensions, title, list_of_instructions, include_pseudo_ops). If list_of_instructions
     # is empty then it indicates that all instructions of the all the extensions
     # in list_of_extensions need to be dumped. If not empty, then only the
     # instructions listed in list_of_instructions will be dumped into latex.
@@ -425,7 +425,7 @@ def make_latex_table():
     dataset_list = [(['_a'],'RV32A Standard Extension', [], False)]
     dataset_list.append((['64_a'],'RV64A Standard Extension (in addition to RV32A)', [], False))
     make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
-    
+
     type_list = ['R-type','R4-type','I-type','S-type']
     dataset_list = [(['_f'],'RV32F Standard Extension', [], False)]
     dataset_list.append((['64_f'],'RV64F Standard Extension (in addition to RV32F)', [], False))
@@ -435,7 +435,7 @@ def make_latex_table():
     dataset_list = [(['_d'],'RV32D Standard Extension', [], False)]
     dataset_list.append((['64_d'],'RV64D Standard Extension (in addition to RV32D)', [], False))
     make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
-    
+
     type_list = ['R-type','R4-type','I-type','S-type']
     dataset_list = [(['_q'],'RV32Q Standard Extension', [], False)]
     dataset_list.append((['64_q'],'RV64Q Standard Extension (in addition to RV32Q)', [], False))
@@ -446,7 +446,7 @@ def make_latex_table():
     dataset_list = [(['_zfh', '_d_zfh','_q_zfh'],'RV32Zfh Standard Extension', [], False)]
     dataset_list.append((['64_zfh'],'RV64Zfh Standard Extension (in addition to RV32Zfh)', [], False))
     make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
-   
+
     ## The following is demo to show that Compressed instructions can also be
     # dumped in the same manner as above
 
@@ -492,7 +492,7 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     Once the header is created, we then parse through every entry in the
     dataset. For each list dataset entry we use the create_inst_dict function to
     create an exhaustive list of instructions associated with the respective
-    collection of the extension of that dataset. Then we apply the instruction 
+    collection of the extension of that dataset. Then we apply the instruction
     filter, if any, indicated by the list_of_instructions of that dataset.
     Thereon, for each instruction we create a latex table entry.
 
@@ -511,8 +511,8 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     column_size = "".join(['p{0.002in}']*(ilen+1))
 
     type_entries = '''
-    \\multicolumn{3}{l}{31} & 
-    \\multicolumn{2}{r}{27} & 
+    \\multicolumn{3}{l}{31} &
+    \\multicolumn{2}{r}{27} &
     \\multicolumn{1}{c}{26} &
     \\multicolumn{1}{r}{25} &
     \\multicolumn{3}{l}{24} &
@@ -523,12 +523,12 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     \\multicolumn{1}{r}{12} &
     \\multicolumn{4}{l}{11} &
     \\multicolumn{1}{r}{7} &
-    \\multicolumn{6}{l}{6} & 
+    \\multicolumn{6}{l}{6} &
     \\multicolumn{1}{r}{0} \\\\
     \\cline{2-33}\n&\n\n
 ''' if ilen == 32 else '''
-    \\multicolumn{1}{c}{15} & 
-    \\multicolumn{1}{c}{14} & 
+    \\multicolumn{1}{c}{15} &
+    \\multicolumn{1}{c}{14} &
     \\multicolumn{1}{c}{13} &
     \\multicolumn{1}{c}{12} &
     \\multicolumn{1}{c}{11} &
@@ -539,9 +539,9 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     \\multicolumn{1}{c}{6} &
     \\multicolumn{1}{c}{5} &
     \\multicolumn{1}{c}{4} &
-    \\multicolumn{1}{c}{3} & 
-    \\multicolumn{1}{c}{2} & 
-    \\multicolumn{1}{c}{1} & 
+    \\multicolumn{1}{c}{3} &
+    \\multicolumn{1}{c}{2} &
+    \\multicolumn{1}{c}{1} &
     \\multicolumn{1}{c}{0} \\\\
     \\cline{2-17}\n&\n\n
 '''
@@ -681,7 +681,7 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
 {instr_entries}
 '''
 
-        
+
     header = f'''
 \\newpage
 
@@ -704,8 +704,8 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
 '''
     # dump the contents and return
     latex_file.write(header+content+endtable)
-    
-   
+
+
 def make_chisel(instr_dict, spinal_hdl=False):
 
     chisel_names=''
@@ -742,7 +742,7 @@ def make_chisel(instr_dict, spinal_hdl=False):
         csr_names_str += f'''    res += {name}\n'''
     csr_names_str += '''    res.toArray
   }'''
-    
+
     if spinal_hdl:
         chisel_file = open('inst.spinalhdl','w')
     else:
@@ -817,10 +817,10 @@ def make_c(instr_dict):
         enc_header = file.read()
 
     commit = os.popen('git log -1 --format="format:%h"').read()
-    enc_file = open('encoding.out.h','w')    
+    enc_file = open('encoding.out.h','w')
     enc_file.write(f'''
 /*
-* This file is auto-generated by running 'make' in 
+* This file is auto-generated by running 'make' in
 * https://github.com/riscv/riscv-opcodes ({commit})
 */
 {enc_header}
@@ -863,7 +863,7 @@ if __name__ == "__main__":
     if '-chisel' in sys.argv[1:]:
         make_chisel(instr_dict)
         logging.info('inst.chisel generated successfully')
-    
+
     if '-spinalhdl' in sys.argv[1:]:
         make_chisel(instr_dict, True)
         logging.info('inst.spinalhdl generated successfully')
