@@ -7,28 +7,31 @@ INSTALL_HEADER_FILES := $(ISASIM_H) $(PK_H) $(ENV_H) $(OPENOCD_H)
 
 default: everything
 
+install: everything
+	set -e; for FILE in $(INSTALL_HEADER_FILES); do cp -f encoding.out.h $$FILE; done
+
 .PHONY : everything
 everything:
 	@./parse.py -c -chisel -sverilog -rust -latex $(EXTENSIONS)
 
-.PHONY : c
-c:
+.PHONY : encoding.out.h
+encoding.out.h:
 	@./parse.py -c $(EXTENSIONS)
 
-.PHONY : chisel
-chisel:
+.PHONY : inst.chisel
+inst.chisel:
 	@./parse.py -chisel $(EXTENSIONS)
 
 .PHONY : latex
 latex:
 	@./parse.py -latex $(EXTENSIONS)
 
-.PHONY : sverilog
-sverilog:
+.PHONY : inst.sverilog
+inst.sverilog:
 	@./parse.py -sverilog $(EXTENSIONS)
 
-.PHONY : rust
-rust:
+.PHONY : inst.rs
+inst.rs:
 	@./parse.py -rust $(EXTENSIONS)
 
 .PHONY : clean
@@ -39,3 +42,8 @@ clean:
 install: c
 	set -e; for FILE in $(INSTALL_HEADER_FILES); do cp -f encoding.out.h $$FILE; done
 
+.PHONY: instr-table.tex
+instr-table.tex: latex
+
+.PHONY: priv-instr-table.tex
+priv-instr-table.tex: latex
