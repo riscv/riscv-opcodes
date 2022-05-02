@@ -525,7 +525,7 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     \\multicolumn{1}{r}{7} &
     \\multicolumn{6}{l}{6} & 
     \\multicolumn{1}{r}{0} \\\\
-    \\cline{2-33}\n& \n\n
+    \\cline{2-33}\n&\n\n
 ''' if ilen == 32 else '''
     \\multicolumn{1}{c}{15} & 
     \\multicolumn{1}{c}{14} & 
@@ -543,7 +543,7 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     \\multicolumn{1}{c}{2} & 
     \\multicolumn{1}{c}{1} & 
     \\multicolumn{1}{c}{0} \\\\
-    \\cline{2-17}\n& \n\n
+    \\cline{2-17}\n&\n\n
 '''
 
     # depending on the type_list input we create a subset dictionary of
@@ -586,11 +586,11 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
         for r in range(len(fields)):
             (msb, lsb, name) = fields[r]
             if r == len(fields)-1:
-                entry += f'\\multicolumn{{ {msb -lsb +1} }}{{|c|}}{{ {name} }} & {t} \\\\ \n'
+                entry += f'\\multicolumn{{{msb - lsb + 1}}}{{|c|}}{{{name}}} & {t} \\\\\n'
             elif r == 0:
-                entry += f'\\multicolumn{{ {msb- lsb + 1} }}{{|c|}}{{ {name} }} &\n'
+                entry += f'\\multicolumn{{{msb - lsb + 1}}}{{|c|}}{{{name}}} &\n'
             else:
-                entry += f'\\multicolumn{{ {msb -lsb + 1} }}{{c|}}{{ {name} }} &\n'
+                entry += f'\\multicolumn{{{msb - lsb + 1}}}{{c|}}{{{name}}} &\n'
         entry += f'\\cline{{2-{ilen+1}}}\n&\n\n'
         type_entries += entry
 
@@ -656,11 +656,11 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
             for r in range(len(fields)):
                 (msb, lsb, name) = fields[r]
                 if r == len(fields)-1:
-                    entry += f'\\multicolumn{{ {msb -lsb +1} }}{{|c|}}{{ {name} }} & {inst.upper().replace("_",".")} \\\\ \n'
+                    entry += f'\\multicolumn{{{msb - lsb + 1}}}{{|c|}}{{{name}}} & {inst.upper().replace("_",".")} \\\\\n'
                 elif r == 0:
-                    entry += f'\\multicolumn{{ {msb- lsb + 1} }}{{|c|}}{{ {name} }} &\n'
+                    entry += f'\\multicolumn{{{msb - lsb + 1}}}{{|c|}}{{{name}}} &\n'
                 else:
-                    entry += f'\\multicolumn{{ {msb -lsb + 1} }}{{c|}}{{ {name} }} &\n'
+                    entry += f'\\multicolumn{{{msb - lsb + 1}}}{{c|}}{{{name}}} &\n'
             entry += f'\\cline{{2-{ilen+1}}}\n&\n\n'
             instr_entries += entry
 
