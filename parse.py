@@ -829,17 +829,13 @@ def make_c(instr_dict):
 #define RISCV_ENCODING_H
 {mask_match_str}
 {csr_names_str}
-{causes_str}
-#endif
+{causes_str}#endif
 #ifdef DECLARE_INSN
-{declare_insn_str}
-#endif
+{declare_insn_str}#endif
 #ifdef DECLARE_CSR
-{declare_csr_str}
-#endif
+{declare_csr_str}#endif
 #ifdef DECLARE_CAUSE
-{declare_cause_str}
-#endif
+{declare_cause_str}#endif
 ''')
     enc_file.close()
 
