@@ -7,9 +7,6 @@ INSTALL_HEADER_FILES := $(ISASIM_H) $(PK_H) $(ENV_H) $(OPENOCD_H)
 
 default: everything
 
-install: everything
-	set -e; for FILE in $(INSTALL_HEADER_FILES); do cp -f encoding.out.h $$FILE; done
-
 .PHONY : everything
 everything:
 	@./parse.py -c -go -chisel -sverilog -rust -latex -spinalhdl $(EXTENSIONS)
@@ -43,7 +40,7 @@ clean:
 	rm -f inst* priv-instr-table.tex encoding.out.h
 
 .PHONY : install
-install: c
+install: everything
 	set -e; for FILE in $(INSTALL_HEADER_FILES); do cp -f encoding.out.h $$FILE; done
 
 .PHONY: instr-table.tex
