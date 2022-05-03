@@ -125,6 +125,7 @@ The following artifacts can be generated using parse.py:
 - inst.sverilog : system verilog code to decode instructions
 - inst.rs : rust code containing mask and match variables for all instructions
 - inst.spinalhdl : spinalhdl code to decode instructions
+- inst.go : go code to decode instructions
 
 Make sure you install the required python pre-requisites are installed by executing the following
 command:
@@ -137,12 +138,14 @@ pip3 install -r requirements.txt
 To generate all the above artifacts for all instructions currently checked in, simply run `make` from the root-directory. This should print the following log on the command-line:
 
 ```
-Running with args : ['./parse.py', '-c', '-chisel', '-sverilog', '-rust', '-latex', 'rv*', 'unratified/rv*']
+Running with args : ['./parse.py', '-c', '-go', '-chisel', '-sverilog', '-rust', '-latex', '-spinalhdl', 'rv*', 'unratified/rv*']
 Extensions selected : ['rv*', 'unratified/rv*']
 INFO:: encoding.out.h generated successfully
 INFO:: inst.chisel generated successfully
+INFO:: inst.spinalhdl generated successfully
 INFO:: inst.sverilog generated successfully
 INFO:: inst.rs generated successfully
+INFO:: inst.go generated successfully
 INFO:: instr-table.tex generated successfully
 INFO:: priv-instr-table.tex generated successfully
 ```
