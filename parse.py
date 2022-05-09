@@ -813,6 +813,13 @@ def make_c(instr_dict):
         causes_str += f"#define CAUSE_{name.upper().replace(' ', '_')} {hex(num)}\n"
         declare_cause_str += f"DECLARE_CAUSE(\"{name}\", CAUSE_{name.upper().replace(' ','_')})\n"
 
+    arg_str = ''
+    for name, rng in arg_lut.items():
+        begin = rng[1]
+        end   = rng[0]
+        mask = ((1 << (end - begin + 1)) - 1) << begin
+        arg_str += f"#define ARG_LUT_{name.upper().replace(' ', '_')} {hex(mask)}\n"
+
     with open('encoding.h', 'r') as file:
         enc_header = file.read()
 
@@ -829,7 +836,8 @@ def make_c(instr_dict):
 #define RISCV_ENCODING_H
 {mask_match_str}
 {csr_names_str}
-{causes_str}#endif
+{causes_str}
+{arg_str}#endif
 #ifdef DECLARE_INSN
 {declare_insn_str}#endif
 #ifdef DECLARE_CSR
