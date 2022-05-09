@@ -1,0 +1,22 @@
+# RV128I additions to RV64I
+
+addid   rd rs1 imm12            14..12=0 6..2=0x16 1..0=3
+sllid   rd rs1 31..26=0  shamtd 14..12=1 6..2=0x16 1..0=3
+srlid   rd rs1 31..26=0  shamtd 14..12=5 6..2=0x16 1..0=3
+sraid   rd rs1 31..26=16 shamtd 14..12=5 6..2=0x16 1..0=3
+
+addd    rd rs1 rs2 31..25=0  14..12=0 6..2=0x1E 1..0=3
+subd    rd rs1 rs2 31..25=32 14..12=0 6..2=0x1E 1..0=3
+slld    rd rs1 rs2 31..25=0  14..12=1 6..2=0x1E 1..0=3
+srld    rd rs1 rs2 31..25=0  14..12=5 6..2=0x1E 1..0=3
+srad    rd rs1 rs2 31..25=32 14..12=5 6..2=0x1E 1..0=3
+
+lq      rd rs1       imm12 14..12=3 6..2=0x03 1..0=3
+ldu     rd rs1       imm12 14..12=7 6..2=0x00 1..0=3
+
+sq     imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x08 1..0=3
+
+# RV32 and RV64 versions of these are in opcodes-pseudo
+slli    rd rs1 31..27=0  shamt 14..12=1 6..2=0x04 1..0=3
+srli    rd rs1 31..27=0  shamt 14..12=5 6..2=0x04 1..0=3
+srai    rd rs1 31..27=8  shamt 14..12=5 6..2=0x04 1..0=3
