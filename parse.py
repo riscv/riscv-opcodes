@@ -818,7 +818,7 @@ def make_c(instr_dict):
         begin = rng[1]
         end   = rng[0]
         mask = ((1 << (end - begin + 1)) - 1) << begin
-        arg_str += f"#define ARG_LUT_{name.upper().replace(' ', '_')} {hex(mask)}\n"
+        arg_str += f"#define INSN_FIELD_{name.upper().replace(' ', '_')} {hex(mask)}\n"
 
     with open('encoding.h', 'r') as file:
         enc_header = file.read()
