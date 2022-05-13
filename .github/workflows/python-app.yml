@@ -16,8 +16,15 @@ jobs:
       with:
         python-version: 3.8
     - name: Install PyYAML
-      run: pip3 install -r requirements.txt
-    - name: Generation C code
-      run: ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -go "rv*" "unratified/rv*"
+      run: |
+         pip3 install -r requirements.txt
+         pip3 install coverage
+    - name: Generate
+      run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -go "rv*" "unratified/rv*"
     - name: Check C output
       run: cat encoding.out.h  | cpp
+    - name: Generate coverage
+      run: coverage xml
+    - name: Upload coverage
+      uses: codecov/codecov-action@v2
+          
