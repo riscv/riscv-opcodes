@@ -138,7 +138,7 @@ def process_enc_line(line, ext):
 
     return (name, single_dict)
 
-def same_ext (ext_name, ext_name_list):
+def same_base_ext (ext_name, ext_name_list):
   type1 = ext_name.split("_")[0]
   for ext_name1 in ext_name_list:
     type2 = ext_name1.split("_")[0]
@@ -228,15 +228,15 @@ def create_inst_dict(file_filter, include_pseudo=False):
             # instruction is already imported and raise SystemExit
             if name in instr_dict:
                 var = instr_dict[name]["extension"]
-                if same_ext(ext_name, var):
-                  # disable same name for same base extensions
+                if same_base_ext(ext_name, var):
+                  # disable same names on the same base extensions
                   err_msg = f'instruction : {name} from '
                   err_msg += f'{ext_name} is already '
                   err_msg += f'added from {var} in same base extensions'
                   logging.error(err_msg)
                   raise SystemExit(1)
                 elif instr_dict[name]['encoding'] != single_dict['encoding']:
-                  # disable same name but different encoding for different base extensions
+                  # disable same names with different encodings on different base extensions
                   err_msg = f'instruction : {name} from '
                   err_msg += f'{ext_name} is already '
                   err_msg += f'added from {var} but each have different encodings in different base extensions'
@@ -246,8 +246,8 @@ def create_inst_dict(file_filter, include_pseudo=False):
             else:
               for key in instr_dict:
                 item = instr_dict[key]
-                if item["encoding"] == single_dict['encoding'] and same_ext(ext_name, item["extension"]):
-                  # disable different name with same encoding for same base extensions
+                if item["encoding"] == single_dict['encoding'] and same_base_ext(ext_name, item["extension"]):
+                  # disable different names with same encodings on the same base extensions
                   err_msg = f'instruction : {name} from '
                   err_msg += f'{ext_name} has the same encoding with instruction {key} '
                   err_msg += f'added from {item["extension"]} in same base extensions'
