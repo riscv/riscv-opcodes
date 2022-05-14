@@ -23,6 +23,8 @@ class EncodingLineTest(unittest.TestCase):
         name, data = process_enc_line('lui     rd imm20 6..2=0x0D 1..0=3', 'rv_i')
         self.assertEqual(name, 'lui')
         self.assertEqual(data['extension'], ['rv_i'])
+        self.assertEqual(data['match'], '0x37')
+        self.assertEqual(data['mask'], '0x7f')
 
     def test_overlapping(self):
         self.assertError('jol rd jimm20 6..2=0x00 3..0=7')
