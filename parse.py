@@ -13,9 +13,6 @@ import sys
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format='%(levelname)s:: %(message)s')
 
-def parse_constant(string):
-    return int(string, 0)
-
 def process_enc_line(line, ext):
     '''
     This function processes each line of the encoding files (rv*). As part of
@@ -61,15 +58,7 @@ def process_enc_line(line, ext):
     # check each field for it's length and overlapping bits
     # ex: 1..0=5 will result in an error --> x<y
     # ex: 5..0=0 2..1=2 --> overlapping bits
-    temp_instr = ['-'] * 32
-    entries = [
-        x[0] for x in re.findall(
-            r'((\d)+\.\.(\d)+\=((0b\d+)|(0x[0-9a-fA-F]+)|(\d)+))*',
-            remaining) if x[0] != ''
-    ]
-    for temp_entry in entries:
-        entry = temp_entry.split('=')[0]
-        s2, s1 = entry.split('..')
+    for (s2, s1, entry) in fixed_ranges.findall(remaining):
         msb = int(s2)
         lsb = int(s1)
 
@@ -80,37 +69,26 @@ def process_enc_line(line, ext):
             )
             raise SystemExit(1)
 
-        for ind in range(lsb, msb):
-            # overlapping bits
-            if temp_instr[ind] == 'X':
-                logging.error(
-                    f'{line.split(" ")[0]:<10} has {ind} bit overlapping in it\'s opcodes'
-                )
-                raise SystemExit(1)
-            temp_instr[ind] = 'X'
-
         # illegal value assigned as per bit width
-        entry_value = parse_constant(temp_entry.split('=')[1])
+        entry_value = int(entry, 0)
         if entry_value >= (1 << (msb - lsb + 1)):
             logging.error(
                 f'{line.split(" ")[0]:<10} has an illegal value {entry_value} assigned as per the bit width {msb - lsb}'
             )
             raise SystemExit(1)
 
-    # extract bit pattern assignments of the form hi..lo=val. fixed_ranges is a
-    # regex expression present in constants.py. The extracted patterns are
-    # captured as a list in args where each entry is a tuple (msb, lsb, value)
-    args = fixed_ranges.sub(' ', remaining)
+        for ind in range(lsb, msb + 1):
+            # overlapping bits
+            if encoding[31 - ind] != '-':
+                logging.error(
+                    f'{line.split(" ")[0]:<10} has {ind} bit overlapping in it\'s opcodes'
+                )
+                raise SystemExit(1)
+            bit = str((entry_value >> (ind - lsb)) & 1)
+            encoding[31 - ind] = bit
 
-    # parse through the args and assign constants 1/0 to bits which need to be
-    # hardcoded for this instruction
-    for (msb, lsb, value) in fixed_ranges.findall(remaining):
-        value = int(value, 0)
-        msb = int(msb, 0)
-        lsb = int(lsb, 0)
-        value = f"{value:032b}"
-        for i in range(0, msb - lsb + 1):
-            encoding[31 - (i + lsb)] = value[31 - i]
+    # extract bit pattern assignments of the form hi..lo=val
+    remaining = fixed_ranges.sub(' ', remaining)
 
     # do the same as above but for <lsb>=<val> pattern. single_fixed is a regex
     # expression present in constants.py
@@ -125,7 +103,7 @@ def process_enc_line(line, ext):
 
     # check if all args of the instruction are present in arg_lut present in
     # constants.py
-    args = single_fixed.sub(' ', args).split()
+    args = single_fixed.sub(' ', remaining).split()
     for a in args:
         if a not in arg_lut:
             logging.error(f' Found variable {a} in instruction {name} whose mapping in arg_lut does not exist')

@@ -4,13 +4,6 @@ from parse import *
 import logging
 import unittest
 
-class ConstantParseTest(unittest.TestCase):
-    def test_constant(self):
-        self.assertEqual(parse_constant('10'), 10)
-        self.assertEqual(parse_constant('0xa'), 10)
-        self.assertEqual(parse_constant('0xA'), 10)
-        self.assertEqual(parse_constant('0b1010'), 10)
-
 class EncodingLineTest(unittest.TestCase):
     def setUp(self):
         logger = logging.getLogger()
@@ -20,7 +13,7 @@ class EncodingLineTest(unittest.TestCase):
         self.assertRaises(SystemExit, process_enc_line, string, 'rv_i')
 
     def test_lui(self):
-        name, data = process_enc_line('lui     rd imm20 6..2=0x0D 1..0=3', 'rv_i')
+        name, data = process_enc_line('lui     rd imm20 6..2=0x0D 1=1 0=1', 'rv_i')
         self.assertEqual(name, 'lui')
         self.assertEqual(data['extension'], ['rv_i'])
         self.assertEqual(data['match'], '0x37')
