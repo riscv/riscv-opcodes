@@ -13,6 +13,11 @@ import sys
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format='%(levelname)s:: %(message)s')
 
+def parse_constant(string):
+    base = 16 if 'x' in string else 2 if 'b' in string else 10
+    entry_value = int(string, base)
+    return entry_value
+
 def process_enc_line(line, ext):
     '''
     This function processes each line of the encoding files (rv*). As part of
@@ -61,14 +66,23 @@ def process_enc_line(line, ext):
     temp_instr = ['-'] * 32
     entries = [
         x[0] for x in re.findall(
-            r'((\d)+\.\.(\d)+\=((0b\d+)|(0x\d+)|(\d)+))*',
+            r'((\d)+\.\.(\d)+\=((0b\d+)|(0x[0-9a-fA-F]+)|(\d)+))*',
             remaining) if x[0] != ''
     ]
     for temp_entry in entries:
         entry = temp_entry.split('=')[0]
-        f1, f2 = entry.split('..')
-        for ind in range(int(f1), int(f2)):
+        s2, s1 = entry.split('..')
+        msb = int(s2)
+        lsb = int(s1)
 
+        # check msb < lsb
+        if msb < lsb:
+            logging.error(
+                f'{line.split(" ")[0]:<10} has position {msb} less than position {lsb} in it\'s encoding'
+            )
+            raise SystemExit(1)
+
+        for ind in range(lsb, msb):
             # overlapping bits
             if temp_instr[ind] == 'X':
                 logging.error(
@@ -77,20 +91,11 @@ def process_enc_line(line, ext):
                 raise SystemExit(1)
             temp_instr[ind] = 'X'
 
-            # check x < y
-            if int(f1) < int(f2):
-                logging.error(
-                    f'{line.split(" ")[0]:<10} has position {f1} less than position {f2} in it\'s encoding'
-                )
-                raise SystemExit(1)
-
         # illegal value assigned as per bit width
-        entry_value = temp_entry.split('=')[1]
-        temp_base = 16 if 'x' in entry_value else 2 if 'b' in entry_value else 10
-        if len(str(int(entry_value,
-                       temp_base))[2:]) > (int(f1) - int(f2)):
+        entry_value = parse_constant(temp_entry.split('=')[1])
+        if entry_value >= (1 << (msb - lsb + 1)):
             logging.error(
-                f'{line.split(" ")[0]:<10} has an illegal value {entry_value} assigned as per the bit width {f1 - f2}'
+                f'{line.split(" ")[0]:<10} has an illegal value {entry_value} assigned as per the bit width {msb - lsb}'
             )
             raise SystemExit(1)
 
