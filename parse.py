@@ -14,9 +14,7 @@ pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format='%(levelname)s:: %(message)s')
 
 def parse_constant(string):
-    base = 16 if 'x' in string else 2 if 'b' in string else 10
-    entry_value = int(string, base)
-    return entry_value
+    return int(string, 0)
 
 def process_enc_line(line, ext):
     '''
