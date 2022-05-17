@@ -36,7 +36,6 @@ class EncodingLineTest(unittest.TestCase):
         self.assertError('jol rd jimm20 2..0=10')
         self.assertError('jol rd jimm20 2..0=0xB')
 
-    @unittest.skip('not implemented')
     def test_overlapping_field(self):
         self.assertError('jol rd rs1 jimm20 6..2=0x1b 1..0=3')
 
