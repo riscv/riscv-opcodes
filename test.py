@@ -34,4 +34,4 @@ class EncodingLineTest(unittest.TestCase):
         self.assertError('jol rd rs1 jimm20 6..2=0x1b 1..0=3')
 
     def test_illegal_field(self):
-        self.assertError('jol rd jimm128 2..0=10')
+        self.assertError('jol rd jimm128 2..0=3')
