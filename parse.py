@@ -104,10 +104,19 @@ def process_enc_line(line, ext):
     # check if all args of the instruction are present in arg_lut present in
     # constants.py
     args = single_fixed.sub(' ', remaining).split()
+    encoding_args = ['-'] * 32
     for a in args:
         if a not in arg_lut:
             logging.error(f' Found variable {a} in instruction {name} whose mapping in arg_lut does not exist')
             raise SystemExit(1)
+        else:
+            (msb, lsb) = arg_lut[a]
+            for ind in range(lsb, msb):
+                # overlapping bits
+                if encoding_args[ind] != '-':
+                    logging.error(f' Found variable {a} in instruction {name} overlapping {encoding_args[ind]} variable')
+                    raise SystemExit(1)
+                encoding_args[ind] = a
 
     # update the fields of the instruction as a dict and return back along with
     # the name of the instruction
