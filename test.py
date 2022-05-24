@@ -21,6 +21,9 @@ class EncodingLineTest(unittest.TestCase):
 
     def test_overlapping(self):
         self.assertError('jol rd jimm20 6..2=0x00 3..0=7')
+        self.assertError('jol rd jimm20 6..2=0x00 3=1')
+        self.assertError('jol rd jimm20 6..2=0x00 10=1')
+        self.assertError('jol rd jimm20 6..2=0x00 31..10=1')
 
     def test_invalid_order(self):
         self.assertError('jol 2..6=0x1b')
