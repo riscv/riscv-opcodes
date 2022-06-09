@@ -181,7 +181,7 @@ def create_inst_dict(file_filter, include_pseudo=False):
     # first pass if for standard/regular instructions
     logging.debug('Collecting standard instructions first')
     for f in file_names:
-        logging.debug(f'Parsing File: {f}')
+        logging.debug(f'Parsing File: {f} for standard instructions')
         with open(f) as fp:
             lines = (line.rstrip()
                      for line in fp)  # All lines including the blank ones
@@ -225,7 +225,7 @@ def create_inst_dict(file_filter, include_pseudo=False):
     # second pass if for pseudo instructions
     logging.debug('Collecting pseudo instructions now')
     for f in file_names:
-        logging.debug(f'Parsing File: {f}')
+        logging.debug(f'Parsing File: {f} for pseudo_ops')
         with open(f) as fp:
             lines = (line.rstrip()
                      for line in fp)  # All lines including the blank ones
@@ -285,7 +285,7 @@ def create_inst_dict(file_filter, include_pseudo=False):
     # third pass if for imported instructions
     logging.debug('Collecting imported instructions')
     for f in file_names:
-        logging.debug(f'Parsing File: {f}')
+        logging.debug(f'Parsing File: {f} for imported ops')
         with open(f) as fp:
             lines = (line.rstrip()
                      for line in fp)  # All lines including the blank ones
