@@ -95,6 +95,11 @@ def process_enc_line(line, ext):
     for (lsb, value, drop) in single_fixed.findall(remaining):
         lsb = int(lsb, 0)
         value = int(value, 0)
+        if encoding[31 - lsb] != '-':
+            logging.error(
+                f'{line.split(" ")[0]:<10} has {lsb} bit overlapping in it\'s opcodes'
+            )
+            raise SystemExit(1)
         encoding[31 - lsb] = str(value)
 
     # convert the list of encodings into a single string for match and mask
@@ -104,19 +109,19 @@ def process_enc_line(line, ext):
     # check if all args of the instruction are present in arg_lut present in
     # constants.py
     args = single_fixed.sub(' ', remaining).split()
-    encoding_args = ['-'] * 32
+    encoding_args = encoding
     for a in args:
         if a not in arg_lut:
             logging.error(f' Found variable {a} in instruction {name} whose mapping in arg_lut does not exist')
             raise SystemExit(1)
         else:
             (msb, lsb) = arg_lut[a]
-            for ind in range(lsb, msb):
+            for ind in range(lsb, msb + 1):
                 # overlapping bits
-                if encoding_args[ind] != '-':
-                    logging.error(f' Found variable {a} in instruction {name} overlapping {encoding_args[ind]} variable')
+                if encoding_args[31 - ind] != '-':
+                    logging.error(f' Found variable {a} in instruction {name} overlapping {encoding_args[31 - ind]} variable in bit {ind}')
                     raise SystemExit(1)
-                encoding_args[ind] = a
+                encoding_args[31 - ind] = a
 
     # update the fields of the instruction as a dict and return back along with
     # the name of the instruction
