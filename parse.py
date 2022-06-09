@@ -177,7 +177,7 @@ def create_inst_dict(file_filter, include_pseudo=False):
     file_names = []
     for fil in file_filter:
         file_names += glob.glob(f'{opcodes_dir}{fil}')
-
+    file_names.sort(reverse=True)
     # first pass if for standard/regular instructions
     logging.debug('Collecting standard instructions first')
     for f in file_names:
