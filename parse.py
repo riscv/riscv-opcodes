@@ -134,7 +134,7 @@ def process_enc_line(line, ext):
     return (name, single_dict)
 
 
-def create_inst_dict(file_filter, include_pseudo=False):
+def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
     '''
     This function return a dictionary containing all instructions associated
     with an extension defined by the file_filter input. The file_filter input
@@ -271,14 +271,17 @@ def create_inst_dict(file_filter, include_pseudo=False):
                 raise SystemExit(1)
 
 
+            (name, single_dict) = process_enc_line(pseudo_inst + ' ' + line, f)
             # add the pseudo_op to the dictionary only if the original
             # instruction is not already in the dictionary.
-            if orig_inst.replace('.','_') not in instr_dict or include_pseudo:
-                (name, single_dict) = process_enc_line(pseudo_inst + ' ' + line, f)
+            if orig_inst.replace('.','_') not in instr_dict \
+                    or include_pseudo \
+                    or name in include_pseudo_ops:
 
                 # update the final dict with the instruction
                 if name not in instr_dict:
                     instr_dict[name] = single_dict
+                    logging.debug(f'    including pseudo_ops:{name}')
             else:
                 logging.debug(f'Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
 
@@ -918,7 +921,10 @@ if __name__ == "__main__":
     instr_dict = collections.OrderedDict(sorted(instr_dict.items()))
 
     if '-c' in sys.argv[1:]:
-        make_c(instr_dict)
+        instr_dict_c = create_inst_dict(extensions, False, 
+                include_pseudo_ops=['pause', 'prefetch_r', 'prefetch_w', 'prefetch_i'])
+        instr_dict_c = collections.OrderedDict(sorted(instr_dict_c.items()))
+        make_c(instr_dict_c)
         logging.info('encoding.out.h generated successfully')
 
     if '-chisel' in sys.argv[1:]:
