@@ -13,7 +13,7 @@ everything:
 
 .PHONY : encoding.out.h
 encoding.out.h:
-	@./parse.py -c $(EXTENSIONS)
+	@./parse.py -c rv* unratified/rv_* unratified/rv32* unratified/rv64*
 
 .PHONY : inst.chisel
 inst.chisel:
