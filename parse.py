@@ -109,7 +109,7 @@ def process_enc_line(line, ext):
     # check if all args of the instruction are present in arg_lut present in
     # constants.py
     args = single_fixed.sub(' ', remaining).split()
-    encoding_args = encoding
+    encoding_args = encoding.copy()
     for a in args:
         if a not in arg_lut:
             logging.error(f' Found variable {a} in instruction {name} whose mapping in arg_lut does not exist')
