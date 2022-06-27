@@ -103,11 +103,16 @@ csrs = [
   (0x105, 'stvec'),
   (0x106, 'scounteren'),
   (0x10A, 'senvcfg'),
+  (0x10C, 'sstateen0'), # Smstateen
+  (0x10D, 'sstateen1'), # Smstateen
+  (0x10E, 'sstateen2'), # Smstateen
+  (0x10F, 'sstateen3'), # Smstateen
   (0x140, 'sscratch'),
   (0x141, 'sepc'),
   (0x142, 'scause'),
   (0x143, 'stval'),
   (0x144, 'sip'),
+  (0x14D, 'stimecmp'), # Sstc
   (0x180, 'satp'),
   (0x5A8, 'scontext'),
 
@@ -120,6 +125,7 @@ csrs = [
   (0x242, 'vscause'),
   (0x243, 'vstval'),
   (0x244, 'vsip'),
+  (0x24D, 'vstimecmp'), # Sstc
   (0x280, 'vsatp'),
   (0x600, 'hstatus'),
   (0x602, 'hedeleg'),
@@ -129,6 +135,10 @@ csrs = [
   (0x606, 'hcounteren'),
   (0x607, 'hgeie'),
   (0x60A, 'henvcfg'),
+  (0x60C, 'hstateen0'), # Smstateen
+  (0x60D, 'hstateen1'), # Smstateen
+  (0x60E, 'hstateen2'), # Smstateen
+  (0x60F, 'hstateen3'), # Smstateen
   (0x643, 'htval'),
   (0x644, 'hip'),
   (0x645, 'hvip'),
@@ -136,6 +146,9 @@ csrs = [
   (0x680, 'hgatp'),
   (0x6A8, 'hcontext'),
   (0xE12, 'hgeip'),
+
+  # Standard Supervisor RO
+  (0xDA0, 'scountovf'), # Sscofpmf
 
   # Tentative CSR assignment for CLIC
   (0x007, 'utvt'),
@@ -163,6 +176,10 @@ csrs = [
   (0x305, 'mtvec'),
   (0x306, 'mcounteren'),
   (0x30a, 'menvcfg'),
+  (0x30C, 'mstateen0'), # Smstateen
+  (0x30D, 'mstateen1'), # Smstateen
+  (0x30E, 'mstateen2'), # Smstateen
+  (0x30F, 'mstateen3'), # Smstateen
   (0x320, 'mcountinhibit'),
   (0x340, 'mscratch'),
   (0x341, 'mepc'),
@@ -334,9 +351,17 @@ csrs = [
 ]
 
 csrs32 = [
+  # Standard Supervisor R/W
+  (0x15D, 'stimecmph'), # Sstc
+
   # Standard Hypervisor R/w
+  (0x25D, 'vstimecmph'), # Sstc
   (0x615, 'htimedeltah'),
   (0x61A, 'henvcfgh'),
+  (0x61C, 'hstateen0h'), # Smstateen
+  (0x61D, 'hstateen1h'), # Smstateen
+  (0x61E, 'hstateen2h'), # Smstateen
+  (0x61F, 'hstateen3h'), # Smstateen
 
   # Standard User RO
   (0xC80, 'cycleh'),
@@ -375,6 +400,39 @@ csrs32 = [
   # Standard Machine RW
   (0x310, 'mstatush'),
   (0x31A, 'menvcfgh'),
+  (0x31C, 'mstateen0h'), # Smstateen
+  (0x31D, 'mstateen1h'), # Smstateen
+  (0x31E, 'mstateen2h'), # Smstateen
+  (0x31F, 'mstateen3h'), # Smstateen
+  (0x723, 'mhpmevent3h'),  # Sscofpmf
+  (0x724, 'mhpmevent4h'),  # Sscofpmf
+  (0x725, 'mhpmevent5h'),  # Sscofpmf
+  (0x726, 'mhpmevent6h'),  # Sscofpmf
+  (0x727, 'mhpmevent7h'),  # Sscofpmf
+  (0x728, 'mhpmevent8h'),  # Sscofpmf
+  (0x729, 'mhpmevent9h'),  # Sscofpmf
+  (0x72A, 'mhpmevent10h'), # Sscofpmf
+  (0x72B, 'mhpmevent11h'), # Sscofpmf
+  (0x72C, 'mhpmevent12h'), # Sscofpmf
+  (0x72D, 'mhpmevent13h'), # Sscofpmf
+  (0x72E, 'mhpmevent14h'), # Sscofpmf
+  (0x72F, 'mhpmevent15h'), # Sscofpmf
+  (0x730, 'mhpmevent16h'), # Sscofpmf
+  (0x731, 'mhpmevent17h'), # Sscofpmf
+  (0x732, 'mhpmevent18h'), # Sscofpmf
+  (0x733, 'mhpmevent19h'), # Sscofpmf
+  (0x734, 'mhpmevent20h'), # Sscofpmf
+  (0x735, 'mhpmevent21h'), # Sscofpmf
+  (0x736, 'mhpmevent22h'), # Sscofpmf
+  (0x737, 'mhpmevent23h'), # Sscofpmf
+  (0x738, 'mhpmevent24h'), # Sscofpmf
+  (0x739, 'mhpmevent25h'), # Sscofpmf
+  (0x73A, 'mhpmevent26h'), # Sscofpmf
+  (0x73B, 'mhpmevent27h'), # Sscofpmf
+  (0x73C, 'mhpmevent28h'), # Sscofpmf
+  (0x73D, 'mhpmevent29h'), # Sscofpmf
+  (0x73E, 'mhpmevent30h'), # Sscofpmf
+  (0x73F, 'mhpmevent31h'), # Sscofpmf
   (0x757, 'mseccfgh'),
   (0xB80, 'mcycleh'),
   (0xB82, 'minstreth'),
