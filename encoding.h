@@ -1,7 +1,33 @@
-/* See LICENSE for license details. */
+/* See RISCV_ENCODING_LICENSE below for license details. */
 
 #ifndef RISCV_CSR_ENCODING_H
 #define RISCV_CSR_ENCODING_H
+
+#define RISCV_ENCODING_LICENSE \
+    "Copyright (c) 2010-2017, The Regents of the University of California\n" \
+    "(Regents).  All Rights Reserved.\n" \
+    "\n" \
+    "Redistribution and use in source and binary forms, with or without\n" \
+    "modification, are permitted provided that the following conditions are met:\n" \
+    "1. Redistributions of source code must retain the above copyright\n" \
+    "   notice, this list of conditions and the following disclaimer.\n" \
+    "2. Redistributions in binary form must reproduce the above copyright\n" \
+    "   notice, this list of conditions and the following disclaimer in the\n" \
+    "   documentation and/or other materials provided with the distribution.\n" \
+    "3. Neither the name of the Regents nor the\n" \
+    "   names of its contributors may be used to endorse or promote products\n" \
+    "   derived from this software without specific prior written permission.\n" \
+    "\n" \
+    "IN NO EVENT SHALL REGENTS BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,\n" \
+    "SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING\n" \
+    "OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF REGENTS HAS\n" \
+    "BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n" \
+    "\n" \
+    "REGENTS SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO,\n" \
+    "THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\n" \
+    "PURPOSE. THE SOFTWARE AND ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED\n" \
+    "HEREUNDER IS PROVIDED \"AS IS\". REGENTS HAS NO OBLIGATION TO PROVIDE\n" \
+    "MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.\n"
 
 #define MSTATUS_UIE         0x00000001
 #define MSTATUS_SIE         0x00000002
