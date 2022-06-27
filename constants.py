@@ -112,6 +112,7 @@ csrs = [
   (0x142, 'scause'),
   (0x143, 'stval'),
   (0x144, 'sip'),
+  (0x14D, 'stimecmp'), # Sstc
   (0x180, 'satp'),
   (0x5A8, 'scontext'),
 
@@ -124,6 +125,7 @@ csrs = [
   (0x242, 'vscause'),
   (0x243, 'vstval'),
   (0x244, 'vsip'),
+  (0x24D, 'vstimecmp'), # Sstc
   (0x280, 'vsatp'),
   (0x600, 'hstatus'),
   (0x602, 'hedeleg'),
@@ -349,7 +351,11 @@ csrs = [
 ]
 
 csrs32 = [
+  # Standard Supervisor R/W
+  (0x15D, 'stimecmph'), # Sstc
+
   # Standard Hypervisor R/w
+  (0x25D, 'vstimecmph'), # Sstc
   (0x615, 'htimedeltah'),
   (0x61A, 'henvcfgh'),
   (0x61C, 'hstateen0h'), # Smstateen
