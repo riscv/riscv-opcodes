@@ -145,6 +145,9 @@ csrs = [
   (0x6A8, 'hcontext'),
   (0xE12, 'hgeip'),
 
+  # Standard Supervisor RO
+  (0xDA0, 'scountovf'), # Sscofpmf
+
   # Tentative CSR assignment for CLIC
   (0x007, 'utvt'),
   (0x045, 'unxti'),
@@ -395,6 +398,35 @@ csrs32 = [
   (0x31D, 'mstateen1h'), # Smstateen
   (0x31E, 'mstateen2h'), # Smstateen
   (0x31F, 'mstateen3h'), # Smstateen
+  (0x723, 'mhpmevent3h'),  # Sscofpmf
+  (0x724, 'mhpmevent4h'),  # Sscofpmf
+  (0x725, 'mhpmevent5h'),  # Sscofpmf
+  (0x726, 'mhpmevent6h'),  # Sscofpmf
+  (0x727, 'mhpmevent7h'),  # Sscofpmf
+  (0x728, 'mhpmevent8h'),  # Sscofpmf
+  (0x729, 'mhpmevent9h'),  # Sscofpmf
+  (0x72A, 'mhpmevent10h'), # Sscofpmf
+  (0x72B, 'mhpmevent11h'), # Sscofpmf
+  (0x72C, 'mhpmevent12h'), # Sscofpmf
+  (0x72D, 'mhpmevent13h'), # Sscofpmf
+  (0x72E, 'mhpmevent14h'), # Sscofpmf
+  (0x72F, 'mhpmevent15h'), # Sscofpmf
+  (0x730, 'mhpmevent16h'), # Sscofpmf
+  (0x731, 'mhpmevent17h'), # Sscofpmf
+  (0x732, 'mhpmevent18h'), # Sscofpmf
+  (0x733, 'mhpmevent19h'), # Sscofpmf
+  (0x734, 'mhpmevent20h'), # Sscofpmf
+  (0x735, 'mhpmevent21h'), # Sscofpmf
+  (0x736, 'mhpmevent22h'), # Sscofpmf
+  (0x737, 'mhpmevent23h'), # Sscofpmf
+  (0x738, 'mhpmevent24h'), # Sscofpmf
+  (0x739, 'mhpmevent25h'), # Sscofpmf
+  (0x73A, 'mhpmevent26h'), # Sscofpmf
+  (0x73B, 'mhpmevent27h'), # Sscofpmf
+  (0x73C, 'mhpmevent28h'), # Sscofpmf
+  (0x73D, 'mhpmevent29h'), # Sscofpmf
+  (0x73E, 'mhpmevent30h'), # Sscofpmf
+  (0x73F, 'mhpmevent31h'), # Sscofpmf
   (0x757, 'mseccfgh'),
   (0xB80, 'mcycleh'),
   (0xB82, 'minstreth'),
