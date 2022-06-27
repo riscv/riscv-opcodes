@@ -1,0 +1,4 @@
+$pseudo_op rv_c::c.add c.ntl.p1   1..0=2 6..2=2 11..7=0 15..13=4 12=1
+$pseudo_op rv_c::c.add c.ntl.pall 1..0=2 6..2=3 11..7=0 15..13=4 12=1
+$pseudo_op rv_c::c.add c.ntl.s1   1..0=2 6..2=4 11..7=0 15..13=4 12=1
+$pseudo_op rv_c::c.add c.ntl.all  1..0=2 6..2=5 11..7=0 15..13=4 12=1
