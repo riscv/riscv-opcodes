@@ -103,6 +103,10 @@ csrs = [
   (0x105, 'stvec'),
   (0x106, 'scounteren'),
   (0x10A, 'senvcfg'),
+  (0x10C, 'sstateen0'), # Smstateen
+  (0x10D, 'sstateen1'), # Smstateen
+  (0x10E, 'sstateen2'), # Smstateen
+  (0x10F, 'sstateen3'), # Smstateen
   (0x140, 'sscratch'),
   (0x141, 'sepc'),
   (0x142, 'scause'),
@@ -129,6 +133,10 @@ csrs = [
   (0x606, 'hcounteren'),
   (0x607, 'hgeie'),
   (0x60A, 'henvcfg'),
+  (0x60C, 'hstateen0'), # Smstateen
+  (0x60D, 'hstateen1'), # Smstateen
+  (0x60E, 'hstateen2'), # Smstateen
+  (0x60F, 'hstateen3'), # Smstateen
   (0x643, 'htval'),
   (0x644, 'hip'),
   (0x645, 'hvip'),
@@ -163,6 +171,10 @@ csrs = [
   (0x305, 'mtvec'),
   (0x306, 'mcounteren'),
   (0x30a, 'menvcfg'),
+  (0x30C, 'mstateen0'), # Smstateen
+  (0x30D, 'mstateen1'), # Smstateen
+  (0x30E, 'mstateen2'), # Smstateen
+  (0x30F, 'mstateen3'), # Smstateen
   (0x320, 'mcountinhibit'),
   (0x340, 'mscratch'),
   (0x341, 'mepc'),
@@ -337,6 +349,10 @@ csrs32 = [
   # Standard Hypervisor R/w
   (0x615, 'htimedeltah'),
   (0x61A, 'henvcfgh'),
+  (0x61C, 'hstateen0h'), # Smstateen
+  (0x61D, 'hstateen1h'), # Smstateen
+  (0x61E, 'hstateen2h'), # Smstateen
+  (0x61F, 'hstateen3h'), # Smstateen
 
   # Standard User RO
   (0xC80, 'cycleh'),
@@ -375,6 +391,10 @@ csrs32 = [
   # Standard Machine RW
   (0x310, 'mstatush'),
   (0x31A, 'menvcfgh'),
+  (0x31C, 'mstateen0h'), # Smstateen
+  (0x31D, 'mstateen1h'), # Smstateen
+  (0x31E, 'mstateen2h'), # Smstateen
+  (0x31F, 'mstateen3h'), # Smstateen
   (0x757, 'mseccfgh'),
   (0xB80, 'mcycleh'),
   (0xB82, 'minstreth'),
