@@ -1,4 +1,4 @@
-/* See LICENSE for license details. */
+/* SPDX-License-Identifier: BSD-3-Clause-Clear */
 
 #ifndef RISCV_CSR_ENCODING_H
 #define RISCV_CSR_ENCODING_H
