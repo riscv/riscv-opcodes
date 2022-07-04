@@ -134,6 +134,7 @@
 #define MIP_VSEIP           (1 << IRQ_VS_EXT)
 #define MIP_MEIP            (1 << IRQ_M_EXT)
 #define MIP_SGEIP           (1 << IRQ_S_GEXT)
+#define MIP_LCOFIP          (1 << IRQ_LCOF)
 
 #define MIP_S_MASK          (MIP_SSIP | MIP_STIP | MIP_SEIP)
 #define MIP_VS_MASK         (MIP_VSSIP | MIP_VSTIP | MIP_VSEIP)
@@ -271,6 +272,7 @@
 #define IRQ_M_EXT    11
 #define IRQ_S_GEXT   12
 #define IRQ_COP      12
+#define IRQ_LCOF     13
 #define IRQ_HOST     13
 
 /* page table entry (PTE) fields */
