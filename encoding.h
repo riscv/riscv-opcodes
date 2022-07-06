@@ -273,7 +273,6 @@
 #define IRQ_S_GEXT   12
 #define IRQ_COP      12
 #define IRQ_LCOF     13
-#define IRQ_HOST     13
 
 /* page table entry (PTE) fields */
 #define PTE_V     0x001 /* Valid */
