@@ -63,18 +63,26 @@
 #define USTATUS_UIE         0x00000001
 #define USTATUS_UPIE        0x00000010
 
-#define DCSR_XDEBUGVER      (3U<<30)
-#define DCSR_NDRESET        (1<<29)
-#define DCSR_FULLRESET      (1<<28)
+#define DCSR_XDEBUGVER      (3U<<30)   // deprecated
+#define DCSR_NDRESET        (1<<29)    // deprecated
+#define DCSR_FULLRESET      (1<<28)    // deprecated
+#define DCSR_DEBUGVER       0xf0000000
+#define DCSR_EBREAKVS       (1<<17)
+#define DCSR_EBREAKVU       (1<<16)
 #define DCSR_EBREAKM        (1<<15)
-#define DCSR_EBREAKH        (1<<14)
+#define DCSR_EBREAKH        (1<<14)    // deprecated
 #define DCSR_EBREAKS        (1<<13)
 #define DCSR_EBREAKU        (1<<12)
-#define DCSR_STOPCYCLE      (1<<10)
+#define DCSR_STEPIE         (1<<11)
+#define DCSR_STOPCYCLE      (1<<10)    // deprecated
+#define DCSR_STOPCOUNT      (1<<10)
 #define DCSR_STOPTIME       (1<<9)
 #define DCSR_CAUSE          (7<<6)
-#define DCSR_DEBUGINT       (1<<5)
-#define DCSR_HALT           (1<<3)
+#define DCSR_DEBUGINT       (1<<5)     // deprecated
+#define DCSR_V              (1<<5)
+#define DCSR_MPRVEN         (1<<4)
+#define DCSR_HALT           (1<<3)     // deprecated
+#define DCSR_NMIP           (1<<3)
 #define DCSR_STEP           (1<<2)
 #define DCSR_PRV            (3<<0)
 
