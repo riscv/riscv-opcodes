@@ -86,13 +86,17 @@
 #define DCSR_STEP           (1<<2)
 #define DCSR_PRV            (3<<0)
 
-#define DCSR_CAUSE_NONE     0
-#define DCSR_CAUSE_SWBP     1
-#define DCSR_CAUSE_HWBP     2
-#define DCSR_CAUSE_DEBUGINT 3
-#define DCSR_CAUSE_STEP     4
-#define DCSR_CAUSE_HALT     5
-#define DCSR_CAUSE_GROUP    6
+#define DCSR_CAUSE_NONE         0          // deprecated
+#define DCSR_CAUSE_SWBP         1          // deprecated
+#define DCSR_CAUSE_EBREAK       1
+#define DCSR_CAUSE_HWBP         2          // deprecated
+#define DCSR_CAUSE_TRIGGER      2
+#define DCSR_CAUSE_DEBUGINT     3          // deprecated
+#define DCSR_CAUSE_HALTREQ      3
+#define DCSR_CAUSE_STEP         4
+#define DCSR_CAUSE_HALT         5          // deprecated
+#define DCSR_CAUSE_RESETHALTREQ 5
+#define DCSR_CAUSE_GROUP        6
 
 #define MCONTROL_TYPE(xlen)    (0xfULL<<((xlen)-4))
 #define MCONTROL_DMODE(xlen)   (1ULL<<((xlen)-5))
