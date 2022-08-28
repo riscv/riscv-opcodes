@@ -846,7 +846,7 @@ def make_c(instr_dict):
         mask = ((1 << (end - begin + 1)) - 1) << begin
         arg_str += f"#define INSN_FIELD_{name.upper().replace(' ', '_')} {hex(mask)}\n"
 
-    with open('encoding.h', 'r') as file:
+    with open(f'{os.path.dirname(__file__)}/encoding.h', 'r') as file:
         enc_header = file.read()
 
     commit = os.popen('git log -1 --format="format:%h"').read()
