@@ -137,9 +137,9 @@ def get_base_ext (ext_name):
   return ext_name.split("_")[0]
 
 def same_base_ext (ext_name, ext_name_list):
-    type1 = ext_name.split("_")[0]
+    type1 = get_base_ext(ext_name)
     for ext_name1 in ext_name_list:
-        type2 = ext_name1.split("_")[0]
+        type2 = get_base_ext(ext_name1)
         # "rv" mean insn for rv32 and rv64
         if (type1 == type2 or
             (type2 == "rv" and (type1 == "rv32" or type1 == "rv64")) or
