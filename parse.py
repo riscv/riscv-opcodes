@@ -133,6 +133,9 @@ def process_enc_line(line, ext):
 
     return (name, single_dict)
 
+def get_base_ext (ext_name):
+  return ext_name.split("_")[0]
+
 def same_base_ext (ext_name, ext_name_list):
     type1 = ext_name.split("_")[0]
     for ext_name1 in ext_name_list:
@@ -933,6 +936,17 @@ def signed(value, width):
   else:
     return value - (1<<width)
 
+def check_extensions (extensions):
+  base_ext = "rv"
+  for ext_name in extensions:
+    ext = get_base_ext(ext_name)
+    if base_ext == ext or ext == "rv":
+      continue
+    elif base_ext == "rv":
+      base_ext = ext
+    else:
+      logging.error("Contains a variety of base extensions")
+      sys.exit(1)
 
 if __name__ == "__main__":
     print(f'Running with args : {sys.argv}')
@@ -942,6 +956,8 @@ if __name__ == "__main__":
         if i in extensions:
             extensions.remove(i)
     print(f'Extensions selected : {extensions}')
+
+    check_extensions(extensions)
 
     include_pseudo = False
     if "-go" in sys.argv[1:]:
