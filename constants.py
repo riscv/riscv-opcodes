@@ -2,7 +2,7 @@ import re
 
 
 isa_regex = \
-re.compile("^RV(32|64|128)[IE]+[ABCDEFGHJKLMNPQSTUVX]*(Zicsr|Zifencei|Zihintpause|Zam|Ztso|Zkne|Zknd|Zknh|Zkse|Zksh|Zkg|Zkb|Zkr|Zks|Zkn|Zba|Zbc|Zbb|Zbp|Zbr|Zbm|Zbs|Zbe|Zbf|Zbt|Zmmul|Zbpbo){,1}(_Zicsr){,1}(_Zifencei){,1}(_Zihintpause){,1}(_Zmmul){,1}(_Zam){,1}(_Zba){,1}(_Zbb){,1}(_Zbc){,1}(_Zbe){,1}(_Zbf){,1}(_Zbm){,1}(_Zbp){,1}(_Zbpbo){,1}(_Zbr){,1}(_Zbs){,1}(_Zbt){,1}(_Zkb){,1}(_Zkg){,1}(_Zkr){,1}(_Zks){,1}(_Zkn){,1}(_Zknd){,1}(_Zkne){,1}(_Zknh){,1}(_Zkse){,1}(_Zksh){,1}(_Ztso){,1}$")
+re.compile("^RV(32|64|128)[IE]+[ABCDEFGHJKLMNPQSTUVX]*(Zicsr|Zifencei|Zihintpause|Zam|Ztso|Zkne|Zknd|Zknh|Zkse|Zksh|Zkg|Zkb|Zkr|Zks|Zkn|Zba|Zbc|Zbb|Zbp|Zbr|Zbm|Zbs|Zbe|Zbf|Zbt|Zmmul|Zbpbo|Zca|Zcf|Zcd|Zcb|Zcmp|Zcmt){,1}(_Zicsr){,1}(_Zifencei){,1}(_Zihintpause){,1}(_Zmmul){,1}(_Zam){,1}(_Zba){,1}(_Zbb){,1}(_Zbc){,1}(_Zbe){,1}(_Zbf){,1}(_Zbm){,1}(_Zbp){,1}(_Zbpbo){,1}(_Zbr){,1}(_Zbs){,1}(_Zbt){,1}(_Zkb){,1}(_Zkg){,1}(_Zkr){,1}(_Zks){,1}(_Zkn){,1}(_Zknd){,1}(_Zkne){,1}(_Zknh){,1}(_Zkse){,1}(_Zksh){,1}(_Ztso){,1}(_Zca){,1}(_Zcf){,1}(_Zcd){,1}(_Zcb){,1}(_Zcmp){,1}(_Zcmt){,1}$")
 
 # regex to find <msb>..<lsb>=<val> patterns in instruction
 fixed_ranges = re.compile(
@@ -57,6 +57,7 @@ csrs = [
   (0x00A, 'vxrm'),
   (0x00F, 'vcsr'),
   (0x015, 'seed'), # Zkr
+  (0x017, 'jvt'), # Zcmt
 
   # Standard User RO
   (0xC00, 'cycle'),
@@ -554,6 +555,11 @@ arg_lut['c_uimm9splo'] = (6,2)
 arg_lut['c_uimm9sphi'] = (12, 12)
 arg_lut['c_uimm10sp_s'] = (12,7)
 arg_lut['c_uimm9sp_s'] = (12,7)
+arg_lut['c_uimm2'] = (6, 5)
+arg_lut['c_uimm1'] = (5, 5)
+arg_lut['c_rlist'] = (7, 4)
+arg_lut['c_spimm'] = (3, 2)
+arg_lut['c_index'] = (9, 2)
 
 arg_lut['rs1_p'] = (9,7)
 arg_lut['rs2_p'] = (4,2)
@@ -567,6 +573,8 @@ arg_lut['rs1_n0'] = (11,7)
 arg_lut['c_rs2_n0'] = (6,2)
 arg_lut['c_rs1_n0'] = (11,7)
 arg_lut['c_rs2'] = (6,2)
+arg_lut['c_sreg1'] = (9,7)
+arg_lut['c_sreg2'] = (4,2)
 
 # dictionary containing the mapping of the argument to the what the fields in
 # the latex table should be
