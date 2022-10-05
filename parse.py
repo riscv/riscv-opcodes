@@ -180,13 +180,13 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
 
 
     '''
-    opcodes_dir = f'./'
+    opcodes_dir = os.path.dirname(os.path.realpath(__file__))
     instr_dict = {}
 
     # file_names contains all files to be parsed in the riscv-opcodes directory
     file_names = []
     for fil in file_filter:
-        file_names += glob.glob(f'{opcodes_dir}{fil}')
+        file_names += glob.glob(f'{opcodes_dir}/{fil}')
     file_names.sort(reverse=True)
     # first pass if for standard/regular instructions
     logging.debug('Collecting standard instructions first')
@@ -274,21 +274,22 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # extension, dependent instruction, the pseudo_op in question and
             # its encoding
             (ext, orig_inst, pseudo_inst, line) = pseudo_regex.findall(line)[0]
+            ext_file = f'{opcodes_dir}/{ext}'
 
             # check if the file of the dependent extension exist. Throw error if
             # it doesn't
-            if not os.path.exists(ext):
-                ext1 = f'unratified/{ext}'
-                if not os.path.exists(ext1):
+            if not os.path.exists(ext_file):
+                ext1_file = f'{opcodes_dir}/unratified/{ext}'
+                if not os.path.exists(ext1_file):
                     logging.error(f'Pseudo op {pseudo_inst} in {f} depends on {ext} which is not available')
                     raise SystemExit(1)
                 else:
-                    ext = ext1
+                    ext_file = ext1_file
 
             # check if the dependent instruction exist in the dependent
             # extension. Else throw error.
             found = False
-            for oline in open(ext):
+            for oline in open(ext_file):
                 if not re.findall(f'^\s*{orig_inst}',oline):
                     continue
                 else:
@@ -338,30 +339,31 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             logging.debug(f'     Processing line: {line}')
 
             (import_ext, reg_instr) = imported_regex.findall(line)[0]
+            import_ext_file = f'{opcodes_dir}/{import_ext}'
 
             # check if the file of the dependent extension exist. Throw error if
             # it doesn't
-            if not os.path.exists(import_ext):
-                ext1 = f'unratified/{import_ext}'
-                if not os.path.exists(ext1):
+            if not os.path.exists(import_ext_file):
+                ext1_file = f'{opcodes_dir}/unratified/{import_ext}'
+                if not os.path.exists(ext1_file):
                     logging.error(f'Instruction {reg_instr} in {f} cannot be imported from {import_ext}')
                     raise SystemExit(1)
                 else:
-                    ext = ext1
+                    ext_file = ext1_file
             else:
-                ext = import_ext
+                ext_file = import_ext_file
 
             # check if the dependent instruction exist in the dependent
             # extension. Else throw error.
             found = False
-            for oline in open(ext):
+            for oline in open(ext_file):
                 if not re.findall(f'^\s*{reg_instr}',oline):
                     continue
                 else:
                     found = True
                     break
             if not found:
-                logging.error(f'imported instruction {reg_instr} not found in {ext}. Required by {line} present in {f}')
+                logging.error(f'imported instruction {reg_instr} not found in {ext_file}. Required by {line} present in {f}')
                 logging.error(f'Note: you cannot import pseudo ops.')
                 raise SystemExit(1)
 
