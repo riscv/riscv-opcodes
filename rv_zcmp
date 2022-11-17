@@ -1,0 +1,6 @@
+cm.push     c_rlist c_spimm   1..0=2 15..13=5 12..8=0x18
+cm.pop      c_rlist c_spimm   1..0=2 15..13=5 12..8=0x1A
+cm.popretz  c_rlist c_spimm   1..0=2 15..13=5 12..8=0x1C
+cm.popret   c_rlist c_spimm   1..0=2 15..13=5 12..8=0x1E
+cm.mvsa01   c_sreg1 c_sreg2   1..0=2 15..13=5 12..10=3 6..5=1
+cm.mva01s   c_sreg1 c_sreg2   1..0=2 15..13=5 12..10=3 6..5=3
