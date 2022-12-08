@@ -1,0 +1,3 @@
+$import rv_m::mulh
+$pseudo_op rv64_zpn::srai.u  srai.u    31..25=0b1101010                    imm5    rs1    14..12=0b001    rd    6..0=0b1110111
+$pseudo_op rv64_zpn::insb    insb      31..25=0b1010110    24..22=0b000    imm2    rs1    14..12=0b000    rd    6..0=0b1110111
