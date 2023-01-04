@@ -357,14 +357,14 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # extension. Else throw error.
             found = False
             for oline in open(ext_file):
-                if not re.findall(f'^\s*{reg_instr}',oline):
+                if not re.findall(f'^\s*{reg_instr}\s+',oline):
                     continue
                 else:
                     found = True
                     break
             if not found:
                 logging.error(f'imported instruction {reg_instr} not found in {ext_file}. Required by {line} present in {f}')
-                logging.error(f'Note: you cannot import pseudo ops.')
+                logging.error(f'Note: you cannot import pseudo/imported ops.')
                 raise SystemExit(1)
 
             # call process_enc_line to get the data about the current

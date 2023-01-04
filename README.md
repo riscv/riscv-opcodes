@@ -77,7 +77,7 @@ Instruction syntaxes used in this project are broadly categorized into three:
   instruction, as this avoids existence of overlapping opcodes for users who are
   experimenting with unratified extensions as well.
   
-- **imported_instructions** - these are instructions which are borrowed from an extension into a new/different extension/sub-extension. Only regular instructions can be imported. Pseudo-op instructions cannot be imported. Example:
+- **imported_instructions** - these are instructions which are borrowed from an extension into a new/different extension/sub-extension. Only regular instructions can be imported. Pseudo-op or already imported instructions cannot be imported. Example:
   ```
   $import rv32_zkne::aes32esmi
   ```
