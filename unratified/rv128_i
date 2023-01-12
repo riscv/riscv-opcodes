@@ -17,6 +17,6 @@ ldu     rd rs1       imm12 14..12=7 6..2=0x00 1..0=3
 sq     imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x08 1..0=3
 
 # RV32 and RV64 versions of these are in opcodes-pseudo
-slli    rd rs1 31..27=0  shamt 14..12=1 6..2=0x04 1..0=3
-srli    rd rs1 31..27=0  shamt 14..12=5 6..2=0x04 1..0=3
-srai    rd rs1 31..27=8  shamt 14..12=5 6..2=0x04 1..0=3
+slli    rd rs1 31..27=0  shamtq 14..12=1 6..2=0x04 1..0=3
+srli    rd rs1 31..27=0  shamtq 14..12=5 6..2=0x04 1..0=3
+srai    rd rs1 31..27=8  shamtq 14..12=5 6..2=0x04 1..0=3
