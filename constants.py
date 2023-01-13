@@ -114,6 +114,9 @@ csrs = [
   (0x143, 'stval'),
   (0x144, 'sip'),
   (0x14D, 'stimecmp'), # Sstc
+  (0x150, 'siselect'),
+  (0x151, 'sireg'),
+  (0x15C, 'stopei'),
   (0x180, 'satp'),
   (0x5A8, 'scontext'),
 
@@ -127,6 +130,9 @@ csrs = [
   (0x243, 'vstval'),
   (0x244, 'vsip'),
   (0x24D, 'vstimecmp'), # Sstc
+  (0x250, 'vsiselect'),
+  (0x251, 'vsireg'),
+  (0x25C, 'vstopei'),
   (0x280, 'vsatp'),
   (0x600, 'hstatus'),
   (0x602, 'hedeleg'),
@@ -135,6 +141,8 @@ csrs = [
   (0x605, 'htimedelta'),
   (0x606, 'hcounteren'),
   (0x607, 'hgeie'),
+  (0x608, 'hvien'),
+  (0x609, 'hvictl'),
   (0x60A, 'henvcfg'),
   (0x60C, 'hstateen0'), # Smstateen
   (0x60D, 'hstateen1'), # Smstateen
@@ -143,13 +151,19 @@ csrs = [
   (0x643, 'htval'),
   (0x644, 'hip'),
   (0x645, 'hvip'),
+  (0x646, 'hviprio1'),
+  (0x647, 'hviprio2'),
   (0x64A, 'htinst'),
   (0x680, 'hgatp'),
   (0x6A8, 'hcontext'),
+
+  # Standard Hypervisor RO
   (0xE12, 'hgeip'),
+  (0xEB0, 'vstopi'),
 
   # Standard Supervisor RO
   (0xDA0, 'scountovf'), # Sscofpmf
+  (0xDB0, 'stopi'),
 
   # Tentative CSR assignment for CLIC
   (0x007, 'utvt'),
@@ -176,6 +190,8 @@ csrs = [
   (0x304, 'mie'),
   (0x305, 'mtvec'),
   (0x306, 'mcounteren'),
+  (0x308, 'mvien'),
+  (0x309, 'mvip'),
   (0x30a, 'menvcfg'),
   (0x30C, 'mstateen0'), # Smstateen
   (0x30D, 'mstateen1'), # Smstateen
@@ -189,6 +205,9 @@ csrs = [
   (0x344, 'mip'),
   (0x34a, 'mtinst'),
   (0x34b, 'mtval2'),
+  (0x350, 'miselect'),
+  (0x351, 'mireg'),
+  (0x35c, 'mtopei'),
   (0x3a0, 'pmpcfg0'),
   (0x3a1, 'pmpcfg1'),
   (0x3a2, 'pmpcfg2'),
@@ -349,16 +368,26 @@ csrs = [
   (0xF13, 'mimpid'),
   (0xF14, 'mhartid'),
   (0xF15, 'mconfigptr'),
+  (0xFB0, 'mtopi'),
 ]
 
 csrs32 = [
   # Standard Supervisor R/W
+  (0x114, 'sieh'),
+  (0x154, 'siph'),
   (0x15D, 'stimecmph'), # Sstc
 
-  # Standard Hypervisor R/w
+  # Standard Hypervisor R/W
+  (0x214, 'vsieh'),
+  (0x254, 'vsiph'),
   (0x25D, 'vstimecmph'), # Sstc
   (0x615, 'htimedeltah'),
+  (0x613, 'hidelegh'),
+  (0x618, 'hvienh'),
   (0x61A, 'henvcfgh'),
+  (0x655, 'hviph'),
+  (0x656, 'hviprio1h'),
+  (0x657, 'hviprio2h'),
   (0x61C, 'hstateen0h'), # Smstateen
   (0x61D, 'hstateen1h'), # Smstateen
   (0x61E, 'hstateen2h'), # Smstateen
@@ -400,11 +429,16 @@ csrs32 = [
 
   # Standard Machine RW
   (0x310, 'mstatush'),
+  (0x313, 'midelegh'),
+  (0x314, 'mieh'),
+  (0x318, 'mvienh'),
+  (0x319, 'mviph'),
   (0x31A, 'menvcfgh'),
   (0x31C, 'mstateen0h'), # Smstateen
   (0x31D, 'mstateen1h'), # Smstateen
   (0x31E, 'mstateen2h'), # Smstateen
   (0x31F, 'mstateen3h'), # Smstateen
+  (0x354, 'miph'),
   (0x723, 'mhpmevent3h'),  # Sscofpmf
   (0x724, 'mhpmevent4h'),  # Sscofpmf
   (0x725, 'mhpmevent5h'),  # Sscofpmf
