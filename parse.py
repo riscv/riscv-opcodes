@@ -290,7 +290,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # extension. Else throw error.
             found = False
             for oline in open(ext_file):
-                if not re.findall(f'^\s*{orig_inst}',oline):
+                if not re.findall(f'^\s*{orig_inst}\s+',oline):
                     continue
                 else:
                     found = True
@@ -310,9 +310,9 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                 # update the final dict with the instruction
                 if name not in instr_dict:
                     instr_dict[name] = single_dict
-                    logging.debug(f'    including pseudo_ops:{name}')
+                    logging.debug(f'        including pseudo_ops:{name}')
             else:
-                logging.debug(f'Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
+                logging.debug(f'        Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
 
     # third pass if for imported instructions
     logging.debug('Collecting imported instructions')
