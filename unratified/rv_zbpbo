@@ -1,4 +1,4 @@
-$import rv_zbe::pack
+$import rv_zbp::pack
 $import rv_zbp::packu
 $import rv_zbb::max
 $import rv_zbb::min
