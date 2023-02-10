@@ -475,6 +475,13 @@ def make_latex_table():
     dataset_list.append((['64_zfh'],'RV64Zfh Standard Extension (in addition to RV32Zfh)', [], False))
     make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
+    # Zc* extensions
+    # caption = '\\caption{Zc* extensions for code size reduction on RISC-V}'
+    # dataset_list = [(['_zcb', '64_zcb'], 'Zcb (basic compressed ops) extension', [], True)]
+    # dataset_list.append((['_zcmp'], 'Zcmp (push/pop) extension', [], True))
+    # dataset_list.append((['_zcmt'], 'Zcmt (table jump) extension', [], True))
+    # make_ext_latex_table(type_list, dataset_list, latex_file, 16, caption)
+
     ## The following is demo to show that Compressed instructions can also be
     # dumped in the same manner as above
 
@@ -686,7 +693,7 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
         # with the title of that dataset as sub-heading (sort-of)
         content_list.append((title, entries_list))
 
-    # depending on the type_list input we create a subset dictionary of
+    # depending on the autodetected encoding types we create a subset dictionary of
     # latex_inst_type dictionary present in constants.py
     type_dict = {key: value for key, value in latex_inst_type.items() if auto_types[key]}
 
