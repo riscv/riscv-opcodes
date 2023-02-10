@@ -582,7 +582,11 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     \\multicolumn{1}{c}{0} \\\\
     \\cline{2-17}\n&\n\n
 '''
-
+    if ilen == 16:
+      # For compressed instructions, print the bit positions above each table to make it easier to read
+      c_instr_header = type_entries
+    else:
+      c_instr_header = ''
     # for each entry in the dataset create a table
     content = ''
     content_list = []
@@ -770,13 +774,12 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
 
   \\multicolumn{{{ilen}}}{{c}}{{}} & \\\\
   \\multicolumn{{{ilen}}}{{c}}{{\\bf {title + ", cont'd" if i > 0 else title} }} & \\\\
-  \\cline{{2-{ilen+1}}}
-
-              &
-  {instr_entries}
-  '''
-          else:
-              content += f'''
+'''
+              if ilen == 32:
+                  content += f'  \\cline{{2-{ilen+1}}} &'
+              else:
+                  content += '&\n' + c_instr_header
+          content += f'''
   {instr_entries}
   '''
   
