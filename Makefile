@@ -9,7 +9,7 @@ default: everything
 
 .PHONY : everything
 everything:
-	@./parse.py -c -go -chisel -sverilog -rust -latex -spinalhdl $(EXTENSIONS)
+	@./parse.py -c -go -chisel -sverilog -rust -latex -spinalhdl -csv $(EXTENSIONS)
 
 .PHONY : encoding.out.h
 encoding.out.h:
@@ -18,6 +18,10 @@ encoding.out.h:
 .PHONY : inst.chisel
 inst.chisel:
 	@./parse.py -chisel $(EXTENSIONS)
+
+.PHONY : inst.csv
+inst.csv:
+	@./parse.py -csv $(EXTENSIONS)
 
 .PHONY : inst.go
 inst.go:
