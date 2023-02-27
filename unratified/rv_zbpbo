@@ -3,5 +3,4 @@ $import rv_zbp::packu
 $import rv_zbb::max
 $import rv_zbb::min
 $import rv_zbt::cmix
-$import rv_zbp::grev
 $pseudo_op rv64_zbp::grevi rev8.h rd rs1 31..20=0x688 14..12=5 6..0=0x13
