@@ -63,6 +63,10 @@
 #define USTATUS_UIE         0x00000001
 #define USTATUS_UPIE        0x00000010
 
+#define MNSTATUS_NMIE       0x00000008
+#define MNSTATUS_MNPP       0x00001800
+#define MNSTATUS_MNPV       0x00000080
+
 #define DCSR_XDEBUGVER      (3U<<30)
 #define DCSR_NDRESET        (1<<29)
 #define DCSR_FULLRESET      (1<<28)

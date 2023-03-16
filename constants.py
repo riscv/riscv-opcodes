@@ -468,6 +468,10 @@ csrs32 = [
   (0x73D, 'mhpmevent29h'), # Sscofpmf
   (0x73E, 'mhpmevent30h'), # Sscofpmf
   (0x73F, 'mhpmevent31h'), # Sscofpmf
+  (0x740, 'mnscratch'), # Smrnmi
+  (0x741, 'mnepc'),     # Smrnmi
+  (0x742, 'mncause'),   # Smrnmi
+  (0x744, 'mnstatus'),  # Smrnmi
   (0x757, 'mseccfgh'),
   (0xB80, 'mcycleh'),
   (0xB82, 'minstreth'),
