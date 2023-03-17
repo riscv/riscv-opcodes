@@ -752,7 +752,6 @@ def make_chisel(instr_dict, spinal_hdl=False):
         #     chisel_names += f'  def {i.upper().replace(".","_"):<18s} = BitPat("b{instr_dict[i]["encoding"].replace("-","?")}")\n'
     if not spinal_hdl:
         extensions = instr_dict_2_extensions(instr_dict)
-        all_instr = "  val AllType = "
         for e in extensions:
             e_instrs = filter(lambda i: instr_dict[i]['extension'][0] == e, instr_dict)
             if "rv128_" in e:
@@ -760,19 +759,16 @@ def make_chisel(instr_dict, spinal_hdl=False):
             elif "rv64_" in e:
                 e_format = e.replace("rv64_", "").upper() + "64"
             elif "rv32_" in e:
-                e_format = e.replace("rv32_", "").upper()
+                e_format = e.replace("rv32_", "").upper() + "32"
             elif "rv_" in e:
                 e_format = e.replace("rv_", "").upper()
             else:
                 e_format = e.upper
-            all_instr += e_format + "Type ++ "
             chisel_names += f'  val {e_format+"Type"} = Map(\n'
             for instr in e_instrs:
                 tmp_instr_name = '"'+instr.upper().replace(".","_")+'"'
                 chisel_names += f'   {tmp_instr_name:<18s} -> BitPat("b{instr_dict[instr]["encoding"].replace("-","?")}"),\n'
             chisel_names += f'  )\n'
-
-        chisel_names += all_instr[:-3]
 
     for num, name in causes:
         cause_names_str += f'  val {name.lower().replace(" ","_")} = {hex(num)}\n'
