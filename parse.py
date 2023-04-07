@@ -247,8 +247,10 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                       err_msg += f'added from {item["extension"]} in same base extensions'
                       logging.error(err_msg)
                       raise SystemExit(1)
-            # update the final dict with the instruction
-            instr_dict[name] = single_dict
+
+            if name not in instr_dict:
+                # update the final dict with the instruction
+                instr_dict[name] = single_dict
 
     # second pass if for pseudo instructions
     logging.debug('Collecting pseudo instructions now')
@@ -382,10 +384,10 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                     err_msg += f'added from {var} but each have different encodings for the same instruction'
                     logging.error(err_msg)
                     raise SystemExit(1)
-                instr_dict[name]['extension'].append(single_dict['extension'])
-
-            # update the final dict with the instruction
-            instr_dict[name] = single_dict
+                instr_dict[name]['extension'].extend(single_dict['extension'])
+            else:
+                # update the final dict with the instruction
+                instr_dict[name] = single_dict
     return instr_dict
 
 def make_priv_latex_table():
