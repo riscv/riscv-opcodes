@@ -958,10 +958,7 @@ if __name__ == "__main__":
 
     if '-c' in sys.argv[1:]:
         instr_dict_c = create_inst_dict(extensions, False, 
-                include_pseudo_ops=['pause', 'prefetch_r', 'prefetch_w', 'prefetch_i',
-                                    'slli_rv32', 'srli_rv32', 'srai_rv32',
-                                    'slli_rv128', 'srli_rv128', 'srai_rv128',
-                                    ])
+                                        include_pseudo_ops=emitted_pseudo_ops)
         instr_dict_c = collections.OrderedDict(sorted(instr_dict_c.items()))
         make_c(instr_dict_c)
         logging.info('encoding.out.h generated successfully')
