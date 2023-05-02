@@ -735,6 +735,12 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     # dump the contents and return
     latex_file.write(header+content+endtable)
 
+def instr_dict_2_extensions(instr_dict):
+    extensions = []
+    for item in instr_dict.values():
+        if item['extension'][0] not in extensions:
+            extensions.append(item['extension'][0])
+    return extensions
 
 def make_chisel(instr_dict, spinal_hdl=False):
 
@@ -744,8 +750,28 @@ def make_chisel(instr_dict, spinal_hdl=False):
     for i in instr_dict:
         if spinal_hdl:
             chisel_names += f'  def {i.upper().replace(".","_"):<18s} = M"b{instr_dict[i]["encoding"].replace("-","-")}"\n'
-        else:
-            chisel_names += f'  def {i.upper().replace(".","_"):<18s} = BitPat("b{instr_dict[i]["encoding"].replace("-","?")}")\n'
+        # else:
+        #     chisel_names += f'  def {i.upper().replace(".","_"):<18s} = BitPat("b{instr_dict[i]["encoding"].replace("-","?")}")\n'
+    if not spinal_hdl:
+        extensions = instr_dict_2_extensions(instr_dict)
+        for e in extensions:
+            e_instrs = filter(lambda i: instr_dict[i]['extension'][0] == e, instr_dict)
+            if "rv128_" in e:
+                e_format = e.replace("rv128_", "").upper() + "128"
+            elif "rv64_" in e:
+                e_format = e.replace("rv64_", "").upper() + "64"
+            elif "rv32_" in e:
+                e_format = e.replace("rv32_", "").upper() + "32"
+            elif "rv_" in e:
+                e_format = e.replace("rv_", "").upper()
+            else:
+                e_format = e.upper
+            chisel_names += f'  val {e_format+"Type"} = Map(\n'
+            for instr in e_instrs:
+                tmp_instr_name = '"'+instr.upper().replace(".","_")+'"'
+                chisel_names += f'   {tmp_instr_name:<18s} -> BitPat("b{instr_dict[instr]["encoding"].replace("-","?")}"),\n'
+            chisel_names += f'  )\n'
+
     for num, name in causes:
         cause_names_str += f'  val {name.lower().replace(" ","_")} = {hex(num)}\n'
     cause_names_str += '''  val all = {
