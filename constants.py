@@ -558,8 +558,11 @@ arg_lut['wd'] = (26, 26)
 arg_lut['amoop'] = (31, 27)
 arg_lut['nf'] = (31, 29)
 arg_lut['simm5'] = (19, 15)
+arg_lut['zimm5'] = (19, 15)
 arg_lut['zimm10'] = (29, 20)
 arg_lut['zimm11'] = (30, 20)
+arg_lut['zimm6hi'] = (26, 26)
+arg_lut['zimm6lo'] = (19, 15)
 
 
 #compressed immediates and fields
@@ -642,6 +645,8 @@ latex_mapping['rd_n0'] = 'rd$\\neq$0'
 latex_mapping['rs1_n0'] = 'rs1$\\neq$0'
 latex_mapping['c_rs1_n0'] = 'rs1$\\neq$0'
 latex_mapping['rd_rs1'] = 'rd/rs1'
+latex_mapping['zimm6hi'] = 'uimm[5]'
+latex_mapping['zimm6lo'] = 'uimm[4:0]'
 latex_mapping['c_nzuimm10'] = "nzuimm[5:4$\\vert$9:6$\\vert$2$\\vert$3]"
 latex_mapping['c_uimm7lo'] = 'uimm[2$\\vert$6]'
 latex_mapping['c_uimm7hi'] = 'uimm[5:3]'
@@ -702,3 +707,23 @@ latex_fixed_fields.append((19,15))
 latex_fixed_fields.append((14,12))
 latex_fixed_fields.append((11,7))
 latex_fixed_fields.append((6,0))
+
+# Pseudo-ops present in the generated encodings.
+# By default pseudo-ops are not listed as they are considered aliases
+# of their base instruction.
+emitted_pseudo_ops = [
+    'pause',
+    'prefetch_i',
+    'prefetch_r',
+    'prefetch_w',
+    'rstsa16',
+    'rstsa32',
+    'srli32_u',
+    'slli_rv128',
+    'slli_rv32',
+    'srai_rv128',
+    'srai_rv32',
+    'srli_rv128',
+    'srli_rv32',
+    'umax32',
+]
