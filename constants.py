@@ -108,6 +108,7 @@ csrs = [
   (0x10D, 'sstateen1'), # Smstateen
   (0x10E, 'sstateen2'), # Smstateen
   (0x10F, 'sstateen3'), # Smstateen
+  (0x120, 'scountinhibit'), # Smcdeleg
   (0x140, 'sscratch'),
   (0x141, 'sepc'),
   (0x142, 'scause'),
