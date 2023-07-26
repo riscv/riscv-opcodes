@@ -348,6 +348,8 @@ csrs = [
   (0xB1D, 'mhpmcounter29'),
   (0xB1E, 'mhpmcounter30'),
   (0xB1F, 'mhpmcounter31'),
+  (0x321, 'mcyclecfg'),
+  (0x322, 'minstretcfg'),
   (0x323, 'mhpmevent3'),
   (0x324, 'mhpmevent4'),
   (0x325, 'mhpmevent5'),
@@ -455,6 +457,8 @@ csrs32 = [
   (0x31E, 'mstateen2h'), # Smstateen
   (0x31F, 'mstateen3h'), # Smstateen
   (0x354, 'miph'),
+  (0x721, 'mcyclecfgh'),
+  (0x722, 'minstretcfgh'),
   (0x723, 'mhpmevent3h'),  # Sscofpmf
   (0x724, 'mhpmevent4h'),  # Sscofpmf
   (0x725, 'mhpmevent5h'),  # Sscofpmf
