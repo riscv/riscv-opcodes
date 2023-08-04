@@ -9,9 +9,10 @@ import logging
 import collections
 import yaml
 import sys
+import argparse
 
 pp = pprint.PrettyPrinter(indent=2)
-logging.basicConfig(level=logging.INFO, format='%(levelname)s:: %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(levelname)s:: %(message)s', filename='REFACTORED.log')
 
 def process_enc_line(line, ext):
     '''
@@ -144,7 +145,7 @@ def same_base_ext (ext_name, ext_name_list):
             return True
     return False
 
-def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
+def create_inst_dict(file_filter, include_pseudo=False, pseudo_ops_list=[]):
     '''
     This function return a dictionary containing all instructions associated
     with an extension defined by the file_filter input. The file_filter input
@@ -253,68 +254,67 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                 instr_dict[name] = single_dict
 
     # second pass if for pseudo instructions
-    logging.debug('Collecting pseudo instructions now')
-    for f in file_names:
-        logging.debug(f'Parsing File: {f} for pseudo_ops')
-        with open(f) as fp:
-            lines = (line.rstrip()
-                     for line in fp)  # All lines including the blank ones
-            lines = list(line for line in lines if line)  # Non-blank lines
-            lines = list(
-                line for line in lines
-                if not line.startswith("#"))  # remove comment lines
+    if include_pseudo:
+        logging.debug('Collecting pseudo instructions now')
+        for f in file_names:
+            logging.debug(f'Parsing File: {f} for pseudo_ops')
+            with open(f) as fp:
+                lines = (line.rstrip()
+                        for line in fp)  # All lines including the blank ones
+                lines = list(line for line in lines if line)  # Non-blank lines
+                lines = list(
+                    line for line in lines
+                    if not line.startswith("#"))  # remove comment lines
 
-        # go through each line of the file
-        for line in lines:
+            # go through each line of the file
+            for line in lines:
 
-            # ignore all lines not starting with $pseudo
-            if '$pseudo' not in line:
-                continue
-            logging.debug(f'     Processing line: {line}')
-
-            # use the regex pseudo_regex from constants.py to find the dependent
-            # extension, dependent instruction, the pseudo_op in question and
-            # its encoding
-            (ext, orig_inst, pseudo_inst, line) = pseudo_regex.findall(line)[0]
-            ext_file = f'{opcodes_dir}/{ext}'
-
-            # check if the file of the dependent extension exist. Throw error if
-            # it doesn't
-            if not os.path.exists(ext_file):
-                ext1_file = f'{opcodes_dir}/unratified/{ext}'
-                if not os.path.exists(ext1_file):
-                    logging.error(f'Pseudo op {pseudo_inst} in {f} depends on {ext} which is not available')
-                    raise SystemExit(1)
-                else:
-                    ext_file = ext1_file
-
-            # check if the dependent instruction exist in the dependent
-            # extension. Else throw error.
-            found = False
-            for oline in open(ext_file):
-                if not re.findall(f'^\s*{orig_inst}\s+',oline):
+                # ignore all lines not starting with $pseudo
+                if '$pseudo' not in line:
                     continue
+                logging.debug(f'     Processing line: {line}')
+
+                # use the regex pseudo_regex from constants.py to find the dependent
+                # extension, dependent instruction, the pseudo_op in question and
+                # its encoding
+                (ext, orig_inst, pseudo_inst, line) = pseudo_regex.findall(line)[0]
+                ext_file = f'{opcodes_dir}/{ext}'
+
+                # check if the file of the dependent extension exist. Throw error if
+                # it doesn't
+                if not os.path.exists(ext_file):
+                    ext1_file = f'{opcodes_dir}/unratified/{ext}'
+                    if not os.path.exists(ext1_file):
+                        logging.error(f'Pseudo op {pseudo_inst} in {f} depends on {ext} which is not available')
+                        raise SystemExit(1)
+                    else:
+                        ext_file = ext1_file
+
+                # check if the dependent instruction exist in the dependent
+                # extension. Else throw error.
+                found = False
+                for oline in open(ext_file):
+                    if not re.findall(f'^\s*{orig_inst}\s+',oline):
+                        continue
+                    else:
+                        found = True
+                        break
+                if not found:
+                    logging.error(f'Orig instruction {orig_inst} not found in {ext}. Required by pseudo_op {pseudo_inst} present in {f}')
+                    raise SystemExit(1)
+
+                (name, single_dict) = process_enc_line(pseudo_inst + ' ' + line, f)
+                # add the pseudo_op to the dictionary only if the original
+                # instruction is not already in the dictionary.
+                if orig_inst.replace('.','_') not in instr_dict \
+                        or len(pseudo_ops_list) == 0 or name in pseudo_ops_list:
+
+                    # update the final dict with the instruction
+                    if name not in instr_dict:
+                        instr_dict[name] = single_dict
+                        logging.debug(f'        including pseudo_ops:{name}')
                 else:
-                    found = True
-                    break
-            if not found:
-                logging.error(f'Orig instruction {orig_inst} not found in {ext}. Required by pseudo_op {pseudo_inst} present in {f}')
-                raise SystemExit(1)
-
-
-            (name, single_dict) = process_enc_line(pseudo_inst + ' ' + line, f)
-            # add the pseudo_op to the dictionary only if the original
-            # instruction is not already in the dictionary.
-            if orig_inst.replace('.','_') not in instr_dict \
-                    or include_pseudo \
-                    or name in include_pseudo_ops:
-
-                # update the final dict with the instruction
-                if name not in instr_dict:
-                    instr_dict[name] = single_dict
-                    logging.debug(f'        including pseudo_ops:{name}')
-            else:
-                logging.debug(f'        Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
+                    logging.debug(f'        Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
 
     # third pass if for imported instructions
     logging.debug('Collecting imported instructions')
@@ -918,19 +918,19 @@ package riscv
 import "cmd/internal/obj"
 
 type inst struct {
-	opcode uint32
-	funct3 uint32
-	rs2    uint32
-	csr    int64
-	funct7 uint32
+    opcode uint32
+    funct3 uint32
+    rs2    uint32
+    csr    int64
+    funct7 uint32
 }
 
 func encode(a obj.As) *inst {
-	switch a {
+    switch a {
 '''
 
     endoffile = '''  }
-	return nil
+    return nil
 }
 '''
 
@@ -966,50 +966,57 @@ def signed(value, width):
 
 if __name__ == "__main__":
     print(f'Running with args : {sys.argv}')
+    
+    parser = argparse.ArgumentParser(
+        prog="RISC-V Opcodes",
+        description="Generate code to aid in RISC-V instruction manipulation",
+    )
 
-    extensions = sys.argv[1:]
-    for i in ['-c','-latex','-chisel','-sverilog','-rust', '-go', '-spinalhdl']:
-        if i in extensions:
-            extensions.remove(i)
-    print(f'Extensions selected : {extensions}')
+    parser.add_argument('-c', action='store_true')
+    parser.add_argument('-latex', action='store_true')
+    parser.add_argument('-chisel', action='store_true')
+    parser.add_argument('-sverilog', action='store_true')
+    parser.add_argument('-rust', action='store_true')
+    parser.add_argument('-go', action='store_true')
+    parser.add_argument('-spinalhdl', action='store_true')
+    parser.add_argument('-include_pseudo', action='store_true')
+    parser.add_argument('-pseudo_ops', nargs='*', default=[])
+    parser.add_argument('-extensions', nargs='+')
 
-    include_pseudo = False
-    if "-go" in sys.argv[1:]:
-        include_pseudo = True
+    args = parser.parse_args()
 
-    instr_dict = create_inst_dict(extensions, include_pseudo)
+    print(f'Extensions selected : {args.extensions}')
+
+    instr_dict = create_inst_dict(args.extensions, args.include_pseudo, args.pseudo_ops)
     with open('instr_dict.yaml', 'w') as outfile:
         yaml.dump(instr_dict, outfile, default_flow_style=False)
     instr_dict = collections.OrderedDict(sorted(instr_dict.items()))
 
-    if '-c' in sys.argv[1:]:
-        instr_dict_c = create_inst_dict(extensions, False, 
-                                        include_pseudo_ops=emitted_pseudo_ops)
-        instr_dict_c = collections.OrderedDict(sorted(instr_dict_c.items()))
-        make_c(instr_dict_c)
+    if args.c:
+        make_c(instr_dict)
         logging.info('encoding.out.h generated successfully')
 
-    if '-chisel' in sys.argv[1:]:
+    if args.chisel:
         make_chisel(instr_dict)
         logging.info('inst.chisel generated successfully')
 
-    if '-spinalhdl' in sys.argv[1:]:
+    if args.spinalhdl:
         make_chisel(instr_dict, True)
         logging.info('inst.spinalhdl generated successfully')
 
-    if '-sverilog' in sys.argv[1:]:
+    if args.sverilog:
         make_sverilog(instr_dict)
         logging.info('inst.sverilog generated successfully')
 
-    if '-rust' in sys.argv[1:]:
+    if args.rust:
         make_rust(instr_dict)
         logging.info('inst.rs generated successfully')
 
-    if '-go' in sys.argv[1:]:
+    if args.go:
         make_go(instr_dict)
         logging.info('inst.go generated successfully')
 
-    if '-latex' in sys.argv[1:]:
+    if args.latex:
         make_latex_table()
         logging.info('instr-table.tex generated successfully')
         make_priv_latex_table()
