@@ -1,0 +1,13 @@
+# Eight code points in the 16-bit encoding space
+# are provided for MOPs; encoded in the reserved
+# encoding space where c.lui N, 0 is encoded i.e
+# Where N is determined for c.mop.M as M*2+1
+
+c.mop.0 1..0=1 6..2=0 11..7=1  12=0 15..13=3
+c.mop.1 1..0=1 6..2=0 11..7=3  12=0 15..13=3
+c.mop.2 1..0=1 6..2=0 11..7=5  12=0 15..13=3
+c.mop.3 1..0=1 6..2=0 11..7=7  12=0 15..13=3
+c.mop.4 1..0=1 6..2=0 11..7=9  12=0 15..13=3
+c.mop.5 1..0=1 6..2=0 11..7=11 12=0 15..13=3
+c.mop.6 1..0=1 6..2=0 11..7=13 12=0 15..13=3
+c.mop.7 1..0=1 6..2=0 11..7=15 12=0 15..13=3
