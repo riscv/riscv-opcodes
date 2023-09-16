@@ -3,15 +3,13 @@ c.ld rd_p rs1_p c_uimm8lo c_uimm8hi     1..0=0 15..13=3
 c.sd rs1_p rs2_p c_uimm8hi c_uimm8lo    1..0=0 15..13=7
 
 #quadrant 1
-c.addiw rd_rs1 c_imm6lo c_imm6hi          1..0=1 15..13=1
+c.addiw rd_rs1_n0 c_imm6lo c_imm6hi       1..0=1 15..13=1
 c.srli rd_rs1_p c_nzuimm6lo c_nzuimm6hi   1..0=1 15..13=4 11..10=0
 c.srai rd_rs1_p c_nzuimm6lo c_nzuimm6hi   1..0=1 15..13=4 11..10=1
 c.subw rd_rs1_p rs2_p                     1..0=1 15..13=4 12..10=0b111 6..5=0
 c.addw rd_rs1_p rs2_p                     1..0=1 15..13=4 12..10=0b111 6..5=1
 
-
 #quadrant 2
 c.slli rd_rs1_n0 c_nzuimm6hi c_nzuimm6lo  1..0=2 15..13=0
 c.ldsp rd_n0 c_uimm9sphi c_uimm9splo      1..0=2 15..13=3
-c.sdsp c_rs2 c_uimm9sp_s                   1..0=2 15..13=7
-
+c.sdsp c_rs2 c_uimm9sp_s                  1..0=2 15..13=7
