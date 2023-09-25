@@ -564,7 +564,6 @@ arg_lut['imm3'] = (22, 20)
 arg_lut['imm4'] = (23, 20)
 arg_lut['imm5'] = (24, 20)
 arg_lut['imm6'] = (25, 20)
-arg_lut['zimm'] = (19, 15)
 arg_lut['opcode'] = (6,0)
 arg_lut['funct7'] = (31,25)
 
