@@ -636,6 +636,14 @@ arg_lut['c_rs2'] = (6,2)
 arg_lut['c_sreg1'] = (9,7)
 arg_lut['c_sreg2'] = (4,2)
 
+# for mop
+arg_lut['mop_r_t_30'] = (30,30)
+arg_lut['mop_r_t_27_26'] = (27,26)
+arg_lut['mop_r_t_21_20'] = (21, 20)
+arg_lut['mop_rr_t_30'] = (30,30)
+arg_lut['mop_rr_t_27_26'] = (27, 26)
+arg_lut['c_mop_t'] = (10,8)
+
 # dictionary containing the mapping of the argument to the what the fields in
 # the latex table should be
 latex_mapping = {}
@@ -745,4 +753,53 @@ emitted_pseudo_ops = [
     'srli_rv128',
     'srli_rv32',
     'umax32',
+    'c_mop_0',
+    'c_mop_1',
+    'c_mop_2',
+    'c_mop_3',
+    'c_mop_4',
+    'c_mop_5',
+    'c_mop_6',
+    'c_mop_7',
+    'mop_r_0',
+    'mop_r_1',
+    'mop_r_2',
+    'mop_r_3',
+    'mop_r_4',
+    'mop_r_5',
+    'mop_r_6',
+    'mop_r_7',
+    'mop_r_8',
+    'mop_r_9',
+    'mop_r_10',
+    'mop_r_11',
+    'mop_r_12',
+    'mop_r_13',
+    'mop_r_14',
+    'mop_r_15',
+    'mop_r_16',
+    'mop_r_17',
+    'mop_r_18',
+    'mop_r_19',
+    'mop_r_20',
+    'mop_r_21',
+    'mop_r_22',
+    'mop_r_23',
+    'mop_r_24',
+    'mop_r_25',
+    'mop_r_26',
+    'mop_r_27',
+    'mop_r_28',
+    'mop_r_29',
+    'mop_r_30',
+    'mop_r_31',
+    'mop_r_32',
+    'mop_rr_0',
+    'mop_rr_1',
+    'mop_rr_2',
+    'mop_rr_3',
+    'mop_rr_4',
+    'mop_rr_5',
+    'mop_rr_6',
+    'mop_rr_7',
 ]
