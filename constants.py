@@ -58,6 +58,7 @@ csrs = [
   (0x00F, 'vcsr'),
   (0x015, 'seed'), # Zkr
   (0x017, 'jvt'), # Zcmt
+  (0x020, 'ssp'), # Zicfiss
 
   # Standard User RO
   (0xC00, 'cycle'),
