@@ -26,22 +26,22 @@ imported_regex = re.compile('^\s*\$import\s*(?P<extension>.*)\s*::\s*(?P<instruc
 
 causes = []
 with open("causes.csv") as f:
-    csv_reader = csv.reader(f)
+    csv_reader = csv.reader(f, skipinitialspace=True)
     for row in csv_reader:
         causes.append((int(row[0], 0), row[1]))
 csrs = []
 with open("csrs.csv") as f:
-    csv_reader = csv.reader(f)
+    csv_reader = csv.reader(f, skipinitialspace=True)
     for row in csv_reader:
         csrs.append((int(row[0], 0), row[1]))
 csrs32 = []
 with open("csrs32.csv") as f:
-    csv_reader = csv.reader(f)
+    csv_reader = csv.reader(f, skipinitialspace=True)
     for row in csv_reader:
         csrs32.append((int(row[0], 0), row[1]))
 arg_lut = {}
 with open("arg_lut.csv") as f:
-    csv_reader = csv.reader(f)
+    csv_reader = csv.reader(f, skipinitialspace=True)
     for row in csv_reader:
         k = row[0]
         v = (int(row[1]), int(row[2]))
