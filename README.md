@@ -46,8 +46,10 @@ Instruction syntaxes used in this project are broadly categorized into three:
 - **regular instructions** :- these are instructions which hold a unique opcode in the encoding space. A very generic syntax guideline 
   for these instructions is as follows:
   ```
-  <instruction name> <instruction args> <bit-encodings>
+  <instruction name> <arguments>
   ```
+  where `<argument>` is either `<bit encoding>` or `<variable argument>`.
+
   Examples:
   ```
   lui     rd imm20 6..2=0x0D 1..0=3
