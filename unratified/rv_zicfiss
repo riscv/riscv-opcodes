@@ -1,0 +1,14 @@
+ssamoswap.w rd rs1 rs2      aq rl 31..29=2 28..27=1 14..12=2 6..2=0x0B 1..0=3
+ssamoswap.d rd rs1 rs2      aq rl 31..29=2 28..27=1 14..12=3 6..2=0x0B 1..0=3
+
+# sspopchk x1/x5 -> mop.r.28 rd=x0, rs1=x1/x5
+$pseudo_op rv_zimop::mop.r.N  sspopchk.x1 30=1 27=1 26=1 21=0 20=0 31=1 29..28=0 25..22=7 19..15=1 14..12=4 11..7=0 6..2=0x1C 1..0=3
+$pseudo_op rv_zimop::mop.r.N  sspopchk.x5 30=1 27=1 26=1 21=0 20=0 31=1 29..28=0 25..22=7 19..15=5 14..12=4 11..7=0 6..2=0x1C 1..0=3
+
+# ssrdp rd != x0 -> mop.r.28 rd!=x0, rs1=x0
+$pseudo_op rv_zimop::mop.r.N  ssrdp rd_n0 30=1 27=1 26=1 21=0 20=0 31=1 29..28=0 25..22=7 19..15=0 14..12=4         6..2=0x1C 1..0=3
+
+# sspush x1/x5 -> mop.rr.7 rd=x0, rs2=x1/x5, rs1=x0
+$pseudo_op rv_zimop::mop.rr.N sspush.x1   30=1 27=1 26=1 31=1 29..28=0 25=1 24..20=1      19..15=0 14..12=4 11..7=0 6..2=0x1C 1..0=3
+$pseudo_op rv_zimop::mop.rr.N sspush.x5   30=1 27=1 26=1 31=1 29..28=0 25=1 24..20=5      19..15=0 14..12=4 11..7=0 6..2=0x1C 1..0=3
+
