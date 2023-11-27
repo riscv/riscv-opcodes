@@ -13,6 +13,8 @@
 0x0C, "fetch page fault"
 0x0D, "load page fault"
 0x0F, "store page fault"
+0x12, "software check fault"
+0x13, "hardware error fault"
 0x14, "fetch guest page fault"
 0x15, "load guest page fault"
 0x16, "virtual instruction"
