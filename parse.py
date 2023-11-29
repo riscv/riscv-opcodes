@@ -252,71 +252,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                 # update the final dict with the instruction
                 instr_dict[name] = single_dict
 
-    # second pass if for pseudo instructions
-    logging.debug('Collecting pseudo instructions now')
-    for f in file_names:
-        logging.debug(f'Parsing File: {f} for pseudo_ops')
-        with open(f) as fp:
-            lines = (line.rstrip()
-                     for line in fp)  # All lines including the blank ones
-            lines = list(line for line in lines if line)  # Non-blank lines
-            lines = list(
-                line for line in lines
-                if not line.startswith("#"))  # remove comment lines
-
-        # go through each line of the file
-        for line in lines:
-
-            # ignore all lines not starting with $pseudo
-            if '$pseudo' not in line:
-                continue
-            logging.debug(f'     Processing line: {line}')
-
-            # use the regex pseudo_regex from constants.py to find the dependent
-            # extension, dependent instruction, the pseudo_op in question and
-            # its encoding
-            (ext, orig_inst, pseudo_inst, line) = pseudo_regex.findall(line)[0]
-            ext_file = f'{opcodes_dir}/{ext}'
-
-            # check if the file of the dependent extension exist. Throw error if
-            # it doesn't
-            if not os.path.exists(ext_file):
-                ext1_file = f'{opcodes_dir}/unratified/{ext}'
-                if not os.path.exists(ext1_file):
-                    logging.error(f'Pseudo op {pseudo_inst} in {f} depends on {ext} which is not available')
-                    raise SystemExit(1)
-                else:
-                    ext_file = ext1_file
-
-            # check if the dependent instruction exist in the dependent
-            # extension. Else throw error.
-            found = False
-            for oline in open(ext_file):
-                if not re.findall(f'^\s*{orig_inst}\s+',oline):
-                    continue
-                else:
-                    found = True
-                    break
-            if not found:
-                logging.error(f'Orig instruction {orig_inst} not found in {ext}. Required by pseudo_op {pseudo_inst} present in {f}')
-                raise SystemExit(1)
-
-
-            (name, single_dict) = process_enc_line(pseudo_inst + ' ' + line, f)
-            # add the pseudo_op to the dictionary only if the original
-            # instruction is not already in the dictionary.
-            if orig_inst.replace('.','_') not in instr_dict \
-                    or include_pseudo \
-                    or name in include_pseudo_ops:
-
-                # update the final dict with the instruction
-                if name not in instr_dict:
-                    instr_dict[name] = single_dict
-                    logging.debug(f'        including pseudo_ops:{name}')
-            else:
-                logging.debug(f'        Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
-
-    # third pass if for imported instructions
+    # second pass if for imported instructions
     logging.debug('Collecting imported instructions')
     for f in file_names:
         logging.debug(f'Parsing File: {f} for imported ops')
@@ -388,6 +324,71 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             else:
                 # update the final dict with the instruction
                 instr_dict[name] = single_dict
+
+    # third pass if for pseudo instructions
+    logging.debug('Collecting pseudo instructions now')
+    for f in file_names:
+        logging.debug(f'Parsing File: {f} for pseudo_ops')
+        with open(f) as fp:
+            lines = (line.rstrip()
+                     for line in fp)  # All lines including the blank ones
+            lines = list(line for line in lines if line)  # Non-blank lines
+            lines = list(
+                line for line in lines
+                if not line.startswith("#"))  # remove comment lines
+
+        # go through each line of the file
+        for line in lines:
+
+            # ignore all lines not starting with $pseudo
+            if '$pseudo' not in line:
+                continue
+            logging.debug(f'     Processing line: {line}')
+
+            # use the regex pseudo_regex from constants.py to find the dependent
+            # extension, dependent instruction, the pseudo_op in question and
+            # its encoding
+            (ext, orig_inst, pseudo_inst, line) = pseudo_regex.findall(line)[0]
+            ext_file = f'{opcodes_dir}/{ext}'
+
+            # check if the file of the dependent extension exist. Throw error if
+            # it doesn't
+            if not os.path.exists(ext_file):
+                ext1_file = f'{opcodes_dir}/unratified/{ext}'
+                if not os.path.exists(ext1_file):
+                    logging.error(f'Pseudo op {pseudo_inst} in {f} depends on {ext} which is not available')
+                    raise SystemExit(1)
+                else:
+                    ext_file = ext1_file
+
+            # check if the dependent instruction exist in the dependent
+            # extension. Else throw error.
+            found = False
+            for oline in open(ext_file):
+                if not re.findall(f'^\s*{orig_inst}\s+',oline):
+                    continue
+                else:
+                    found = True
+                    break
+            if not found:
+                logging.error(f'Orig instruction {orig_inst} not found in {ext}. Required by pseudo_op {pseudo_inst} present in {f}')
+                raise SystemExit(1)
+
+
+            (name, single_dict) = process_enc_line(pseudo_inst + ' ' + line, f)
+            # add the pseudo_op to the dictionary only if the original
+            # instruction is not already in the dictionary.
+            if orig_inst.replace('.','_') not in instr_dict \
+                    or include_pseudo \
+                    or name in include_pseudo_ops:
+
+                # update the final dict with the instruction
+                if name not in instr_dict:
+                    instr_dict[name] = single_dict
+                    logging.debug(f'        including pseudo_ops:{name}')
+            else:
+                logging.debug(f'        Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
+
     return instr_dict
 
 def make_priv_latex_table():
