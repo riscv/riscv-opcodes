@@ -957,6 +957,27 @@ func encode(a obj.As) *inst {
     except:
         pass
 
+
+def make_csv(instr_dict):
+    ''' Creates a CSV file with all instructions'''
+
+    instructions = []
+    header = ["instruction", "encoding", "extension",
+            "mask", "match", "variable_fields"]
+
+    for key in instr_dict.keys():
+        instructions.append(key + "," + instr_dict[key]["encoding"] + "," + \
+            ','.join(instr_dict[key]["extension"]) + "," + instr_dict[key]
+                            ["mask"] + "," + instr_dict[key]["match"] + "," + "[" + \
+                                ' | '.join(instr_dict[key]["variable_fields"]) + "]")
+
+    with open('instr_dict.csv', 'w', encoding='UTF8', newline='') as csv_file:
+        csv_file.write(f"{','.join(header)}\n")
+        for line in instructions:
+            csv_file.write(f"{line}\n")
+        csv_file.close()
+
+
 def signed(value, width):
   if 0 <= value < (1<<(width-1)):
     return value
@@ -968,7 +989,7 @@ if __name__ == "__main__":
     print(f'Running with args : {sys.argv}')
 
     extensions = sys.argv[1:]
-    for i in ['-c','-latex','-chisel','-sverilog','-rust', '-go', '-spinalhdl']:
+    for i in ['-c','-latex','-chisel','-sverilog','-rust', '-go', '-spinalhdl', '-csv']:
         if i in extensions:
             extensions.remove(i)
     print(f'Extensions selected : {extensions}')
@@ -1014,3 +1035,7 @@ if __name__ == "__main__":
         logging.info('instr-table.tex generated successfully')
         make_priv_latex_table()
         logging.info('priv-instr-table.tex generated successfully')
+
+    if '-csv' in sys.argv[1:]:
+        make_csv(instr_dict)
+        logging.info('inst.csv generated successfully')
