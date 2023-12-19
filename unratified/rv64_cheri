@@ -41,7 +41,7 @@ sh4add     rd rs1 rs2 31..25=16 14..12=7 6..2=0x0C 1..0=3
 #adjacent to sh[123]add.uw
 sh4add.uw  rd rs1 rs2 31..25=16 14..12=7 6..2=0x0E 1..0=3
 
-#regular encodings
+#regular encodings - will become a separate extension
 lr.b        rd rs1 24..20=0 aq rl 31..29=0 28..27=2 14..12=0 6..2=0x0B 1..0=3
 lr.h        rd rs1 24..20=0 aq rl 31..29=0 28..27=2 14..12=1 6..2=0x0B 1..0=3
 sc.b        rd rs1 rs2      aq rl 31..29=0 28..27=3 14..12=0 6..2=0x0B 1..0=3
