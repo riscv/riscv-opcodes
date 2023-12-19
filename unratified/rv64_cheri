@@ -1,0 +1,51 @@
+lc                 rd rs1          imm12   14..12=4 6..2=0x03 1..0=3
+sc                 imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x08 1..0=3
+
+#maybe doesn't need full 12-bit immediate
+cincoffsetimm     rd rs1 imm12             14..12=1 6..2=0x04 1..0=3
+#can trim to 5-bit immediate
+csetboundsimm     rd rs1 imm12             14..12=5 6..2=0x04 1..0=3
+
+cincoffset        rd rs1 rs2      31..25=6 14..12=0 6..2=0x0C 1..0=3
+csetaddr          rd rs1 rs2      31..25=6 14..12=1 6..2=0x0C 1..0=3
+candperm          rd rs1 rs2      31..25=6 14..12=2 6..2=0x0C 1..0=3
+csethigh          rd rs1 rs2      31..25=6 14..12=3 6..2=0x0C 1..0=3
+csetequalexact    rd rs1 rs2      31..25=6 14..12=4 6..2=0x0C 1..0=3
+cbuildcap         rd rs1 rs2      31..25=6 14..12=5 6..2=0x0C 1..0=3
+ctestsubset       rd rs1 rs2      31..25=6 14..12=6 6..2=0x0C 1..0=3
+
+csetbounds        rd rs1 rs2      31..25=7 14..12=0 6..2=0x0C 1..0=3
+csetboundsinexact rd rs1 rs2      31..25=7 14..12=1 6..2=0x0C 1..0=3
+
+cgettag           rd rs1 31..25=8 24..20=0 14..12=0 6..2=0x0C 1..0=3
+cgetperm          rd rs1 31..25=8 24..20=1 14..12=0 6..2=0x0C 1..0=3
+cmove             rd rs1 31..25=8 24..20=2 14..12=0 6..2=0x0C 1..0=3
+csetmode          rd rs1 31..25=8 24..20=3 14..12=0 6..2=0x0C 1..0=3
+cgethigh          rd rs1 31..25=8 24..20=4 14..12=0 6..2=0x0C 1..0=3
+cgetbase          rd rs1 31..25=8 24..20=5 14..12=0 6..2=0x0C 1..0=3
+cgetlen           rd rs1 31..25=8 24..20=6 14..12=0 6..2=0x0C 1..0=3
+cram              rd rs1 31..25=8 24..20=7 14..12=0 6..2=0x0C 1..0=3
+cseal             rd rs1 31..25=8 24..20=8 14..12=0 6..2=0x0C 1..0=3
+
+cmodeswitch       31..25=9 24..15=0 14..12=1 11..7=0 6..2=0x0C 1..0=3
+
+#adjacent to c.not
+c.cmodeswitch     15..13=4 12..10=7 9..7=0 6..5=3 4..2=7 1..0=1
+
+#adjacent to JALR
+jalr.pcc          rd rs1   31..20=0 14..12=1 6..2=0x19 1..0=3
+
+#adjacent to sh[123]add
+sh4add     rd rs1 rs2 31..25=16 14..12=7 6..2=0x0C 1..0=3
+
+#adjacent to sh[123]add.uw
+sh4add.uw  rd rs1 rs2 31..25=16 14..12=7 6..2=0x0E 1..0=3
+
+#regular encodings
+lr.b        rd rs1 24..20=0 aq rl 31..29=0 28..27=2 14..12=0 6..2=0x0B 1..0=3
+lr.h        rd rs1 24..20=0 aq rl 31..29=0 28..27=2 14..12=1 6..2=0x0B 1..0=3
+sc.b        rd rs1 rs2      aq rl 31..29=0 28..27=3 14..12=0 6..2=0x0B 1..0=3
+sc.h        rd rs1 rs2      aq rl 31..29=0 28..27=3 14..12=1 6..2=0x0B 1..0=3
+
+#regular encoding
+amoswap.c   rd rs1 rs2      aq rl 31..29=0 28..27=1 14..12=4 6..2=0x0B 1..0=3
