@@ -1,10 +1,10 @@
 lc                 rd rs1          imm12   14..12=4 6..2=0x03 1..0=3
 sc                 imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x08 1..0=3
 
-#maybe doesn't need full 12-bit immediate
-cincoffsetimm     rd rs1 imm12             14..12=1 6..2=0x04 1..0=3
-#can trim to 5-bit immediate
-csetboundsimm     rd rs1 imm12             14..12=5 6..2=0x04 1..0=3
+#6-bit immediate fits, should hopefully be enough?
+cincoffsetimm     rd rs1 imm6 31..26=1     14..12=1 6..2=0x04 1..0=3
+#5-bit immediate and 25 says whether to shift it
+csetboundsimm     rd rs1 imm5 31..26=1     14..12=5 6..2=0x04 1..0=3
 
 cincoffset        rd rs1 rs2      31..25=6 14..12=0 6..2=0x0C 1..0=3
 csetaddr          rd rs1 rs2      31..25=6 14..12=1 6..2=0x0C 1..0=3
