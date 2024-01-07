@@ -6,7 +6,7 @@ c.sw rs1_p rs2_p c_uimm7lo c_uimm7hi    1..0=0 15..13=6
 #quadrant 1
 c.nop c_nzimm6hi c_nzimm6lo              1..0=1 15..13=0 11..7=0
 c.addi rd_rs1_n0 c_nzimm6lo c_nzimm6hi   1..0=1 15..13=0
-c.li rd c_imm6lo c_imm6hi                1..0=1 15..13=2
+c.li rd_n0 c_imm6lo c_imm6hi             1..0=1 15..13=2
 c.addi16sp c_nzimm10hi c_nzimm10lo       1..0=1 15..13=3 11..7=2
 c.lui rd_n2 c_nzimm18hi c_nzimm18lo      1..0=1 15..13=3
 c.andi rd_rs1_p c_imm6hi c_imm6lo        1..0=1 15..13=4 11..10=2
@@ -21,10 +21,10 @@ c.bnez rs1_p c_bimm9lo c_bimm9hi         1..0=1 15..13=7
 #quadrant 2
 c.lwsp rd_n0 c_uimm8sphi c_uimm8splo     1..0=2 15..13=2
 c.jr rs1_n0                              1..0=2 15..13=4 12=0 6..2=0
-c.mv rd c_rs2_n0                         1..0=2 15..13=4 12=0              
+c.mv rd_n0 c_rs2_n0                      1..0=2 15..13=4 12=0
 c.ebreak                                 1..0=2 15..13=4 12=1 11..2=0
 c.jalr c_rs1_n0                          1..0=2 15..13=4 12=1 6..2=0
-c.add rd_rs1 c_rs2_n0                    1..0=2 15..13=4 12=1 
+c.add rd_rs1_n0 c_rs2_n0                 1..0=2 15..13=4 12=1
 c.swsp c_rs2 c_uimm8sp_s                 1..0=2 15..13=6
 
 
