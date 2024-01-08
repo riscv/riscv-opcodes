@@ -1,5 +1,5 @@
-$pseudo_op rv64_zbs::bclri bclri rd rs1 31..25=0x24 shamtw 14..12=1 6..2=0x04 1..0=3
-$pseudo_op rv64_zbs::bexti bexti rd rs1 31..25=0x24 shamtw 14..12=5 6..2=0x04 1..0=3
-$pseudo_op rv64_zbs::binvi binvi rd rs1 31..25=0x34 shamtw 14..12=1 6..2=0x04 1..0=3
-$pseudo_op rv64_zbs::bseti bseti rd rs1 31..25=0x14 shamtw 14..12=1 6..2=0x04 1..0=3
+$pseudo_op rv64_zbs::bclri bclri.rv32 rd rs1 31..25=0x24 shamtw 14..12=1 6..2=0x04 1..0=3
+$pseudo_op rv64_zbs::bexti bexti.rv32 rd rs1 31..25=0x24 shamtw 14..12=5 6..2=0x04 1..0=3
+$pseudo_op rv64_zbs::binvi binvi.rv32 rd rs1 31..25=0x34 shamtw 14..12=1 6..2=0x04 1..0=3
+$pseudo_op rv64_zbs::bseti bseti.rv32 rd rs1 31..25=0x14 shamtw 14..12=1 6..2=0x04 1..0=3
 

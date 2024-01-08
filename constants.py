@@ -220,4 +220,8 @@ emitted_pseudo_ops = [
     'mop_rr_7',
     'sspush_x1',
     'sspush_x5',
+    'bclri.rv32',
+    'bexti.rv32',
+    'binvi.rv32',
+    'bseti.rv32',
 ]
