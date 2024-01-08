@@ -8,7 +8,7 @@ $import rv64_c::c.sd
 $import rv64_c::c.addiw
 
 #quadrant 2
-c.lqsp rd c_uimm10sphi c_uimm10splo     1..0=2 15..13=1
+c.lqsp rd_n0 c_uimm10sphi c_uimm10splo  1..0=2 15..13=1
 $import rv64_c::c.ldsp
 c.sqsp c_rs2 c_uimm10sp_s               1..0=2 15..13=5
 $import rv64_c::c.sdsp
