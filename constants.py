@@ -224,4 +224,7 @@ emitted_pseudo_ops = [
     'bexti.rv32',
     'binvi.rv32',
     'bseti.rv32',
+    'zext.h.rv32',
+    'rev8.h.rv32',
+    'rori.rv32',
 ]
