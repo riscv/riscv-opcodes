@@ -1,0 +1,2 @@
+# auipc x0 imm20 -> lpad imm20
+$pseudo_op rv_i::auipc lpad imm20 11..7=0 6..2=0x05 1..0=3
