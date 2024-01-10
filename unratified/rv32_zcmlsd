@@ -1,0 +1,10 @@
+# Compressed load/store pair for RV32
+
+# quadrant 0
+$pseudo_op rv32_c_f::c.flw c.ld rd_p_e rs1_p c_uimm8lo c_uimm8hi     2..0=0 15..13=3
+$pseudo_op rv32_c_f::c.fsw c.sd rs1_p rs2_p_e c_uimm8hi c_uimm8lo    2..0=0 15..13=7
+
+#quadrant 2
+$pseudo_op rv32_c_f::c.flwsp c.ldsp rd_n0_e c_uimm9sphi c_uimm9splo  1..0=2 15..13=3 7=0
+$pseudo_op rv32_c_f::c.fswsp c.sdsp c_rs2_e c_uimm9sp_s              2..0=2 15..13=7
+
