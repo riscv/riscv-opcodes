@@ -1,0 +1,5 @@
+# Zvkk - Vector Keccak Multi-Round Extension
+#
+# Vector Keccak multi-round instruction
+vkeccak.vi     31..26=0x29 25=1 vs2 19..15=0x11 14..12=0x2 vd 6..0=0x77
+
