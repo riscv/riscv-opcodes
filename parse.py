@@ -313,6 +313,8 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                 if name not in instr_dict:
                     instr_dict[name] = single_dict
                     logging.debug(f'        including pseudo_ops:{name}')
+                elif instr_dict[name]['encoding'] == single_dict['encoding']:
+                    instr_dict[name]['extension'].extend(single_dict['extension'])
             else:
                 logging.debug(f'        Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
 
