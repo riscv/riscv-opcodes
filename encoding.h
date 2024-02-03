@@ -337,6 +337,9 @@
 #define SRMCFG_RCID  0x00000FFF
 #define SRMCFG_MCID  0x0FFF0000
 
+/* software check exception xtval codes */
+#define LANDING_PAD_FAULT 2
+
 #ifdef __riscv
 
 #if __riscv_xlen == 64
