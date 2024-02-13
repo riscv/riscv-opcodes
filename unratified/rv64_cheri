@@ -2,39 +2,38 @@ lc                 rd rs1          imm12   14..12=4 6..2=0x03 1..0=3
 sc                 imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x08 1..0=3
 
 #need to ADDIW
-cincoffsetimm     rd rs1 imm12            14..12=2 6..2=0x06 1..0=3
+caddi             rd rs1 imm12            14..12=2 6..2=0x06 1..0=3
 #5-bit immediate and 25 says whether to shift it
-csetboundsimm     rd rs1 imm5 31..26=1    14..12=5 6..2=0x04 1..0=3
+scbndsi           rd rs1 imm5 31..26=1    14..12=5 6..2=0x04 1..0=3
 
 #if rs2=x0 decode as cmove
-cincoffset        rd rs1 rs2      31..25=6 14..12=0 6..2=0x06 1..0=3
-cmove             rd rs1 24..20=0 31..25=6 14..12=0 6..2=0x06 1..0=3
-csetaddr          rd rs1 rs2      31..25=6 14..12=1 6..2=0x0C 1..0=3
-candperm          rd rs1 rs2      31..25=6 14..12=2 6..2=0x0C 1..0=3
-csethigh          rd rs1 rs2      31..25=6 14..12=3 6..2=0x0C 1..0=3
-csetequalexact    rd rs1 rs2      31..25=6 14..12=4 6..2=0x0C 1..0=3
-cbuildcap         rd rs1 rs2      31..25=6 14..12=5 6..2=0x0C 1..0=3
-ctestsubset       rd rs1 rs2      31..25=6 14..12=6 6..2=0x0C 1..0=3
-csetmode          rd rs1 rs2      31..25=6 14..12=7 6..2=0x0C 1..0=3
+cadd              rd rs1 rs2      31..25=6 14..12=0 6..2=0x06 1..0=3
+scaddr            rd rs1 rs2      31..25=6 14..12=1 6..2=0x0C 1..0=3
+acperm            rd rs1 rs2      31..25=6 14..12=2 6..2=0x0C 1..0=3
+schi              rd rs1 rs2      31..25=6 14..12=3 6..2=0x0C 1..0=3
+sceq              rd rs1 rs2      31..25=6 14..12=4 6..2=0x0C 1..0=3
+cbld              rd rs1 rs2      31..25=6 14..12=5 6..2=0x0C 1..0=3
+cscc              rd rs1 rs2      31..25=6 14..12=6 6..2=0x0C 1..0=3
+scmode            rd rs1 rs2      31..25=6 14..12=7 6..2=0x0C 1..0=3
 
-csetbounds        rd rs1 rs2      31..25=7 14..12=0 6..2=0x0C 1..0=3
-csetboundsinexact rd rs1 rs2      31..25=7 14..12=1 6..2=0x0C 1..0=3
+scbnds            rd rs1 rs2      31..25=7 14..12=0 6..2=0x0C 1..0=3
+scbndsr           rd rs1 rs2      31..25=7 14..12=1 6..2=0x0C 1..0=3
 
-cgettag           rd rs1 31..25=8 24..20=0 14..12=0 6..2=0x0C 1..0=3
-cgetperm          rd rs1 31..25=8 24..20=1 14..12=0 6..2=0x0C 1..0=3
-cgethigh          rd rs1 31..25=8 24..20=4 14..12=0 6..2=0x0C 1..0=3
-cgetbase          rd rs1 31..25=8 24..20=5 14..12=0 6..2=0x0C 1..0=3
-cgetlen           rd rs1 31..25=8 24..20=6 14..12=0 6..2=0x0C 1..0=3
+gctag             rd rs1 31..25=8 24..20=0 14..12=0 6..2=0x0C 1..0=3
+gcperm            rd rs1 31..25=8 24..20=1 14..12=0 6..2=0x0C 1..0=3
+gchi              rd rs1 31..25=8 24..20=4 14..12=0 6..2=0x0C 1..0=3
+gcbase            rd rs1 31..25=8 24..20=5 14..12=0 6..2=0x0C 1..0=3
+gclen             rd rs1 31..25=8 24..20=6 14..12=0 6..2=0x0C 1..0=3
 cram              rd rs1 31..25=8 24..20=7 14..12=0 6..2=0x0C 1..0=3
-cseal             rd rs1 31..25=8 24..20=8 14..12=0 6..2=0x0C 1..0=3
+sentry            rd rs1 31..25=8 24..20=8 14..12=0 6..2=0x0C 1..0=3
 
-cmodeswitch       31..25=9 24..15=0 14..12=1 11..7=0 6..2=0x0C 1..0=3
+modesw            31..25=9 24..15=0 14..12=1 11..7=0 6..2=0x0C 1..0=3
 
 #adjacent to c.not
-c.cmodeswitch     15..13=4 12..10=7 9..7=0 6..5=3 4..2=7 1..0=1
+c.modesw          15..13=4 12..10=7 9..7=0 6..5=3 4..2=7 1..0=1
 
 #adjacent to JALR
-jalr.pcc          rd rs1   31..20=0 14..12=1 6..2=0x19 1..0=3
+jalr.mode         rd rs1   31..20=0 14..12=1 6..2=0x19 1..0=3
 
 #adjacent to sh[123]add
 sh4add     rd rs1 rs2 31..25=16 14..12=7 6..2=0x0C 1..0=3
