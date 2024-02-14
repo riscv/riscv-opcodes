@@ -263,6 +263,8 @@
 0x7b9, "dpcc"
 0x7ba, "dscratch0c"
 0x7bb, "dscratch1c"
+0x7bc, "dddc"
+0x7bd, "dinfcap"
 0xB00, "mcycle"
 0xB02, "minstret"
 0xB03, "mhpmcounter3"
