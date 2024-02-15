@@ -250,6 +250,12 @@
 #define JVT_MODE   0x3F
 #define JVT_BASE   (~0x3F)
 
+#define HVICTL_VTI    0x40000000
+#define HVICTL_IID    0x003F0000
+#define HVICTL_DPR    0x00000200
+#define HVICTL_IPRIOM 0x00000100
+#define HVICTL_IPRIO  0x000000FF
+
 #define PRV_U 0
 #define PRV_S 1
 #define PRV_M 3
