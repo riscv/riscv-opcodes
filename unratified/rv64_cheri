@@ -7,7 +7,7 @@ caddi             rd rs1 imm12            14..12=2 6..2=0x06 1..0=3
 scbndsi           rd rs1 imm5 31..26=1    14..12=5 6..2=0x04 1..0=3
 
 #if rs2=x0 decode as cmove
-cadd              rd rs1 rs2      31..25=6 14..12=0 6..2=0x06 1..0=3
+cadd              rd rs1 rs2      31..25=6 14..12=0 6..2=0x0C 1..0=3
 scaddr            rd rs1 rs2      31..25=6 14..12=1 6..2=0x0C 1..0=3
 acperm            rd rs1 rs2      31..25=6 14..12=2 6..2=0x0C 1..0=3
 schi              rd rs1 rs2      31..25=6 14..12=3 6..2=0x0C 1..0=3
