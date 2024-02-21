@@ -257,6 +257,9 @@
 #define HVICTL_IPRIOM 0x00000100
 #define HVICTL_IPRIO  0x000000FF
 
+#define MTOPI_IID   0x0FFF0000
+#define MTOPI_IPRIO 0x000000FF
+
 #define PRV_U 0
 #define PRV_S 1
 #define PRV_M 3
