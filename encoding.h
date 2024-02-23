@@ -141,6 +141,8 @@
 #define MIP_MEIP            (1 << IRQ_M_EXT)
 #define MIP_SGEIP           (1 << IRQ_S_GEXT)
 #define MIP_LCOFIP          (1 << IRQ_LCOF)
+#define MIP_RAS_LOW_PRIO    (1ULL << IRQ_RAS_LOW_PRIO)
+#define MIP_RAS_HIGH_PRIO   (1ULL << IRQ_RAS_HIGH_PRIO)
 
 #define MIP_S_MASK          (MIP_SSIP | MIP_STIP | MIP_SEIP)
 #define MIP_VS_MASK         (MIP_VSSIP | MIP_VSTIP | MIP_VSEIP)
@@ -305,21 +307,23 @@
 #define PMP_NA4   0x10
 #define PMP_NAPOT 0x18
 
-#define IRQ_U_SOFT   0
-#define IRQ_S_SOFT   1
-#define IRQ_VS_SOFT  2
-#define IRQ_M_SOFT   3
-#define IRQ_U_TIMER  4
-#define IRQ_S_TIMER  5
-#define IRQ_VS_TIMER 6
-#define IRQ_M_TIMER  7
-#define IRQ_U_EXT    8
-#define IRQ_S_EXT    9
-#define IRQ_VS_EXT   10
-#define IRQ_M_EXT    11
-#define IRQ_S_GEXT   12
-#define IRQ_COP      12
-#define IRQ_LCOF     13
+#define IRQ_U_SOFT        0
+#define IRQ_S_SOFT        1
+#define IRQ_VS_SOFT       2
+#define IRQ_M_SOFT        3
+#define IRQ_U_TIMER       4
+#define IRQ_S_TIMER       5
+#define IRQ_VS_TIMER      6
+#define IRQ_M_TIMER       7
+#define IRQ_U_EXT         8
+#define IRQ_S_EXT         9
+#define IRQ_VS_EXT        10
+#define IRQ_M_EXT         11
+#define IRQ_S_GEXT        12
+#define IRQ_COP           12
+#define IRQ_LCOF          13
+#define IRQ_RAS_LOW_PRIO  35
+#define IRQ_RAS_HIGH_PRIO 43
 
 /* page table entry (PTE) fields */
 #define PTE_V     0x001 /* Valid */
