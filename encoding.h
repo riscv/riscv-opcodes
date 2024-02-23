@@ -260,6 +260,9 @@
 #define MTOPI_IID   0x0FFF0000
 #define MTOPI_IPRIO 0x000000FF
 
+#define MTOPEI_IID   0x7ff0000
+#define MTOPEI_IPRIO 0x00007ff
+
 #define PRV_U 0
 #define PRV_S 1
 #define PRV_M 3
