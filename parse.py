@@ -47,7 +47,9 @@ def process_enc_line(line, ext):
     encoding = ['-'] * 32
 
     # get the name of instruction by splitting based on the first space
-    [name, remaining] = line.split(' ', 1)
+    [name, remaining_and_asm_fmt] = line.split(' ', 1)
+    # get the asm format of instruction by splitting on ::: delimiter
+    [remaining, asm_fmt] = remaining_and_asm_fmt.split(' ::: ', 1)
 
     # replace dots with underscores as dot doesn't work with C/Sverilog, etc
     name = name.replace('.', '_')
@@ -123,6 +125,22 @@ def process_enc_line(line, ext):
                     raise SystemExit(1)
                 encoding_args[31 - ind] = a
 
+    # check that all fields of the asm format are fields
+    asm_fmt_fields = re.split('\(|\)|, | ', asm_fmt)
+    for field in asm_fmt_fields:
+        # Ignore OPC and blank fields
+        if field == "OPC" or field == "":
+            continue
+        # Field is an argument
+        if field in args:
+            continue
+        # Field can composed of a hi and lo pattern
+        if field + "hi" in args and field + "lo" in args:
+            continue
+        # Field wasn't found!
+        logging.error(f' Found field {field} in asm format instruction {name} whose corresponding variable_field does not exist')
+        raise SystemExit(1)
+
     # update the fields of the instruction as a dict and return back along with
     # the name of the instruction
     single_dict['encoding'] = "".join(encoding)
@@ -130,6 +148,7 @@ def process_enc_line(line, ext):
     single_dict['extension'] = [ext.split('/')[-1]]
     single_dict['match']=hex(int(match,2))
     single_dict['mask']=hex(int(mask,2))
+    single_dict['asm_format']=asm_fmt
 
     return (name, single_dict)
 
