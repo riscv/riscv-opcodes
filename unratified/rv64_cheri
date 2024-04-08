@@ -32,9 +32,6 @@ modesw            31..25=9 24..15=0 14..12=1 11..7=0 6..2=0x0C 1..0=3
 #adjacent to c.not
 c.modesw          15..13=4 12..10=7 9..7=0 6..5=3 4..2=7 1..0=1
 
-#adjacent to JALR
-jalr.mode         rd rs1   31..20=0 14..12=1 6..2=0x19 1..0=3
-
 #adjacent to sh[123]add
 sh4add     rd rs1 rs2 31..25=16 14..12=7 6..2=0x0C 1..0=3
 
