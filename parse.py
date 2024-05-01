@@ -133,7 +133,7 @@ def process_enc_line(line, ext):
 
     return (name, single_dict)
 
-def same_base_ext (ext_name, ext_name_list):
+def same_base_isa(ext_name, ext_name_list):
     type1 = ext_name.split("_")[0]
     for ext_name1 in ext_name_list:
         type2 = ext_name1.split("_")[0]
@@ -143,6 +143,26 @@ def same_base_ext (ext_name, ext_name_list):
             (type1 == "rv" and (type2 == "rv32" or type2 == "rv64"))):
             return True
     return False
+
+def overlaps(x, y):
+    x = x.rjust(len(y), '-')
+    y = y.rjust(len(x), '-')
+
+    for i in range(0, len(x)):
+        if not (x[i] == '-' or y[i] == '-' or x[i] == y[i]):
+            return False
+
+    return True
+
+def overlap_allowed(a, x, y):
+    return x in a and y in a[x] or \
+           y in a and x in a[y]
+
+def extension_overlap_allowed(x, y):
+    return overlap_allowed(overlapping_extensions, x, y)
+
+def instruction_overlap_allowed(x, y):
+    return overlap_allowed(overlapping_instructions, x, y)
 
 def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
     '''
@@ -222,29 +242,32 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # instruction is already imported and raise SystemExit
             if name in instr_dict:
                 var = instr_dict[name]["extension"]
-                if same_base_ext(ext_name, var):
-                    # disable same names on the same base extensions
+                if same_base_isa(ext_name, var):
+                    # disable same names on the same base ISA
                     err_msg = f'instruction : {name} from '
                     err_msg += f'{ext_name} is already '
-                    err_msg += f'added from {var} in same base extensions'
+                    err_msg += f'added from {var} in same base ISA'
                     logging.error(err_msg)
                     raise SystemExit(1)
                 elif instr_dict[name]['encoding'] != single_dict['encoding']:
-                    # disable same names with different encodings on different base extensions
+                    # disable same names with different encodings on different base ISAs
                     err_msg = f'instruction : {name} from '
                     err_msg += f'{ext_name} is already '
-                    err_msg += f'added from {var} but each have different encodings in different base extensions'
+                    err_msg += f'added from {var} but each have different encodings in different base ISAs'
                     logging.error(err_msg)
                     raise SystemExit(1)
                 instr_dict[name]['extension'].extend(single_dict['extension'])
             else:
               for key in instr_dict:
                   item = instr_dict[key]
-                  if item["encoding"] == single_dict['encoding'] and same_base_ext(ext_name, item["extension"]):
-                      # disable different names with same encodings on the same base extensions
-                      err_msg = f'instruction : {name} from '
-                      err_msg += f'{ext_name} has the same encoding with instruction {key} '
-                      err_msg += f'added from {item["extension"]} in same base extensions'
+                  if overlaps(item['encoding'], single_dict['encoding']) and \
+                    not extension_overlap_allowed(ext_name, item['extension'][0]) and \
+                    not instruction_overlap_allowed(name, key) and \
+                    same_base_isa(ext_name, item['extension']):
+                      # disable different names with overlapping encodings on the same base ISA
+                      err_msg = f'instruction : {name} in extension '
+                      err_msg += f'{ext_name} overlaps instruction {key} '
+                      err_msg += f'in extension {item["extension"]}'
                       logging.error(err_msg)
                       raise SystemExit(1)
 
