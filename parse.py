@@ -756,9 +756,7 @@ def make_chisel(instr_dict, spinal_hdl=False):
         extensions = instr_dict_2_extensions(instr_dict)
         for e in extensions:
             e_instrs = filter(lambda i: instr_dict[i]['extension'][0] == e, instr_dict)
-            if "rv128_" in e:
-                e_format = e.replace("rv128_", "").upper() + "128"
-            elif "rv64_" in e:
+            if "rv64_" in e:
                 e_format = e.replace("rv64_", "").upper() + "64"
             elif "rv32_" in e:
                 e_format = e.replace("rv32_", "").upper() + "32"
