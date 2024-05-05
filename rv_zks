@@ -13,8 +13,8 @@ $import rv_zbc::clmul
 $import rv_zbc::clmulh
 
 #import zbkx
-$import rv_zbp::xperm4
-$import rv_zbp::xperm8
+$import rv_zbkx::xperm4
+$import rv_zbkx::xperm8
 
 # Scalar SM4 - RV32, RV64
 $import rv_zksed::sm4ed

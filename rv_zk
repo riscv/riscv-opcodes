@@ -13,8 +13,8 @@ $import rv_zbc::clmul
 $import rv_zbc::clmulh
 
 #import zbkx
-$import rv_zbp::xperm4
-$import rv_zbp::xperm8
+$import rv_zbkx::xperm4
+$import rv_zbkx::xperm8
 
 #import zknh
 # Scalar SHA256 - RV32/RV64
