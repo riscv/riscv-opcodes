@@ -2,6 +2,20 @@ import re
 import csv
 
 
+overlapping_extensions = {
+    'rv_zcmt': {'rv_c_d'},
+    'rv_zcmp': {'rv_c_d'},
+    'rv_c': {'rv_zcmop'},
+}
+
+overlapping_instructions = {
+    'c_addi': {'c_nop'},
+    'c_lui': {'c_addi16sp'},
+    'c_mv': {'c_jr'},
+    'c_jalr': {'c_ebreak'},
+    'c_add': {'c_ebreak', 'c_jalr'},
+}
+
 isa_regex = \
 re.compile("^RV(32|64|128)[IE]+[ABCDEFGHJKLMNPQSTUVX]*(Zicsr|Zifencei|Zihintpause|Zam|Ztso|Zkne|Zknd|Zknh|Zkse|Zksh|Zkg|Zkb|Zkr|Zks|Zkn|Zba|Zbc|Zbb|Zbp|Zbr|Zbm|Zbs|Zbe|Zbf|Zbt|Zmmul|Zbpbo|Zca|Zcf|Zcd|Zcb|Zcmp|Zcmt){,1}(_Zicsr){,1}(_Zifencei){,1}(_Zihintpause){,1}(_Zmmul){,1}(_Zam){,1}(_Zba){,1}(_Zbb){,1}(_Zbc){,1}(_Zbe){,1}(_Zbf){,1}(_Zbm){,1}(_Zbp){,1}(_Zbpbo){,1}(_Zbr){,1}(_Zbs){,1}(_Zbt){,1}(_Zkb){,1}(_Zkg){,1}(_Zkr){,1}(_Zks){,1}(_Zkn){,1}(_Zknd){,1}(_Zkne){,1}(_Zknh){,1}(_Zkse){,1}(_Zksh){,1}(_Ztso){,1}(_Zca){,1}(_Zcf){,1}(_Zcd){,1}(_Zcb){,1}(_Zcmp){,1}(_Zcmt){,1}$")
 
@@ -157,11 +171,8 @@ emitted_pseudo_ops = [
     'rstsa16',
     'rstsa32',
     'srli32_u',
-    'slli_rv128',
     'slli_rv32',
-    'srai_rv128',
     'srai_rv32',
-    'srli_rv128',
     'srli_rv32',
     'umax32',
     'c_mop_1',

@@ -4,4 +4,4 @@ $import rv64_zbb::rolw
 $import rv64_zbb::rorw
 $import rv64_zbb::roriw
 $import rv64_zbb::rori
-$import rv64_zbe::packw
+$import rv64_zbkb::packw

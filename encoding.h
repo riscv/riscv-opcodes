@@ -21,6 +21,7 @@
 #define MSTATUS_TW          0x00200000
 #define MSTATUS_TSR         0x00400000
 #define MSTATUS_SPELP       0x00800000
+#define MSTATUS_SDT         0x01000000
 #define MSTATUS32_SD        0x80000000
 #define MSTATUS_UXL         0x0000000300000000
 #define MSTATUS_SXL         0x0000000C00000000
@@ -29,12 +30,14 @@
 #define MSTATUS_GVA         0x0000004000000000
 #define MSTATUS_MPV         0x0000008000000000
 #define MSTATUS_MPELP       0x0000020000000000
+#define MSTATUS_MDT         0x0000040000000000
 #define MSTATUS64_SD        0x8000000000000000
 
 #define MSTATUSH_SBE        0x00000010
 #define MSTATUSH_MBE        0x00000020
 #define MSTATUSH_GVA        0x00000040
 #define MSTATUSH_MPV        0x00000080
+#define MSTATUSH_MDT        0x00000400
 
 #define SSTATUS_UIE         0x00000001
 #define SSTATUS_SIE         0x00000002
@@ -48,6 +51,7 @@
 #define SSTATUS_SUM         0x00040000
 #define SSTATUS_MXR         0x00080000
 #define SSTATUS_SPELP       0x00800000
+#define SSTATUS_SDT         0x01000000
 #define SSTATUS32_SD        0x80000000
 #define SSTATUS_UXL         0x0000000300000000
 #define SSTATUS64_SD        0x8000000000000000
@@ -70,19 +74,22 @@
 #define MNSTATUS_MNPP       0x00001800
 #define MNSTATUS_MNPV       0x00000080
 
-#define DCSR_XDEBUGVER      (3U<<30)
-#define DCSR_NDRESET        (1<<29)
-#define DCSR_FULLRESET      (1<<28)
+#define DCSR_XDEBUGVER      (15U<<28)
+#define DCSR_EXTCAUSE       (7<<24)
+#define DCSR_CETRIG         (1<<19)
 #define DCSR_PELP           (1<<18)
+#define DCSR_EBREAKVS       (1<<17)
+#define DCSR_EBREAKVU       (1<<16)
 #define DCSR_EBREAKM        (1<<15)
-#define DCSR_EBREAKH        (1<<14)
 #define DCSR_EBREAKS        (1<<13)
 #define DCSR_EBREAKU        (1<<12)
-#define DCSR_STOPCYCLE      (1<<10)
+#define DCSR_STEPIE         (1<<11)
+#define DCSR_STOPCOUNT      (1<<10)
 #define DCSR_STOPTIME       (1<<9)
 #define DCSR_CAUSE          (7<<6)
-#define DCSR_DEBUGINT       (1<<5)
-#define DCSR_HALT           (1<<3)
+#define DCSR_V              (1<<5)
+#define DCSR_MPRVEN         (1<<4)
+#define DCSR_NMIP           (1<<3)
 #define DCSR_STEP           (1<<2)
 #define DCSR_PRV            (3<<0)
 
@@ -141,6 +148,8 @@
 #define MIP_MEIP            (1 << IRQ_M_EXT)
 #define MIP_SGEIP           (1 << IRQ_S_GEXT)
 #define MIP_LCOFIP          (1 << IRQ_LCOF)
+#define MIP_RAS_LOW_PRIO    (1ULL << IRQ_RAS_LOW_PRIO)
+#define MIP_RAS_HIGH_PRIO   (1ULL << IRQ_RAS_HIGH_PRIO)
 
 #define MIP_S_MASK          (MIP_SSIP | MIP_STIP | MIP_SEIP)
 #define MIP_VS_MASK         (MIP_VSSIP | MIP_VSTIP | MIP_VSEIP)
@@ -158,11 +167,13 @@
 #define MENVCFG_CBCFE 0x00000040
 #define MENVCFG_CBZE  0x00000080
 #define MENVCFG_CDE   0x1000000000000000
+#define MENVCFG_DTE   0x0800000000000000
 #define MENVCFG_ADUE  0x2000000000000000
 #define MENVCFG_PBMTE 0x4000000000000000
 #define MENVCFG_STCE  0x8000000000000000
 
 #define MENVCFGH_CDE   0x10000000
+#define MENVCFGH_DTE   0x08000000
 #define MENVCFGH_ADUE  0x20000000
 #define MENVCFGH_PBMTE 0x40000000
 #define MENVCFGH_STCE  0x80000000
@@ -172,11 +183,15 @@
 #define MSTATEEN0_JVT      0x00000004
 #define MSTATEEN0_PRIV114  0x0080000000000000
 #define MSTATEEN0_HCONTEXT 0x0200000000000000
+#define MSTATEEN0_AIA      0x0800000000000000
+#define MSTATEEN0_CSRIND   0x1000000000000000
 #define MSTATEEN0_HENVCFG  0x4000000000000000
 #define MSTATEEN_HSTATEEN  0x8000000000000000
 
 #define MSTATEEN0H_PRIV114  0x00800000
 #define MSTATEEN0H_HCONTEXT 0x02000000
+#define MSTATEEN0H_AIA      0x08000000
+#define MSTATEEN0H_CSRIND   0x10000000
 #define MSTATEEN0H_HENVCFG  0x40000000
 #define MSTATEENH_HSTATEEN  0x80000000
 
@@ -200,10 +215,12 @@
 #define HENVCFG_CBIE  0x00000030
 #define HENVCFG_CBCFE 0x00000040
 #define HENVCFG_CBZE  0x00000080
+#define HENVCFG_DTE   0x0800000000000000
 #define HENVCFG_ADUE  0x2000000000000000
 #define HENVCFG_PBMTE 0x4000000000000000
 #define HENVCFG_STCE  0x8000000000000000
 
+#define HENVCFGH_DTE   0x08000000
 #define HENVCFGH_ADUE  0x20000000
 #define HENVCFGH_PBMTE 0x40000000
 #define HENVCFGH_STCE  0x80000000
@@ -224,10 +241,14 @@
 #define HSTATEEN0_FCSR     0x00000002
 #define HSTATEEN0_JVT      0x00000004
 #define HSTATEEN0_SCONTEXT 0x0200000000000000
+#define HSTATEEN0_AIA      0x0800000000000000
+#define HSTATEEN0_CSRIND   0x1000000000000000
 #define HSTATEEN0_SENVCFG  0x4000000000000000
 #define HSTATEEN_SSTATEEN  0x8000000000000000
 
 #define HSTATEEN0H_SCONTEXT 0x02000000
+#define HSTATEEN0H_AIA      0x08000000
+#define HSTATEEN0H_CSRIND   0x10000000
 #define HSTATEEN0H_SENVCFG  0x40000000
 #define HSTATEENH_SSTATEEN  0x80000000
 
@@ -307,21 +328,23 @@
 #define PMP_NA4   0x10
 #define PMP_NAPOT 0x18
 
-#define IRQ_U_SOFT   0
-#define IRQ_S_SOFT   1
-#define IRQ_VS_SOFT  2
-#define IRQ_M_SOFT   3
-#define IRQ_U_TIMER  4
-#define IRQ_S_TIMER  5
-#define IRQ_VS_TIMER 6
-#define IRQ_M_TIMER  7
-#define IRQ_U_EXT    8
-#define IRQ_S_EXT    9
-#define IRQ_VS_EXT   10
-#define IRQ_M_EXT    11
-#define IRQ_S_GEXT   12
-#define IRQ_COP      12
-#define IRQ_LCOF     13
+#define IRQ_U_SOFT        0
+#define IRQ_S_SOFT        1
+#define IRQ_VS_SOFT       2
+#define IRQ_M_SOFT        3
+#define IRQ_U_TIMER       4
+#define IRQ_S_TIMER       5
+#define IRQ_VS_TIMER      6
+#define IRQ_M_TIMER       7
+#define IRQ_U_EXT         8
+#define IRQ_S_EXT         9
+#define IRQ_VS_EXT        10
+#define IRQ_M_EXT         11
+#define IRQ_S_GEXT        12
+#define IRQ_COP           12
+#define IRQ_LCOF          13
+#define IRQ_RAS_LOW_PRIO  35
+#define IRQ_RAS_HIGH_PRIO 43
 
 /* page table entry (PTE) fields */
 #define PTE_V     0x001 /* Valid */
@@ -348,6 +371,7 @@
 
 /* software check exception xtval codes */
 #define LANDING_PAD_FAULT 2
+#define SHADOW_STACK_FAULT 3
 
 #ifdef __riscv
 
