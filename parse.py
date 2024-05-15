@@ -193,9 +193,9 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
     instruction is not added twice to the overall dictionary.
 
     In the second pass, this function parses only pseudo_ops. For each pseudo_op
-    this function checks if the dependent extension and instruction, both, exit
-    before parsing it. The pseudo op is only added to the overall dictionary is
-    the dependent instruction is not present in the dictionary, else its
+    this function checks if the dependent extension and instruction, both, exist
+    before parsing it. The pseudo op is only added to the overall dictionary if
+    the dependent instruction is not present in the dictionary, else it is
     skipped.
 
 
