@@ -4,7 +4,7 @@ c.lw rd_p rs1_p c_uimm7lo c_uimm7hi     1..0=0 15..13=2
 c.sw rs1_p rs2_p c_uimm7lo c_uimm7hi    1..0=0 15..13=6
 
 #quadrant 1
-c.nop c_nzimm6hi c_nzimm6lo              1..0=1 15..13=0 11..7=0
+c.nop c_imm6hi c_imm6lo                  1..0=1 15..13=0 11..7=0
 c.addi rd_rs1_n0 c_nzimm6lo c_nzimm6hi   1..0=1 15..13=0
 c.li rd_n0 c_imm6lo c_imm6hi             1..0=1 15..13=2
 c.addi16sp c_nzimm10hi c_nzimm10lo       1..0=1 15..13=3 11..7=2
