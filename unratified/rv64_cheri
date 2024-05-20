@@ -44,5 +44,7 @@ lr.h        rd rs1 24..20=0 aq rl 31..29=0 28..27=2 14..12=1 6..2=0x0B 1..0=3
 sc.b        rd rs1 rs2      aq rl 31..29=0 28..27=3 14..12=0 6..2=0x0B 1..0=3
 sc.h        rd rs1 rs2      aq rl 31..29=0 28..27=3 14..12=1 6..2=0x0B 1..0=3
 
-#regular encoding
+#regular encodings for double width datatype
 amoswap.c   rd rs1 rs2      aq rl 31..29=0 28..27=1 14..12=4 6..2=0x0B 1..0=3
+lr.c        rd rs1 24..20=0 aq rl 31..29=0 28..27=2 14..12=4 6..2=0x0B 1..0=3
+sc.c        rd rs1 rs2      aq rl 31..29=0 28..27=3 14..12=4 6..2=0x0B 1..0=3
