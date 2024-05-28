@@ -20,54 +20,352 @@ vsetvl       31=1 30..25=0x0 rs2  rs1 14..12=0x7 rd 6..0=0x57
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#74-vector-unit-stride-instructions
 vlm.v          31..28=0 27..26=0 25=1 24..20=0xb rs1 14..12=0x0  vd 6..0=0x07
 vsm.v          31..28=0 27..26=0 25=1 24..20=0xb rs1 14..12=0x0 vs3 6..0=0x27
-vle8.v         nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
-vle16.v        nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5  vd 6..0=0x07
-vle32.v        nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6  vd 6..0=0x07
-vle64.v        nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7  vd 6..0=0x07
-vse8.v         nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
-vse16.v        nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
-vse32.v        nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
-vse64.v        nf 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
+vle8.v         31..29=0 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
+vle16.v        31..29=0 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5  vd 6..0=0x07
+vle32.v        31..29=0 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6  vd 6..0=0x07
+vle64.v        31..29=0 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7  vd 6..0=0x07
+vse8.v         31..29=0 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
+vse16.v        31..29=0 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
+vse32.v        31..29=0 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
+vse64.v        31..29=0 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Vector Indexed-Unordered Instructions (including segment part)
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#76-vector-indexed-instructions
-vluxei8.v      nf 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
-vluxei16.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
-vluxei32.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
-vluxei64.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
-vsuxei8.v      nf 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
-vsuxei16.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
-vsuxei32.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
-vsuxei64.v     nf 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vluxei8.v      31..29=0 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vluxei16.v     31..29=0 28=0 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vluxei32.v     31..29=0 28=0 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vluxei64.v     31..29=0 28=0 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vsuxei8.v      31..29=0 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsuxei16.v     31..29=0 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsuxei32.v     31..29=0 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsuxei64.v     31..29=0 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Vector Strided Instructions (including segment part)
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#75-vector-strided-instructions
-vlse8.v         nf 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
-vlse16.v        nf 28=0 27..26=2 vm rs2 rs1 14..12=0x5  vd 6..0=0x07
-vlse32.v        nf 28=0 27..26=2 vm rs2 rs1 14..12=0x6  vd 6..0=0x07
-vlse64.v        nf 28=0 27..26=2 vm rs2 rs1 14..12=0x7  vd 6..0=0x07
-vsse8.v         nf 28=0 27..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
-vsse16.v        nf 28=0 27..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
-vsse32.v        nf 28=0 27..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
-vsse64.v        nf 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
+vlse8.v         31..29=0 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
+vlse16.v        31..29=0 28=0 27..26=2 vm rs2 rs1 14..12=0x5  vd 6..0=0x07
+vlse32.v        31..29=0 28=0 27..26=2 vm rs2 rs1 14..12=0x6  vd 6..0=0x07
+vlse64.v        31..29=0 28=0 27..26=2 vm rs2 rs1 14..12=0x7  vd 6..0=0x07
+vsse8.v         31..29=0 28=0 27..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsse16.v        31..29=0 28=0 27..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsse32.v        31..29=0 28=0 27..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsse64.v        31..29=0 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Vector Indexed-Ordered Instructions (including segment part)
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#76-vector-indexed-instructions
-vloxei8.v        nf 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
-vloxei16.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
-vloxei32.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
-vloxei64.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
-vsoxei8.v        nf 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
-vsoxei16.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
-vsoxei32.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
-vsoxei64.v       nf 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vloxei8.v        31..29=0 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vloxei16.v       31..29=0 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vloxei32.v       31..29=0 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vloxei64.v       31..29=0 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vsoxei8.v        31..29=0 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsoxei16.v       31..29=0 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsoxei32.v       31..29=0 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsoxei64.v       31..29=0 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Unit-stride Fault-Only-First Loads
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#77-unit-stride-fault-only-first-loads
-vle8ff.v         nf 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
-vle16ff.v        nf 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x5  vd 6..0=0x07
-vle32ff.v        nf 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x6  vd 6..0=0x07
-vle64ff.v        nf 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x7  vd 6..0=0x07
+vle8ff.v         31..29=0 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
+vle16ff.v        31..29=0 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x5  vd 6..0=0x07
+vle32ff.v        31..29=0 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x6  vd 6..0=0x07
+vle64ff.v        31..29=0 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x7  vd 6..0=0x07
+
+# Vector Segment Unit-Stride Instructions
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#74-vector-unit-stride-instructions
+vlseg2e8.v       31..29=1 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
+vlseg3e8.v       31..29=2 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
+vlseg4e8.v       31..29=3 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
+vlseg5e8.v       31..29=4 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
+vlseg6e8.v       31..29=5 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
+vlseg7e8.v       31..29=6 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
+vlseg8e8.v       31..29=7 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
+
+vlseg2e16.v      31..29=1 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5  vd 6..0=0x07
+vlseg3e16.v      31..29=2 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5  vd 6..0=0x07
+vlseg4e16.v      31..29=3 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5  vd 6..0=0x07
+vlseg5e16.v      31..29=4 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5  vd 6..0=0x07
+vlseg6e16.v      31..29=5 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5  vd 6..0=0x07
+vlseg7e16.v      31..29=6 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5  vd 6..0=0x07
+vlseg8e16.v      31..29=7 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5  vd 6..0=0x07
+
+vlseg2e32.v      31..29=1 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6  vd 6..0=0x07
+vlseg3e32.v      31..29=2 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6  vd 6..0=0x07
+vlseg4e32.v      31..29=3 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6  vd 6..0=0x07
+vlseg5e32.v      31..29=4 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6  vd 6..0=0x07
+vlseg6e32.v      31..29=5 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6  vd 6..0=0x07
+vlseg7e32.v      31..29=6 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6  vd 6..0=0x07
+vlseg8e32.v      31..29=7 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6  vd 6..0=0x07
+
+vlseg2e64.v      31..29=1 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7  vd 6..0=0x07
+vlseg3e64.v      31..29=2 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7  vd 6..0=0x07
+vlseg4e64.v      31..29=3 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7  vd 6..0=0x07
+vlseg5e64.v      31..29=4 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7  vd 6..0=0x07
+vlseg6e64.v      31..29=5 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7  vd 6..0=0x07
+vlseg7e64.v      31..29=6 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7  vd 6..0=0x07
+vlseg8e64.v      31..29=7 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7  vd 6..0=0x07
+
+vsseg2e8.v       31..29=1 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
+vsseg3e8.v       31..29=2 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
+vsseg4e8.v       31..29=3 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
+vsseg5e8.v       31..29=4 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
+vsseg6e8.v       31..29=5 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
+vsseg7e8.v       31..29=6 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
+vsseg8e8.v       31..29=7 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0 vs3 6..0=0x27
+
+vsseg2e16.v      31..29=1 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
+vsseg3e16.v      31..29=2 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
+vsseg4e16.v      31..29=3 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
+vsseg5e16.v      31..29=4 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
+vsseg6e16.v      31..29=5 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
+vsseg7e16.v      31..29=6 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
+vsseg8e16.v      31..29=7 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x5 vs3 6..0=0x27
+
+vsseg2e32.v      31..29=1 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
+vsseg3e32.v      31..29=2 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
+vsseg4e32.v      31..29=3 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
+vsseg5e32.v      31..29=4 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
+vsseg6e32.v      31..29=5 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
+vsseg7e32.v      31..29=6 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
+vsseg8e32.v      31..29=7 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x6 vs3 6..0=0x27
+
+vsseg2e64.v      31..29=1 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
+vsseg3e64.v      31..29=2 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
+vsseg4e64.v      31..29=3 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
+vsseg5e64.v      31..29=4 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
+vsseg6e64.v      31..29=5 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
+vsseg7e64.v      31..29=6 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
+vsseg8e64.v      31..29=7 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
+
+# Vector Segment Strided Instructions
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#75-vector-strided-instructions
+vlsseg2e8.v      31..29=1 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
+vlsseg3e8.v      31..29=2 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
+vlsseg4e8.v      31..29=3 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
+vlsseg5e8.v      31..29=4 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
+vlsseg6e8.v      31..29=5 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
+vlsseg7e8.v      31..29=6 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
+vlsseg8e8.v      31..29=7 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
+
+vlsseg2e16.v     31..29=1 28=0 27..26=2 vm rs2 rs1 14..12=0x5  vd 6..0=0x07
+vlsseg3e16.v     31..29=2 28=0 27..26=2 vm rs2 rs1 14..12=0x5  vd 6..0=0x07
+vlsseg4e16.v     31..29=3 28=0 27..26=2 vm rs2 rs1 14..12=0x5  vd 6..0=0x07
+vlsseg5e16.v     31..29=4 28=0 27..26=2 vm rs2 rs1 14..12=0x5  vd 6..0=0x07
+vlsseg6e16.v     31..29=5 28=0 27..26=2 vm rs2 rs1 14..12=0x5  vd 6..0=0x07
+vlsseg7e16.v     31..29=6 28=0 27..26=2 vm rs2 rs1 14..12=0x5  vd 6..0=0x07
+vlsseg8e16.v     31..29=7 28=0 27..26=2 vm rs2 rs1 14..12=0x5  vd 6..0=0x07
+
+vlsseg2e32.v     31..29=1 28=0 27..26=2 vm rs2 rs1 14..12=0x6  vd 6..0=0x07
+vlsseg3e32.v     31..29=2 28=0 27..26=2 vm rs2 rs1 14..12=0x6  vd 6..0=0x07
+vlsseg4e32.v     31..29=3 28=0 27..26=2 vm rs2 rs1 14..12=0x6  vd 6..0=0x07
+vlsseg5e32.v     31..29=4 28=0 27..26=2 vm rs2 rs1 14..12=0x6  vd 6..0=0x07
+vlsseg6e32.v     31..29=5 28=0 27..26=2 vm rs2 rs1 14..12=0x6  vd 6..0=0x07
+vlsseg7e32.v     31..29=6 28=0 27..26=2 vm rs2 rs1 14..12=0x6  vd 6..0=0x07
+vlsseg8e32.v     31..29=7 28=0 27..26=2 vm rs2 rs1 14..12=0x6  vd 6..0=0x07
+
+vlsseg2e64.v     31..29=1 28=0 27..26=2 vm rs2 rs1 14..12=0x7  vd 6..0=0x07
+vlsseg3e64.v     31..29=2 28=0 27..26=2 vm rs2 rs1 14..12=0x7  vd 6..0=0x07
+vlsseg4e64.v     31..29=3 28=0 27..26=2 vm rs2 rs1 14..12=0x7  vd 6..0=0x07
+vlsseg5e64.v     31..29=4 28=0 27..26=2 vm rs2 rs1 14..12=0x7  vd 6..0=0x07
+vlsseg6e64.v     31..29=5 28=0 27..26=2 vm rs2 rs1 14..12=0x7  vd 6..0=0x07
+vlsseg7e64.v     31..29=6 28=0 27..26=2 vm rs2 rs1 14..12=0x7  vd 6..0=0x07
+vlsseg8e64.v     31..29=7 28=0 27..26=2 vm rs2 rs1 14..12=0x7  vd 6..0=0x07
+
+vssseg2e8.v      31..29=1 28=0 27..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
+vssseg3e8.v      31..29=2 28=0 27..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
+vssseg4e8.v      31..29=3 28=0 27..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
+vssseg5e8.v      31..29=4 28=0 27..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
+vssseg6e8.v      31..29=5 28=0 27..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
+vssseg7e8.v      31..29=6 28=0 27..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
+vssseg8e8.v      31..29=7 28=0 27..26=2 vm rs2 rs1 14..12=0x0 vs3 6..0=0x27
+
+vssseg2e16.v     31..29=1 28=0 27..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
+vssseg3e16.v     31..29=2 28=0 27..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
+vssseg4e16.v     31..29=3 28=0 27..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
+vssseg5e16.v     31..29=4 28=0 27..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
+vssseg6e16.v     31..29=5 28=0 27..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
+vssseg7e16.v     31..29=6 28=0 27..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
+vssseg8e16.v     31..29=7 28=0 27..26=2 vm rs2 rs1 14..12=0x5 vs3 6..0=0x27
+
+vssseg2e32.v     31..29=1 28=0 27..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
+vssseg3e32.v     31..29=2 28=0 27..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
+vssseg4e32.v     31..29=3 28=0 27..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
+vssseg5e32.v     31..29=4 28=0 27..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
+vssseg6e32.v     31..29=5 28=0 27..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
+vssseg7e32.v     31..29=6 28=0 27..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
+vssseg8e32.v     31..29=7 28=0 27..26=2 vm rs2 rs1 14..12=0x6 vs3 6..0=0x27
+
+vssseg2e64.v     31..29=1 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
+vssseg3e64.v     31..29=2 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
+vssseg4e64.v     31..29=3 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
+vssseg5e64.v     31..29=4 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
+vssseg6e64.v     31..29=5 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
+vssseg7e64.v     31..29=6 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
+vssseg8e64.v     31..29=7 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
+
+# Vector Segment Indexed-Unordered Instructions
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#76-vector-indexed-instructions
+vluxseg2ei8.v     31..29=1 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vluxseg3ei8.v     31..29=2 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vluxseg4ei8.v     31..29=3 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vluxseg5ei8.v     31..29=4 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vluxseg6ei8.v     31..29=5 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vluxseg7ei8.v     31..29=6 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vluxseg8ei8.v     31..29=7 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+
+vluxseg2ei16.v    31..29=1 28=0 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vluxseg3ei16.v    31..29=2 28=0 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vluxseg4ei16.v    31..29=3 28=0 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vluxseg5ei16.v    31..29=4 28=0 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vluxseg6ei16.v    31..29=5 28=0 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vluxseg7ei16.v    31..29=6 28=0 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vluxseg8ei16.v    31..29=7 28=0 27..26=1 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+
+vluxseg2ei32.v    31..29=1 28=0 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vluxseg3ei32.v    31..29=2 28=0 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vluxseg4ei32.v    31..29=3 28=0 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vluxseg5ei32.v    31..29=4 28=0 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vluxseg6ei32.v    31..29=5 28=0 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vluxseg7ei32.v    31..29=6 28=0 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vluxseg8ei32.v    31..29=7 28=0 27..26=1 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+
+vluxseg2ei64.v    31..29=1 28=0 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vluxseg3ei64.v    31..29=2 28=0 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vluxseg4ei64.v    31..29=3 28=0 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vluxseg5ei64.v    31..29=4 28=0 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vluxseg6ei64.v    31..29=5 28=0 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vluxseg7ei64.v    31..29=6 28=0 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vluxseg8ei64.v    31..29=7 28=0 27..26=1 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+
+vsuxseg2ei8.v     31..29=1 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsuxseg3ei8.v     31..29=2 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsuxseg4ei8.v     31..29=3 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsuxseg5ei8.v     31..29=4 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsuxseg6ei8.v     31..29=5 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsuxseg7ei8.v     31..29=6 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsuxseg8ei8.v     31..29=7 28=0 27..26=1 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+
+vsuxseg2ei16.v    31..29=1 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsuxseg3ei16.v    31..29=2 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsuxseg4ei16.v    31..29=3 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsuxseg5ei16.v    31..29=4 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsuxseg6ei16.v    31..29=5 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsuxseg7ei16.v    31..29=6 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsuxseg8ei16.v    31..29=7 28=0 27..26=1 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+
+vsuxseg2ei32.v    31..29=1 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsuxseg3ei32.v    31..29=2 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsuxseg4ei32.v    31..29=3 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsuxseg5ei32.v    31..29=4 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsuxseg6ei32.v    31..29=5 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsuxseg7ei32.v    31..29=6 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsuxseg8ei32.v    31..29=7 28=0 27..26=1 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+
+vsuxseg2ei64.v    31..29=1 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsuxseg3ei64.v    31..29=2 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsuxseg4ei64.v    31..29=3 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsuxseg5ei64.v    31..29=4 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsuxseg6ei64.v    31..29=5 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsuxseg7ei64.v    31..29=6 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsuxseg8ei64.v    31..29=7 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+
+# Vector Segment Indexed-Ordered Instructions
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#76-vector-indexed-instructions
+vloxseg2ei8.v     31..29=1 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vloxseg3ei8.v     31..29=2 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vloxseg4ei8.v     31..29=3 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vloxseg5ei8.v     31..29=4 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vloxseg6ei8.v     31..29=5 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vloxseg7ei8.v     31..29=6 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+vloxseg8ei8.v     31..29=7 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
+
+vloxseg2ei16.v    31..29=1 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vloxseg3ei16.v    31..29=2 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vloxseg4ei16.v    31..29=3 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vloxseg5ei16.v    31..29=4 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vloxseg6ei16.v    31..29=5 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vloxseg7ei16.v    31..29=6 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+vloxseg8ei16.v    31..29=7 28=0 27..26=3 vm vs2 rs1 14..12=0x5  vd 6..0=0x07
+
+vloxseg2ei32.v    31..29=1 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vloxseg3ei32.v    31..29=2 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vloxseg4ei32.v    31..29=3 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vloxseg5ei32.v    31..29=4 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vloxseg6ei32.v    31..29=5 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vloxseg7ei32.v    31..29=6 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+vloxseg8ei32.v    31..29=7 28=0 27..26=3 vm vs2 rs1 14..12=0x6  vd 6..0=0x07
+
+vloxseg2ei64.v    31..29=1 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vloxseg3ei64.v    31..29=2 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vloxseg4ei64.v    31..29=3 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vloxseg5ei64.v    31..29=4 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vloxseg6ei64.v    31..29=5 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vloxseg7ei64.v    31..29=6 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+vloxseg8ei64.v    31..29=7 28=0 27..26=3 vm vs2 rs1 14..12=0x7  vd 6..0=0x07
+
+vsoxseg2ei8.v     31..29=1 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsoxseg3ei8.v     31..29=2 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsoxseg4ei8.v     31..29=3 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsoxseg5ei8.v     31..29=4 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsoxseg6ei8.v     31..29=5 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsoxseg7ei8.v     31..29=6 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+vsoxseg8ei8.v     31..29=7 28=0 27..26=3 vm vs2 rs1 14..12=0x0 vs3 6..0=0x27
+
+vsoxseg2ei16.v    31..29=1 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsoxseg3ei16.v    31..29=2 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsoxseg4ei16.v    31..29=3 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsoxseg5ei16.v    31..29=4 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsoxseg6ei16.v    31..29=5 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsoxseg7ei16.v    31..29=6 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+vsoxseg8ei16.v    31..29=7 28=0 27..26=3 vm vs2 rs1 14..12=0x5 vs3 6..0=0x27
+
+vsoxseg2ei32.v    31..29=1 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsoxseg3ei32.v    31..29=2 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsoxseg4ei32.v    31..29=3 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsoxseg5ei32.v    31..29=4 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsoxseg6ei32.v    31..29=5 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsoxseg7ei32.v    31..29=6 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+vsoxseg8ei32.v    31..29=7 28=0 27..26=3 vm vs2 rs1 14..12=0x6 vs3 6..0=0x27
+
+vsoxseg2ei64.v    31..29=1 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsoxseg3ei64.v    31..29=2 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsoxseg4ei64.v    31..29=3 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsoxseg5ei64.v    31..29=4 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsoxseg6ei64.v    31..29=5 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsoxseg7ei64.v    31..29=6 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+vsoxseg8ei64.v    31..29=7 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
+
+# Vector Segment Unit-stride Fault-Only-First Loads
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#77-unit-stride-fault-only-first-loads
+vlseg2e8ff.v     31..29=1 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
+vlseg3e8ff.v     31..29=2 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
+vlseg4e8ff.v     31..29=3 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
+vlseg5e8ff.v     31..29=4 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
+vlseg6e8ff.v     31..29=5 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
+vlseg7e8ff.v     31..29=6 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
+vlseg8e8ff.v     31..29=7 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
+
+vlseg2e16ff.v    31..29=1 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x5  vd 6..0=0x07
+vlseg3e16ff.v    31..29=2 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x5  vd 6..0=0x07
+vlseg4e16ff.v    31..29=3 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x5  vd 6..0=0x07
+vlseg5e16ff.v    31..29=4 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x5  vd 6..0=0x07
+vlseg6e16ff.v    31..29=5 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x5  vd 6..0=0x07
+vlseg7e16ff.v    31..29=6 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x5  vd 6..0=0x07
+vlseg8e16ff.v    31..29=7 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x5  vd 6..0=0x07
+
+vlseg2e32ff.v    31..29=1 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x6  vd 6..0=0x07
+vlseg3e32ff.v    31..29=2 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x6  vd 6..0=0x07
+vlseg4e32ff.v    31..29=3 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x6  vd 6..0=0x07
+vlseg5e32ff.v    31..29=4 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x6  vd 6..0=0x07
+vlseg6e32ff.v    31..29=5 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x6  vd 6..0=0x07
+vlseg7e32ff.v    31..29=6 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x6  vd 6..0=0x07
+vlseg8e32ff.v    31..29=7 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x6  vd 6..0=0x07
+
+vlseg2e64ff.v    31..29=1 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x7  vd 6..0=0x07
+vlseg3e64ff.v    31..29=2 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x7  vd 6..0=0x07
+vlseg4e64ff.v    31..29=3 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x7  vd 6..0=0x07
+vlseg5e64ff.v    31..29=4 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x7  vd 6..0=0x07
+vlseg6e64ff.v    31..29=5 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x7  vd 6..0=0x07
+vlseg7e64ff.v    31..29=6 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x7  vd 6..0=0x07
+vlseg8e64ff.v    31..29=7 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x7  vd 6..0=0x07
 
 # Vector Load/Store Whole Registers
 # https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#79-vector-loadstore-whole-register-instructions
