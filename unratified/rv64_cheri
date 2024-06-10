@@ -1,8 +1,9 @@
 lc                 rd rs1          imm12   14..12=4 6..2=0x03 1..0=3
 sc                 imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x08 1..0=3
 
-#need to ADDIW
-caddi             rd rs1 imm12            14..12=2 6..2=0x06 1..0=3
+#next to ADDIW
+caddi          rd_n0 rs1 imm12            14..12=2 6..2=0x06 1..0=3
+cmv        11..7=0x0 rs1 imm12            14..12=2 6..2=0x06 1..0=3
 #5-bit immediate and 25 says whether to shift it
 scbndsi           rd rs1 imm5 31..26=1    14..12=5 6..2=0x04 1..0=3
 

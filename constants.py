@@ -14,6 +14,7 @@ overlapping_instructions = {
     'c_mv': {'c_jr'},
     'c_jalr': {'c_ebreak'},
     'c_add': {'c_ebreak', 'c_jalr'},
+    'caddi': {'cmv'}
 }
 
 isa_regex = \
