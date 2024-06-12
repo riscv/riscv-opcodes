@@ -46,14 +46,14 @@ Instruction syntaxes used in this project are broadly categorized into three:
 - **regular instructions** :- these are instructions which hold a unique opcode in the encoding space. A very generic syntax guideline 
   for these instructions is as follows:
   ```
-  <instruction name> <arguments>
+  <instruction name> <arguments> ::: <asm format>
   ```
   where `<argument>` is either `<bit encoding>` or `<variable argument>`.
 
   Examples:
   ```
-  lui     rd imm20 6..2=0x0D 1..0=3
-  beq     bimm12hi rs1 rs2 bimm12lo 14..12=0 6..2=0x18 1..0=3
+  lui     rd imm20 6..2=0x0D 1..0=3 ::: OPC rd, imm20
+  beq     bimm12hi rs1 rs2 bimm12lo 14..12=0 6..2=0x18 1..0=3 ::: OPC rs1, rs2, bimm12
   ```
   The bit encodings are usually of 2 types: 
     - *single bit assignment* : here the value of a single bit is assigned using syntax `<bit-position>=<value>`. For e.g. `6=1` means bit 6 should be 1. Here the value must be 1 or 0.
@@ -111,6 +111,7 @@ Once the above checks are passed for a regular instruction, we then create a dic
   - mask : a 32-bit hex value indicating the bits of the encodings that must be checked for legality of that instruction
   - match : a 32-bit hex value indicating the values the encoding must take for the bits which are set as 1 in the mask above
   - variable_fields : This is list of args required by the instruction
+  - asm_format: The format of fields for valid assembly for this instruction
 
 The above dictionary elements are added to a main `instr_dict` dictionary under the instruction node. This process continues until all regular 
 instructions have been processed. In the second pass, we now process the `$pseudo_op` instructions. Here, we first check if the *base-instruction* of 
