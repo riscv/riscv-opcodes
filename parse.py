@@ -127,7 +127,7 @@ def process_enc_line(line, ext):
     # the name of the instruction
     single_dict['encoding'] = "".join(encoding)
     single_dict['variable_fields'] = args
-    single_dict['extension'] = [ext.split('/')[-1]]
+    single_dict['extension'] = [os.path.basename(ext)]
     single_dict['match']=hex(int(match,2))
     single_dict['mask']=hex(int(mask,2))
 
@@ -235,7 +235,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # call process_enc_line to get the data about the current
             # instruction
             (name, single_dict) = process_enc_line(line, f)
-            ext_name = f.split("/")[-1]
+            ext_name = os.path.basename(f)
 
             # if an instruction has already been added to the filtered
             # instruction dictionary throw an error saying the given
@@ -403,7 +403,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                 var = instr_dict[name]["extension"]
                 if instr_dict[name]['encoding'] != single_dict['encoding']:
                     err_msg = f'imported instruction : {name} in '
-                    err_msg += f'{f.split("/")[-1]} is already '
+                    err_msg += f'{os.path.basename(f)} is already '
                     err_msg += f'added from {var} but each have different encodings for the same instruction'
                     logging.error(err_msg)
                     raise SystemExit(1)
