@@ -315,7 +315,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # extension. Else throw error.
             found = False
             for oline in open(ext_file):
-                if not re.findall(f'^\s*{orig_inst}\s+',oline):
+                if not re.findall(f'^\\s*{orig_inst}\\s+',oline):
                     continue
                 else:
                     found = True
@@ -382,7 +382,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # extension. Else throw error.
             found = False
             for oline in open(ext_file):
-                if not re.findall(f'^\s*{reg_instr}\s+',oline):
+                if not re.findall(f'^\\s*{reg_instr}\\s+',oline):
                     continue
                 else:
                     found = True
