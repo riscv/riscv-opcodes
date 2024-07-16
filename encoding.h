@@ -111,7 +111,7 @@
 
 #define MCONTROL_SELECT     (1<<19)
 #define MCONTROL_TIMING     (1<<18)
-#define MCONTROL_ACTION     (0x3f<<12)
+#define MCONTROL_ACTION     (0xf<<12)
 #define MCONTROL_CHAIN      (1<<11)
 #define MCONTROL_MATCH      (0xf<<7)
 #define MCONTROL_M          (1<<6)
