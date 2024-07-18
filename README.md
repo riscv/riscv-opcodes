@@ -1,11 +1,8 @@
 # riscv-opcodes
 
-This repo enumerates standard RISC-V instruction opcodes and control and
-status registers.  It also contains a script to convert them into several
-formats (C, Scala, LaTeX).
+This repository serves as the central source of truth for standard RISC-V instruction opcodes and control and status register definitions. It provides a comprehensive and machine-readable representation of these elements, enabling them to be easily integrated into various tools and projects.
 
-Artifacts (encoding.h, latex-tables, etc) from this repo are used in other 
-tools and projects like Spike, PK, RISC-V Manual, etc. 
+Additionally, the repository includes a script for generating artifacts (like encoding.h and latex-tables) in different formats (C, Scala, LaTeX) to facilitate broader utilization. These artifacts are instrumental components of projects like Spike, PK, and the RISC-V manuals.
 
 ## Project Structure
 
@@ -27,10 +24,10 @@ containing instruction encodings start with the prefix `rv`. These files can eit
 the root directory (if the instructions have been ratified) or the `unratified` directory. The exact
 file-naming policy and location is as mentioned below:
 
-1. `rv_x` - contains instructions common within the 32-bit and 64-bit modes of extension X.
-2. `rv32_x` - contains instructions present in rv32x only (absent in rv64x e.g.. brev8)
-3. `rv64_x` - contains instructions present in rv64x only (absent in rv32x, e.g. addw)
-4. `rv_x_y` - contains instructions when both extension X and Y are available/enabled. It is recommended to follow canonical ordering for such file names as specified by the spec.
+1. `rv_x` - contains instructions common within the 32-bit and 64-bit modes of extension X(replace X with the specific extension name).
+2. `rv32_x` - Instructions specific to 32-bit mode and absent in 64-bit mode within extension X are stored here (e.g., brev8).
+3. `rv64_x` - Conversely, instructions exclusive to 64-bit mode within extension X are placed here (e.g., addw).
+4. `rv_x_y` - This format accommodates instructions requiring both extensions X and Y to be enabled or available. The recommended naming convention for such files adheres to the canonical order specified in the RISC-V instruction set specification.
 5. `unratified` - this directory will also contain files similar to the above policies, but will
    correspond to instructions which have not yet been ratified.
 
@@ -43,7 +40,7 @@ The encoding syntax uses `$` to indicate keywords. As of now 2 keywords have bee
 
 Instruction syntaxes used in this project are broadly categorized into three:
 
-- **regular instructions** :- these are instructions which hold a unique opcode in the encoding space. A very generic syntax guideline 
+- **regular instructions** :- these are instructions which hold a unique opcode in the encoding space. A very generic syntax guideline
   for these instructions is as follows:
   ```
   <instruction name> <arguments>
@@ -55,19 +52,19 @@ Instruction syntaxes used in this project are broadly categorized into three:
   lui     rd imm20 6..2=0x0D 1..0=3
   beq     bimm12hi rs1 rs2 bimm12lo 14..12=0 6..2=0x18 1..0=3
   ```
-  The bit encodings are usually of 2 types: 
+  The bit encodings are usually of 2 types:
     - *single bit assignment* : here the value of a single bit is assigned using syntax `<bit-position>=<value>`. For e.g. `6=1` means bit 6 should be 1. Here the value must be 1 or 0.
-    - *range assignment*: here a range of bits is assigned a value using syntax: `<msb>..<lsb>=<val>`. For e.g. `31..24=0xab`. The value here can be either unsigned integer, hex (0x) or binary (0b). 
+    - *range assignment*: here a range of bits is assigned a value using syntax: `<msb>..<lsb>=<val>`. For e.g. `31..24=0xab`. The value here can be either unsigned integer, hex (0x) or binary (0b).
 
-- **pseudo_instructions** (a.k.a pseudo\_ops) - These are instructions which are aliases of regular instructions. Their encodings force 
+- **pseudo_instructions** (a.k.a pseudo\_ops) - These are instructions which are aliases of regular instructions. Their encodings force
   certain restrictions over the regular instruction. The syntax for such instructions uses the `$pseudo_op` keyword as follows:
   ```
   $pseudo_op <extension>::<base-instruction> <instruction name> <instruction args> <bit-encodings>
   ```
-  Here the `<extension>` specifies the extension which contains the base instruction. `<base-instruction>` indicates the name of the instruction 
-  this pseudo-instruction is an alias of. The remaining fields are the same as the regular instruction syntax, where all the args and the fields 
+  Here the `<extension>` specifies the extension which contains the base instruction. `<base-instruction>` indicates the name of the instruction
+  this pseudo-instruction is an alias of. The remaining fields are the same as the regular instruction syntax, where all the args and the fields
   of the pseudo instruction are specified.
-  
+
   Example:
   ```
   $pseudo_op rv_zicsr::csrrs frflags rd 19..15=0 31..20=0x001 14..12=2 6..2=0x1C 1..0=3
@@ -78,7 +75,7 @@ Instruction syntaxes used in this project are broadly categorized into three:
   define the new instruction as a pseudo\_op of the unratified regular
   instruction, as this avoids existence of overlapping opcodes for users who are
   experimenting with unratified extensions as well.
-  
+
 - **imported_instructions** - these are instructions which are borrowed from an extension into a new/different extension/sub-extension. Only regular instructions can be imported. Pseudo-op or already imported instructions cannot be imported. Example:
   ```
   $import rv32_zkne::aes32esmi
@@ -96,15 +93,15 @@ Following are the restrictions one should keep in mind while defining $pseudo\_o
 
 The `parse.py` python file is used to perform checks on the current set of instruction encodings and also generates multiple artifacts : latex tables, encoding.h header file, etc. This section will provide a brief overview of the flow within the python file.
 
-To start with, `parse.py` creates a list of all `rv*` files currently checked into the repo (including those inside the `unratified` directory as well). 
-It then starts parsing each file line by line. In the first pass, we only capture regular instructions and ignore the imported or pseudo instructions. 
+To start with, `parse.py` creates a list of all `rv*` files currently checked into the repo (including those inside the `unratified` directory as well).
+It then starts parsing each file line by line. In the first pass, we only capture regular instructions and ignore the imported or pseudo instructions.
 For each regular instruction, the following checks are performed :
 
   - for range-assignment syntax, the *msb* position must be higher than the *lsb* position
   - for range-assignment syntax, the value of the range must representable in the space identified by *msb* and *lsb*
   - values for the same bit positions should not be defined multiple times.
   - All bit positions must be accounted for (either as args or constant value fields)
- 
+
 Once the above checks are passed for a regular instruction, we then create a dictionary for this instruction which contains the following fields:
   - encoding : contains a 32-bit string defining the encoding of the instruction. Here `-` is used to represent instruction argument fields
   - extension : string indicating which extension/filename this instruction was picked from
@@ -112,14 +109,14 @@ Once the above checks are passed for a regular instruction, we then create a dic
   - match : a 32-bit hex value indicating the values the encoding must take for the bits which are set as 1 in the mask above
   - variable_fields : This is list of args required by the instruction
 
-The above dictionary elements are added to a main `instr_dict` dictionary under the instruction node. This process continues until all regular 
-instructions have been processed. In the second pass, we now process the `$pseudo_op` instructions. Here, we first check if the *base-instruction* of 
-this pseudo instruction exists in the relevant extension/filename or not. If it is present, the the remaining part of the syntax undergoes the same 
-checks as above. Once the checks pass and if the *base-instruction* is not already added to the main `instr_dict` then the pseudo-instruction is added to 
+The above dictionary elements are added to a main `instr_dict` dictionary under the instruction node. This process continues until all regular
+instructions have been processed. In the second pass, we now process the `$pseudo_op` instructions. Here, we first check if the *base-instruction* of
+this pseudo instruction exists in the relevant extension/filename or not. If it is present, the the remaining part of the syntax undergoes the same
+checks as above. Once the checks pass and if the *base-instruction* is not already added to the main `instr_dict` then the pseudo-instruction is added to
 the list. In the third, and final, pass we process the imported instructions.
 
-The case where the *base-instruction* for a pseudo-instruction may not be present in the main `instr_dict` after the first pass is if the only a subset 
-of extensions are being processed such that the *base-instruction* is not included. 
+The case where the *base-instruction* for a pseudo-instruction may not be present in the main `instr_dict` after the first pass is if the only a subset
+of extensions are being processed such that the *base-instruction* is not included.
 
 
 ## Artifact Generation and Usage
@@ -165,7 +162,7 @@ By default all extensions are enabled. To select only a subset of extensions you
 For example if you want only the I and M extensions you can do the following:
 
 ```bash
-make EXTENSIONS='rv*_i rv*_m' 
+make EXTENSIONS='rv*_i rv*_m'
 ```
 
 Which will print the following log:
@@ -204,7 +201,7 @@ Create a PR for review.
 
 ## Enabling Debug logs in parse.py
 
-To enable debug logs in parse.py change `level=logging.INFO` to `level=logging.DEBUG` and run the python command. You will now see debug statements on 
+To enable debug logs in parse.py change `level=logging.INFO` to `level=logging.DEBUG` and run the python command. You will now see debug statements on
 the terminal like below:
 ```
 DEBUG:: Collecting standard instructions first
