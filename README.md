@@ -83,10 +83,10 @@ Instruction syntaxes used in this project are broadly categorized into three:
 
 ### RESTRICTIONS
 
-Following are the restrictions one should keep in mind while defining $pseudo\_ops and $imported\_ops
+Following are the restrictions one should keep in mind while defining `$pseudo\_ops` and `$imported\_ops`
 
-- An instruction (either defined with $pseudo_op or already imported) cannot be imported again within the same  file. Always import only base instructions (those not defined using $pseudo_op or $import) to ensure  centralized definitions.
-- When defining a $pseudo_op, the base instruction used cannot itself be a $pseudo_op.
+- An instruction (either defined with `$pseudo_op` or already imported) cannot be imported again within the same  file. Always import only base instructions (those not defined using `$pseudo_op` or `$import`) to ensure  centralized definitions.
+- When defining a `$pseudo_op`, the base instruction used cannot itself be a `$pseudo_op`.
 
 ## Flow for parse.py
 
@@ -122,17 +122,17 @@ of extensions are being processed such that the *base-instruction* is not includ
 
 The following artifacts can be generated using parse.py:
 
-- instr\_dict.yaml : This is file generated always by parse.py and contains the
+- `instr\_dict.yaml` : This is file generated always by parse.py and contains the
   entire main dictionary `instr\_dict` in YAML format. Note, in this yaml the
   *dots* in an instruction are replaced with *underscores*
-- encoding.out.h : this is the header file that is used by tools like spike, pk, etc
-- instr-table.tex : the latex table of instructions used in the riscv-unpriv spec
-- priv-instr-table.tex : the latex table of instruction used in the riscv-priv spec
-- inst.chisel : chisel code to decode instructions
-- inst.sverilog : system verilog code to decode instructions
-- inst.rs : rust code containing mask and match variables for all instructions
-- inst.spinalhdl : spinalhdl code to decode instructions
-- inst.go : go code to decode instructions
+- `encoding.out.h` : this is the header file that is used by tools like spike, pk, etc
+- `instr-table.tex` : the latex table of instructions used in the riscv-unpriv spec
+- `priv-instr-table.tex` : the latex table of instruction used in the riscv-priv spec
+- `inst.chisel` : chisel code to decode instructions
+- `inst.sverilog` : system verilog code to decode instructions
+- `inst.rs` : rust code containing mask and match variables for all instructions
+- `inst.spinalhdl` : spinalhdl code to decode instructions
+- `inst.go` : go code to decode instructions
 
 Make sure you install the required python pre-requisites are installed by executing the following
 command:
@@ -215,7 +215,7 @@ DEBUG::      Processing line: bne     bimm12hi rs1 rs2 bimm12lo 14..12=1 6..2=0x
 
 ## How do I find where an instruction is defined?
 
-- Specific instruction (faster): Use `grep "^\s*<instr-name>" rv* unratified/rv*` in a terminal, replacing <instr-name> with the actual name.
+- Specific instruction (faster): Use `grep "^\s*<instr-name>" rv* unratified/rv*` in a terminal, replacing `<instr-name>` with the actual name.
 
 - Comprehensive search: Run `make` and search for the instruction name in the generated `instr_dict.yaml` file. The `extension` field reveals the source file (e.g., rv32_i).
 
