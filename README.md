@@ -85,9 +85,8 @@ Instruction syntaxes used in this project are broadly categorized into three:
 
 Following are the restrictions one should keep in mind while defining $pseudo\_ops and $imported\_ops
 
-- Pseudo-op or already imported instructions cannot be imported again in another file. One should
-  always import base-instructions only.
-- While defining a $pseudo\_op, the base-instruction itself cannot be a $pseudo\_op
+- An instruction (either defined with $pseudo_op or already imported) cannot be imported again within the same  file. Always import only base instructions (those not defined using $pseudo_op or $import) to ensure  centralized definitions.
+- When defining a $pseudo_op, the base instruction used cannot itself be a $pseudo_op.
 
 ## Flow for parse.py
 
@@ -216,8 +215,7 @@ DEBUG::      Processing line: bne     bimm12hi rs1 rs2 bimm12lo 14..12=1 6..2=0x
 
 ## How do I find where an instruction is defined?
 
-You can use `grep "^\s*<instr-name>" rv* unratified/rv*` OR run `make` and open
-`instr_dict.yaml` and search of the instruction you are looking for. Within that
-instruction the `extension` field will indicate which file the instruction was
-picked from.
+- Specific instruction (faster): Use `grep "^\s*<instr-name>" rv* unratified/rv*` in a terminal, replacing <instr-name> with the actual name.
+
+- Comprehensive search: Run `make` and search for the instruction name in the generated `instr_dict.yaml` file. The `extension` field reveals the source file (e.g., rv32_i).
 
