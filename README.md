@@ -160,7 +160,7 @@ INFO:: instr-table.tex generated successfully
 INFO:: priv-instr-table.tex generated successfully
 ```
 
-By default, all extensions are enabled. To select only a subset of extensions, you can change the `EXTENSIONS` variable in the `Makefile` to contains only the file names of interest.
+By default, all extensions are enabled. To select only a subset of extensions, you can change the `EXTENSIONS` variable in the `Makefile` to contain only the file names of interest.
 For example, if you want only the I and M extensions you can do the following:
 
 ```bash
