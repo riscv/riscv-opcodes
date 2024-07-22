@@ -138,8 +138,7 @@ The following artifacts can be generated using parse.py:
 - inst.spinalhdl : spinalhdl code to decode instructions
 - inst.go : go code to decode instructions
 
-Make sure you install the required python pre-requisites are installed by executing the following
-command:
+Make sure you have the required Python prerequisites installed by executing the following command:
 
 ```
 sudo apt-get install python-pip3
@@ -161,8 +160,8 @@ INFO:: instr-table.tex generated successfully
 INFO:: priv-instr-table.tex generated successfully
 ```
 
-By default all extensions are enabled. To select only a subset of extensions you can change the `EXTENSIONS` variable of the makefile to contains only the file names of interest.
-For example if you want only the I and M extensions you can do the following:
+By default, all extensions are enabled. To select only a subset of extensions, you can change the `EXTENSIONS` variable in the `Makefile` to contains only the file names of interest.
+For example, if you want only the I and M extensions you can do the following:
 
 ```bash
 make EXTENSIONS='rv*_i rv*_m' 
