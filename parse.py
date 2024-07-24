@@ -336,6 +336,13 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                 if name not in instr_dict:
                     instr_dict[name] = single_dict
                     logging.debug(f'        including pseudo_ops:{name}')
+                else:
+                    # if a pseudo instruction has already been added to the filtered
+                    # instruction dictionary but the extension is not in the current
+                    # list, add it
+                    ext_name = single_dict['extension']
+                    if ext_name not in instr_dict[name]['extension']:
+                        instr_dict[name]['extension'].extend(ext_name)
             else:
                 logging.debug(f'        Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
 
