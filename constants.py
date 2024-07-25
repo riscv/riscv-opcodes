@@ -53,13 +53,10 @@ with open("csrs32.csv") as f:
     csv_reader = csv.reader(f, skipinitialspace=True)
     for row in csv_reader:
         csrs32.append((int(row[0], 0), row[1]))
-arg_lut = {}
-with open("arg_lut.csv") as f:
-    csv_reader = csv.reader(f, skipinitialspace=True)
-    for row in csv_reader:
-        k = row[0]
-        v = (int(row[1]), int(row[2]))
-        arg_lut[k] = v
+
+# Load the argument lookup table (arg_lut) from a CSV file, mapping argument names to their bit positions
+arg_lut = {row[0]: (int(row[1]), int(row[2])) for row in csv.reader(open("arg_lut.csv"), skipinitialspace=True)}
+
 
 # for mop
 arg_lut['mop_r_t_30'] = (30,30)
