@@ -17,8 +17,7 @@ jobs:
         python-version: 3.8
     - name: Install PyYAML
       run: |
-         pip3 install -r requirements.txt
-         pip3 install coverage
+         pip3 install -r requirements.txt coverage
     - name: Test error outputs
       run: coverage run -m unittest -b
     - name: Generate coverage
