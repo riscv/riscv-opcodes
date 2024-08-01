@@ -70,7 +70,7 @@ vle32ff.v        31..29=0 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x6  vd 6..0=0
 vle64ff.v        31..29=0 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x7  vd 6..0=0x07
 
 # Vector Segment Unit-Stride Instructions
-# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#74-vector-unit-stride-instructions
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#781-vector-unit-stride-segment-loads-and-stores
 vlseg2e8.v       31..29=1 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
 vlseg3e8.v       31..29=2 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
 vlseg4e8.v       31..29=3 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x0  vd 6..0=0x07
@@ -136,7 +136,7 @@ vsseg7e64.v      31..29=6 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
 vsseg8e64.v      31..29=7 28=0 27..26=0 vm 24..20=0 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Vector Segment Strided Instructions
-# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#75-vector-strided-instructions
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#782-vector-strided-segment-loads-and-stores
 vlsseg2e8.v      31..29=1 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
 vlsseg3e8.v      31..29=2 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
 vlsseg4e8.v      31..29=3 28=0 27..26=2 vm rs2 rs1 14..12=0x0  vd 6..0=0x07
@@ -202,7 +202,7 @@ vssseg7e64.v     31..29=6 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
 vssseg8e64.v     31..29=7 28=0 27..26=2 vm rs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Vector Segment Indexed-Unordered Instructions
-# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#76-vector-indexed-instructions
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#783-vector-indexed-segment-loads-and-stores
 vluxseg2ei8.v     31..29=1 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
 vluxseg3ei8.v     31..29=2 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
 vluxseg4ei8.v     31..29=3 28=0 27..26=1 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
@@ -268,7 +268,7 @@ vsuxseg7ei64.v    31..29=6 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 vsuxseg8ei64.v    31..29=7 28=0 27..26=1 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Vector Segment Indexed-Ordered Instructions
-# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#76-vector-indexed-instructions
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#783-vector-indexed-segment-loads-and-stores
 vloxseg2ei8.v     31..29=1 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
 vloxseg3ei8.v     31..29=2 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
 vloxseg4ei8.v     31..29=3 28=0 27..26=3 vm vs2 rs1 14..12=0x0  vd 6..0=0x07
@@ -334,7 +334,7 @@ vsoxseg7ei64.v    31..29=6 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 vsoxseg8ei64.v    31..29=7 28=0 27..26=3 vm vs2 rs1 14..12=0x7 vs3 6..0=0x27
 
 # Vector Segment Unit-stride Fault-Only-First Loads
-# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#77-unit-stride-fault-only-first-loads
+# https://github.com/riscv/riscv-v-spec/blob/master/v-spec.adoc#781-vector-unit-stride-segment-loads-and-stores
 vlseg2e8ff.v     31..29=1 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
 vlseg3e8ff.v     31..29=2 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
 vlseg4e8ff.v     31..29=3 28=0 27..26=0 vm 24..20=0x10 rs1 14..12=0x0  vd 6..0=0x07
