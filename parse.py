@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from constants import *
+import copy
 import re
 import glob
 import os
@@ -163,6 +164,37 @@ def extension_overlap_allowed(x, y):
 
 def instruction_overlap_allowed(x, y):
     return overlap_allowed(overlapping_instructions, x, y)
+
+def add_segmented_vls_insn(instr_dict):
+    updated_dict = {}
+    for k, v in instr_dict.items():
+        if "nf" in v['variable_fields']:
+            for new_key, new_value in expand_nf_field(k,v):
+                updated_dict[new_key] = new_value
+        else:
+            updated_dict[k] = v
+    return updated_dict
+
+def expand_nf_field(name, single_dict):
+    if "nf" not in single_dict['variable_fields']:
+        logging.error(f"Cannot expand nf field for instruction {name}")
+        raise SystemExit(1)
+
+    # nf no longer a variable field
+    single_dict['variable_fields'].remove("nf")
+    # include nf in mask
+    single_dict['mask'] = hex(int(single_dict['mask'],16) | 0b111 << 29)
+
+    name_expand_index = name.find('e')
+    expanded_instructions = []
+    for nf in range(0,8):
+        new_single_dict = copy.deepcopy(single_dict)
+        new_single_dict['match'] = hex(int(single_dict['match'],16) | nf << 29)
+        new_single_dict['encoding'] = format(nf, '03b') + single_dict['encoding'][3:]
+        new_name = name if nf == 0 else name[:name_expand_index] + "seg" + str(nf+1) + name[name_expand_index:]
+        expanded_instructions.append((new_name, new_single_dict))
+    return expanded_instructions
+
 
 def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
     '''
@@ -1008,8 +1040,9 @@ if __name__ == "__main__":
         include_pseudo = True
 
     instr_dict = create_inst_dict(extensions, include_pseudo)
+
     with open('instr_dict.yaml', 'w') as outfile:
-        yaml.dump(instr_dict, outfile, default_flow_style=False)
+        yaml.dump(add_segmented_vls_insn(instr_dict), outfile, default_flow_style=False)
     instr_dict = collections.OrderedDict(sorted(instr_dict.items()))
 
     if '-c' in sys.argv[1:]:
