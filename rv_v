@@ -4,7 +4,7 @@
 # <opcode> is given by specifying one or more range/value pairs:
 # hi..lo=value or bit=value or arg=value (e.g. 6..2=0x45 10=1 rd=0)
 #
-# <args> is one of vd, vs3, vs1, vs2, vm, nf, wd, simm5, zimm10, zimm11
+# <args> is one of vd, vs3, vs1, vs2, vm, wd, simm5, zimm10, zimm11
 
 # configuration setting
 # https://github.com/riscv/riscv-v-spec/blob/master/vcfg-format.adoc
