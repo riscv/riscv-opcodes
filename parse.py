@@ -966,9 +966,10 @@ func encode(a obj.As) *inst {
     instr_str = ''
     for i in instr_dict:
         enc_match = int(instr_dict[i]['match'],0)
+        enc_encoding = instr_dict[i]['encoding']
         opcode = (enc_match >> 0) & ((1<<7)-1)
         funct3 = (enc_match >> 12) & ((1<<3)-1)
-        rs1 = (enc_match >> 15) & ((1<<5)-1)
+        rs1 = (enc_match >> 15) & ((1<<5)-1) if enc_encoding[12:17:] != "-----" else 0xFFFFFFFF
         rs2 = (enc_match >> 20) & ((1<<5)-1)
         csr = (enc_match >> 20) & ((1<<12)-1)
         funct7 = (enc_match >> 25) & ((1<<7)-1)
