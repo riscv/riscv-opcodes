@@ -13,11 +13,5 @@ $pseudo_op rv_zicsr::csrrw  fsrm       rd rs1      31..20=0x002 14..12=1 6..2=0x
 $pseudo_op rv_zicsr::csrrwi fsrmi      rd zimm     31..20=0x002 14..12=5 6..2=0x1C 1..0=3
 $pseudo_op rv_zicsr::csrrw  fscsr      rd rs1      31..20=0x003 14..12=1 6..2=0x1C 1..0=3
 $pseudo_op rv_zicsr::csrrs  frcsr      rd 19..15=0 31..20=0x003 14..12=2 6..2=0x1C 1..0=3
-$pseudo_op rv_zicsr::csrrs  rdcycle    rd 19..15=0 31..20=0xC00 14..12=2 6..2=0x1C 1..0=3
-$pseudo_op rv_zicsr::csrrs  rdtime     rd 19..15=0 31..20=0xC01 14..12=2 6..2=0x1C 1..0=3
-$pseudo_op rv_zicsr::csrrs  rdinstret  rd 19..15=0 31..20=0xC02 14..12=2 6..2=0x1C 1..0=3
-$pseudo_op rv_zicsr::csrrs  rdcycleh   rd 19..15=0 31..20=0xC80 14..12=2 6..2=0x1C 1..0=3
-$pseudo_op rv_zicsr::csrrs  rdtimeh    rd 19..15=0 31..20=0xC81 14..12=2 6..2=0x1C 1..0=3
-$pseudo_op rv_zicsr::csrrs  rdinstreth rd 19..15=0 31..20=0xC82 14..12=2 6..2=0x1C 1..0=3
 
 
