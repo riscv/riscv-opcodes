@@ -70,3 +70,7 @@ $pseudo_op rv_i::sltu   snez rd rs2 31..25=0 19..15=0x0 14..12=3 6..2=0x0C 1..0=
 $pseudo_op rv_i::slt    sltz rd rs1 31..25=0 24..20=0x0 14..12=2 6..2=0x0C 1..0=3
 $pseudo_op rv_i::slt    sgtz rd rs2 31..25=0 19..15=0x0 14..12=2 6..2=0x0C 1..0=3
 
+$pseudo_op rv_i::jalr   jalr rs1    31..20=0 14..12=0 11..7=0x01 6..2=0x19 1..0=3
+$pseudo_op rv_i::jalr   jr   rs1    31..20=0 14..12=0 11..7=0x0  6..2=0x19 1..0=3
+$pseudo_op rv_i::jal    jal  jimm20                   11..7=0x01 6..2=0x1b 1..0=3
+$pseudo_op rv_i::jal    j    jimm20                   11..7=0x0  6..2=0x1b 1..0=3
