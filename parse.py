@@ -113,16 +113,27 @@ def process_enc_line(line, ext):
     encoding_args = encoding.copy()
     for a in args:
         if a not in arg_lut:
-            logging.error(f' Found variable {a} in instruction {name} whose mapping in arg_lut does not exist')
-            raise SystemExit(1)
-        else:
-            (msb, lsb) = arg_lut[a]
-            for ind in range(lsb, msb + 1):
-                # overlapping bits
-                if encoding_args[31 - ind] != '-':
-                    logging.error(f' Found variable {a} in instruction {name} overlapping {encoding_args[31 - ind]} variable in bit {ind}')
+            if len(parts := a.split('=')) == 2:
+                existing_arg, new_arg = parts
+                if existing_arg in arg_lut:
+                    print ("old",arg_lut)
+                    arg_lut[a] = arg_lut[existing_arg]
+                    print ("new\n", arg_lut)
+                
+                else:
+                    logging.error(f' Found field {existing_arg} in variable {a} in instruction {name} whose mapping in arg_lut does not exist')
                     raise SystemExit(1)
-                encoding_args[31 - ind] = a
+            else:
+                logging.error(f' Found variable {a} in instruction {name} whose mapping in arg_lut does not exist')
+                raise SystemExit(1)
+        (msb, lsb) = arg_lut[a]
+        for ind in range(lsb, msb + 1):
+            # overlapping bits
+            if encoding_args[31 - ind] != '-':
+                logging.error(f' Found variable {a} in instruction {name} overlapping {encoding_args[31 - ind]} variable in bit {ind}')
+                raise SystemExit(1)
+            encoding_args[31 - ind] = a
+
 
     # update the fields of the instruction as a dict and return back along with
     # the name of the instruction
