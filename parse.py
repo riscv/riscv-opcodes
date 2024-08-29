@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from constants import *
+import copy
 import re
 import glob
 import os
@@ -127,7 +128,7 @@ def process_enc_line(line, ext):
     # the name of the instruction
     single_dict['encoding'] = "".join(encoding)
     single_dict['variable_fields'] = args
-    single_dict['extension'] = [ext.split('/')[-1]]
+    single_dict['extension'] = [os.path.basename(ext)]
     single_dict['match']=hex(int(match,2))
     single_dict['mask']=hex(int(mask,2))
 
@@ -163,6 +164,37 @@ def extension_overlap_allowed(x, y):
 
 def instruction_overlap_allowed(x, y):
     return overlap_allowed(overlapping_instructions, x, y)
+
+def add_segmented_vls_insn(instr_dict):
+    updated_dict = {}
+    for k, v in instr_dict.items():
+        if "nf" in v['variable_fields']:
+            for new_key, new_value in expand_nf_field(k,v):
+                updated_dict[new_key] = new_value
+        else:
+            updated_dict[k] = v
+    return updated_dict
+
+def expand_nf_field(name, single_dict):
+    if "nf" not in single_dict['variable_fields']:
+        logging.error(f"Cannot expand nf field for instruction {name}")
+        raise SystemExit(1)
+
+    # nf no longer a variable field
+    single_dict['variable_fields'].remove("nf")
+    # include nf in mask
+    single_dict['mask'] = hex(int(single_dict['mask'],16) | 0b111 << 29)
+
+    name_expand_index = name.find('e')
+    expanded_instructions = []
+    for nf in range(0,8):
+        new_single_dict = copy.deepcopy(single_dict)
+        new_single_dict['match'] = hex(int(single_dict['match'],16) | nf << 29)
+        new_single_dict['encoding'] = format(nf, '03b') + single_dict['encoding'][3:]
+        new_name = name if nf == 0 else name[:name_expand_index] + "seg" + str(nf+1) + name[name_expand_index:]
+        expanded_instructions.append((new_name, new_single_dict))
+    return expanded_instructions
+
 
 def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
     '''
@@ -235,7 +267,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # call process_enc_line to get the data about the current
             # instruction
             (name, single_dict) = process_enc_line(line, f)
-            ext_name = f.split("/")[-1]
+            ext_name = os.path.basename(f)
 
             # if an instruction has already been added to the filtered
             # instruction dictionary throw an error saying the given
@@ -315,7 +347,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # extension. Else throw error.
             found = False
             for oline in open(ext_file):
-                if not re.findall(f'^\s*{orig_inst}\s+',oline):
+                if not re.findall(f'^\\s*{orig_inst}\\s+',oline):
                     continue
                 else:
                     found = True
@@ -336,6 +368,13 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                 if name not in instr_dict:
                     instr_dict[name] = single_dict
                     logging.debug(f'        including pseudo_ops:{name}')
+                else:
+                    # if a pseudo instruction has already been added to the filtered
+                    # instruction dictionary but the extension is not in the current
+                    # list, add it
+                    ext_name = single_dict['extension']
+                    if ext_name not in instr_dict[name]['extension']:
+                        instr_dict[name]['extension'].extend(ext_name)
             else:
                 logging.debug(f'        Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
 
@@ -382,7 +421,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # extension. Else throw error.
             found = False
             for oline in open(ext_file):
-                if not re.findall(f'^\s*{reg_instr}\s+',oline):
+                if not re.findall(f'^\\s*{reg_instr}\\s+',oline):
                     continue
                 else:
                     found = True
@@ -403,7 +442,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                 var = instr_dict[name]["extension"]
                 if instr_dict[name]['encoding'] != single_dict['encoding']:
                     err_msg = f'imported instruction : {name} in '
-                    err_msg += f'{f.split("/")[-1]} is already '
+                    err_msg += f'{os.path.basename(f)} is already '
                     err_msg += f'added from {var} but each have different encodings for the same instruction'
                     logging.error(err_msg)
                     raise SystemExit(1)
@@ -941,6 +980,7 @@ import "cmd/internal/obj"
 type inst struct {
 	opcode uint32
 	funct3 uint32
+	rs1    uint32
 	rs2    uint32
 	csr    int64
 	funct7 uint32
@@ -960,11 +1000,12 @@ func encode(a obj.As) *inst {
         enc_match = int(instr_dict[i]['match'],0)
         opcode = (enc_match >> 0) & ((1<<7)-1)
         funct3 = (enc_match >> 12) & ((1<<3)-1)
+        rs1 = (enc_match >> 15) & ((1<<5)-1)
         rs2 = (enc_match >> 20) & ((1<<5)-1)
         csr = (enc_match >> 20) & ((1<<12)-1)
         funct7 = (enc_match >> 25) & ((1<<7)-1)
         instr_str += f'''  case A{i.upper().replace("_","")}:
-    return &inst{{ {hex(opcode)}, {hex(funct3)}, {hex(rs2)}, {signed(csr,12)}, {hex(funct7)} }}
+    return &inst{{ {hex(opcode)}, {hex(funct3)}, {hex(rs1)}, {hex(rs2)}, {signed(csr,12)}, {hex(funct7)} }}
 '''
         
     with open('inst.go','w') as file:
@@ -999,8 +1040,9 @@ if __name__ == "__main__":
         include_pseudo = True
 
     instr_dict = create_inst_dict(extensions, include_pseudo)
+
     with open('instr_dict.yaml', 'w') as outfile:
-        yaml.dump(instr_dict, outfile, default_flow_style=False)
+        yaml.dump(add_segmented_vls_insn(instr_dict), outfile, default_flow_style=False)
     instr_dict = collections.OrderedDict(sorted(instr_dict.items()))
 
     if '-c' in sys.argv[1:]:
