@@ -116,9 +116,7 @@ def process_enc_line(line, ext):
             if len(parts := a.split('=')) == 2:
                 existing_arg, new_arg = parts
                 if existing_arg in arg_lut:
-                    print ("old",arg_lut)
                     arg_lut[a] = arg_lut[existing_arg]
-                    print ("new\n", arg_lut)
                 
                 else:
                     logging.error(f' Found field {existing_arg} in variable {a} in instruction {name} whose mapping in arg_lut does not exist')
@@ -380,11 +378,16 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                     instr_dict[name] = single_dict
                     logging.debug(f'        including pseudo_ops:{name}')
                 else:
+                    if(single_dict['match'] != instr_dict[name]['match']):
+                        instr_dict[name + '_pseudo'] = single_dict
+
                     # if a pseudo instruction has already been added to the filtered
                     # instruction dictionary but the extension is not in the current
                     # list, add it
-                    ext_name = single_dict['extension']
-                    if ext_name not in instr_dict[name]['extension']:
+                    else:
+                        ext_name = single_dict['extension']
+
+                    if (ext_name not in instr_dict[name]['extension']) & (name + '_pseudo' not in instr_dict):
                         instr_dict[name]['extension'].extend(ext_name)
             else:
                 logging.debug(f'        Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
