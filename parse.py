@@ -553,6 +553,13 @@ def make_latex_table():
     dataset_list.append((['64_zfh'],'RV64Zfh Standard Extension (in addition to RV32Zfh)', [], False))
     make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
+    # Zc* extensions
+    # caption = '\\caption{Zc* extensions for code size reduction on RISC-V}'
+    # dataset_list = [(['_zcb', '64_zcb'], 'Zcb (basic compressed ops) extension', [], True)]
+    # dataset_list.append((['_zcmp'], 'Zcmp (push/pop) extension', [], True))
+    # dataset_list.append((['_zcmt'], 'Zcmt (table jump) extension', [], True))
+    # make_ext_latex_table(type_list, dataset_list, latex_file, 16, caption)
+
     ## The following is demo to show that Compressed instructions can also be
     # dumped in the same manner as above
 
@@ -614,6 +621,8 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
         multicolumn entry in the table.
 
     '''
+    max_entries_per_page = 42 # Arbitrary limit chosen at random, promise!
+    entries_printed = 0 # Keep track of the instructions printed (headers count as 2) to not overflow a page
     column_size = "".join(['p{0.002in}']*(ilen+1))
 
     type_entries = '''
@@ -651,12 +660,126 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     \\multicolumn{1}{c}{0} \\\\
     \\cline{2-17}\n&\n\n
 '''
+    if ilen == 16:
+      # For compressed instructions, print the bit positions above each table to make it easier to read
+      c_instr_header = type_entries
+    else:
+      c_instr_header = ''
+    # for each entry in the dataset create a table
+    content = ''
+    content_list = []
+    auto_types = {key: False for key, _ in latex_inst_type.items()}
+    # For simplicity's sake, assume R-type always present for 32-bit
+    auto_types['R-type'] = (ilen == 32)
+    for (ext_list, title, filter_list, include_pseudo) in dataset:
+        instr_dict = {}
+        # Support multi-page tables
+        entries_list = []
+        if title != '':
+            entries_printed += 2 # Each time a new table starts the heading eats 2 lines
 
-    # depending on the type_list input we create a subset dictionary of
+        # for all extensions list in ext_list, create a dictionary of
+        # instructions associated with those extensions.
+        for e in ext_list:
+            instr_dict.update(create_inst_dict(['rv'+e], include_pseudo))
+
+        # if filter_list is not empty then use that as the official set of
+        # instructions that need to be dumped into the latex table
+        inst_list = list(instr_dict.keys()) if not filter_list else filter_list
+
+        # for each instruction create an latex table entry just like how we did
+        # above with the instruction-type table.
+        instr_entries = ''
+        for inst in inst_list:
+            if inst not in instr_dict:
+                logging.error(f'in make_ext_latex_table: Instruction: {inst} not found in instr_dict')
+                raise SystemExit(1)
+            fields = []
+
+            # only if the argument is available in arg_lut we consume it, else
+            # throw error.
+            for f in instr_dict[inst]['variable_fields']:
+                if f not in arg_lut:
+                    logging.error(f'Found variable {f} in instruction {inst} whose mapping is not available')
+                    raise SystemExit(1)
+                (msb,lsb) = arg_lut[f]
+                name = f.replace('_','.') if f not in latex_mapping else latex_mapping[f]
+                fields.append((msb, lsb, name))
+                # if 'funct7' == f: # NOTE: this doesn't really get detected but in most cases we can assume R-type is present by default
+                #   auto_types['R-type'] = True
+                if 'imm20' == f:
+                  auto_types['U-type'] = True
+                elif 'imm12hi' == f:
+                  auto_types['S-type'] = True
+                elif 'bimm12hi' == f:
+                  auto_types['B-type'] = True
+                elif 'rs3' == f:
+                  auto_types['R4-type'] = True
+                elif 'jimm20' == f:
+                  auto_types['J-type'] = True
+                # elif 'shamt' in arguments[n] or 'shamtw' in arguments[n] or 'imm12' in arguments[n] or n == 'ecall' or n == 'ebreak' or n[:3] == 'csr':
+                elif 'imm12' == f:
+                  auto_types['I-type'] = True
+
+
+            msb = ilen -1
+            y = ''
+            if ilen == 16:
+                encoding = instr_dict[inst]['encoding'][16:]
+            else:
+                encoding = instr_dict[inst]['encoding']
+            for r in range(0,ilen):
+                x = encoding [r]
+                if ((msb, ilen-1-r+1)) in latex_fixed_fields:
+                    fields.append((msb,ilen-1-r+1,y))
+                    msb = ilen-1-r
+                    y = ''
+                if x == '-':
+                    if y != '':
+                        fields.append((msb,ilen-1-r+1,y))
+                        y = ''
+                    msb = ilen-1-r-1
+                else:
+                    y += str(x)
+                if r == ilen-1:
+                    if y != '':
+                        fields.append((msb, 0, y))
+                    y = ''
+
+            fields.sort(key=lambda y: y[0], reverse=True)
+            entry = ''
+            for r in range(len(fields)):
+                (msb, lsb, name) = fields[r]
+                if r == len(fields)-1:
+                    entry += f'\\multicolumn{{{msb - lsb + 1}}}{{|c|}}{{{name}}} & {inst.upper().replace("_",".")} \\\\\n'
+                elif r == 0:
+                    entry += f'\\multicolumn{{{msb - lsb + 1}}}{{|c|}}{{{name}}} &\n'
+                else:
+                    entry += f'\\multicolumn{{{msb - lsb + 1}}}{{c|}}{{{name}}} &\n'
+            entry += f'\\cline{{2-{ilen+1}}}\n&\n\n'
+            instr_entries += entry
+            entries_printed += 1
+
+            if entries_printed >= max_entries_per_page:
+              # Once we've filled a page, break and start a new one
+              entries_list.append(str(instr_entries)) # Make sure it's a deep copy and not just a link
+              instr_entries = ''
+              entries_printed = 0
+
+        # Flush out the rest, if any
+        if entries_printed > 0:
+          entries_list.append(str(instr_entries)) # Make sure it's a deep copy and not just a link
+          instr_entries = ''
+
+        # once an entry of the dataset is completed we create the whole table
+        # with the title of that dataset as sub-heading (sort-of)
+        content_list.append((title, entries_list))
+
+    # depending on the autodetected encoding types we create a subset dictionary of
     # latex_inst_type dictionary present in constants.py
-    type_dict = {key: value for key, value in latex_inst_type.items() if key in type_list}
+    type_dict = {key: value for key, value in latex_inst_type.items() if auto_types[key]}
 
-    # iterate ovr each instruction type and create a table entry
+    # iterate over each instruction type and create a table entry
     for t in type_dict:
         fields = []
 
@@ -699,95 +822,45 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
                 entry += f'\\multicolumn{{{msb - lsb + 1}}}{{c|}}{{{name}}} &\n'
         entry += f'\\cline{{2-{ilen+1}}}\n&\n\n'
         type_entries += entry
+    # If we for some reason don't have any type entries, skip printing the single empty row altogether
+    if len(type_dict) == 0:
+        type_entries = ''
 
-    # for each entry in the dataset create a table
-    content = ''
-    for (ext_list, title, filter_list, include_pseudo) in dataset:
-        instr_dict = {}
+    # Now that we have everything, run through and generate the proper output!
+    for (title, entries_list) in content_list:
+        for i, instr_entries in enumerate(entries_list):
+          if i > 0: # Second time around, add footer and header because it's a new page
+              content += f'''
 
-        # for all extensions list in ext_list, create a dictionary of
-        # instructions associated with those extensions.
-        for e in ext_list:
-            instr_dict.update(create_inst_dict(['rv'+e], include_pseudo))
+\\end{{tabular}}
+\\end{{center}}
+\\end{{small}}
+\\end{{table}}
+\\newpage
 
-        # if filter_list is not empty then use that as the official set of
-        # instructions that need to be dumped into the latex table
-        inst_list = list(instr_dict.keys()) if not filter_list else filter_list
-
-        # for each instruction create an latex table entry just like how we did
-        # above with the instruction-type table.
-        instr_entries = ''
-        for inst in inst_list:
-            if inst not in instr_dict:
-                logging.error(f'in make_ext_latex_table: Instruction: {inst} not found in instr_dict')
-                raise SystemExit(1)
-            fields = []
-
-            # only if the argument is available in arg_lut we consume it, else
-            # throw error.
-            for f in instr_dict[inst]['variable_fields']:
-                if f not in arg_lut:
-                    logging.error(f'Found variable {f} in instruction {inst} whose mapping is not available')
-                    raise SystemExit(1)
-                (msb,lsb) = arg_lut[f]
-                name = f.replace('_','.') if f not in latex_mapping else latex_mapping[f]
-                fields.append((msb, lsb, name))
-
-            msb = ilen -1
-            y = ''
-            if ilen == 16:
-                encoding = instr_dict[inst]['encoding'][16:]
-            else:
-                encoding = instr_dict[inst]['encoding']
-            for r in range(0,ilen):
-                x = encoding [r]
-                if ((msb, ilen-1-r+1)) in latex_fixed_fields:
-                    fields.append((msb,ilen-1-r+1,y))
-                    msb = ilen-1-r
-                    y = ''
-                if x == '-':
-                    if y != '':
-                        fields.append((msb,ilen-1-r+1,y))
-                        y = ''
-                    msb = ilen-1-r-1
-                else:
-                    y += str(x)
-                if r == ilen-1:
-                    if y != '':
-                        fields.append((msb, 0, y))
-                    y = ''
-
-            fields.sort(key=lambda y: y[0], reverse=True)
-            entry = ''
-            for r in range(len(fields)):
-                (msb, lsb, name) = fields[r]
-                if r == len(fields)-1:
-                    entry += f'\\multicolumn{{{msb - lsb + 1}}}{{|c|}}{{{name}}} & {inst.upper().replace("_",".")} \\\\\n'
-                elif r == 0:
-                    entry += f'\\multicolumn{{{msb - lsb + 1}}}{{|c|}}{{{name}}} &\n'
-                else:
-                    entry += f'\\multicolumn{{{msb - lsb + 1}}}{{c|}}{{{name}}} &\n'
-            entry += f'\\cline{{2-{ilen+1}}}\n&\n\n'
-            instr_entries += entry
-
-        # once an entry of the dataset is completed we create the whole table
-        # with the title of that dataset as sub-heading (sort-of)
-        if title != '':
-            content += f'''
-
-\\multicolumn{{{ilen}}}{{c}}{{}} & \\\\
-\\multicolumn{{{ilen}}}{{c}}{{\\bf {title} }} & \\\\
-\\cline{{2-{ilen+1}}}
+\\begin{{table}}[p]
+\\begin{{small}}
+\\begin{{center}}
+    \\begin{{tabular}} {{{column_size}l}}
+    {" ".join(['&']*ilen)} \\\\
 
             &
-{instr_entries}
+{type_entries}
 '''
-        else:
-            content += f'''
-{instr_entries}
+          if title != '':
+              content += f'''
+
+  \\multicolumn{{{ilen}}}{{c}}{{}} & \\\\
+  \\multicolumn{{{ilen}}}{{c}}{{\\bf {title + ", cont'd" if i > 0 else title} }} & \\\\
 '''
-
-
+              if ilen == 32:
+                  content += f'  \\cline{{2-{ilen+1}}} &'
+              else:
+                  content += '&\n' + c_instr_header
+          content += f'''
+  {instr_entries}
+  '''
+  
     header = f'''
 \\newpage
 
