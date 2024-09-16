@@ -3,6 +3,7 @@
 from parse import *
 import logging
 import unittest
+from shared_utils import *
 
 class EncodingLineTest(unittest.TestCase):
     def setUp(self):
