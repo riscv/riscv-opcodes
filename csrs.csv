@@ -84,6 +84,7 @@
 0x242, "vscause"
 0x243, "vstval"
 0x244, "vsip"
+0x24b, "vstval2"
 0x24D, "vstimecmp"
 0x24E, "vsctrctl"
 0x250, "vsiselect"
