@@ -60,6 +60,7 @@
 0x142, "scause"
 0x143, "stval"
 0x144, "sip"
+0x14b, "stval2"
 0x14D, "stimecmp"
 0x14E, "sctrctl"
 0x14F, "sctrstatus"
