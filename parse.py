@@ -982,7 +982,7 @@ def make_c(instr_dict):
 '''
 
     # Replace '=rs' with 'equrs' in the output
-    output_str = output_str.replace('=RS', '_EQU_RS')
+    output_str = output_str.replace('=RS', '_EQ_RS')
 
     # Write the modified output to the file
     with open('encoding.out.h', 'w') as enc_file:
