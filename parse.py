@@ -945,10 +945,11 @@ def make_c(instr_dict):
 
     arg_str = ''
     for name, rng in arg_lut.items():
+        sanitized_name = name.replace(' ', '_').replace('=', '_eq_')
         begin = rng[1]
         end   = rng[0]
         mask = ((1 << (end - begin + 1)) - 1) << begin
-        arg_str += f"#define INSN_FIELD_{name.upper().replace(' ', '_')} {hex(mask)}\n"
+        arg_str += f"#define INSN_FIELD_{sanitized_name.upper()} {hex(mask)}\n"
 
     with open(f'{os.path.dirname(__file__)}/encoding.h', 'r') as file:
         enc_header = file.read()
@@ -980,9 +981,6 @@ def make_c(instr_dict):
 #ifdef DECLARE_CAUSE
 {declare_cause_str}#endif
 '''
-
-    # Replace '=rs' with 'equrs' in the output
-    output_str = output_str.replace('=RS', '_EQ_RS')
 
     # Write the modified output to the file
     with open('encoding.out.h', 'w') as enc_file:
