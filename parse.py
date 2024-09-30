@@ -954,8 +954,9 @@ def make_c(instr_dict):
         enc_header = file.read()
 
     commit = os.popen('git log -1 --format="format:%h"').read()
-    enc_file = open('encoding.out.h','w')
-    enc_file.write(f'''/* SPDX-License-Identifier: BSD-3-Clause */
+
+    # Generate the output as a string
+    output_str = f'''/* SPDX-License-Identifier: BSD-3-Clause */
 
 /* Copyright (c) 2023 RISC-V International */
 
@@ -978,8 +979,14 @@ def make_c(instr_dict):
 {declare_csr_str}#endif
 #ifdef DECLARE_CAUSE
 {declare_cause_str}#endif
-''')
-    enc_file.close()
+'''
+
+    # Replace '=rs' with 'equrs' in the output
+    output_str = output_str.replace('=RS', '_EQU_RS')
+
+    # Write the modified output to the file
+    with open('encoding.out.h', 'w') as enc_file:
+        enc_file.write(output_str)
 
 def make_go(instr_dict):
 
