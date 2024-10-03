@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from constants import *
+import copy
 import re
 import glob
 import os
@@ -112,16 +113,26 @@ def process_enc_line(line, ext):
     encoding_args = encoding.copy()
     for a in args:
         if a not in arg_lut:
-            logging.error(f' Found variable {a} in instruction {name} whose mapping in arg_lut does not exist')
-            raise SystemExit(1)
-        else:
-            (msb, lsb) = arg_lut[a]
-            for ind in range(lsb, msb + 1):
-                # overlapping bits
-                if encoding_args[31 - ind] != '-':
-                    logging.error(f' Found variable {a} in instruction {name} overlapping {encoding_args[31 - ind]} variable in bit {ind}')
+            parts = a.split('=')
+            if len(parts) == 2:
+                existing_arg, new_arg = parts
+                if existing_arg in arg_lut:
+                    arg_lut[a] = arg_lut[existing_arg]
+                
+                else:
+                    logging.error(f' Found field {existing_arg} in variable {a} in instruction {name} whose mapping in arg_lut does not exist')
                     raise SystemExit(1)
-                encoding_args[31 - ind] = a
+            else:
+                logging.error(f' Found variable {a} in instruction {name} whose mapping in arg_lut does not exist')
+                raise SystemExit(1)
+        (msb, lsb) = arg_lut[a]
+        for ind in range(lsb, msb + 1):
+            # overlapping bits
+            if encoding_args[31 - ind] != '-':
+                logging.error(f' Found variable {a} in instruction {name} overlapping {encoding_args[31 - ind]} variable in bit {ind}')
+                raise SystemExit(1)
+            encoding_args[31 - ind] = a
+
 
     # update the fields of the instruction as a dict and return back along with
     # the name of the instruction
@@ -163,6 +174,37 @@ def extension_overlap_allowed(x, y):
 
 def instruction_overlap_allowed(x, y):
     return overlap_allowed(overlapping_instructions, x, y)
+
+def add_segmented_vls_insn(instr_dict):
+    updated_dict = {}
+    for k, v in instr_dict.items():
+        if "nf" in v['variable_fields']:
+            for new_key, new_value in expand_nf_field(k,v):
+                updated_dict[new_key] = new_value
+        else:
+            updated_dict[k] = v
+    return updated_dict
+
+def expand_nf_field(name, single_dict):
+    if "nf" not in single_dict['variable_fields']:
+        logging.error(f"Cannot expand nf field for instruction {name}")
+        raise SystemExit(1)
+
+    # nf no longer a variable field
+    single_dict['variable_fields'].remove("nf")
+    # include nf in mask
+    single_dict['mask'] = hex(int(single_dict['mask'],16) | 0b111 << 29)
+
+    name_expand_index = name.find('e')
+    expanded_instructions = []
+    for nf in range(0,8):
+        new_single_dict = copy.deepcopy(single_dict)
+        new_single_dict['match'] = hex(int(single_dict['match'],16) | nf << 29)
+        new_single_dict['encoding'] = format(nf, '03b') + single_dict['encoding'][3:]
+        new_name = name if nf == 0 else name[:name_expand_index] + "seg" + str(nf+1) + name[name_expand_index:]
+        expanded_instructions.append((new_name, new_single_dict))
+    return expanded_instructions
+
 
 def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
     '''
@@ -336,6 +378,18 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
                 if name not in instr_dict:
                     instr_dict[name] = single_dict
                     logging.debug(f'        including pseudo_ops:{name}')
+                else:
+                    if(single_dict['match'] != instr_dict[name]['match']):
+                        instr_dict[name + '_pseudo'] = single_dict
+
+                    # if a pseudo instruction has already been added to the filtered
+                    # instruction dictionary but the extension is not in the current
+                    # list, add it
+                    else:
+                        ext_name = single_dict['extension']
+
+                    if (ext_name not in instr_dict[name]['extension']) & (name + '_pseudo' not in instr_dict):
+                        instr_dict[name]['extension'].extend(ext_name)
             else:
                 logging.debug(f'        Skipping pseudo_op {pseudo_inst} since original instruction {orig_inst} already selected in list')
 
@@ -892,17 +946,19 @@ def make_c(instr_dict):
 
     arg_str = ''
     for name, rng in arg_lut.items():
+        sanitized_name = name.replace(' ', '_').replace('=', '_eq_')
         begin = rng[1]
         end   = rng[0]
         mask = ((1 << (end - begin + 1)) - 1) << begin
-        arg_str += f"#define INSN_FIELD_{name.upper().replace(' ', '_')} {hex(mask)}\n"
+        arg_str += f"#define INSN_FIELD_{sanitized_name.upper()} {hex(mask)}\n"
 
     with open(f'{os.path.dirname(__file__)}/encoding.h', 'r') as file:
         enc_header = file.read()
 
     commit = os.popen('git log -1 --format="format:%h"').read()
-    enc_file = open('encoding.out.h','w')
-    enc_file.write(f'''/* SPDX-License-Identifier: BSD-3-Clause */
+
+    # Generate the output as a string
+    output_str = f'''/* SPDX-License-Identifier: BSD-3-Clause */
 
 /* Copyright (c) 2023 RISC-V International */
 
@@ -925,8 +981,11 @@ def make_c(instr_dict):
 {declare_csr_str}#endif
 #ifdef DECLARE_CAUSE
 {declare_cause_str}#endif
-''')
-    enc_file.close()
+'''
+
+    # Write the modified output to the file
+    with open('encoding.out.h', 'w') as enc_file:
+        enc_file.write(output_str)
 
 def make_go(instr_dict):
 
@@ -1001,8 +1060,9 @@ if __name__ == "__main__":
         include_pseudo = True
 
     instr_dict = create_inst_dict(extensions, include_pseudo)
+
     with open('instr_dict.yaml', 'w') as outfile:
-        yaml.dump(instr_dict, outfile, default_flow_style=False)
+        yaml.dump(add_segmented_vls_insn(instr_dict), outfile, default_flow_style=False)
     instr_dict = collections.OrderedDict(sorted(instr_dict.items()))
 
     if '-c' in sys.argv[1:]:

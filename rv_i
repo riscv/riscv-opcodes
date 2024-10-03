@@ -45,3 +45,32 @@ ebreak   31..20=0x001 19..7=0 6..2=0x1C 1..0=3
 $pseudo_op rv_i::ecall scall     11..7=0 19..15=0 31..20=0x000 14..12=0 6..2=0x1C 1..0=3
 $pseudo_op rv_i::ebreak sbreak    11..7=0 19..15=0 31..20=0x001 14..12=0 6..2=0x1C 1..0=3
 
+
+#pseudoinstructions from asm manual
+$pseudo_op rv_i::addi   mv rd rs1 31..20=0 14..12=0 6..2=0x04 1..0=3
+$pseudo_op rv_i::sub    neg rd rs1 31..25=32 24..20=0x0 14..12=0 6..2=0x0C 1..0=3
+$pseudo_op rv_i::addi   nop 31..20=0 19..15=0 14..12=0 11..7=0 6..2=0x04 1..0=3
+$pseudo_op rv_i::andi   zext.b rd rs1 31..20=0 14..12=7 6..2=0x04 1..0=3
+
+$pseudo_op rv_i::jalr ret 31..20=0 19..15=0x01 14..12=0 11..7=0 6..2=0x19 1..0=3
+
+$pseudo_op rv_i::bgeu   bleu bimm12hi rs2 rs1 bimm12lo 14..12=7 6..2=0x18 1..0=3
+$pseudo_op rv_i::bltu   bgtu bimm12hi rs2 rs1 bimm12lo 14..12=6 6..2=0x18 1..0=3
+$pseudo_op rv_i::bge    ble  bimm12hi rs2 rs1 bimm12lo 14..12=5 6..2=0x18 1..0=3
+$pseudo_op rv_i::bge    bgez bimm12hi rs1     bimm12lo 24..20=0x0 14..12=5 6..2=0x18 1..0=3
+$pseudo_op rv_i::bge    blez bimm12hi rs2     bimm12lo 19..15=0x0 14..12=5 6..2=0x18 1..0=3
+$pseudo_op rv_i::blt    bgt  bimm12hi rs2 rs1 bimm12lo 14..12=4 6..2=0x18 1..0=3
+$pseudo_op rv_i::blt    bgtz bimm12hi rs2     bimm12lo 19..15=0x0 14..12=4 6..2=0x18 1..0=3
+$pseudo_op rv_i::blt    bltz bimm12hi rs1     bimm12lo 24..20=0x0 14..12=4 6..2=0x18 1..0=3
+$pseudo_op rv_i::bne    bnez bimm12hi rs1     bimm12lo 24..20=0x0 14..12=1 6..2=0x18 1..0=3
+$pseudo_op rv_i::beq    beqz bimm12hi rs1     bimm12lo 24..20=0x0 14..12=0 6..2=0x18 1..0=3
+
+$pseudo_op rv_i::sltiu  seqz rd rs1 31..20=1 14..12=3 6..2=0x04 1..0=3
+$pseudo_op rv_i::sltu   snez rd rs2 31..25=0 19..15=0x0 14..12=3 6..2=0x0C 1..0=3
+$pseudo_op rv_i::slt    sltz rd rs1 31..25=0 24..20=0x0 14..12=2 6..2=0x0C 1..0=3
+$pseudo_op rv_i::slt    sgtz rd rs2 31..25=0 19..15=0x0 14..12=2 6..2=0x0C 1..0=3
+
+$pseudo_op rv_i::jalr   jalr rs1    31..20=0 14..12=0 11..7=0x01 6..2=0x19 1..0=3
+$pseudo_op rv_i::jalr   jr   rs1    31..20=0 14..12=0 11..7=0x0  6..2=0x19 1..0=3
+$pseudo_op rv_i::jal    jal  jimm20                   11..7=0x01 6..2=0x1b 1..0=3
+$pseudo_op rv_i::jal    j    jimm20                   11..7=0x0  6..2=0x1b 1..0=3

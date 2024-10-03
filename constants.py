@@ -38,25 +38,28 @@ pseudo_regex = re.compile(
 
 imported_regex = re.compile('^\s*\$import\s*(?P<extension>.*)\s*::\s*(?P<instruction>.*)', re.M)
 
-causes = []
-with open("causes.csv") as f:
-    csv_reader = csv.reader(f, skipinitialspace=True)
-    for row in csv_reader:
-        causes.append((int(row[0], 0), row[1]))
-csrs = []
-with open("csrs.csv") as f:
-    csv_reader = csv.reader(f, skipinitialspace=True)
-    for row in csv_reader:
-        csrs.append((int(row[0], 0), row[1]))
-csrs32 = []
-with open("csrs32.csv") as f:
-    csv_reader = csv.reader(f, skipinitialspace=True)
-    for row in csv_reader:
-        csrs32.append((int(row[0], 0), row[1]))
+
+def read_csv(filename):
+    """
+    Reads a CSV file and returns a list of tuples.
+    Each tuple contains an integer value (from the first column) and a string (from the second column).
+    
+    Args:
+        filename (str): The name of the CSV file to read.
+    
+    Returns:
+        list of tuple: A list of (int, str) tuples extracted from the CSV file.
+    """
+    with open(filename) as f:
+        csv_reader = csv.reader(f, skipinitialspace=True)
+        return [(int(row[0], 0), row[1]) for row in csv_reader]
+
+causes = read_csv("causes.csv")
+csrs = read_csv("csrs.csv")
+csrs32 = read_csv("csrs32.csv")
 
 # Load the argument lookup table (arg_lut) from a CSV file, mapping argument names to their bit positions
 arg_lut = {row[0]: (int(row[1]), int(row[2])) for row in csv.reader(open("arg_lut.csv"), skipinitialspace=True)}
-
 
 # for mop
 arg_lut['mop_r_t_30'] = (30,30)
