@@ -72,8 +72,9 @@
 #define USTATUS_UPIE        0x00000010
 
 #define MNSTATUS_NMIE       0x00000008
-#define MNSTATUS_MNPP       0x00001800
 #define MNSTATUS_MNPV       0x00000080
+#define MNSTATUS_MNPELP     0x00000200
+#define MNSTATUS_MNPP       0x00001800
 
 #define DCSR_XDEBUGVER      (15U<<28)
 #define DCSR_EXTCAUSE       (7<<24)
