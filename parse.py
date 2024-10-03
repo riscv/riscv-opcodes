@@ -924,6 +924,7 @@ package riscv_instr;
 endpackage
 ''')
     sverilog_file.close()
+    print("9999999999999999",names_str)
 def make_c(instr_dict):
     mask_match_str = ''
     declare_insn_str = ''
@@ -1027,7 +1028,7 @@ func encode(a obj.As) *inst {
         instr_str += f'''  case A{i.upper().replace("_","")}:
     return &inst{{ {hex(opcode)}, {hex(funct3)}, {hex(rs1)}, {hex(rs2)}, {signed(csr,12)}, {hex(funct7)} }}
 '''
-        
+
     with open('inst.go','w') as file:
         file.write(prelude)
         file.write(instr_str)
