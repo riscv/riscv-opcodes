@@ -2,8 +2,8 @@ import logging
 import pprint
 from typing import TextIO
 
-from constants import latex_fixed_fields, latex_inst_type, latex_mapping
-from shared_utils import InstrDict, arg_lut, create_inst_dict
+from .constants import latex_fixed_fields, latex_inst_type, latex_mapping
+from .shared_utils import InstrDict, arg_lut, create_inst_dict
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
@@ -233,7 +233,7 @@ def make_ext_latex_table(
         Each table is created with ilen+1 columns - ilen columns for each bit of the
         instruction and one column to hold the name of the instruction.
 
-        For each argument of an instruction we use the arg_lut from constants.py
+        For each argument of an instruction we use the arg_lut from .constants.py
         to identify its position in the encoding, and thus create a multicolumn
         entry with the name of the argument as the data. For hardcoded bits, we
         do the same where we capture a string of continuous 1s and 0s, identify
