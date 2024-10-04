@@ -1,0 +1,52 @@
+lc                rd rs1          imm12   14..12=4 6..2=0x03 1..0=3
+sc                imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x08 1..0=3
+
+#next to ADDIW
+caddi             rd rs1          imm12   14..12=2 6..2=0x06 1..0=3
+
+#5-bit immediate and 25 says whether to shift it
+scbndsi           rd rs1 imm5 31..26=1    14..12=5 6..2=0x04 1..0=3
+
+#if rs2=x0 decode as cmove
+cadd              rd rs1 rs2_n0     31..25=6 14..12=0 6..2=0x0C 1..0=3
+cmv               rd rs1 24..20=0x0 31..25=6 14..12=0 6..2=0x0C 1..0=3
+scaddr            rd rs1 rs2      31..25=6 14..12=1 6..2=0x0C 1..0=3
+acperm            rd rs1 rs2      31..25=6 14..12=2 6..2=0x0C 1..0=3
+schi              rd rs1 rs2      31..25=6 14..12=3 6..2=0x0C 1..0=3
+sceq              rd rs1 rs2      31..25=6 14..12=4 6..2=0x0C 1..0=3
+cbld              rd rs1 rs2      31..25=6 14..12=5 6..2=0x0C 1..0=3
+scss              rd rs1 rs2      31..25=6 14..12=6 6..2=0x0C 1..0=3
+scmode            rd rs1 rs2      31..25=6 14..12=7 6..2=0x0C 1..0=3
+
+scbnds            rd rs1 rs2      31..25=7 14..12=0 6..2=0x0C 1..0=3
+scbndsr           rd rs1 rs2      31..25=7 14..12=1 6..2=0x0C 1..0=3
+
+gctag             rd rs1 31..25=8 24..20=0 14..12=0 6..2=0x0C 1..0=3
+gcperm            rd rs1 31..25=8 24..20=1 14..12=0 6..2=0x0C 1..0=3
+gctype            rd rs1 31..25=8 24..20=2 14..12=0 6..2=0x0C 1..0=3
+gcmode            rd rs1 31..25=8 24..20=3 14..12=0 6..2=0x0C 1..0=3
+gchi              rd rs1 31..25=8 24..20=4 14..12=0 6..2=0x0C 1..0=3
+gcbase            rd rs1 31..25=8 24..20=5 14..12=0 6..2=0x0C 1..0=3
+gclen             rd rs1 31..25=8 24..20=6 14..12=0 6..2=0x0C 1..0=3
+cram              rd rs1 31..25=8 24..20=7 14..12=0 6..2=0x0C 1..0=3
+sentry            rd rs1 31..25=8 24..20=8 14..12=0 6..2=0x0C 1..0=3
+
+modesw.cap        31..25=9  24..15=0 14..12=1 11..7=0 6..2=0x0C 1..0=3
+modesw.int        31..25=10 24..15=0 14..12=1 11..7=0 6..2=0x0C 1..0=3
+
+#adjacent to sh[123]add
+sh4add     rd rs1 rs2 31..25=16 14..12=7 6..2=0x0C 1..0=3
+
+#adjacent to sh[123]add.uw
+sh4add.uw  rd rs1 rs2 31..25=16 14..12=7 6..2=0x0E 1..0=3
+
+#regular encodings - will become a separate extension
+lr.b        rd rs1 24..20=0 aq rl 31..29=0 28..27=2 14..12=0 6..2=0x0B 1..0=3
+lr.h        rd rs1 24..20=0 aq rl 31..29=0 28..27=2 14..12=1 6..2=0x0B 1..0=3
+sc.b        rd rs1 rs2      aq rl 31..29=0 28..27=3 14..12=0 6..2=0x0B 1..0=3
+sc.h        rd rs1 rs2      aq rl 31..29=0 28..27=3 14..12=1 6..2=0x0B 1..0=3
+
+#regular encodings for double width datatype
+amoswap.c   rd rs1 rs2      aq rl 31..29=0 28..27=1 14..12=4 6..2=0x0B 1..0=3
+lr.c        rd rs1 24..20=0 aq rl 31..29=0 28..27=2 14..12=4 6..2=0x0B 1..0=3
+sc.c        rd rs1 rs2      aq rl 31..29=0 28..27=3 14..12=4 6..2=0x0B 1..0=3
