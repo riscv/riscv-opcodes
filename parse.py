@@ -118,7 +118,7 @@ def process_enc_line(line, ext):
                 existing_arg, new_arg = parts
                 if existing_arg in arg_lut:
                     arg_lut[a] = arg_lut[existing_arg]
-                
+
                 else:
                     logging.error(f' Found field {existing_arg} in variable {a} in instruction {name} whose mapping in arg_lut does not exist')
                     raise SystemExit(1)
@@ -1027,7 +1027,7 @@ func encode(a obj.As) *inst {
         instr_str += f'''  case A{i.upper().replace("_","")}:
     return &inst{{ {hex(opcode)}, {hex(funct3)}, {hex(rs1)}, {hex(rs2)}, {signed(csr,12)}, {hex(funct7)} }}
 '''
-        
+
     with open('inst.go','w') as file:
         file.write(prelude)
         file.write(instr_str)
@@ -1046,7 +1046,7 @@ def signed(value, width):
     return value - (1<<width)
 
 
-if __name__ == "__main__":
+def main():
     print(f'Running with args : {sys.argv}')
 
     extensions = sys.argv[1:]
@@ -1066,7 +1066,7 @@ if __name__ == "__main__":
     instr_dict = collections.OrderedDict(sorted(instr_dict.items()))
 
     if '-c' in sys.argv[1:]:
-        instr_dict_c = create_inst_dict(extensions, False, 
+        instr_dict_c = create_inst_dict(extensions, False,
                                         include_pseudo_ops=emitted_pseudo_ops)
         instr_dict_c = collections.OrderedDict(sorted(instr_dict_c.items()))
         make_c(instr_dict_c)
@@ -1097,3 +1097,7 @@ if __name__ == "__main__":
         logging.info('instr-table.tex generated successfully')
         make_priv_latex_table()
         logging.info('priv-instr-table.tex generated successfully')
+
+
+if __name__ == "__main__":
+    main()
