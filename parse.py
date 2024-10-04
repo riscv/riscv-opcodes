@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from typing import TextIO, TypedDict
 from constants import *
 import copy
 import re
@@ -14,7 +15,16 @@ import sys
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format='%(levelname)s:: %(message)s')
 
-def process_enc_line(line, ext):
+class SingleInstr(TypedDict):
+    encoding: str
+    variable_fields: list[str]
+    extension: list[str]
+    match: str
+    mask: str
+
+InstrDict = dict[str, SingleInstr]
+
+def process_enc_line(line: str, ext: str):
     '''
     This function processes each line of the encoding files (rv*). As part of
     the processing, the function ensures that the encoding is legal through the
@@ -41,7 +51,6 @@ def process_enc_line(line, ext):
         - mask: hex value representin the bits that need to be masked to extract
           the value required for matching.
     '''
-    single_dict = {}
 
     # fill all bits with don't care. we use '-' to represent don't care
     # TODO: hardcoded for 32-bits.
@@ -93,7 +102,7 @@ def process_enc_line(line, ext):
 
     # do the same as above but for <lsb>=<val> pattern. single_fixed is a regex
     # expression present in constants.py
-    for (lsb, value, drop) in single_fixed.findall(remaining):
+    for (lsb, value, _drop) in single_fixed.findall(remaining):
         lsb = int(lsb, 0)
         value = int(value, 0)
         if encoding[31 - lsb] != '-':
@@ -115,10 +124,10 @@ def process_enc_line(line, ext):
         if a not in arg_lut:
             parts = a.split('=')
             if len(parts) == 2:
-                existing_arg, new_arg = parts
+                existing_arg, _new_arg = parts
                 if existing_arg in arg_lut:
                     arg_lut[a] = arg_lut[existing_arg]
-                
+
                 else:
                     logging.error(f' Found field {existing_arg} in variable {a} in instruction {name} whose mapping in arg_lut does not exist')
                     raise SystemExit(1)
@@ -136,15 +145,17 @@ def process_enc_line(line, ext):
 
     # update the fields of the instruction as a dict and return back along with
     # the name of the instruction
-    single_dict['encoding'] = "".join(encoding)
-    single_dict['variable_fields'] = args
-    single_dict['extension'] = [os.path.basename(ext)]
-    single_dict['match']=hex(int(match,2))
-    single_dict['mask']=hex(int(mask,2))
+    single_dict: SingleInstr = {
+        'encoding': "".join(encoding),
+        'variable_fields': args,
+        'extension': [os.path.basename(ext)],
+        'match': hex(int(match,2)),
+        'mask': hex(int(mask,2)),
+    }
 
     return (name, single_dict)
 
-def same_base_isa(ext_name, ext_name_list):
+def same_base_isa(ext_name: str, ext_name_list: list[str]) -> bool:
     type1 = ext_name.split("_")[0]
     for ext_name1 in ext_name_list:
         type2 = ext_name1.split("_")[0]
@@ -155,7 +166,7 @@ def same_base_isa(ext_name, ext_name_list):
             return True
     return False
 
-def overlaps(x, y):
+def overlaps(x: str, y: str) -> bool:
     x = x.rjust(len(y), '-')
     y = y.rjust(len(x), '-')
 
@@ -165,18 +176,18 @@ def overlaps(x, y):
 
     return True
 
-def overlap_allowed(a, x, y):
+def overlap_allowed(a: dict[str, set[str]], x: str, y: str) -> bool:
     return x in a and y in a[x] or \
            y in a and x in a[y]
 
-def extension_overlap_allowed(x, y):
+def extension_overlap_allowed(x: str, y: str) -> bool:
     return overlap_allowed(overlapping_extensions, x, y)
 
-def instruction_overlap_allowed(x, y):
+def instruction_overlap_allowed(x: str, y: str) -> bool:
     return overlap_allowed(overlapping_instructions, x, y)
 
-def add_segmented_vls_insn(instr_dict):
-    updated_dict = {}
+def add_segmented_vls_insn(instr_dict: InstrDict) -> InstrDict:
+    updated_dict: InstrDict = {}
     for k, v in instr_dict.items():
         if "nf" in v['variable_fields']:
             for new_key, new_value in expand_nf_field(k,v):
@@ -185,7 +196,7 @@ def add_segmented_vls_insn(instr_dict):
             updated_dict[k] = v
     return updated_dict
 
-def expand_nf_field(name, single_dict):
+def expand_nf_field(name: str, single_dict: SingleInstr) -> list[tuple[str, SingleInstr]]:
     if "nf" not in single_dict['variable_fields']:
         logging.error(f"Cannot expand nf field for instruction {name}")
         raise SystemExit(1)
@@ -196,7 +207,7 @@ def expand_nf_field(name, single_dict):
     single_dict['mask'] = hex(int(single_dict['mask'],16) | 0b111 << 29)
 
     name_expand_index = name.find('e')
-    expanded_instructions = []
+    expanded_instructions: list[tuple[str, SingleInstr]] = []
     for nf in range(0,8):
         new_single_dict = copy.deepcopy(single_dict)
         new_single_dict['match'] = hex(int(single_dict['match'],16) | nf << 29)
@@ -206,7 +217,7 @@ def expand_nf_field(name, single_dict):
     return expanded_instructions
 
 
-def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
+def create_inst_dict(file_filter: list[str], include_pseudo: bool = False, include_pseudo_ops: list[str] = []) -> InstrDict:
     '''
     This function return a dictionary containing all instructions associated
     with an extension defined by the file_filter input. The file_filter input
@@ -239,14 +250,12 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
     before parsing it. The pseudo op is only added to the overall dictionary if
     the dependent instruction is not present in the dictionary, else it is
     skipped.
-
-
     '''
     opcodes_dir = os.path.dirname(os.path.realpath(__file__))
-    instr_dict = {}
+    instr_dict: InstrDict = {}
 
     # file_names contains all files to be parsed in the riscv-opcodes directory
-    file_names = []
+    file_names: list[str] = []
     for fil in file_filter:
         file_names += glob.glob(f'{opcodes_dir}/{fil}')
     file_names.sort(reverse=True)
@@ -435,6 +444,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
             # check if the dependent instruction exist in the dependent
             # extension. Else throw error.
             found = False
+            oline = ""
             for oline in open(ext_file):
                 if not re.findall(f'^\\s*{reg_instr}\\s+',oline):
                     continue
@@ -516,7 +526,7 @@ def make_latex_table():
     # instructions listed in list_of_instructions will be dumped into latex.
     caption = ''
     type_list = ['R-type','I-type','S-type','B-type','U-type','J-type']
-    dataset_list = [(['_i','32_i'], 'RV32I Base Instruction Set', [], False)]
+    dataset_list: list[tuple[list[str], str, list[str], bool]] = [(['_i','32_i'], 'RV32I Base Instruction Set', [], False)]
     dataset_list.append((['_i'], '', ['fence_tso','pause'], True))
     make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
@@ -564,7 +574,7 @@ def make_latex_table():
 
     latex_file.close()
 
-def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
+def make_ext_latex_table(type_list: list[str], dataset: list[tuple[list[str], str, list[str], bool]] , latex_file: TextIO, ilen: int, caption: str):
     '''
     For a given collection of extensions this function dumps out a complete
     latex table which includes the encodings of the instructions.
@@ -659,7 +669,7 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
 
     # iterate ovr each instruction type and create a table entry
     for t in type_dict:
-        fields = []
+        fields: list[tuple[int, int, str]] = []
 
         # first capture all "arguments" of the type (funct3, funct7, rd, etc)
         # and capture their positions using arg_lut.
@@ -704,7 +714,7 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     # for each entry in the dataset create a table
     content = ''
     for (ext_list, title, filter_list, include_pseudo) in dataset:
-        instr_dict = {}
+        instr_dict: InstrDict = {}
 
         # for all extensions list in ext_list, create a dictionary of
         # instructions associated with those extensions.
@@ -812,14 +822,14 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     # dump the contents and return
     latex_file.write(header+content+endtable)
 
-def instr_dict_2_extensions(instr_dict):
-    extensions = []
+def instr_dict_2_extensions(instr_dict: InstrDict) -> list[str]:
+    extensions: list[str] = []
     for item in instr_dict.values():
         if item['extension'][0] not in extensions:
             extensions.append(item['extension'][0])
     return extensions
 
-def make_chisel(instr_dict, spinal_hdl=False):
+def make_chisel(instr_dict: InstrDict, spinal_hdl: bool = False):
 
     chisel_names=''
     cause_names_str=''
@@ -840,7 +850,7 @@ def make_chisel(instr_dict, spinal_hdl=False):
             elif "rv_" in e:
                 e_format = e.replace("rv_", "").upper()
             else:
-                e_format = e.upper
+                e_format = e.upper()
             chisel_names += f'  val {e_format+"Type"} = Map(\n'
             for instr in e_instrs:
                 tmp_instr_name = '"'+instr.upper().replace(".","_")+'"'
@@ -892,7 +902,7 @@ object CSRs {{
 ''')
     chisel_file.close()
 
-def make_rust(instr_dict):
+def make_rust(instr_dict: InstrDict):
     mask_match_str= ''
     for i in instr_dict:
         mask_match_str += f'const MATCH_{i.upper().replace(".","_")}: u32 = {(instr_dict[i]["match"])};\n'
@@ -908,7 +918,7 @@ def make_rust(instr_dict):
 ''')
     rust_file.close()
 
-def make_sverilog(instr_dict):
+def make_sverilog(instr_dict: InstrDict):
     names_str = ''
     for i in instr_dict:
         names_str += f"  localparam [31:0] {i.upper().replace('.','_'):<18s} = 32'b{instr_dict[i]['encoding'].replace('-','?')};\n"
@@ -924,7 +934,7 @@ package riscv_instr;
 endpackage
 ''')
     sverilog_file.close()
-def make_c(instr_dict):
+def make_c(instr_dict: InstrDict):
     mask_match_str = ''
     declare_insn_str = ''
     for i in instr_dict:
@@ -987,7 +997,7 @@ def make_c(instr_dict):
     with open('encoding.out.h', 'w') as enc_file:
         enc_file.write(output_str)
 
-def make_go(instr_dict):
+def make_go(instr_dict: InstrDict):
 
     args = " ".join(sys.argv)
     prelude = f'''// Code generated by {args}; DO NOT EDIT.'''
@@ -1027,7 +1037,7 @@ func encode(a obj.As) *inst {
         instr_str += f'''  case A{i.upper().replace("_","")}:
     return &inst{{ {hex(opcode)}, {hex(funct3)}, {hex(rs1)}, {hex(rs2)}, {signed(csr,12)}, {hex(funct7)} }}
 '''
-        
+
     with open('inst.go','w') as file:
         file.write(prelude)
         file.write(instr_str)
@@ -1039,7 +1049,7 @@ func encode(a obj.As) *inst {
     except:
         pass
 
-def signed(value, width):
+def signed(value: int, width: int) -> int:
   if 0 <= value < (1<<(width-1)):
     return value
   else:
@@ -1066,7 +1076,7 @@ if __name__ == "__main__":
     instr_dict = collections.OrderedDict(sorted(instr_dict.items()))
 
     if '-c' in sys.argv[1:]:
-        instr_dict_c = create_inst_dict(extensions, False, 
+        instr_dict_c = create_inst_dict(extensions, False,
                                         include_pseudo_ops=emitted_pseudo_ops)
         instr_dict_c = collections.OrderedDict(sorted(instr_dict_c.items()))
         make_c(instr_dict_c)
