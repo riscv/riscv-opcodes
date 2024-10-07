@@ -25,4 +25,3 @@ $import rv64_zknh::sha512sum0
 $import rv64_zknh::sha512sum1
 $import rv64_zknh::sha512sig0
 $import rv64_zknh::sha512sig1
-

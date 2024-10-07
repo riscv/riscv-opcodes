@@ -23,4 +23,3 @@ $import rv_zksed::sm4ks
 # Scalar SM3 - RV32, RV64
 $import rv_zksh::sm3p0
 $import rv_zksh::sm3p1
-
