@@ -138,6 +138,11 @@ vfwnmacc.vf    31..26=0x3d vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfwmsac.vf     31..26=0x3e vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfwnmsac.vf    31..26=0x3f vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 
+#Pseudo OPFVF
+$pseudo_op rv_v::vmflt.vf    vmfgt.vv 31..26=0x1b vm rs1 vs2 14..12=0x5 vd 6..0=0x57
+$pseudo_op rv_v::vmfle.vf    vmfge.vv 31..26=0x19 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
+
+
 # OPFVV
 vfadd.vv       31..26=0x00 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfredusum.vs   31..26=0x01 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
@@ -208,6 +213,10 @@ vfwmacc.vv     31..26=0x3c vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfwnmacc.vv    31..26=0x3d vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfwmsac.vv     31..26=0x3e vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfwnmsac.vv    31..26=0x3f vm vs2 vs1 14..12=0x1 vd 6..0=0x57
+
+#Pseudo OPFVV
+
+$pseudo_op rv_v::vfsgnjn.vv  vfneg.v    31..26=0x09 vm vs2=vs1 vs1 14..12=0x1 vd 6..0=0x57
 
 # OPIVX
 vadd.vx        31..26=0x00 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
@@ -301,6 +310,13 @@ vnclip.wv      31..26=0x2f vm vs2 vs1 14..12=0x0 vd 6..0=0x57
 
 vwredsumu.vs   31..26=0x30 vm vs2 vs1 14..12=0x0 vd 6..0=0x57
 vwredsum.vs    31..26=0x31 vm vs2 vs1 14..12=0x0 vd 6..0=0x57
+
+#Pseudo OPIVV
+
+$pseudo_op rv_v::vmslt.vv   vmsgt.vv     31..26=0x1b vm vs1 vs2 14..12=0x0 vd 6..0=0x57
+$pseudo_op rv_v::vmsltu.vv  vmsgtu.vv    31..26=0x1a vm vs1 vs2 14..12=0x0 vd 6..0=0x57
+$pseudo_op rv_v::vmsle.vv   vmsge.vv     31..26=0x1d vm vs1 vs2 14..12=0x0 vd 6..0=0x57
+$pseudo_op rv_v::vmsleu.vv  vmsgeu.vv    31..26=0x1c vm vs1 vs2 14..12=0x0 vd 6..0=0x57
 
 # OPIVI
 vadd.vi        31..26=0x00 vm vs2 simm5 14..12=0x3 vd 6..0=0x57
@@ -411,6 +427,13 @@ vwmaccu.vv     31..26=0x3c vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vwmacc.vv      31..26=0x3d vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 vwmaccsu.vv    31..26=0x3f vm vs2 vs1 14..12=0x2 vd 6..0=0x57
 
+#Pseudo-Instructions for Vector Integer Extension Instructions
+
+$pseudo_op rv_v::vmxor.mm   vmclr.m   31..26=0x1b 25=1  vs2=vd  vs1=vd  14..12=0x2 vd 6..0=0x57
+$pseudo_op rv_v::vmnand.mm  vmnot.m   31..26=0x1d 25=1  vs2=vs1 vs1     14..12=0x2 vd 6..0=0x57
+$pseudo_op rv_v::vmand.mm   vmmv.m    31..26=0x19 25=1  vs2=vs1 vs1     14..12=0x2 vd 6..0=0x57
+$pseudo_op rv_v::vmxnor.mm  vmset.m   31..26=0x1f 25=1  vs2=vd  vs1=vd  14..12=0x2 vd 6..0=0x57
+
 # OPMVX
 vaaddu.vx      31..26=0x08 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vaadd.vx       31..26=0x09 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
@@ -449,3 +472,5 @@ vwmaccu.vx     31..26=0x3c vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmacc.vx      31..26=0x3d vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmaccus.vx    31..26=0x3e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwmaccsu.vx    31..26=0x3f vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+
+$pseudo_op rv_v::vfsgnjx.vv vfabs.v 31..26=0x0a vm vs2=vs1 vs1 14..12=0x1 vd 6..0=0x57
