@@ -43,7 +43,6 @@ imported_regex = re.compile(
 )
 
 
-
 def read_csv(filename):
     """
     Reads a CSV file and returns a list of tuples.
@@ -65,7 +64,10 @@ csrs = read_csv("csrs.csv")
 csrs32 = read_csv("csrs32.csv")
 
 # Load the argument lookup table (arg_lut) from a CSV file, mapping argument names to their bit positions
-arg_lut = {row[0]: (int(row[1]), int(row[2])) for row in csv.reader(open("arg_lut.csv"), skipinitialspace=True)}
+arg_lut = {
+    row[0]: (int(row[1]), int(row[2]))
+    for row in csv.reader(open("arg_lut.csv"), skipinitialspace=True)
+}
 
 # for mop
 arg_lut["mop_r_t_30"] = (30, 30)
