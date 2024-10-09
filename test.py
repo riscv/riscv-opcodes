@@ -2,9 +2,9 @@
 
 import logging
 import unittest
-from shared_utils import *
 
 from parse import *
+from shared_utils import *
 
 
 class EncodingLineTest(unittest.TestCase):
