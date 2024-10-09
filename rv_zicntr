@@ -1,0 +1,4 @@
+#rv_zicntr instructions
+$pseudo_op rv_zicsr::csrrs  rdcycle    rd 19..15=0 31..20=0xC00 14..12=2 6..2=0x1C 1..0=3
+$pseudo_op rv_zicsr::csrrs  rdtime     rd 19..15=0 31..20=0xC01 14..12=2 6..2=0x1C 1..0=3
+$pseudo_op rv_zicsr::csrrs  rdinstret  rd 19..15=0 31..20=0xC02 14..12=2 6..2=0x1C 1..0=3

@@ -1,0 +1,3 @@
+$pseudo_op rv_zicsr::csrrs  rdcycleh   rd 19..15=0 31..20=0xC80 14..12=2 6..2=0x1C 1..0=3
+$pseudo_op rv_zicsr::csrrs  rdtimeh    rd 19..15=0 31..20=0xC81 14..12=2 6..2=0x1C 1..0=3
+$pseudo_op rv_zicsr::csrrs  rdinstreth rd 19..15=0 31..20=0xC82 14..12=2 6..2=0x1C 1..0=3

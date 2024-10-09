@@ -1,0 +1,38 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        # Configure isort to use Black's import style to prevent formatting
+        # conflicts. As isort and Black may repeatedly reformat the same code,
+        # causing pre-commit to fail.
+        args: ["--profile", "black"]
+
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+
+  # TODO: Enable this when lints are fixed.
+  # - repo: https://github.com/PyCQA/pylint
+  #   rev: v3.3.1
+  #   hooks:
+  #     - id: pylint
+  #       additional_dependencies:
+  #         - "pyyaml==6.0.2"
+
+  # TODO: Enable this when types are added.
+  # - repo: https://github.com/RobertCraigie/pyright-python
+  #   rev: v1.1.383
+  #   hooks:
+  #     - id: pyright
+  #       additional_dependencies:
+  #         - "pyyaml==6.0.2"
