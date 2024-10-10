@@ -9,24 +9,35 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.6', '3.8', '3.10', '3.12']
+
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
+
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
-    - name: Install Coverage
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install PyYAML
       run: |
         pip3 install coverage
+
     - name: Run pre-commit
       run: |
         python3 -m pip install pre-commit
         pre-commit run --all-files
+
     - name: Generate
       run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -go "rv*" "unratified/rv*"
+
     - name: Check C output
-      run: cat encoding.out.h  | cpp
+      run: cat encoding.out.h | cpp
+
     - name: Generate coverage
       run: coverage xml
+
     - name: Upload coverage
       uses: codecov/codecov-action@v2
