@@ -8,17 +8,15 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: riscv-builders
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
     - name: Install PyYAML
       run: |
-         pip3 install -r requirements.txt
-         pip3 install coverage
+         apt install -yq python3-pip
+         pip config set global.break-system-packages true
+         pip install --break-system-packages -r requirements.txt
+         pip install coverage
     - name: Test error outputs
       run: coverage run -m unittest -b
     - name: Generate coverage

@@ -8,20 +8,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: riscv-builders
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
     - name: Install PyYAML
       run: |
-        pip3 install -r requirements.txt
-        pip3 install coverage
+        apt install -yq python3-pip
+        pip config set global.break-system-packages true
+        pip install -r requirements.txt
+        pip install coverage
     - name: Run pre-commit
       run: |
-        python3 -m pip install pre-commit
+        pip install pre-commit
         pre-commit run --all-files
     - name: Generate
       run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -go "rv*" "unratified/rv*"
