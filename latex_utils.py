@@ -14,7 +14,7 @@ logging.basicConfig(level=LOG_LEVEL, format=LOG_FORMAT)
 
 def create_priv_instr_dataset():
     """Create dataset list for privileged instructions."""
-    system_instr = ["_h", "_s", "_system", "_svinval", "64_h"]
+    system_instr = ["_h", "_s", "_system", "_svinval", "64_h", "_svinval_h"]
     return [
         (system_instr, "Trap-Return Instructions", ["sret", "mret"], False),
         (system_instr, "Interrupt-Management Instructions", ["wfi"], False),
