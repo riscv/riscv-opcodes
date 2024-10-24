@@ -508,7 +508,7 @@ def create_inst_dict(file_filter, include_pseudo=False, include_pseudo_ops=[]):
 def make_priv_latex_table():
     latex_file = open("priv-instr-table.tex", "w")
     type_list = ["R-type", "I-type"]
-    system_instr = ["_h", "_s", "_system", "_svinval", "64_h"]
+    system_instr = ["_h", "_s", "_system", "_svinval", "64_h", "_svinval_h"]
     dataset_list = [(system_instr, "Trap-Return Instructions", ["sret", "mret"], False)]
     dataset_list.append(
         (system_instr, "Interrupt-Management Instructions", ["wfi"], False)
