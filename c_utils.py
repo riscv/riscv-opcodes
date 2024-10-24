@@ -43,18 +43,19 @@ def make_c(instr_dict):
 
     arg_str = ""
     for name, rng in arg_lut.items():
+        sanitized_name = name.replace(" ", "_").replace("=", "_eq_")
         begin = rng[1]
         end = rng[0]
         mask = ((1 << (end - begin + 1)) - 1) << begin
-        arg_str += f"#define INSN_FIELD_{name.upper().replace(' ', '_')} {hex(mask)}\n"
+        arg_str += f"#define INSN_FIELD_{sanitized_name.upper()} {hex(mask)}\n"
 
     with open(f"{os.path.dirname(__file__)}/encoding.h", "r") as file:
         enc_header = file.read()
 
     commit = os.popen('git log -1 --format="format:%h"').read()
-    enc_file = open("encoding.out.h", "w")
-    enc_file.write(
-        f"""/* SPDX-License-Identifier: BSD-3-Clause */
+
+    # Generate the output as a string
+    output_str = f"""/* SPDX-License-Identifier: BSD-3-Clause */
 
 /* Copyright (c) 2023 RISC-V International */
 
@@ -78,5 +79,7 @@ def make_c(instr_dict):
 #ifdef DECLARE_CAUSE
 {declare_cause_str}#endif
 """
-    )
-    enc_file.close()
+
+    # Write the modified output to the file
+    with open("encoding.out.h", "w") as enc_file:
+        enc_file.write(output_str)
