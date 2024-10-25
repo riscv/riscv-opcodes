@@ -1199,13 +1199,23 @@ if __name__ == "__main__":
     print(f"Running with args : {sys.argv}")
 
     extensions = sys.argv[1:]
-    for i in ["-c", "-latex", "-chisel", "-sverilog", "-rust", "-go", "-spinalhdl"]:
+    for i in [
+        "-c",
+        "-chisel",
+        "-go",
+        "-latex",
+        "-pseudo",
+        "-rust",
+        "-spinalhdl",
+        "-sverilog",
+    ]:
         if i in extensions:
             extensions.remove(i)
     print(f"Extensions selected : {extensions}")
 
     include_pseudo = False
-    if "-go" in sys.argv[1:]:
+
+    if "-pseudo" in sys.argv[1:]:
         include_pseudo = True
 
     instr_dict = create_inst_dict(extensions, include_pseudo)
