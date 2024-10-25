@@ -138,11 +138,6 @@ vfwnmacc.vf    31..26=0x3d vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfwmsac.vf     31..26=0x3e vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 vfwnmsac.vf    31..26=0x3f vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 
-#Pseudo OPFVF
-$pseudo_op rv_v::vmflt.vf    vmfgt.vv 31..26=0x1b vm rs1 vs2 14..12=0x5 vd 6..0=0x57
-$pseudo_op rv_v::vmfle.vf    vmfge.vv 31..26=0x19 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
-
-
 # OPFVV
 vfadd.vv       31..26=0x00 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 vfredusum.vs   31..26=0x01 vm vs2 vs1 14..12=0x1 vd 6..0=0x57
@@ -217,6 +212,8 @@ vfwnmsac.vv    31..26=0x3f vm vs2 vs1 14..12=0x1 vd 6..0=0x57
 #Pseudo OPFVV
 
 $pseudo_op rv_v::vfsgnjn.vv  vfneg.v    31..26=0x09 vm vs2=vs1 vs1 14..12=0x1 vd 6..0=0x57
+$pseudo_op rv_v::vmflt.vv    vmfgt.vv   31..26=0x1b vm vs1 vs2 14..12=0x5 vd 6..0=0x57
+$pseudo_op rv_v::vmfle.vv    vmfge.vv   31..26=0x19 vm vs2 rs1 14..12=0x5 vd 6..0=0x57
 
 # OPIVX
 vadd.vx        31..26=0x00 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
