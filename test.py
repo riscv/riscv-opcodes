@@ -4,6 +4,7 @@ import logging
 import unittest
 
 from parse import *
+from shared_utils import *
 
 
 class EncodingLineTest(unittest.TestCase):
