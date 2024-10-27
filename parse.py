@@ -40,9 +40,7 @@ if __name__ == "__main__":
     extensions = [ext for ext in extensions if ext not in targets]
     print(f"Extensions selected : {extensions}")
 
-    include_pseudo = False
-    if "-pseudo" in sys.argv[1:]:
-        include_pseudo = True
+    include_pseudo = "-pseudo" in sys.argv[1:]
 
     instr_dict = create_inst_dict(extensions, include_pseudo)
 
