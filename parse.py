@@ -25,7 +25,8 @@ if __name__ == "__main__":
     print(f"Running with args : {sys.argv}")
 
     extensions = sys.argv[1:]
-    for i in [
+
+    targets = {
         "-c",
         "-chisel",
         "-go",
@@ -34,9 +35,9 @@ if __name__ == "__main__":
         "-rust",
         "-spinalhdl",
         "-sverilog",
-    ]:
-        if i in extensions:
-            extensions.remove(i)
+    }
+
+    extensions = [ext for ext in extensions if ext not in targets]
     print(f"Extensions selected : {extensions}")
 
     include_pseudo = False
