@@ -27,8 +27,7 @@ repos:
   #   hooks:
   #     - id: pylint
 
-  # TODO: Enable this when types are added.
-  # - repo: https://github.com/RobertCraigie/pyright-python
-  #   rev: v1.1.383
-  #   hooks:
-  #     - id: pyright
+  - repo: https://github.com/RobertCraigie/pyright-python
+    rev: v1.1.383
+    hooks:
+      - id: pyright

@@ -12,7 +12,7 @@ class EncodingLineTest(unittest.TestCase):
         logger = logging.getLogger()
         logger.disabled = True
 
-    def assertError(self, string):
+    def assertError(self, string: str):
         self.assertRaises(SystemExit, process_enc_line, string, "rv_i")
 
     def test_lui(self):

@@ -1,11 +1,6 @@
-import collections
-import copy
-import glob
 import logging
-import os
 import pprint
-import re
-import sys
+from typing import TextIO
 
 from constants import *
 from shared_utils import *
@@ -117,7 +112,9 @@ def make_latex_table():
     # instructions listed in list_of_instructions will be dumped into latex.
     caption = ""
     type_list = ["R-type", "I-type", "S-type", "B-type", "U-type", "J-type"]
-    dataset_list = [(["_i", "32_i"], "RV32I Base Instruction Set", [], False)]
+    dataset_list: list[tuple[list[str], str, list[str], bool]] = [
+        (["_i", "32_i"], "RV32I Base Instruction Set", [], False)
+    ]
     dataset_list.append((["_i"], "", ["fence_tso", "pause"], True))
     make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
@@ -184,7 +181,13 @@ def make_latex_table():
     latex_file.close()
 
 
-def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
+def make_ext_latex_table(
+    type_list: "list[str]",
+    dataset: "list[tuple[list[str], str, list[str], bool]]",
+    latex_file: TextIO,
+    ilen: int,
+    caption: str,
+):
     """
     For a given collection of extensions this function dumps out a complete
     latex table which includes the encodings of the instructions.
@@ -285,7 +288,7 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
 
     # iterate ovr each instruction type and create a table entry
     for t in type_dict:
-        fields = []
+        fields: list[tuple[int, int, str]] = []
 
         # first capture all "arguments" of the type (funct3, funct7, rd, etc)
         # and capture their positions using arg_lut.
@@ -332,7 +335,7 @@ def make_ext_latex_table(type_list, dataset, latex_file, ilen, caption):
     # for each entry in the dataset create a table
     content = ""
     for ext_list, title, filter_list, include_pseudo in dataset:
-        instr_dict = {}
+        instr_dict: InstrDict = {}
 
         # for all extensions list in ext_list, create a dictionary of
         # instructions associated with those extensions.

@@ -5,14 +5,14 @@ import logging
 import pprint
 import sys
 
-from c_utils import *
-from chisel_utils import *
-from constants import *
-from go_utils import *
-from latex_utils import *
-from rust_utils import *
-from shared_utils import *
-from sverilog_utils import *
+from c_utils import make_c
+from chisel_utils import make_chisel
+from constants import emitted_pseudo_ops
+from go_utils import make_go
+from latex_utils import make_latex_table, make_priv_latex_table
+from rust_utils import make_rust
+from shared_utils import add_segmented_vls_insn, create_inst_dict
+from sverilog_utils import make_sverilog
 
 LOG_FORMAT = "%(levelname)s:: %(message)s"
 LOG_LEVEL = logging.INFO
@@ -20,7 +20,8 @@ LOG_LEVEL = logging.INFO
 pretty_printer = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=LOG_LEVEL, format=LOG_FORMAT)
 
-if __name__ == "__main__":
+
+def main():
     print(f"Running with args : {sys.argv}")
 
     extensions = sys.argv[1:]
@@ -80,3 +81,7 @@ if __name__ == "__main__":
         logging.info("instr-table.tex generated successfully")
         make_priv_latex_table()
         logging.info("priv-instr-table.tex generated successfully")
+
+
+if __name__ == "__main__":
+    main()

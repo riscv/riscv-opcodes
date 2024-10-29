@@ -7,7 +7,7 @@ pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
 
 
-def make_sverilog(instr_dict):
+def make_sverilog(instr_dict: InstrDict):
     names_str = ""
     for i in instr_dict:
         names_str += f"  localparam [31:0] {i.upper().replace('.','_'):<18s} = 32'b{instr_dict[i]['encoding'].replace('-','?')};\n"
