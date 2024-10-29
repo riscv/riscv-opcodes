@@ -1,12 +1,6 @@
-import collections
-import glob
 import logging
-import os
 import pprint
-import re
 import sys
-
-import yaml
 
 # from shared_utils import overlaps, overlap_allowed, extension_overlap_allowed, instruction_overlap_allowed, process_enc_line, same_base_isa, add_segmented_vls_insn, expand_nf_field
 from shared_utils import *
