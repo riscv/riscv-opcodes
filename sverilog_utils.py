@@ -1,7 +1,6 @@
 import logging
 import pprint
 
-# from shared_utils import overlaps, overlap_allowed, extension_overlap_allowed, instruction_overlap_allowed, process_enc_line, same_base_isa, add_segmented_vls_insn, expand_nf_field
 from shared_utils import *
 
 pp = pprint.PrettyPrinter(indent=2)
