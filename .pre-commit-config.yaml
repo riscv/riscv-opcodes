@@ -26,13 +26,9 @@ repos:
   #   rev: v3.3.1
   #   hooks:
   #     - id: pylint
-  #       additional_dependencies:
-  #         - "pyyaml==6.0.2"
 
   # TODO: Enable this when types are added.
   # - repo: https://github.com/RobertCraigie/pyright-python
   #   rev: v1.1.383
   #   hooks:
   #     - id: pyright
-  #       additional_dependencies:
-  #         - "pyyaml==6.0.2"

@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 import collections
+import json
 import logging
 import pprint
 import sys
-
-import yaml
 
 from c_utils import *
 from chisel_utils import *
@@ -44,8 +43,8 @@ if __name__ == "__main__":
 
     instr_dict = create_inst_dict(extensions, include_pseudo)
 
-    with open("instr_dict.yaml", "w") as outfile:
-        yaml.dump(add_segmented_vls_insn(instr_dict), outfile, default_flow_style=False)
+    with open("instr_dict.json", "w") as outfile:
+        json.dump(add_segmented_vls_insn(instr_dict), outfile, indent=2)
     instr_dict = collections.OrderedDict(sorted(instr_dict.items()))
 
     if "-c" in sys.argv[1:]:

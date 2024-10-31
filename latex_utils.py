@@ -7,8 +7,6 @@ import pprint
 import re
 import sys
 
-import yaml
-
 from constants import *
 from shared_utils import *
 
