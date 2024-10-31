@@ -10,7 +10,7 @@ pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
 
 
-def make_rust(instr_dict):
+def make_rust(instr_dict: InstrDict):
     mask_match_str = ""
     for i in instr_dict:
         mask_match_str += f'const MATCH_{i.upper().replace(".","_")}: u32 = {(instr_dict[i]["match"])};\n'

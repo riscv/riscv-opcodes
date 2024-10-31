@@ -8,7 +8,7 @@ pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
 
 
-def make_c(instr_dict):
+def make_c(instr_dict: InstrDict):
     mask_match_str = ""
     declare_insn_str = ""
     for i in instr_dict:
