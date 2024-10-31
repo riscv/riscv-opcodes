@@ -573,4 +573,3 @@ def log_and_exit(message):
     """Log an error message and exit the program."""
     logging.error(message)
     raise SystemExit(1)
-    
