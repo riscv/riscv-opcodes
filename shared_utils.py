@@ -566,3 +566,11 @@ def instr_dict_2_extensions(instr_dict):
 # Returns signed interpretation of a value within a given width
 def signed(value, width):
     return value if 0 <= value < (1 << (width - 1)) else value - (1 << width)
+
+
+# Log an error message
+def log_and_exit(message):
+    """Log an error message and exit the program."""
+    logging.error(message)
+    raise SystemExit(1)
+    
