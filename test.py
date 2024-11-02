@@ -2,7 +2,7 @@
 
 import logging
 import unittest
-from unittest.mock import Mock, mock_open, patch
+from unittest.mock import Mock, patch
 
 from shared_utils import *
 
@@ -166,7 +166,7 @@ class InstructionProcessingTest(unittest.TestCase):
 
     @patch("shared_utils.fixed_ranges")
     @patch("shared_utils.single_fixed")
-    def test_process_enc_line(self, mock_single_fixed, mock_fixed_ranges):
+    def test_process_enc_line(self, mock_single_fixed: Mock, mock_fixed_ranges: Mock):
         """Test processing of encoding lines"""
         # Setup mock return values
         mock_fixed_ranges.findall.return_value = [(6, 2, "0x0D")]
@@ -187,7 +187,7 @@ class InstructionProcessingTest(unittest.TestCase):
 
     @patch("os.path.exists")
     @patch("shared_utils.logging.error")
-    def test_find_extension_file(self, mock_logging, mock_exists):
+    def test_find_extension_file(self, mock_logging: Mock, mock_exists: Mock):
         """Test extension file finding"""
         # Test successful case - file exists in main directory
         mock_exists.side_effect = [True, False]
@@ -214,7 +214,7 @@ class InstructionProcessingTest(unittest.TestCase):
             "$import rv32i::mul",  # Should be skipped
         ]
 
-        instr_dict = {}
+        instr_dict: InstrDict = {}
         file_name = "rv32i"
 
         with patch("shared_utils.process_enc_line") as mock_process_enc:
