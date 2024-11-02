@@ -15,9 +15,8 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Install PyYAML
+    - name: Install Coverage
       run: |
-        pip3 install -r requirements.txt
         pip3 install coverage
     - name: Run pre-commit
       run: |

@@ -10,7 +10,7 @@ pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
 
 
-def make_chisel(instr_dict, spinal_hdl=False):
+def make_chisel(instr_dict: InstrDict, spinal_hdl: bool = False):
 
     chisel_names = ""
     cause_names_str = ""
@@ -31,7 +31,7 @@ def make_chisel(instr_dict, spinal_hdl=False):
             elif "rv_" in e:
                 e_format = e.replace("rv_", "").upper()
             else:
-                e_format = e.upper
+                e_format = e.upper()
             chisel_names += f'  val {e_format+"Type"} = Map(\n'
             for instr in e_instrs:
                 tmp_instr_name = '"' + instr.upper().replace(".", "_") + '"'

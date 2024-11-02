@@ -1,6 +1,7 @@
 import csv
 import re
 
+# TODO: The constants in this file should be in all caps.
 overlapping_extensions = {
     "rv_zcmt": {"rv_c_d"},
     "rv_zcmp": {"rv_c_d"},
@@ -21,29 +22,29 @@ isa_regex = re.compile(
 
 # regex to find <msb>..<lsb>=<val> patterns in instruction
 fixed_ranges = re.compile(
-    "\s*(?P<msb>\d+.?)\.\.(?P<lsb>\d+.?)\s*=\s*(?P<val>\d[\w]*)[\s$]*", re.M
+    r"\s*(?P<msb>\d+.?)\.\.(?P<lsb>\d+.?)\s*=\s*(?P<val>\d[\w]*)[\s$]*", re.M
 )
 
 # regex to find <lsb>=<val> patterns in instructions
 # single_fixed = re.compile('\s+(?P<lsb>\d+)=(?P<value>[\w\d]*)[\s$]*', re.M)
-single_fixed = re.compile("(?:^|[\s])(?P<lsb>\d+)=(?P<value>[\w]*)((?=\s|$))", re.M)
+single_fixed = re.compile(r"(?:^|[\s])(?P<lsb>\d+)=(?P<value>[\w]*)((?=\s|$))", re.M)
 
 # regex to find the overloading condition variable
-var_regex = re.compile("(?P<var>[a-zA-Z][\w\d]*)\s*=\s*.*?[\s$]*", re.M)
+var_regex = re.compile(r"(?P<var>[a-zA-Z][\w\d]*)\s*=\s*.*?[\s$]*", re.M)
 
 # regex for pseudo op instructions returns the dependent filename, dependent
 # instruction, the pseudo op name and the encoding string
 pseudo_regex = re.compile(
-    "^\$pseudo_op\s+(?P<filename>rv[\d]*_[\w].*)::\s*(?P<orig_inst>.*?)\s+(?P<pseudo_inst>.*?)\s+(?P<overload>.*)$",
+    r"^\$pseudo_op\s+(?P<filename>rv[\d]*_[\w].*)::\s*(?P<orig_inst>.*?)\s+(?P<pseudo_inst>.*?)\s+(?P<overload>.*)$",
     re.M,
 )
 
 imported_regex = re.compile(
-    "^\s*\$import\s*(?P<extension>.*)\s*::\s*(?P<instruction>.*)", re.M
+    r"^\s*\$import\s*(?P<extension>.*)\s*::\s*(?P<instruction>.*)", re.M
 )
 
 
-def read_csv(filename):
+def read_csv(filename: str):
     """
     Reads a CSV file and returns a list of tuples.
     Each tuple contains an integer value (from the first column) and a string (from the second column).
@@ -79,126 +80,99 @@ arg_lut["c_mop_t"] = (10, 8)
 
 # dictionary containing the mapping of the argument to the what the fields in
 # the latex table should be
-latex_mapping = {}
-latex_mapping["imm12"] = "imm[11:0]"
-latex_mapping["rs1"] = "rs1"
-latex_mapping["rs2"] = "rs2"
-latex_mapping["rd"] = "rd"
-latex_mapping["imm20"] = "imm[31:12]"
-latex_mapping["bimm12hi"] = "imm[12$\\vert$10:5]"
-latex_mapping["bimm12lo"] = "imm[4:1$\\vert$11]"
-latex_mapping["imm12hi"] = "imm[11:5]"
-latex_mapping["imm12lo"] = "imm[4:0]"
-latex_mapping["jimm20"] = "imm[20$\\vert$10:1$\\vert$11$\\vert$19:12]"
-latex_mapping["zimm"] = "uimm"
-latex_mapping["shamtw"] = "shamt"
-latex_mapping["shamtd"] = "shamt"
-latex_mapping["shamtq"] = "shamt"
-latex_mapping["rd_p"] = "rd\\,$'$"
-latex_mapping["rs1_p"] = "rs1\\,$'$"
-latex_mapping["rs2_p"] = "rs2\\,$'$"
-latex_mapping["rd_rs1_n0"] = "rd/rs$\\neq$0"
-latex_mapping["rd_rs1_p"] = "rs1\\,$'$/rs2\\,$'$"
-latex_mapping["c_rs2"] = "rs2"
-latex_mapping["c_rs2_n0"] = "rs2$\\neq$0"
-latex_mapping["rd_n0"] = "rd$\\neq$0"
-latex_mapping["rs1_n0"] = "rs1$\\neq$0"
-latex_mapping["c_rs1_n0"] = "rs1$\\neq$0"
-latex_mapping["rd_rs1"] = "rd/rs1"
-latex_mapping["zimm6hi"] = "uimm[5]"
-latex_mapping["zimm6lo"] = "uimm[4:0]"
-latex_mapping["c_nzuimm10"] = "nzuimm[5:4$\\vert$9:6$\\vert$2$\\vert$3]"
-latex_mapping["c_uimm7lo"] = "uimm[2$\\vert$6]"
-latex_mapping["c_uimm7hi"] = "uimm[5:3]"
-latex_mapping["c_uimm8lo"] = "uimm[7:6]"
-latex_mapping["c_uimm8hi"] = "uimm[5:3]"
-latex_mapping["c_uimm9lo"] = "uimm[7:6]"
-latex_mapping["c_uimm9hi"] = "uimm[5:4$\\vert$8]"
-latex_mapping["c_nzimm6lo"] = "nzimm[4:0]"
-latex_mapping["c_nzimm6hi"] = "nzimm[5]"
-latex_mapping["c_imm6lo"] = "imm[4:0]"
-latex_mapping["c_imm6hi"] = "imm[5]"
-latex_mapping["c_nzimm10hi"] = "nzimm[9]"
-latex_mapping["c_nzimm10lo"] = "nzimm[4$\\vert$6$\\vert$8:7$\\vert$5]"
-latex_mapping["c_nzimm18hi"] = "nzimm[17]"
-latex_mapping["c_nzimm18lo"] = "nzimm[16:12]"
-latex_mapping["c_imm12"] = (
-    "imm[11$\\vert$4$\\vert$9:8$\\vert$10$\\vert$6$\\vert$7$\\vert$3:1$\\vert$5]"
-)
-latex_mapping["c_bimm9lo"] = "imm[7:6$\\vert$2:1$\\vert$5]"
-latex_mapping["c_bimm9hi"] = "imm[8$\\vert$4:3]"
-latex_mapping["c_nzuimm5"] = "nzuimm[4:0]"
-latex_mapping["c_nzuimm6lo"] = "nzuimm[4:0]"
-latex_mapping["c_nzuimm6hi"] = "nzuimm[5]"
-latex_mapping["c_uimm8splo"] = "uimm[4:2$\\vert$7:6]"
-latex_mapping["c_uimm8sphi"] = "uimm[5]"
-latex_mapping["c_uimm8sp_s"] = "uimm[5:2$\\vert$7:6]"
-latex_mapping["c_uimm10splo"] = "uimm[4$\\vert$9:6]"
-latex_mapping["c_uimm10sphi"] = "uimm[5]"
-latex_mapping["c_uimm9splo"] = "uimm[4:3$\\vert$8:6]"
-latex_mapping["c_uimm9sphi"] = "uimm[5]"
-latex_mapping["c_uimm10sp_s"] = "uimm[5:4$\\vert$9:6]"
-latex_mapping["c_uimm9sp_s"] = "uimm[5:3$\\vert$8:6]"
+latex_mapping = {
+    "imm12": "imm[11:0]",
+    "rs1": "rs1",
+    "rs2": "rs2",
+    "rd": "rd",
+    "imm20": "imm[31:12]",
+    "bimm12hi": "imm[12$\\vert$10:5]",
+    "bimm12lo": "imm[4:1$\\vert$11]",
+    "imm12hi": "imm[11:5]",
+    "imm12lo": "imm[4:0]",
+    "jimm20": "imm[20$\\vert$10:1$\\vert$11$\\vert$19:12]",
+    "zimm": "uimm",
+    "shamtw": "shamt",
+    "shamtd": "shamt",
+    "shamtq": "shamt",
+    "rd_p": "rd\\,$'$",
+    "rs1_p": "rs1\\,$'$",
+    "rs2_p": "rs2\\,$'$",
+    "rd_rs1_n0": "rd/rs$\\neq$0",
+    "rd_rs1_p": "rs1\\,$'$/rs2\\,$'$",
+    "c_rs2": "rs2",
+    "c_rs2_n0": "rs2$\\neq$0",
+    "rd_n0": "rd$\\neq$0",
+    "rs1_n0": "rs1$\\neq$0",
+    "c_rs1_n0": "rs1$\\neq$0",
+    "rd_rs1": "rd/rs1",
+    "zimm6hi": "uimm[5]",
+    "zimm6lo": "uimm[4:0]",
+    "c_nzuimm10": "nzuimm[5:4$\\vert$9:6$\\vert$2$\\vert$3]",
+    "c_uimm7lo": "uimm[2$\\vert$6]",
+    "c_uimm7hi": "uimm[5:3]",
+    "c_uimm8lo": "uimm[7:6]",
+    "c_uimm8hi": "uimm[5:3]",
+    "c_uimm9lo": "uimm[7:6]",
+    "c_uimm9hi": "uimm[5:4$\\vert$8]",
+    "c_nzimm6lo": "nzimm[4:0]",
+    "c_nzimm6hi": "nzimm[5]",
+    "c_imm6lo": "imm[4:0]",
+    "c_imm6hi": "imm[5]",
+    "c_nzimm10hi": "nzimm[9]",
+    "c_nzimm10lo": "nzimm[4$\\vert$6$\\vert$8:7$\\vert$5]",
+    "c_nzimm18hi": "nzimm[17]",
+    "c_nzimm18lo": "nzimm[16:12]",
+    "c_imm12": "imm[11$\\vert$4$\\vert$9:8$\\vert$10$\\vert$6$\\vert$7$\\vert$3:1$\\vert$5]",
+    "c_bimm9lo": "imm[7:6$\\vert$2:1$\\vert$5]",
+    "c_bimm9hi": "imm[8$\\vert$4:3]",
+    "c_nzuimm5": "nzuimm[4:0]",
+    "c_nzuimm6lo": "nzuimm[4:0]",
+    "c_nzuimm6hi": "nzuimm[5]",
+    "c_uimm8splo": "uimm[4:2$\\vert$7:6]",
+    "c_uimm8sphi": "uimm[5]",
+    "c_uimm8sp_s": "uimm[5:2$\\vert$7:6]",
+    "c_uimm10splo": "uimm[4$\\vert$9:6]",
+    "c_uimm10sphi": "uimm[5]",
+    "c_uimm9splo": "uimm[4:3$\\vert$8:6]",
+    "c_uimm9sphi": "uimm[5]",
+    "c_uimm10sp_s": "uimm[5:4$\\vert$9:6]",
+    "c_uimm9sp_s": "uimm[5:3$\\vert$8:6]",
+}
 
 # created a dummy instruction-dictionary like dictionary for all the instruction
 # types so that the same logic can be used to create their tables
-latex_inst_type = {}
-latex_inst_type["R-type"] = {}
-latex_inst_type["R-type"]["variable_fields"] = [
-    "opcode",
-    "rd",
-    "funct3",
-    "rs1",
-    "rs2",
-    "funct7",
+latex_inst_type = {
+    "R-type": {
+        "variable_fields": ["opcode", "rd", "funct3", "rs1", "rs2", "funct7"],
+    },
+    "R4-type": {
+        "variable_fields": ["opcode", "rd", "funct3", "rs1", "rs2", "funct2", "rs3"],
+    },
+    "I-type": {
+        "variable_fields": ["opcode", "rd", "funct3", "rs1", "imm12"],
+    },
+    "S-type": {
+        "variable_fields": ["opcode", "imm12lo", "funct3", "rs1", "rs2", "imm12hi"],
+    },
+    "B-type": {
+        "variable_fields": ["opcode", "bimm12lo", "funct3", "rs1", "rs2", "bimm12hi"],
+    },
+    "U-type": {
+        "variable_fields": ["opcode", "rd", "imm20"],
+    },
+    "J-type": {
+        "variable_fields": ["opcode", "rd", "jimm20"],
+    },
+}
+latex_fixed_fields = [
+    (31, 25),
+    (24, 20),
+    (19, 15),
+    (14, 12),
+    (11, 7),
+    (6, 0),
 ]
-latex_inst_type["R4-type"] = {}
-latex_inst_type["R4-type"]["variable_fields"] = [
-    "opcode",
-    "rd",
-    "funct3",
-    "rs1",
-    "rs2",
-    "funct2",
-    "rs3",
-]
-latex_inst_type["I-type"] = {}
-latex_inst_type["I-type"]["variable_fields"] = [
-    "opcode",
-    "rd",
-    "funct3",
-    "rs1",
-    "imm12",
-]
-latex_inst_type["S-type"] = {}
-latex_inst_type["S-type"]["variable_fields"] = [
-    "opcode",
-    "imm12lo",
-    "funct3",
-    "rs1",
-    "rs2",
-    "imm12hi",
-]
-latex_inst_type["B-type"] = {}
-latex_inst_type["B-type"]["variable_fields"] = [
-    "opcode",
-    "bimm12lo",
-    "funct3",
-    "rs1",
-    "rs2",
-    "bimm12hi",
-]
-latex_inst_type["U-type"] = {}
-latex_inst_type["U-type"]["variable_fields"] = ["opcode", "rd", "imm20"]
-latex_inst_type["J-type"] = {}
-latex_inst_type["J-type"]["variable_fields"] = ["opcode", "rd", "jimm20"]
-latex_fixed_fields = []
-latex_fixed_fields.append((31, 25))
-latex_fixed_fields.append((24, 20))
-latex_fixed_fields.append((19, 15))
-latex_fixed_fields.append((14, 12))
-latex_fixed_fields.append((11, 7))
-latex_fixed_fields.append((6, 0))
 
 # Pseudo-ops present in the generated encodings.
 # By default pseudo-ops are not listed as they are considered aliases
