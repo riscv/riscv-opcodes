@@ -13,7 +13,7 @@ Artifacts like `encoding.h`, `latex-tables`, etc., from this repo are used in to
 5. [Artifact Generation](#artifact-generation)
 6. [Adding a New Extension](#adding-a-new-extension)
 7. [Debugging](#debugging)
-8. [Contributing](#contributing)
+8. [Contributing.md](CONTRIBUTING.md)
 
 ---
 
@@ -164,7 +164,6 @@ Ensure you have the required Python dependencies installed. Run the following co
 
 ```bash
 sudo apt-get install python3-pip
-pip3 install -r requirements.txt
 ```
 
 ### Generating Artifacts
