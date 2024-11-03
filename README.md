@@ -148,7 +148,7 @@ The `parse.py` Python file is used to perform checks on the current set of instr
 
 The `parse.py` script can generate the following artifacts:
 
-- **`instr_dict.yaml`**: Contains the main dictionary `instr_dict` in YAML format. Note that dots in instruction names are replaced with underscores in this YAML file.
+- **`instr_dict.json`**: Contains the main dictionary `instr_dict`, formatted as JSON. In this file, dots in instruction names are replaced with underscores. Previously, this file was generated as instr_dict.yaml. Since JSON is a subset of YAML, it can still be read by any YAML parser.
 - **`encoding.out.h`**: A header file used by tools such as Spike, PK, etc.
 - **`instr-table.tex`**: LaTeX table of instructions for the RISC-V unprivileged specification.
 - **`priv-instr-table.tex`**: LaTeX table of instructions for the RISC-V privileged specification.
@@ -267,8 +267,8 @@ You can locate the definition of an instruction using one of the following metho
    ```
 2. **Using `make`**:
 
-- Run make to generate the instr_dict.yaml file.
-- Open instr_dict.yaml and search for the instruction.
+- Run make to generate the instr_dict.json file.
+- Open instr_dict.json and search for the instruction.
 - The extension field in the file will indicate which file the instruction was picked from.
 
 ---
@@ -295,13 +295,3 @@ level=logging.DEBUG
 DEBUG:: Parsing File: ./rv_i
 DEBUG::      Processing line: lui rd imm20 6..2=0x0D 1..0=3
 ```
-
----
-
-## Contributing
-
-If you wish to contribute to this project:
-
-- Open a pull request (PR) or issue.
-- Ensure that all tests pass.
-- Follow the repository’s coding guidelines.
