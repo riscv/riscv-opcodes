@@ -2,7 +2,8 @@ import logging
 import os
 import pprint
 
-from shared_utils import *
+from constants import causes, csrs, csrs32
+from shared_utils import InstrDict, arg_lut
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")

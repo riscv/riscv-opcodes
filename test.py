@@ -4,7 +4,25 @@ import logging
 import unittest
 from unittest.mock import Mock, patch
 
-from shared_utils import *
+from shared_utils import (
+    InstrDict,
+    check_arg_lut,
+    check_overlapping_bits,
+    extract_isa_type,
+    find_extension_file,
+    handle_arg_lut_mapping,
+    initialize_encoding,
+    is_rv_variant,
+    overlaps,
+    pad_to_equal_length,
+    parse_instruction_line,
+    process_enc_line,
+    process_fixed_ranges,
+    process_standard_instructions,
+    same_base_isa,
+    update_encoding_for_fixed_range,
+    validate_bit_range,
+)
 
 
 class EncodingUtilsTest(unittest.TestCase):

@@ -8,7 +8,15 @@ import re
 from itertools import chain
 from typing import Dict, TypedDict
 
-from constants import *
+from constants import (
+    arg_lut,
+    fixed_ranges,
+    imported_regex,
+    overlapping_extensions,
+    overlapping_instructions,
+    pseudo_regex,
+    single_fixed,
+)
 
 LOG_FORMAT = "%(levelname)s:: %(message)s"
 LOG_LEVEL = logging.INFO
