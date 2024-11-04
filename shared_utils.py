@@ -17,10 +17,9 @@ pretty_printer = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=LOG_LEVEL, format=LOG_FORMAT)
 
 
+# Log an error message
 def log_and_exit(message: str):
-    """
-    Log an error message and then exit with EXIT_FAILURE.
-    """
+    """Log an error message and exit the program."""
     logging.error(message)
     raise SystemExit(1)
 
