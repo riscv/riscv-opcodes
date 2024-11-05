@@ -165,18 +165,37 @@ make EXTENSIONS='rv*_i rv*_m'
 Which will print the following log:
 
 ```
-Running with args : ['./parse.py', '-c', '-chisel', '-sverilog', '-rust', '-latex', 'rv32_i', 'rv64_i', 'rv_i', 'rv64_m', 'rv_m']
+Running with args : ['./parse.py', '-c', '-go', '-chisel', '-sverilog', '-rust', '-latex', '-spinalhdl', 'rv32_i', 'rv64_i', 'rv_i', 'rv64_m', 'rv_m']
 Extensions selected : ['rv32_i', 'rv64_i', 'rv_i', 'rv64_m', 'rv_m']
 INFO:: encoding.out.h generated successfully
 INFO:: inst.chisel generated successfully
+INFO:: inst.spinalhdl generated successfully
 INFO:: inst.sverilog generated successfully
 INFO:: inst.rs generated successfully
+INFO:: inst.go generated successfully
 INFO:: instr-table.tex generated successfully
 INFO:: priv-instr-table.tex generated successfully
 ```
 
-If you only want a specific artifact you can use one or more of the following targets : `c`, `rust`, `chisel`, `sverilog`, `latex`
+If you only want a specific artifact you can use one or more of the following targets : `c`, `rust`, `chisel`, `sverilog`, `latex`.
+For example, if you want to generate the `c` based artifact with extensions as shown earlier, you can use the following command:
 
+```bash
+./parse.py -c  EXTENSIONS='rv*_i rv*_m'
+```
+Which will print the following log:
+
+```
+Running with args : ['./parse.py', '-c', 'EXTENSIONS=rv*_i rv*_m']
+Extensions selected : ['EXTENSIONS=rv*_i rv*_m']
+INFO:: encoding.out.h generated successfully
+```
+
+or you can also use the `make` command as:
+
+```bash
+make encoding.out.h  EXTENSIONS='rv*_i rv*_m'
+```
 You can use the `clean` target to remove all artifacts.
 
 ## Adding a new extension
