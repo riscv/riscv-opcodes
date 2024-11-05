@@ -2,15 +2,14 @@ import logging
 import pprint
 from typing import TextIO
 
-from constants import *
-from shared_utils import *
+from constants import latex_fixed_fields, latex_inst_type, latex_mapping
+from shared_utils import InstrDict, arg_lut, create_inst_dict
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
 
 
 def make_priv_latex_table():
-    latex_file = open("priv-instr-table.tex", "w")
     type_list = ["R-type", "I-type"]
     system_instr = ["_h", "_s", "_system", "_svinval", "64_h", "_svinval_h"]
     dataset_list = [(system_instr, "Trap-Return Instructions", ["sret", "mret"], False)]
@@ -75,9 +74,8 @@ def make_priv_latex_table():
         )
     )
     caption = "\\caption{RISC-V Privileged Instructions}"
-    make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
-
-    latex_file.close()
+    with open("priv-instr-table.tex", "w", encoding="utf-8") as latex_file:
+        make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
 
 def make_latex_table():
@@ -101,84 +99,89 @@ def make_latex_table():
     riscv-isa-manual.
     """
     # open the file and use it as a pointer for all further dumps
-    latex_file = open("instr-table.tex", "w")
+    with open("instr-table.tex", "w", encoding="utf-8") as latex_file:
 
-    # create the rv32i table first. Here we set the caption to empty. We use the
-    # files rv_i and rv32_i to capture instructions relevant for rv32i
-    # configuration. The dataset is a list of 4-element tuples :
-    # (list_of_extensions, title, list_of_instructions, include_pseudo_ops). If list_of_instructions
-    # is empty then it indicates that all instructions of the all the extensions
-    # in list_of_extensions need to be dumped. If not empty, then only the
-    # instructions listed in list_of_instructions will be dumped into latex.
-    caption = ""
-    type_list = ["R-type", "I-type", "S-type", "B-type", "U-type", "J-type"]
-    dataset_list: list[tuple[list[str], str, list[str], bool]] = [
-        (["_i", "32_i"], "RV32I Base Instruction Set", [], False)
-    ]
-    dataset_list.append((["_i"], "", ["fence_tso", "pause"], True))
-    make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
+        # create the rv32i table first. Here we set the caption to empty. We use the
+        # files rv_i and rv32_i to capture instructions relevant for rv32i
+        # configuration. The dataset is a list of 4-element tuples :
+        # (list_of_extensions, title, list_of_instructions, include_pseudo_ops). If list_of_instructions
+        # is empty then it indicates that all instructions of the all the extensions
+        # in list_of_extensions need to be dumped. If not empty, then only the
+        # instructions listed in list_of_instructions will be dumped into latex.
+        caption = ""
+        type_list = ["R-type", "I-type", "S-type", "B-type", "U-type", "J-type"]
+        dataset_list: list[tuple[list[str], str, list[str], bool]] = [
+            (["_i", "32_i"], "RV32I Base Instruction Set", [], False)
+        ]
+        dataset_list.append((["_i"], "", ["fence_tso", "pause"], True))
+        make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
-    type_list = ["R-type", "I-type", "S-type"]
-    dataset_list = [
-        (["64_i"], "RV64I Base Instruction Set (in addition to RV32I)", [], False)
-    ]
-    dataset_list.append(
-        (["_zifencei"], "RV32/RV64 Zifencei Standard Extension", [], False)
-    )
-    dataset_list.append((["_zicsr"], "RV32/RV64 Zicsr Standard Extension", [], False))
-    dataset_list.append((["_m", "32_m"], "RV32M Standard Extension", [], False))
-    dataset_list.append(
-        (["64_m"], "RV64M Standard Extension (in addition to RV32M)", [], False)
-    )
-    make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
+        type_list = ["R-type", "I-type", "S-type"]
+        dataset_list = [
+            (["64_i"], "RV64I Base Instruction Set (in addition to RV32I)", [], False)
+        ]
+        dataset_list.append(
+            (["_zifencei"], "RV32/RV64 Zifencei Standard Extension", [], False)
+        )
+        dataset_list.append(
+            (["_zicsr"], "RV32/RV64 Zicsr Standard Extension", [], False)
+        )
+        dataset_list.append((["_m", "32_m"], "RV32M Standard Extension", [], False))
+        dataset_list.append(
+            (["64_m"], "RV64M Standard Extension (in addition to RV32M)", [], False)
+        )
+        make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
-    type_list = ["R-type"]
-    dataset_list = [(["_a"], "RV32A Standard Extension", [], False)]
-    dataset_list.append(
-        (["64_a"], "RV64A Standard Extension (in addition to RV32A)", [], False)
-    )
-    make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
+        type_list = ["R-type"]
+        dataset_list = [(["_a"], "RV32A Standard Extension", [], False)]
+        dataset_list.append(
+            (["64_a"], "RV64A Standard Extension (in addition to RV32A)", [], False)
+        )
+        make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
-    type_list = ["R-type", "R4-type", "I-type", "S-type"]
-    dataset_list = [(["_f"], "RV32F Standard Extension", [], False)]
-    dataset_list.append(
-        (["64_f"], "RV64F Standard Extension (in addition to RV32F)", [], False)
-    )
-    make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
+        type_list = ["R-type", "R4-type", "I-type", "S-type"]
+        dataset_list = [(["_f"], "RV32F Standard Extension", [], False)]
+        dataset_list.append(
+            (["64_f"], "RV64F Standard Extension (in addition to RV32F)", [], False)
+        )
+        make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
-    type_list = ["R-type", "R4-type", "I-type", "S-type"]
-    dataset_list = [(["_d"], "RV32D Standard Extension", [], False)]
-    dataset_list.append(
-        (["64_d"], "RV64D Standard Extension (in addition to RV32D)", [], False)
-    )
-    make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
+        type_list = ["R-type", "R4-type", "I-type", "S-type"]
+        dataset_list = [(["_d"], "RV32D Standard Extension", [], False)]
+        dataset_list.append(
+            (["64_d"], "RV64D Standard Extension (in addition to RV32D)", [], False)
+        )
+        make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
-    type_list = ["R-type", "R4-type", "I-type", "S-type"]
-    dataset_list = [(["_q"], "RV32Q Standard Extension", [], False)]
-    dataset_list.append(
-        (["64_q"], "RV64Q Standard Extension (in addition to RV32Q)", [], False)
-    )
-    make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
+        type_list = ["R-type", "R4-type", "I-type", "S-type"]
+        dataset_list = [(["_q"], "RV32Q Standard Extension", [], False)]
+        dataset_list.append(
+            (["64_q"], "RV64Q Standard Extension (in addition to RV32Q)", [], False)
+        )
+        make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
-    caption = "\\caption{Instruction listing for RISC-V}"
-    type_list = ["R-type", "R4-type", "I-type", "S-type"]
-    dataset_list = [
-        (["_zfh", "_d_zfh", "_q_zfh"], "RV32Zfh Standard Extension", [], False)
-    ]
-    dataset_list.append(
-        (["64_zfh"], "RV64Zfh Standard Extension (in addition to RV32Zfh)", [], False)
-    )
-    make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
+        caption = "\\caption{Instruction listing for RISC-V}"
+        type_list = ["R-type", "R4-type", "I-type", "S-type"]
+        dataset_list = [
+            (["_zfh", "_d_zfh", "_q_zfh"], "RV32Zfh Standard Extension", [], False)
+        ]
+        dataset_list.append(
+            (
+                ["64_zfh"],
+                "RV64Zfh Standard Extension (in addition to RV32Zfh)",
+                [],
+                False,
+            )
+        )
+        make_ext_latex_table(type_list, dataset_list, latex_file, 32, caption)
 
-    ## The following is demo to show that Compressed instructions can also be
-    # dumped in the same manner as above
+        ## The following is demo to show that Compressed instructions can also be
+        # dumped in the same manner as above
 
-    # type_list = ['']
-    # dataset_list = [(['_c', '32_c', '32_c_f','_c_d'],'RV32C Standard Extension', [])]
-    # dataset_list.append((['64_c'],'RV64C Standard Extension (in addition to RV32C)', []))
-    # make_ext_latex_table(type_list, dataset_list, latex_file, 16, caption)
-
-    latex_file.close()
+        # type_list = ['']
+        # dataset_list = [(['_c', '32_c', '32_c_f','_c_d'],'RV32C Standard Extension', [])]
+        # dataset_list.append((['64_c'],'RV64C Standard Extension (in addition to RV32C)', []))
+        # make_ext_latex_table(type_list, dataset_list, latex_file, 16, caption)
 
 
 def make_ext_latex_table(
@@ -319,8 +322,7 @@ def make_ext_latex_table(
         # for each argument/string of 1s or 0s, create a multicolumn latex table
         # entry
         entry = ""
-        for r in range(len(fields)):
-            (msb, lsb, name) = fields[r]
+        for r, (msb, lsb, name) in enumerate(fields):
             if r == len(fields) - 1:
                 entry += (
                     f"\\multicolumn{{{msb - lsb + 1}}}{{|c|}}{{{name}}} & {t} \\\\\n"
@@ -379,7 +381,7 @@ def make_ext_latex_table(
                 encoding = instr_dict[inst]["encoding"]
             for r in range(0, ilen):
                 x = encoding[r]
-                if ((msb, ilen - 1 - r + 1)) in latex_fixed_fields:
+                if (msb, ilen - 1 - r + 1) in latex_fixed_fields:
                     fields.append((msb, ilen - 1 - r + 1, y))
                     msb = ilen - 1 - r
                     y = ""
@@ -397,8 +399,7 @@ def make_ext_latex_table(
 
             fields.sort(key=lambda y: y[0], reverse=True)
             entry = ""
-            for r in range(len(fields)):
-                (msb, lsb, name) = fields[r]
+            for r, (msb, lsb, name) in enumerate(fields):
                 if r == len(fields) - 1:
                     entry += f'\\multicolumn{{{msb - lsb + 1}}}{{|c|}}{{{name}}} & {inst.upper().replace("_",".")} \\\\\n'
                 elif r == 0:

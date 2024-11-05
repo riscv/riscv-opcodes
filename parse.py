@@ -44,7 +44,7 @@ def main():
 
     instr_dict = create_inst_dict(extensions, include_pseudo)
 
-    with open("instr_dict.json", "w") as outfile:
+    with open("instr_dict.json", "w", encoding="utf-8") as outfile:
         json.dump(add_segmented_vls_insn(instr_dict), outfile, indent=2)
     instr_dict = collections.OrderedDict(sorted(instr_dict.items()))
 

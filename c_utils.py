@@ -2,7 +2,8 @@ import logging
 import os
 import pprint
 
-from shared_utils import *
+from constants import causes, csrs, csrs32
+from shared_utils import InstrDict, arg_lut
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
@@ -42,7 +43,7 @@ def make_c(instr_dict: InstrDict):
         mask = ((1 << (end - begin + 1)) - 1) << begin
         arg_str += f"#define INSN_FIELD_{sanitized_name.upper()} {hex(mask)}\n"
 
-    with open(f"{os.path.dirname(__file__)}/encoding.h", "r") as file:
+    with open(f"{os.path.dirname(__file__)}/encoding.h", "r", encoding="utf-8") as file:
         enc_header = file.read()
 
     commit = os.popen('git log -1 --format="format:%h"').read()
@@ -74,5 +75,5 @@ def make_c(instr_dict: InstrDict):
 """
 
     # Write the modified output to the file
-    with open("encoding.out.h", "w") as enc_file:
+    with open("encoding.out.h", "w", encoding="utf-8") as enc_file:
         enc_file.write(output_str)
