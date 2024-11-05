@@ -21,7 +21,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install PyYAML
+    - name: Install Coverage
       run: |
         pip3 install coverage
 
