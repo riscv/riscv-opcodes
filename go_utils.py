@@ -1,5 +1,6 @@
 import logging
 import pprint
+import subprocess
 import sys
 
 from shared_utils import InstrDict, signed
@@ -49,14 +50,12 @@ func encode(a obj.As) *inst {
     return &inst{{ {hex(opcode)}, {hex(funct3)}, {hex(rs1)}, {hex(rs2)}, {signed(csr,12)}, {hex(funct7)} }}
 """
 
-    with open("inst.go", "w") as file:
+    with open("inst.go", "w", encoding="utf-8") as file:
         file.write(prelude)
         file.write(instr_str)
         file.write(endoffile)
 
     try:
-        import subprocess
-
-        subprocess.run(["go", "fmt", "inst.go"])
-    except:
+        subprocess.run(["go", "fmt", "inst.go"], check=True)
+    except:  # pylint: disable=bare-except
         pass

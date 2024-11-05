@@ -44,7 +44,7 @@ imported_regex = re.compile(
 )
 
 
-def read_csv(filename: str):
+def read_int_map_csv(filename: str) -> "list[tuple[int, str]]":
     """
     Reads a CSV file and returns a list of tuples.
     Each tuple contains an integer value (from the first column) and a string (from the second column).
@@ -55,20 +55,26 @@ def read_csv(filename: str):
     Returns:
         list of tuple: A list of (int, str) tuples extracted from the CSV file.
     """
-    with open(filename) as f:
+    with open(filename, encoding="utf-8") as f:
         csv_reader = csv.reader(f, skipinitialspace=True)
         return [(int(row[0], 0), row[1]) for row in csv_reader]
 
 
-causes = read_csv("causes.csv")
-csrs = read_csv("csrs.csv")
-csrs32 = read_csv("csrs32.csv")
+causes = read_int_map_csv("causes.csv")
+csrs = read_int_map_csv("csrs.csv")
+csrs32 = read_int_map_csv("csrs32.csv")
 
-# Load the argument lookup table (arg_lut) from a CSV file, mapping argument names to their bit positions
-arg_lut = {
-    row[0]: (int(row[1]), int(row[2]))
-    for row in csv.reader(open("arg_lut.csv"), skipinitialspace=True)
-}
+
+def read_arg_lut_csv(filename: str) -> "dict[str, tuple[int, int]]":
+    """
+    Load the argument lookup table (arg_lut) from a CSV file, mapping argument names to their bit positions.
+    """
+    with open(filename, encoding="utf-8") as f:
+        csv_reader = csv.reader(f, skipinitialspace=True)
+        return {row[0]: (int(row[1]), int(row[2])) for row in csv_reader}
+
+
+arg_lut = read_arg_lut_csv("arg_lut.csv")
 
 # for mop
 arg_lut["mop_r_t_30"] = (30, 30)

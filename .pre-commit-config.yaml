@@ -21,11 +21,10 @@ repos:
     hooks:
       - id: black
 
-  # TODO: Enable this when lints are fixed.
-  # - repo: https://github.com/PyCQA/pylint
-  #   rev: v3.3.1
-  #   hooks:
-  #     - id: pylint
+  - repo: https://github.com/PyCQA/pylint
+    rev: v3.3.1
+    hooks:
+      - id: pylint
 
   - repo: https://github.com/RobertCraigie/pyright-python
     rev: v1.1.383

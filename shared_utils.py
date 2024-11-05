@@ -6,7 +6,7 @@ import os
 import pprint
 import re
 from itertools import chain
-from typing import Dict, TypedDict
+from typing import Dict, Optional, TypedDict
 
 from constants import (
     arg_lut,
@@ -397,7 +397,7 @@ def create_expanded_instruction(
 # Return a list of relevant lines from the specified file
 def read_lines(file: str) -> "list[str]":
     """Reads lines from a file and returns non-blank, non-comment lines."""
-    with open(file) as fp:
+    with open(file, encoding="utf-8") as fp:
         lines = (line.rstrip() for line in fp)
         return [line for line in lines if line and not line.startswith("#")]
 
@@ -487,22 +487,23 @@ def process_imported_instructions(
             continue
         logging.debug(f"Processing imported line: {line}")
         import_ext, reg_instr = imported_regex.findall(line)[0]
-        ext_file = find_extension_file(import_ext, opcodes_dir)
+        ext_filename = find_extension_file(import_ext, opcodes_dir)
 
-        validate_instruction_in_extension(reg_instr, ext_file, file_name, line)
+        validate_instruction_in_extension(reg_instr, ext_filename, file_name, line)
 
-        for oline in open(ext_file):
-            if re.findall(f"^\\s*{reg_instr}\\s+", oline):
-                name, single_dict = process_enc_line(oline, file_name)
-                if name in instr_dict:
-                    if instr_dict[name]["encoding"] != single_dict["encoding"]:
-                        log_and_exit(
-                            f"Imported instruction {name} from {os.path.basename(file_name)} has different encodings"
-                        )
-                    instr_dict[name]["extension"].extend(single_dict["extension"])
-                else:
-                    instr_dict[name] = single_dict
-                break
+        with open(ext_filename, encoding="utf-8") as ext_file:
+            for oline in ext_file:
+                if re.findall(f"^\\s*{reg_instr}\\s+", oline):
+                    name, single_dict = process_enc_line(oline, file_name)
+                    if name in instr_dict:
+                        if instr_dict[name]["encoding"] != single_dict["encoding"]:
+                            log_and_exit(
+                                f"Imported instruction {name} from {os.path.basename(file_name)} has different encodings"
+                            )
+                        instr_dict[name]["extension"].extend(single_dict["extension"])
+                    else:
+                        instr_dict[name] = single_dict
+                    break
 
 
 # Locate the path of the specified extension file, checking fallback directories
@@ -518,14 +519,15 @@ def find_extension_file(ext: str, opcodes_dir: str):
 
 # Confirm the presence of an original instruction in the corresponding extension file.
 def validate_instruction_in_extension(
-    inst: str, ext_file: str, file_name: str, pseudo_inst: str
+    inst: str, ext_filename: str, file_name: str, pseudo_inst: str
 ):
     """Validates if the original instruction exists in the dependent extension."""
     found = False
-    for oline in open(ext_file):
-        if re.findall(f"^\\s*{inst}\\s+", oline):
-            found = True
-            break
+    with open(ext_filename, encoding="utf-8") as ext_file:
+        for oline in ext_file:
+            if re.findall(f"^\\s*{inst}\\s+", oline):
+                found = True
+                break
     if not found:
         log_and_exit(
             f"Original instruction {inst} required by pseudo_op {pseudo_inst} in {file_name} not found in {ext_file}"
@@ -536,11 +538,11 @@ def validate_instruction_in_extension(
 def create_inst_dict(
     file_filter: "list[str]",
     include_pseudo: bool = False,
-    include_pseudo_ops: "list[str]" = [],
+    include_pseudo_ops: "Optional[list[str]]" = None,
 ) -> InstrDict:
-    """Creates a dictionary of instructions based on the provided file filters."""
-
     """
+    Creates a dictionary of instructions based on the provided file filters.
+
     This function return a dictionary containing all instructions associated
     with an extension defined by the file_filter input.
     Allowed input extensions: needs to be rv* file name without the 'rv' prefix i.e. '_i', '32_i', etc.
@@ -569,6 +571,9 @@ def create_inst_dict(
             - Adds the pseudo_op to the dictionary if the dependent instruction
               is not already present; otherwise, it is skipped.
     """
+    if include_pseudo_ops is None:
+        include_pseudo_ops = []
+
     opcodes_dir = os.path.dirname(os.path.realpath(__file__))
     instr_dict: InstrDict = {}
 
