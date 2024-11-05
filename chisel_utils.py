@@ -1,10 +1,8 @@
 import logging
 import pprint
 
-from constants import *
-
-# from shared_utils import overlaps, overlap_allowed, extension_overlap_allowed, instruction_overlap_allowed, process_enc_line, same_base_isa, add_segmented_vls_insn, expand_nf_field
-from shared_utils import *
+from constants import causes, csrs, csrs32
+from shared_utils import InstrDict, instr_dict_2_extensions
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
