@@ -1,4 +1,4 @@
-EXTENSIONS := "/rv*" "unratified/rv*"
+EXTENSIONS := "../extensions/rv*" "../extensions/unratified/rv*"
 ISASIM_H := ../riscv-isa-sim/riscv/encoding.h
 PK_H := ../riscv-pk/machine/encoding.h
 ENV_H := ../riscv-tests/env/encoding.h
