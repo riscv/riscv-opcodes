@@ -36,7 +36,7 @@ jobs:
       run: python3 -m pip install pre-commit coverage
 
     - name: Run pre-commit
-      run: pre-commit run --from-ref origin/master --to-ref HEAD
+      run: pre-commit run --all-files
 
     - name: Generate
       run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -go "rv*" "unratified/rv*"
