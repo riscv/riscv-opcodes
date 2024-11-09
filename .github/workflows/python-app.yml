@@ -21,14 +21,19 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install Coverage
-      run: |
-        pip3 install coverage
+    - name: Cache pre-commit environment
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pre-commit
+        key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pre-commit-
+
+    - name: Install dependencies
+      run: python3 -m pip install pre-commit coverage
 
     - name: Run pre-commit
-      run: |
-        python3 -m pip install pre-commit
-        pre-commit run --all-files
+      run: pre-commit run --all-files
 
     - name: Generate
       run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -go "rv*" "unratified/rv*"
