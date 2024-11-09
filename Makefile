@@ -1,15 +1,11 @@
-EXTENSIONS := "../extensions/rv*" "../extensions/unratified/rv*"
+EXTENSIONS := "rv*" "unratified/rv*"
 ISASIM_H := ../riscv-isa-sim/riscv/encoding.h
 PK_H := ../riscv-pk/machine/encoding.h
 ENV_H := ../riscv-tests/env/encoding.h
 OPENOCD_H := ../riscv-openocd/src/target/riscv/encoding.h
 INSTALL_HEADER_FILES := $(ISASIM_H) $(PK_H) $(ENV_H) $(OPENOCD_H)
+PSEUDO_FLAG := $(if $(PSEUDO),-pseudo,)
 
-ifdef PSEUDO
-  PSEUDO_FLAG := -pseudo
-else
-  PSEUDO_FLAG :=
-endif
 
 default: everything
 
