@@ -21,19 +21,22 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Cache pre-commit environment
+    - name: Cache pre-commit and coverage dependencies
       uses: actions/cache@v3
       with:
-        path: ~/.cache/pre-commit
-        key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+        path: |
+          ~/.cache/pre-commit
+          ~/.cache/pip
+        key: ${{ runner.os }}-dependencies-${{ hashFiles('.pre-commit-config.yaml') }}-${{ matrix.python-version }}
         restore-keys: |
-          ${{ runner.os }}-pre-commit-
+            ${{ runner.os }}-dependencies-${{ matrix.python-version }}-
+            ${{ runner.os }}-dependencies-
 
     - name: Install dependencies
       run: python3 -m pip install pre-commit coverage
 
     - name: Run pre-commit
-      run: pre-commit run --all-files
+      run: pre-commit run --from-ref origin/master --to-ref HEAD
 
     - name: Generate
       run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -go "rv*" "unratified/rv*"
