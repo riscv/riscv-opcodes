@@ -457,7 +457,7 @@ def process_pseudo_instructions(
         logging.debug(f"Processing pseudo line: {line}")
         ext, orig_inst, pseudo_inst, line_content = pseudo_regex.findall(line)[0]
         ext_file = find_extension_file(ext, opcodes_dir)
-
+        # print("ext_file",ext_file)
         validate_instruction_in_extension(orig_inst, ext_file, file_name, pseudo_inst)
 
         name, single_dict = process_enc_line(f"{pseudo_inst} {line_content}", file_name)
@@ -514,6 +514,7 @@ def find_extension_file(ext: str, opcodes_dir: str):
         ext_file = f"{opcodes_dir}/unratified/{ext}"
         if not os.path.exists(ext_file):
             log_and_exit(f"Extension {ext} not found.")
+    # print(ext_file)
     return ext_file
 
 
@@ -574,7 +575,7 @@ def create_inst_dict(
     if include_pseudo_ops is None:
         include_pseudo_ops = []
 
-    opcodes_dir = os.path.dirname(os.path.realpath(__file__))
+    opcodes_dir = os.path.dirname(os.path.realpath(__file__)) + "/extensions"
     instr_dict: InstrDict = {}
 
     file_names = [
@@ -603,6 +604,7 @@ def create_inst_dict(
         )
 
     logging.debug("Collecting imported instructions")
+
     for file_name in file_names:
         logging.debug(f"Parsing File: {file_name} for imported instructions")
         lines = read_lines(file_name)
