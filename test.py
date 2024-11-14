@@ -4,7 +4,7 @@ import logging
 import unittest
 from unittest.mock import Mock, patch
 
-from shared_utils import (
+from utils.shared_utils import (
     InstrDict,
     check_arg_lut,
     check_overlapping_bits,
@@ -105,7 +105,7 @@ class EncodingArgsTest(unittest.TestCase):
         self.logger = logging.getLogger()
         self.logger.disabled = True
 
-    @patch.dict("shared_utils.arg_lut", {"rd": (11, 7), "rs1": (19, 15)})
+    @patch.dict("utils.shared_utils.arg_lut", {"rd": (11, 7), "rs1": (19, 15)})
     def test_check_arg_lut(self):
         """Test argument lookup table checking"""
         encoding_args = initialize_encoding()
@@ -116,7 +116,7 @@ class EncodingArgsTest(unittest.TestCase):
         self.assertEqual(encoding_args[31 - 11 : 31 - 6], ["rd"] * 5)
         self.assertEqual(encoding_args[31 - 19 : 31 - 14], ["rs1"] * 5)
 
-    @patch.dict("shared_utils.arg_lut", {"rs1": (19, 15)})
+    @patch.dict("utils.shared_utils.arg_lut", {"rs1": (19, 15)})
     def test_handle_arg_lut_mapping(self):
         """Test handling of argument mappings"""
         # Valid mapping
@@ -175,15 +175,15 @@ class InstructionProcessingTest(unittest.TestCase):
         self.logger.disabled = True
         # Create a patch for arg_lut
         self.arg_lut_patcher = patch.dict(
-            "shared_utils.arg_lut", {"rd": (11, 7), "imm20": (31, 12)}
+            "utils.shared_utils.arg_lut", {"rd": (11, 7), "imm20": (31, 12)}
         )
         self.arg_lut_patcher.start()
 
     def tearDown(self):
         self.arg_lut_patcher.stop()
 
-    @patch("shared_utils.fixed_ranges")
-    @patch("shared_utils.single_fixed")
+    @patch("utils.shared_utils.fixed_ranges")
+    @patch("utils.shared_utils.single_fixed")
     def test_process_enc_line(self, mock_single_fixed: Mock, mock_fixed_ranges: Mock):
         """Test processing of encoding lines"""
         # Setup mock return values
@@ -204,7 +204,7 @@ class InstructionProcessingTest(unittest.TestCase):
         self.assertIn("imm20", data["variable_fields"])
 
     @patch("os.path.exists")
-    @patch("shared_utils.logging.error")
+    @patch("utils.shared_utils.logging.error")
     def test_find_extension_file(self, mock_logging: Mock, mock_exists: Mock):
         """Test extension file finding"""
         # Test successful case - file exists in main directory
@@ -235,7 +235,7 @@ class InstructionProcessingTest(unittest.TestCase):
         instr_dict: InstrDict = {}
         file_name = "rv32i"
 
-        with patch("shared_utils.process_enc_line") as mock_process_enc:
+        with patch("utils.shared_utils.process_enc_line") as mock_process_enc:
             # Setup mock return values
             mock_process_enc.side_effect = [
                 ("add", {"extension": ["rv32i"], "encoding": "encoding1"}),
