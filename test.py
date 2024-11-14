@@ -4,7 +4,7 @@ import logging
 import unittest
 from unittest.mock import Mock, patch
 
-from shared_utils import (
+from utils.shared_utils import (
     InstrDict,
     check_arg_lut,
     check_overlapping_bits,
