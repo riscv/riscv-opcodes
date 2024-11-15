@@ -12,6 +12,7 @@ from constants import (
     arg_lut,
     fixed_ranges,
     imported_regex,
+    latex_mapping,
     overlapping_extensions,
     overlapping_instructions,
     pseudo_regex,
@@ -621,3 +622,49 @@ def instr_dict_2_extensions(instr_dict: InstrDict) -> "list[str]":
 # Returns signed interpretation of a value within a given width
 def signed(value: int, width: int) -> int:
     return value if 0 <= value < (1 << (width - 1)) else value - (1 << width)
+
+
+class SingleOperand(TypedDict):
+    low_bit: int
+    length: int
+    semantics: str
+    nonzero: bool
+    unsigned: bool
+    components: list[str]
+
+OperandDict = Dict[str, SingleOperand]
+
+
+def create_operand_dict() -> OperandDict:
+    operands = {}
+    for name, (msb, lsb) in arg_lut.items():
+        latex = latex_mapping.get(name)
+        semantics = None if latex is None else latex.replace("$\\vert$", "|")
+        if semantics == "shamt":
+            components = [{"w": "4:0", "d": "5:0", "q": "6:0"}[name[-1]]]
+            nonzero = False
+            unsigned = True
+        elif re.match("(c_)?r(s1|s2|d)", name) or name in {"fm", "pred", "succ", "csr"}:
+            components = ["%d:0" % (msb - lsb)]
+            nonzero = "_n0" in name
+            unsigned = True
+        elif latex is None:
+            continue
+        else:
+            if semantics == "uimm":
+                semantics = "uimm[%d:0]" % (msb - lsb)
+            m = re.fullmatch(r"^(?P<nz>(?:nz)?)(?P<u>u?)imm\[(?P<parts>[0-9:|]+)\]", semantics)
+            if not m:
+                raise RuntimeError("Failed to parse: %r" % semantics)
+            components = m.group("parts").split("|")
+            nonzero = bool(m.group("nz"))
+            unsigned = bool(m.group("u"))
+
+        operands[name] = {
+            "low_bit": lsb,
+            "high_bit": msb,
+            "nonzero": nonzero,
+            "unsigned": unsigned,
+            "components": components,
+        }
+    return operands
