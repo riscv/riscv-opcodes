@@ -5,6 +5,7 @@ import logging
 import pprint
 import sys
 
+from asciidoc_utils import make_asciidoc
 from c_utils import make_c
 from chisel_utils import make_chisel
 from constants import emitted_pseudo_ops
@@ -35,6 +36,7 @@ def main():
         "-rust",
         "-spinalhdl",
         "-sverilog",
+        "-asciidoc",
     }
 
     extensions = [ext for ext in extensions if ext not in targets]
@@ -81,6 +83,10 @@ def main():
         logging.info("instr-table.tex generated successfully")
         make_priv_latex_table()
         logging.info("priv-instr-table.tex generated successfully")
+
+    if "-asciidoc" in sys.argv[1:]:
+        make_asciidoc(instr_dict)
+        logging.info("encoding.adoc generated successfully")
 
 
 if __name__ == "__main__":

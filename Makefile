@@ -9,13 +9,13 @@ PSEUDO_FLAG := $(if $(PSEUDO),-pseudo,)
 
 default: everything
 
-.PHONY: everything encoding.out.h inst.chisel inst.go latex inst.sverilog inst.rs clean install instr-table.tex priv-instr-table.tex inst.spinalhdl pseudo
+.PHONY: everything encoding.out.h inst.chisel inst.go latex inst.sverilog inst.rs clean install instr-table.tex priv-instr-table.tex inst.spinalhdl encoding.adoc pseudo
 
 pseudo:
 	@$(MAKE) PSEUDO=1 everything
 
 everything:
-	@./parse.py  $(PSEUDO_FLAG) -c -go -chisel -sverilog -rust -latex -spinalhdl $(EXTENSIONS)
+	@./parse.py  $(PSEUDO_FLAG) -c -go -chisel -sverilog -rust -latex -spinalhdl -asciidoc $(EXTENSIONS)
 
 encoding.out.h:
 	@./parse.py -c $(PSEUDO_FLAG) rv* unratified/rv_* unratified/rv32* unratified/rv64*
@@ -35,8 +35,11 @@ inst.sverilog:
 inst.rs:
 	@./parse.py -rust $(PSEUDO_FLAG) $(EXTENSIONS)
 
+encoding.adoc:
+	@./parse.py -asciidoc $(PSEUDO_FLAG) $(EXTENSIONS)
+
 clean:
-	rm -f inst* priv-instr-table.tex encoding.out.h
+	rm -f inst* priv-instr-table.tex encoding.out.h encoding.adoc
 
 install: everything
 	set -e; \
