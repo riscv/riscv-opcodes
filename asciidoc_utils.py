@@ -35,27 +35,31 @@ This document describes the RISC-V instruction encodings, CSR names, causes, and
 """
 
     # Generate encoding match and mask section
-    encoding_section = "== Instruction Encodings\n\n[cols=\"2,3\"]\n|===\n| Instruction | Encoding Details\n"
+    encoding_section = '== Instruction Encodings\n\n[cols="2,3"]\n|===\n| Instruction | Encoding Details\n'
     for i in instr_dict:
         match = instr_dict[i]["match"]
         mask = instr_dict[i]["mask"]
-        encoding_section += f"| {i.upper().replace('.', '_')}\n| MATCH = `{match}`, MASK = `{mask}`\n"
+        encoding_section += (
+            f"| {i.upper().replace('.', '_')}\n| MATCH = `{match}`, MASK = `{mask}`\n"
+        )
     encoding_section += "|===\n\n"
 
     # Generate CSR names section
-    csr_section = "== Control and Status Registers (CSRs)\n\n[cols=\"2,3\"]\n|===\n| CSR Name | Hex Value\n"
+    csr_section = '== Control and Status Registers (CSRs)\n\n[cols="2,3"]\n|===\n| CSR Name | Hex Value\n'
     for num, name in csrs + csrs32:
         csr_section += f"| {name.upper()} \n| `{hex(num)}`\n"
     csr_section += "|===\n\n"
 
     # Generate causes section
-    causes_section = "== Causes\n\n[cols=\"2,3\"]\n|===\n| Cause Name | Hex Value\n"
+    causes_section = '== Causes\n\n[cols="2,3"]\n|===\n| Cause Name | Hex Value\n'
     for num, name in causes:
         causes_section += f"| {name.upper().replace(' ', '_')}\n| `{hex(num)}`\n"
     causes_section += "|===\n\n"
 
     # Generate instruction field arguments section
-    arg_section = "== Instruction Field Arguments\n\n[cols=\"2,3\"]\n|===\n| Field Name | Mask\n"
+    arg_section = (
+        '== Instruction Field Arguments\n\n[cols="2,3"]\n|===\n| Field Name | Mask\n'
+    )
     for name, rng in arg_lut.items():
         sanitized_name = name.replace(" ", "_").replace("=", "_eq_")
         begin = rng[1]
@@ -65,10 +69,11 @@ This document describes the RISC-V instruction encodings, CSR names, causes, and
     arg_section += "|===\n\n"
 
     # Combine all sections
-    output_str = f"{preamble}{encoding_section}{csr_section}{causes_section}{arg_section}"
+    output_str = (
+        f"{preamble}{encoding_section}{csr_section}{causes_section}{arg_section}"
+    )
 
     # Write the AsciiDoc output to a file
     output_path = "encoding.adoc"
     with open(output_path, "w", encoding="utf-8") as adoc_file:
         adoc_file.write(output_str)
-
