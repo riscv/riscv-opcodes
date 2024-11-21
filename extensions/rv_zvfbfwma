@@ -1,0 +1,2 @@
+vfwmaccbf16.vv     31..26=0x3B vm vs2 vs1 14..12=0x1 vd 6..0=0x57
+vfwmaccbf16.vf     31..26=0x3B vm vs2 rs1 14..12=0x5 vd 6..0=0x57
