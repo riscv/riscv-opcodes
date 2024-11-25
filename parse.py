@@ -5,14 +5,14 @@ import logging
 import pprint
 import sys
 
-from c_utils import make_c
-from chisel_utils import make_chisel
-from constants import emitted_pseudo_ops
-from go_utils import make_go
-from latex_utils import make_latex_table, make_priv_latex_table
-from rust_utils import make_rust
-from shared_utils import add_segmented_vls_insn, create_inst_dict
-from sverilog_utils import make_sverilog
+from utils.c_utils import make_c
+from utils.chisel_utils import make_chisel
+from utils.constants import emitted_pseudo_ops
+from utils.go_utils import make_go
+from utils.latex_utils import make_latex_table, make_priv_latex_table
+from utils.rust_utils import make_rust
+from utils.shared_utils import add_segmented_vls_insn, create_inst_dict
+from utils.sverilog_utils import make_sverilog
 
 LOG_FORMAT = "%(levelname)s:: %(message)s"
 LOG_LEVEL = logging.INFO

@@ -8,7 +8,7 @@ import re
 from itertools import chain
 from typing import Dict, Optional, TypedDict
 
-from constants import (
+from utils.constants import (
     arg_lut,
     fixed_ranges,
     imported_regex,
@@ -575,7 +575,9 @@ def create_inst_dict(
     if include_pseudo_ops is None:
         include_pseudo_ops = []
 
-    opcodes_dir = os.path.dirname(os.path.realpath(__file__)) + "/extensions"
+    script_path = os.path.realpath(__file__)
+    dir_path, _ = os.path.split(script_path)
+    opcodes_dir = os.path.dirname(dir_path) + "/extensions"
     instr_dict: InstrDict = {}
 
     file_names = [
