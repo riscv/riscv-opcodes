@@ -1,0 +1,5 @@
+#adjacent to sh[123]add
+sh4add     rd rs1 rs2 31..25=16 14..12=7 6..2=0x0C 1..0=3
+
+#adjacent to sh[123]add.uw
+sh4add.uw  rd rs1 rs2 31..25=16 14..12=7 6..2=0x0E 1..0=3
