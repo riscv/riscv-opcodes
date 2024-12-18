@@ -54,8 +54,3 @@ func encode(a obj.As) *inst {
         file.write(prelude)
         file.write(instr_str)
         file.write(endoffile)
-
-    try:
-        subprocess.run(["go", "fmt", "inst.go"], check=True)
-    except:  # pylint: disable=bare-except
-        pass
