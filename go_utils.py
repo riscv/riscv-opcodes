@@ -1,6 +1,5 @@
 import logging
 import pprint
-import subprocess
 import sys
 
 from shared_utils import InstrDict, signed
@@ -54,8 +53,3 @@ func encode(a obj.As) *inst {
         file.write(prelude)
         file.write(instr_str)
         file.write(endoffile)
-
-    try:
-        subprocess.run(["go", "fmt", "inst.go"], check=True)
-    except:  # pylint: disable=bare-except
-        pass
