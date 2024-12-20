@@ -34,16 +34,16 @@ def generate_extensions(
     latex: bool,
 ):
     instr_dict = create_inst_dict(extensions, include_pseudo)
+    instr_dict = dict(sorted(instr_dict.items()))
 
     with open("instr_dict.json", "w", encoding="utf-8") as outfile:
         json.dump(add_segmented_vls_insn(instr_dict), outfile, indent=2)
-    instr_dict = collections.OrderedDict(sorted(instr_dict.items()))
 
     if c:
         instr_dict_c = create_inst_dict(
             extensions, False, include_pseudo_ops=emitted_pseudo_ops
         )
-        instr_dict_c = collections.OrderedDict(sorted(instr_dict_c.items()))
+        instr_dict_c = dict(sorted(instr_dict_c.items()))
         make_c(instr_dict_c)
         logging.info("encoding.out.h generated successfully")
 
