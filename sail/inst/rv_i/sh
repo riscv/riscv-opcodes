@@ -1,0 +1,1 @@
+writemem((X(rs1) + sign_extend(imm12)), X(rs2), zero_extend(0b10), satp.bits);

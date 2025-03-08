@@ -1,0 +1,1 @@
+X(rd) = zero_extend(readmem(X(rs1) + sign_extend(imm12), satp.bits)[31..0]);

@@ -1,0 +1,2 @@
+let rs1_val = (X(rs1))[31..0];
+X(rd) = sign_extend(shift_right_arith32(rs1_val, shamt));

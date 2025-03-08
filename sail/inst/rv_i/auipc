@@ -1,0 +1,3 @@
+let off : xlenbits = sign_extend(imm20 @ 0x000);
+let ret : xlenbits = PC + off;
+X(rd) = ret;
