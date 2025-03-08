@@ -1,0 +1,7 @@
+let t : xlenbits = X(rs1) + sign_extend(imm12);
+let value : xlenbits = zero_extend(readmem(X(rs1) + sign_extend(imm12), satp.bits)[7..0]);
+if (exception_raised() == false) then {
+  X(rd) = value;
+} else {
+  handle_mem_exception(virtaddr(t), num_to_ExceptionType(get_exception()))
+}

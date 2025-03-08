@@ -1,0 +1,2 @@
+let rs1_val = X(rs1);
+X(rd) = if xlen == 32 then shift_right_arith32(rs1_val, shamt[4..0]) else shift_right_arith64(rs1_val, shamt)

@@ -1,0 +1,3 @@
+let t : xlenbits = PC + sign_extend(jimm20);
+X(rd) = t;
+nextPC = t;

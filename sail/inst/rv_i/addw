@@ -1,0 +1,3 @@
+let rs1_val = (X(rs1))[31..0];
+let rs2_val = (X(rs2))[31..0];
+X(rd) = rs1_val + rs2_val;
