@@ -1,2 +1,3 @@
-let result : xlenbits = sign_extend(imm) + X(rs1);
-X(rd) = sign_extend(result[31..0]);
+let result : XLENBITS = sign_extend(imm) + read_GPR(rs1);
+write_GPR(rd, sign_extend(result[31..0]));
+nextPC = PC + 4;
