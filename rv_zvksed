@@ -1,0 +1,8 @@
+# Zvksed - Vector Crypto SM4 (Block Cipher)
+
+# SM4 Key Expansion
+vsm4k.vi     31..26=0x21 25=1 vs2 zimm5       14..12=0x2 vd 6..0=0x77
+
+# SM4 Encryption/Decryption Rounds
+vsm4r.vv     31..26=0x28 25=1 vs2 19..15=0x10 14..12=0x2 vd 6..0=0x77
+vsm4r.vs     31..26=0x29 25=1 vs2 19..15=0x10 14..12=0x2 vd 6..0=0x77
