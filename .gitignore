@@ -9,5 +9,6 @@ inst.rs
 inst.spinalhdl
 inst.sverilog
 instr_dict.json
+operands.json
 
 __pycache__/

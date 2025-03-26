@@ -11,7 +11,7 @@ from constants import emitted_pseudo_ops
 from go_utils import make_go
 from latex_utils import make_latex_table, make_priv_latex_table
 from rust_utils import make_rust
-from shared_utils import add_segmented_vls_insn, create_inst_dict
+from shared_utils import add_segmented_vls_insn, create_inst_dict, create_operand_dict
 from sverilog_utils import make_sverilog
 
 LOG_FORMAT = "%(levelname)s:: %(message)s"
@@ -37,6 +37,9 @@ def generate_extensions(
 
     with open("instr_dict.json", "w", encoding="utf-8") as outfile:
         json.dump(add_segmented_vls_insn(instr_dict), outfile, indent=2)
+
+    with open("operands.json", "w", encoding="utf-8") as outfile:
+        json.dump(create_operand_dict(), outfile, indent=2)
 
     if c:
         instr_dict_c = create_inst_dict(
