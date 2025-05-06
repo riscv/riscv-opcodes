@@ -415,7 +415,7 @@ def make_ext_latex_table(
             content += f"""
 
 \\multicolumn{{{ilen}}}{{c}}{{}} & \\\\
-\\multicolumn{{{ilen}}}{{c}}{{\\bf {title} }} & \\\\
+\\multicolumn{{{ilen}}}{{c}}{{\\bfseries {title} }} & \\\\
 \\cline{{2-{ilen+1}}}
 
             &
