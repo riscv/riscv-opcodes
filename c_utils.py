@@ -1,6 +1,7 @@
 import logging
 import os
 import pprint
+from typing import Dict, List, Tuple
 
 from constants import causes, csrs, csrs32
 from shared_utils import InstrDict, arg_lut
@@ -9,46 +10,143 @@ pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
 
 
-def make_c(instr_dict: InstrDict):
-    mask_match_str = ""
-    declare_insn_str = ""
+# Mask and Match Generation
+def generate_mask_match_strings(instr_dict: InstrDict) -> Tuple[str, str]:
+    """
+    Generate mask and match strings for instructions.
+
+    Args:
+        instr_dict (InstrDict): Dictionary containing instruction definitions.
+
+    Returns:
+        Tuple[str, str]: Strings for mask-match and instruction declarations.
+    """
+    mask_match: List[str] = []
+    declare_insn: List[str] = []
+
     for i in instr_dict:
-        mask_match_str += (
-            f'#define MATCH_{i.upper().replace(".","_")} {instr_dict[i]["match"]}\n'
-        )
-        mask_match_str += (
-            f'#define MASK_{i.upper().replace(".","_")} {instr_dict[i]["mask"]}\n'
-        )
-        declare_insn_str += f'DECLARE_INSN({i.replace(".","_")}, MATCH_{i.upper().replace(".","_")}, MASK_{i.upper().replace(".","_")})\n'
-
-    csr_names_str = ""
-    declare_csr_str = ""
-    for num, name in csrs + csrs32:
-        csr_names_str += f"#define CSR_{name.upper()} {hex(num)}\n"
-        declare_csr_str += f"DECLARE_CSR({name}, CSR_{name.upper()})\n"
-
-    causes_str = ""
-    declare_cause_str = ""
-    for num, name in causes:
-        causes_str += f"#define CAUSE_{name.upper().replace(' ', '_')} {hex(num)}\n"
-        declare_cause_str += (
-            f"DECLARE_CAUSE(\"{name}\", CAUSE_{name.upper().replace(' ','_')})\n"
+        sanitized_name = i.upper().replace(".", "_")
+        mask_match.append(f'#define MATCH_{sanitized_name} {instr_dict[i]["match"]}')
+        mask_match.append(f'#define MASK_{sanitized_name} {instr_dict[i]["mask"]}')
+        declare_insn.append(
+            f'DECLARE_INSN({i.replace(".", "_")}, MATCH_{sanitized_name}, MASK_{sanitized_name})'
         )
 
-    arg_str = ""
-    for name, rng in arg_lut.items():
-        sanitized_name = name.replace(" ", "_").replace("=", "_eq_")
-        begin = rng[1]
-        end = rng[0]
+    return "\n".join(mask_match), "\n".join(declare_insn)
+
+
+# Control and Status Register Generation
+def generate_csr_strings(csr_list: List[Tuple[int, str]]) -> Tuple[str, str]:
+    """
+    Generate strings for CSR (Control and Status Registers) definitions.
+
+    Args:
+        csr_list (List[Tuple[int, str]]): List of CSR numbers and names.
+
+    Returns:
+        Tuple[str, str]: Strings for CSR definitions and declarations.
+    """
+
+    csr_names: List[str] = []
+    declare_csr: List[str] = []
+
+    for num, name in csr_list:
+        sanitized_name = name.upper()
+        csr_names.append(f"#define CSR_{sanitized_name} {hex(num)}")
+        declare_csr.append(f"DECLARE_CSR({name}, CSR_{sanitized_name})")
+
+    return "\n".join(csr_names), "\n".join(declare_csr)
+
+
+# Causes Generation
+def generate_cause_strings(cause_list: List[Tuple[int, str]]) -> Tuple[str, str]:
+    """
+    Generate strings for cause definitions.
+
+    Args:
+        cause_list (List[Tuple[int, str]]): List of cause numbers and descriptions.
+
+    Returns:
+        Tuple[str, str]: Strings for cause definitions and declarations.
+    """
+    causes_str: List[str] = []
+    declare_cause_str: List[str] = []
+
+    for num, name in cause_list:
+        sanitized_name = name.upper().replace(" ", "_")
+        causes_str.append(f"#define CAUSE_{sanitized_name} {hex(num)}")
+        declare_cause_str.append(f'DECLARE_CAUSE("{name}", CAUSE_{sanitized_name})')
+
+    return "\n".join(causes_str), "\n".join(declare_cause_str)
+
+
+# Argument Generation
+def generate_arg_strings(arg_lut_list: Dict[str, Tuple[int, int]]) -> str:
+    """
+    Generate strings for argument bit-field masks.
+
+    Args:
+        arg_lut (Dict[str, Tuple[int, int]]): Argument lookup table with ranges.
+
+    Returns:
+        str: Generated strings for argument definitions.
+    """
+    arg_definitions: List[str] = []
+
+    for name, rng in arg_lut_list.items():
+        sanitized_name = name.replace(" ", "_").replace("=", "_eq_").upper()
+        begin, end = rng[1], rng[0]
         mask = ((1 << (end - begin + 1)) - 1) << begin
-        arg_str += f"#define INSN_FIELD_{sanitized_name.upper()} {hex(mask)}\n"
+        arg_definitions.append(f"#define INSN_FIELD_{sanitized_name} {hex(mask)}")
 
+    return "\n".join(arg_definitions)
+
+
+# Header Inclusion
+def load_encoding_header() -> str:
+    """
+    Load the content of the encoding header file.
+    """
     with open(f"{os.path.dirname(__file__)}/encoding.h", "r", encoding="utf-8") as file:
-        enc_header = file.read()
+        return file.read()
 
-    commit = os.popen('git log -1 --format="format:%h"').read()
 
-    # Generate the output as a string
+# Commit Hash Inclusion
+def get_git_commit_hash() -> str:
+    """
+    Get the latest Git commit hash.
+    """
+    return os.popen('git log -1 --format="format:%h"').read().strip()
+
+
+# Write Output to file generated
+def write_output_to_file(output_str: str) -> None:
+    """
+    Write the final generated output to the encoding output file.
+    """
+    with open("encoding.out.h", "w", encoding="utf-8") as enc_file:
+        enc_file.write(output_str)
+
+
+# Main function
+def make_c(instr_dict: InstrDict) -> None:
+    """
+    Main function to generate the encoding header file.
+
+    Args:
+        instr_dict (InstrDict): Instruction dictionary to process.
+    """
+    # Generate component strings
+    mask_match_str, declare_insn_str = generate_mask_match_strings(instr_dict)
+    csr_names_str, declare_csr_str = generate_csr_strings(csrs + csrs32)
+    causes_str, declare_cause_str = generate_cause_strings(causes)
+    arg_str = generate_arg_strings(arg_lut)
+
+    # Load additional content
+    enc_header = load_encoding_header()
+    commit = get_git_commit_hash()
+
+    # Generate final output
     output_str = f"""/* SPDX-License-Identifier: BSD-3-Clause */
 
 /* Copyright (c) 2023 RISC-V International */
@@ -65,15 +163,21 @@ def make_c(instr_dict: InstrDict):
 {mask_match_str}
 {csr_names_str}
 {causes_str}
-{arg_str}#endif
+{arg_str}
+#endif
+
 #ifdef DECLARE_INSN
-{declare_insn_str}#endif
+{declare_insn_str}
+#endif
+
 #ifdef DECLARE_CSR
-{declare_csr_str}#endif
+{declare_csr_str}
+#endif
+
 #ifdef DECLARE_CAUSE
-{declare_cause_str}#endif
+{declare_cause_str}
+#endif
 """
 
-    # Write the modified output to the file
-    with open("encoding.out.h", "w", encoding="utf-8") as enc_file:
-        enc_file.write(output_str)
+    # Write the output to a file
+    write_output_to_file(output_str)
