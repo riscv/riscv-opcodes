@@ -1,0 +1,9 @@
+# Zvbc - Vector Carryless Multiplication
+
+# Carryless Multiply
+vclmul.vv    31..26=0x0C         vm vs2 vs1     14..12=0x2 vd 6..0=0x57
+vclmul.vx    31..26=0x0C         vm vs2 rs1     14..12=0x6 vd 6..0=0x57
+
+# Carryless Multiply (High)
+vclmulh.vv   31..26=0x0D         vm vs2 vs1     14..12=0x2 vd 6..0=0x57
+vclmulh.vx   31..26=0x0D         vm vs2 rs1     14..12=0x6 vd 6..0=0x57
