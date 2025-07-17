@@ -144,14 +144,14 @@ latex_mapping = {
     "c_uimm9sphi": "uimm[5]",
     "c_uimm10sp_s": "uimm[5:4$\\vert$9:6]",
     "c_uimm9sp_s": "uimm[5:3$\\vert$8:6]",
-    "rd_p_e": "rd\\,$'$, even values only",
-    "rs2_p_e": "rs2\\,$'$, even values only",
-    "rd_n0_e": "rd$\\neq$0, even values only",
-    "c_rs2_e": "rs2, even values only",
-    "rd_e": "rd, even values only",
-    "rs2_e": "rs2, even values only",
 }
 
+latex_mapping['rd_p_e'] = "rd\\,$'$, even values only"
+latex_mapping['rs2_p_e'] = "rs2\\,$'$, even values only"
+latex_mapping['rd_n0_e'] = 'rd$\\neq$0, even values only'
+latex_mapping['c_rs2_e'] = 'rs2, even values only'
+latex_mapping['rd_e'] = 'rd, even values only'
+latex_mapping['rs2_e'] = 'rs2, even values only'
 
 # created a dummy instruction-dictionary like dictionary for all the instruction
 # types so that the same logic can be used to create their tables
