@@ -34,9 +34,10 @@ def generate_extensions(
 ):
     instr_dict = create_inst_dict(extensions, include_pseudo)
     instr_dict = dict(sorted(instr_dict.items()))
+    instr_dict_with_segment = add_segmented_vls_insn(instr_dict)
 
     with open("instr_dict.json", "w", encoding="utf-8") as outfile:
-        json.dump(add_segmented_vls_insn(instr_dict), outfile, indent=2)
+        json.dump(instr_dict_with_segment, outfile, indent=2)
 
     if c:
         instr_dict_c = create_inst_dict(
@@ -63,7 +64,7 @@ def generate_extensions(
         logging.info("inst.rs generated successfully")
 
     if go:
-        make_go(instr_dict)
+        make_go(instr_dict_with_segment)
         logging.info("inst.go generated successfully")
 
     if latex:
