@@ -1,4 +1,4 @@
 # Load/store pair for RV32
 
-ld   rd_e rs1 imm12            14..12=3 6..2=0x00 1..0=3
-sd   imm12hi rs1 rs2_e imm12lo 14..12=3 6..2=0x08 1..0=3
+$pseudo_op rv64_i::ld ld rd_e rs1 imm12            14..12=3 7..2=0x00 1..0=3
+$pseudo_op rv64_i::ld ld imm12hi rs1 rs2_e imm12lo 20=0 14..12=3 6..2=0x08 1..0=3
