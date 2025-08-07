@@ -13,6 +13,7 @@ from latex_utils import make_latex_table, make_priv_latex_table
 from rust_utils import make_rust
 from shared_utils import add_segmented_vls_insn, create_inst_dict
 from sverilog_utils import make_sverilog
+from svg_utils import make_svg
 
 LOG_FORMAT = "%(levelname)s:: %(message)s"
 LOG_LEVEL = logging.INFO
@@ -31,6 +32,7 @@ def generate_extensions(
     rust: bool,
     go: bool,
     latex: bool,
+    svg: bool,
 ):
     instr_dict = create_inst_dict(extensions, include_pseudo)
     instr_dict = dict(sorted(instr_dict.items()))
@@ -73,6 +75,9 @@ def generate_extensions(
         make_priv_latex_table()
         logging.info("priv-instr-table.tex generated successfully")
 
+    if svg:
+        make_svg(instr_dict)
+        logging.info("inst.svg generated successfully")
 
 def main():
     parser = argparse.ArgumentParser(description="Generate RISC-V constants headers")
@@ -92,6 +97,7 @@ def main():
     parser.add_argument("-rust", action="store_true", help="Generate output for Rust")
     parser.add_argument("-go", action="store_true", help="Generate output for Go")
     parser.add_argument("-latex", action="store_true", help="Generate output for Latex")
+    parser.add_argument("-svg", action="store_true", help="Generate .svg output")
     parser.add_argument(
         "extensions",
         nargs="*",
@@ -112,6 +118,7 @@ def main():
         args.rust,
         args.go,
         args.latex,
+        args.svg,
     )
 
 
