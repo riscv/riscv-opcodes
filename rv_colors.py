@@ -11,4 +11,3 @@ palette = {
     "Lavender": "#c2a6e1",
 }
 
-background = "#999999"

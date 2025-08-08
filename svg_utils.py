@@ -1,8 +1,8 @@
 import logging
 import pprint
 
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
+from matplotlib import pyplot as plt
+from matplotlib import patches
 
 from shared_utils import InstrDict, instr_dict_2_extensions
 from rv_colors import palette
@@ -61,7 +61,8 @@ def plot_image(instr_dict: dict, extension_sizes: dict) -> None:
         return '#000000' if luminance > 186 else '#FFFFFF'
     def plot_with_matplotlib(rectangles: list, colors: list, hatches: list) -> None:
         """Plot rectangles with matplotlib using specified styles."""
-        fig, ax = plt.subplots(figsize=(FIGSIZE, FIGSIZE), facecolor='none')
+
+        _, ax = plt.subplots(figsize=(FIGSIZE, FIGSIZE), facecolor='none')
         ax.set_facecolor('none')
         linewidth = FIGSIZE / 100
         for x, y, w, h, ext, label in rectangles:
