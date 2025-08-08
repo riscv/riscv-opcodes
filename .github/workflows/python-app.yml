@@ -30,13 +30,13 @@ jobs:
           ${{ runner.os }}-pre-commit-
 
     - name: Install dependencies
-      run: python3 -m pip install pre-commit coverage
+      run: python3 -m pip install pre-commit coverage matplotlib
 
     - name: Run pre-commit
       run: pre-commit run --all-files
 
     - name: Generate
-      run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -go "rv*" "unratified/rv*"
+      run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -svg -go "rv*" "unratified/rv*"
 
     - name: Check C output
       run: cat encoding.out.h | cpp
