@@ -1,5 +1,6 @@
 import logging
 import pprint
+from typing import Dict, List, NamedTuple, cast
 
 from matplotlib import patches
 from matplotlib import pyplot as plt
@@ -7,10 +8,9 @@ from matplotlib import pyplot as plt
 from rv_colors import palette
 from shared_utils import InstrDict, instr_dict_2_extensions
 
-from typing import NamedTuple
-
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
+
 
 class RectangleDimensions(NamedTuple):
     x: float
@@ -18,10 +18,16 @@ class RectangleDimensions(NamedTuple):
     w: float
     h: float
 
+
 class InstrRectangle(NamedTuple):
     dims: RectangleDimensions
     extension: str
     label: str
+
+
+class InstrDictWithDims(InstrDict):
+    dims: RectangleDimensions
+
 
 def encoding_to_rect(encoding: str) -> RectangleDimensions:
     """Convert a binary encoding string to rectangle dimensions."""
@@ -65,7 +71,9 @@ def encoding_to_rect(encoding: str) -> RectangleDimensions:
 FIGSIZE = 128
 
 
-def plot_image(instr_dict: InstrDict, extension_sizes: dict[str, float]) -> None:
+def plot_image(
+    instr_dict: InstrDictWithDims, extension_sizes: Dict[str, float]
+) -> None:
     """Plot the instruction rectangles using matplotlib."""
 
     def get_readable_font_color(bg_hex: str) -> str:
@@ -74,17 +82,26 @@ def plot_image(instr_dict: InstrDict, extension_sizes: dict[str, float]) -> None
         def hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
             """Convert hex color string to RGB tuple."""
             hex_color = hex_color.lstrip("#")
-            return tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4))
+            r = int(hex_color[0:2], 16)
+            g = int(hex_color[2:4], 16)
+            b = int(hex_color[4:6], 16)
+
+            return (r, g, b)
 
         r, g, b = hex_to_rgb(bg_hex)
         luminance = 0.299 * r + 0.587 * g + 0.114 * b
         return "#000000" if luminance > 186 else "#FFFFFF"
 
-    def plot_with_matplotlib(rectangles: list[InstrRectangle], colors: list[str], hatches: list[str]) -> None:
+    def plot_with_matplotlib(
+        rectangles: list[InstrRectangle],
+        colors: list[str],
+        hatches: list[str],
+        extensions: list[str],
+    ) -> None:
         """Plot rectangles with matplotlib using specified styles."""
 
-        _, ax = plt.subplots(figsize=(FIGSIZE, FIGSIZE), facecolor="none")
-        ax.set_facecolor("none")
+        _, ax = plt.subplots(figsize=(FIGSIZE, FIGSIZE), facecolor="none")  # type: ignore
+        ax.set_facecolor("none")  # type: ignore
         linewidth = FIGSIZE / 100
         for dims, ext, label in rectangles:
             x, y, w, h = dims
@@ -126,20 +143,26 @@ def plot_image(instr_dict: InstrDict, extension_sizes: dict[str, float]) -> None
                     color=get_readable_font_color(color),
                     rotation=rotation,
                     family="DejaVu Sans Mono",
-                )
+                )  # type: ignore
 
-        plt.axis("off")
-        plt.tight_layout()
-        plt.savefig("inst.svg", format="svg")
-        plt.show()
+        plt.axis("off")  # type: ignore
+        plt.tight_layout()  # type: ignore
+        plt.savefig("inst.svg", format="svg")  # type: ignore
+        plt.show()  # type: ignore
 
-    extensions = sorted(extension_sizes, key=extension_sizes.get, reverse=True)
+    extensions: List[str] = sorted(
+        extension_sizes.keys(), key=lambda k: extension_sizes[k], reverse=True
+    )
 
     rectangles = []
     for instr in instr_dict:
         dims = instr_dict[instr]["dimensions"]
         rectangles.append(
-            InstrRectangle(dims=dims, extension=instr_dict[instr]["extension"][0], label=instr.replace("_", "."))
+            InstrRectangle(
+                dims=dims,
+                extension=instr_dict[instr]["extension"][0],
+                label=instr.replace("_", "."),
+            )
         )
 
     # sort rectangles so that small ones are in the foreground
@@ -148,7 +171,7 @@ def plot_image(instr_dict: InstrDict, extension_sizes: dict[str, float]) -> None
 
     colors, hatches = generate_styles(extensions)
 
-    plot_with_matplotlib(rectangles, colors, hatches)
+    plot_with_matplotlib(rectangles, colors, hatches, extensions)
 
 
 def generate_styles(extensions: list[str]) -> tuple[list[str], list[str]]:
@@ -157,9 +180,10 @@ def generate_styles(extensions: list[str]) -> tuple[list[str], list[str]]:
     colors = [0] * len(extensions)
     hatches = [0] * len(extensions)
     hatch_options = ["", "/", "\\", "|", "-", "+", "x", ".", "*"]
+    color_options = list(palette.values())
 
     for i in range(len(extensions)):
-        colors[i] = list(palette.values())[i % n_colors]
+        colors[i] = color_options[i % n_colors]
         hatches[i] = hatch_options[int(i / n_colors)]
 
     return colors, hatches
@@ -236,9 +260,9 @@ def defragment_encoding_dict(instr_dict: InstrDict) -> InstrDict:
 def make_svg(instr_dict: InstrDict) -> None:
     """Generate an SVG image from instruction encodings."""
     extensions = instr_dict_2_extensions(instr_dict)
-    extension_size = {}
+    extension_size: Dict[str, float] = {}
 
-    instr_dict = defragment_encoding_dict(instr_dict)
+    instr_dict = cast(InstrDictWithDims, defragment_encoding_dict(instr_dict))
 
     for ext in extensions:
         extension_size[ext] = 0
