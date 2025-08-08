@@ -1,6 +1,6 @@
 import logging
 import pprint
-from typing import Dict, List, NamedTuple, cast
+from typing import Dict, List, NamedTuple
 
 from matplotlib import patches
 from matplotlib import pyplot as plt
@@ -25,8 +25,7 @@ class InstrRectangle(NamedTuple):
     label: str
 
 
-class InstrDictWithDims(InstrDict):
-    dims: RectangleDimensions
+InstrDimsDict = Dict[str, RectangleDimensions]
 
 
 def encoding_to_rect(encoding: str) -> RectangleDimensions:
@@ -72,7 +71,9 @@ FIGSIZE = 128
 
 
 def plot_image(
-    instr_dict: InstrDictWithDims, extension_sizes: Dict[str, float]
+    instr_dict: InstrDict,
+    instr_dims_dict: InstrDimsDict,
+    extension_sizes: Dict[str, float],
 ) -> None:
     """Plot the instruction rectangles using matplotlib."""
 
@@ -133,17 +134,20 @@ def plot_image(
                 base_dim / n_chars * 90 * FIGSIZE
             )  # Adjust scaling factor as needed
             if font_size > 1:
-                ax.text(
+                fontdict = {
+                    "fontsize": font_size,
+                    "color": get_readable_font_color(color),
+                    "family": "DejaVu Sans Mono",
+                }
+                ax.text(  # type: ignore
                     x + w / 2,
                     y + h / 2,
                     label,
                     ha="center",
                     va="center",
-                    fontsize=font_size,
-                    color=get_readable_font_color(color),
+                    fontdict=fontdict,
                     rotation=rotation,
-                    family="DejaVu Sans Mono",
-                )  # type: ignore
+                )
 
         plt.axis("off")  # type: ignore
         plt.tight_layout()  # type: ignore
@@ -154,9 +158,9 @@ def plot_image(
         extension_sizes.keys(), key=lambda k: extension_sizes[k], reverse=True
     )
 
-    rectangles = []
+    rectangles: List[InstrRectangle] = []
     for instr in instr_dict:
-        dims = instr_dict[instr]["dimensions"]
+        dims = instr_dims_dict[instr]
         rectangles.append(
             InstrRectangle(
                 dims=dims,
@@ -177,8 +181,8 @@ def plot_image(
 def generate_styles(extensions: list[str]) -> tuple[list[str], list[str]]:
     """Generate color and hatch styles for extensions."""
     n_colors = len(palette)
-    colors = [0] * len(extensions)
-    hatches = [0] * len(extensions)
+    colors = [""] * len(extensions)
+    hatches = [""] * len(extensions)
     hatch_options = ["", "/", "\\", "|", "-", "+", "x", ".", "*"]
     color_options = list(palette.values())
 
@@ -196,7 +200,9 @@ def defragment_encodings(
     # determine bit position which has the most fixed bits
     fixed_encodings = ["0", "1"]
     fixed_bits = [0] * length
-    fixed_encoding_indeces = {value: [] for value in fixed_encodings}
+    fixed_encoding_indeces: Dict[str, List[int]] = {
+        value: [] for value in fixed_encodings
+    }
     for index, encoding in enumerate(encodings):
         for position, value in enumerate(encoding):
             if position > offset:
@@ -230,7 +236,7 @@ def defragment_encodings(
         offset = offset + 1
 
         # separate encodings
-        sep_encodings = {}
+        sep_encodings: Dict[str, List[str]] = {}
         for fixed_encoding in fixed_encodings:
             sep_encodings[fixed_encoding] = [
                 encodings[i] for i in fixed_encoding_indeces[fixed_encoding]
@@ -262,7 +268,8 @@ def make_svg(instr_dict: InstrDict) -> None:
     extensions = instr_dict_2_extensions(instr_dict)
     extension_size: Dict[str, float] = {}
 
-    instr_dict = cast(InstrDictWithDims, defragment_encoding_dict(instr_dict))
+    instr_dict = defragment_encoding_dict(instr_dict)
+    instr_dims_dict: InstrDimsDict = {}
 
     for ext in extensions:
         extension_size[ext] = 0
@@ -272,6 +279,6 @@ def make_svg(instr_dict: InstrDict) -> None:
 
         extension_size[instr_dict[instr]["extension"][0]] += dims.h * dims.w
 
-        instr_dict[instr]["dimensions"] = dims
+        instr_dims_dict[instr] = dims
 
-    plot_image(instr_dict, extension_size)
+    plot_image(instr_dict, instr_dims_dict, extension_size)
