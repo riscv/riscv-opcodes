@@ -10,4 +10,3 @@ palette = {
     "Pink": "#fe9bb1",
     "Lavender": "#c2a6e1",
 }
-

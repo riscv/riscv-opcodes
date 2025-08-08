@@ -79,6 +79,7 @@ def generate_extensions(
         make_svg(instr_dict)
         logging.info("inst.svg generated successfully")
 
+
 def main():
     parser = argparse.ArgumentParser(description="Generate RISC-V constants headers")
     parser.add_argument(
