@@ -10,5 +10,6 @@ inst.spinalhdl
 inst.sverilog
 inst.svg
 instr_dict.json
+operands.json
 
 __pycache__/
