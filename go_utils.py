@@ -1,8 +1,8 @@
 import logging
 import pprint
-import subprocess
 import sys
 
+from constants import csrs
 from shared_utils import InstrDict, signed
 
 pp = pprint.PrettyPrinter(indent=2)
@@ -32,9 +32,14 @@ func encode(a obj.As) *inst {
 	switch a {
 """
 
-    endoffile = """  }
+    csrs_map_str = """  }
 	return nil
 }
+
+var csrs = map[uint16]string {
+"""
+
+    endoffile = """}
 """
 
     instr_str = ""
@@ -49,13 +54,11 @@ func encode(a obj.As) *inst {
         instr_str += f"""  case A{i.upper().replace("_","")}:
     return &inst{{ {hex(opcode)}, {hex(funct3)}, {hex(rs1)}, {hex(rs2)}, {signed(csr,12)}, {hex(funct7)} }}
 """
+    for num, name in sorted(csrs, key=lambda row: row[0]):
+        csrs_map_str += f'{hex(num)} : "{name.upper()}",\n'
 
     with open("inst.go", "w", encoding="utf-8") as file:
         file.write(prelude)
         file.write(instr_str)
+        file.write(csrs_map_str)
         file.write(endoffile)
-
-    try:
-        subprocess.run(["go", "fmt", "inst.go"], check=True)
-    except:  # pylint: disable=bare-except
-        pass

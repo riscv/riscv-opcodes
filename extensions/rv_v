@@ -8,7 +8,7 @@
 
 # configuration setting
 # https://github.com/riscv/riscv-v-spec/blob/master/vcfg-format.adoc
-vsetivli     31=1 30=1 zimm10    zimm 14..12=0x7 rd 6..0=0x57
+vsetivli     31=1 30=1 zimm10    zimm5 14..12=0x7 rd 6..0=0x57
 vsetvli      31=0 zimm11          rs1 14..12=0x7 rd 6..0=0x57
 vsetvl       31=1 30..25=0x0 rs2  rs1 14..12=0x7 rd 6..0=0x57
 

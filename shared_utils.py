@@ -55,7 +55,7 @@ def validate_bit_range(msb: int, lsb: int, entry_value: int, line: str):
 # Split the instruction line into name and remaining part
 def parse_instruction_line(line: str) -> "tuple[str, str]":
     """Parse the instruction name and the remaining encoding details."""
-    name, remaining = line.split(" ", 1)
+    name, remaining = line.replace("\t", " ").split(" ", 1)
     name = name.replace(".", "_")  # Replace dots for compatibility
     remaining = remaining.lstrip()  # Remove leading whitespace
     return name, remaining
