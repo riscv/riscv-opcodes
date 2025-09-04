@@ -188,7 +188,7 @@ def generate_styles(extensions: list[str]) -> tuple[list[str], list[str]]:
 
     for i in range(len(extensions)):
         colors[i] = color_options[i % n_colors]
-        hatches[i] = hatch_options[int(i / n_colors)]
+        hatches[i] = hatch_options[int(i / n_colors) % len(hatch_options)]
 
     return colors, hatches
 
