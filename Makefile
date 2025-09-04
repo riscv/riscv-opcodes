@@ -18,7 +18,7 @@ everything:
 	@./parse.py  $(PSEUDO_FLAG) -c -go -chisel -sverilog -rust -latex -spinalhdl $(EXTENSIONS)
 
 encoding.out.h:
-	@./parse.py -c $(PSEUDO_FLAG) rv* unratified/rv_* unratified/rv32* unratified/rv64*
+	@./parse.py -c $(PSEUDO_FLAG) $(EXTENSIONS)
 
 inst.chisel:
 	@./parse.py -chisel $(PSEUDO_FLAG) $(EXTENSIONS)
