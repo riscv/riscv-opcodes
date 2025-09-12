@@ -14,6 +14,7 @@ overlapping_instructions = {
     "c_mv": {"c_jr"},
     "c_jalr": {"c_ebreak"},
     "c_add": {"c_ebreak", "c_jalr"},
+    "addy": {"ymv"},
 }
 
 isa_regex = re.compile(
@@ -110,6 +111,7 @@ latex_mapping = {
     "c_rs2_n0": "rs2$\\neq$0",
     "rd_n0": "rd$\\neq$0",
     "rs1_n0": "rs1$\\neq$0",
+    "rs2_n0": "rs2$\\neq$0",
     "c_rs1_n0": "rs1$\\neq$0",
     "rd_rs1": "rd/rs1",
     "zimm6hi": "uimm[5]",
