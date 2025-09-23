@@ -1,0 +1,385 @@
+# insns with no register-pair operands
+$pseudo_op    rv64_zbp::grevi    rev8.rv32 rd rs1   31..20=0x698 14..12=5 6..0=0x13
+$pseudo_op    rv64_p::rev rev.rv32 rd rs1 31..27=0xd  26..20=0x1f 14..12=0x5 6..0=0x13
+
+
+sslai          31=1 30..28=0x5 27=0 26..25=0x1 p_w_uimm5 rs1 14..12=0x2 rd 6..0=0x1b
+
+ssha           31=1 30..28=0x6 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
+sshar          31=1 30..28=0x7 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
+
+$pseudo_op     rv64_p::usati usati.rv32 31=1 30..28=0x2 27=0 26..25=0x1 p_w_uimm5 rs1 14..12=0x4 rd 6..0=0x1b
+$pseudo_op     rv64_p::srari srari.rv32 31=1 30..28=0x5 27=0 26..25=0x1 p_w_uimm5 rs1 14..12=0x4 rd 6..0=0x1b
+$pseudo_op     rv64_p::sati  sati.rv32 31=1 30..28=0x6 27=0 26..25=0x1 p_w_uimm5 rs1 14..12=0x4 rd 6..0=0x1b
+
+sadd           31=1 30..27=0x2 26..25=0x1 rs2 rs1 14..12=0x0 rd 6..0=0x3b
+aadd           31=1 30..27=0x3 26..25=0x1 rs2 rs1 14..12=0x0 rd 6..0=0x3b
+saddu           31=1 30..27=0x6 26..25=0x1 rs2 rs1 14..12=0x0 rd 6..0=0x3b
+aaddu           31=1 30..27=0x7 26..25=0x1 rs2 rs1 14..12=0x0 rd 6..0=0x3b
+ssub           31=1 30..27=0xa 26..25=0x1 rs2 rs1 14..12=0x0 rd 6..0=0x3b
+asub           31=1 30..27=0xb 26..25=0x1 rs2 rs1 14..12=0x0 rd 6..0=0x3b
+ssubu           31=1 30..27=0xe 26..25=0x1 rs2 rs1 14..12=0x0 rd 6..0=0x3b
+asubu           31=1 30..27=0xf 26..25=0x1 rs2 rs1 14..12=0x0 rd 6..0=0x3b
+mul.h01         31=1 30..27=0x2 26..25=0x1 rs2 rs1 14..12=0x1 rd 6..0=0x3b
+macc.h01         31=1 30..27=0x3 26..25=0x1 rs2 rs1 14..12=0x1 rd 6..0=0x3b
+mulu.h01         31=1 30..27=0x6 26..25=0x1 rs2 rs1 14..12=0x1 rd 6..0=0x3b
+maccu.h01         31=1 30..27=0x7 26..25=0x1 rs2 rs1 14..12=0x1 rd 6..0=0x3b
+sh1sadd            31=1 30..28=0x3 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+mul.h00        31=1 30..27=0x0 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+macc.h00        31=1 30..27=0x1 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+mul.h11        31=1 30..27=0x2 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+macc.h11        31=1 30..27=0x3 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+mulu.h00        31=1 30..27=0x4 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+maccu.h00        31=1 30..27=0x5 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+mulu.h11        31=1 30..27=0x6 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+maccu.h11        31=1 30..27=0x7 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+mulsu.h00        31=1 30..27=0xc 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+maccsu.h00        31=1 30..27=0xd 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+mulsu.h11        31=1 30..27=0xe 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+maccsu.h11        31=1 30..27=0xf 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
+$pseudo_op        rv64_p::packbt packbt.rv32 31=1 30..28=0x1 27=0 26..25=0x1 rs2 rs1 14..12=0x4 rd 6..0=0x3b
+$pseudo_op        rv64_p::packtb packtb.rv32 31=1 30..28=0x2 27=0 26..25=0x1 rs2 rs1 14..12=0x4 rd 6..0=0x3b
+$pseudo_op        rv64_p::packt  packt.rv32  31=1 30..28=0x3 27=0 26..25=0x1 rs2 rs1 14..12=0x4 rd 6..0=0x3b
+mqacc.h01            31=1 30..27=0xf 26..25=0x0 rs2 rs1 14..12=0x5 rd 6..0=0x3b
+mqracc.h01            31=1 30..27=0xf 26..25=0x2 rs2 rs1 14..12=0x5 rd 6..0=0x3b
+mseq               31=1 30..27=0x8 26..25=0x1 rs2 rs1 14..12=0x6 rd 6..0=0x3b
+mslt               31=1 30..27=0xa 26..25=0x1 rs2 rs1 14..12=0x6 rd 6..0=0x3b
+msltu               31=1 30..27=0xb 26..25=0x1 rs2 rs1 14..12=0x6 rd 6..0=0x3b
+mulhr              31=1 30..27=0x0 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mhacc              31=1 30..27=0x1 26..25=0x1 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mhracc             31=1 30..27=0x1 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mulhru             31=1 30..27=0x2 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mhaccu              31=1 30..27=0x3 26..25=0x1 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mhraccu             31=1 30..27=0x3 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mulh.h0             31=1 30..27=0x4 26..25=0x1 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mulhsu.h0           31=1 30..27=0x4 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mhacc.h0             31=1 30..27=0x5 26..25=0x1 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mhaccsu.h0           31=1 30..27=0x5 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mulh.h1             31=1 30..27=0x6 26..25=0x1 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mulhsu.h1           31=1 30..27=0x6 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mhacc.h1             31=1 30..27=0x7 26..25=0x1 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mhaccsu.h1           31=1 30..27=0x7 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mulhrsu              31=1 30..27=0x8 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mhaccsu               31=1 30..27=0x9 26..25=0x1 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mhraccsu              31=1 30..27=0x9 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mulq                  31=1 30..27=0xa 26..25=0x1 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mulqr                 31=1 30..27=0xa 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mqacc.h00             31=1 30..27=0xd 26..25=0x0 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mqracc.h00            31=1 30..27=0xd 26..25=0x2 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mqacc.h11             31=1 30..27=0xf 26..25=0x0 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+mqracc.h11            31=1 30..27=0xf 26..25=0x2 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+
+
+# insns with one or more register pair operands
+pwslli.b          31=0 30..28=0x0 27=0 26..24=0x1 p_w_uimm4 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+pwslli.h          31=0 30..28=0x0 27=0 26..25=0x1 p_w_uimm5 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+wslli             31=0 30..28=0x0 27=0 26=1       p_w_uimm6 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+
+pwslai.b          31=0 30..28=0x4 27=0 26..24=0x1 p_w_uimm4 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+pwslai.h          31=0 30..28=0x4 27=0 26..25=0x1 p_w_uimm5 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+wslai             31=0 30..28=0x4 27=0 26=1       p_w_uimm6 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+
+pli.dh            31=0 30..28=0x3 27=0 26..25=0x0 p_imm10 14..12=0x2 p_rd_p 7..0=0x1b
+pli.db            31=0 30..28=0x3 27=0 26..24=0x4 p_imm8  15..12=0x2 p_rd_p 7..0=0x1b
+plui.dh           31=0 30..28=0x7 27=0 26..25=0x0 p_imm10 14..12=0x2 p_rd_p 7..0=0x1b
+
+pwsll.bs          31=0 30..28=0x0 27=1 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+pwsll.hs          31=0 30..28=0x0 27=1 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+wsll              31=0 30..28=0x0 27=1 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+
+pwsla.bs          31=0 30..28=0x4 27=1 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+pwsla.hs          31=0 30..28=0x4 27=1 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+wsla              31=0 30..28=0x4 27=1 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x1a
+
+wzip8p            31=0 30..28=0x7 27=1 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+wzip16p           31=0 30..28=0x7 27=1 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x1b
+
+pwadd.h           31=0 30..27=0x0 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wadd              31=0 30..27=0x0 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwadd.b           31=0 30..27=0x0 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2wadd.h         31=0 30..27=0x0 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwadda.h           31=0 30..27=0x1 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wadda              31=0 30..27=0x1 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwadda.b           31=0 30..27=0x1 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2wadda.h         31=0 30..27=0x1 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwaddu.h           31=0 30..27=0x2 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+waddu              31=0 30..27=0x2 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwaddu.b           31=0 30..27=0x2 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2wadd.hx         31=0 30..27=0x2 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwaddau.h           31=0 30..27=0x3 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+waddau              31=0 30..27=0x3 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwaddau.b           31=0 30..27=0x3 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2wadda.hx         31=0 30..27=0x3 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwmul.h             31=0 30..27=0x4 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wmul                31=0 30..27=0x4 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwmul.b             31=0 30..27=0x4 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2waddu.h          31=0 30..27=0x4 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwmacc.h             31=0 30..27=0x5 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wmacc                31=0 30..27=0x5 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2waddau.h          31=0 30..27=0x5 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwmulu.h             31=0 30..27=0x6 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wmulu                31=0 30..27=0x6 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwmulu.b             31=0 30..27=0x6 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwmaccu.h            31=0 30..27=0x7 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wmaccu               31=0 30..27=0x7 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwsub.h           31=0 30..27=0x8 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wsub              31=0 30..27=0x8 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwsub.b           31=0 30..27=0x8 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2wsub.h         31=0 30..27=0x8 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwsuba.h           31=0 30..27=0x9 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wsuba              31=0 30..27=0x9 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwsuba.b           31=0 30..27=0x9 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2wsuba.h         31=0 30..27=0x9 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwsubu.h           31=0 30..27=0xa 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wsubu              31=0 30..27=0xa 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwsubu.b           31=0 30..27=0xa 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2wsub.hx         31=0 30..27=0xa 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwsubau.h           31=0 30..27=0xb 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wsubau              31=0 30..27=0xb 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwsubau.b           31=0 30..27=0xb 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2wsuba.hx         31=0 30..27=0xb 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwmulsu.h             31=0 30..27=0xc 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wmulsu                31=0 30..27=0xc 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pwmulsu.b             31=0 30..27=0xc 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2waddsu.h           31=0 30..27=0xc 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pwmaccsu.h            31=0 30..27=0xd 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+wmaccsu               31=0 30..27=0xd 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pm2waddasu.h          31=0 30..27=0xd 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+pmqwacc.h           31=0 30..27=0xf 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pmqwacc             31=0 30..27=0xf 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pmqrwacc.h          31=0 30..27=0xf 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+pmqrwacc            31=0 30..27=0xf 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+
+
+predsum.dhs          31=0 30..28=0x1 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x4 rd 6..0=0x1b
+predsum.dbs          31=0 30..28=0x1 27=1 26..25=0x2 rs2 p_rs1_p 15..12=0x4 rd 6..0=0x1b
+
+predsumu.dhs         31=0 30..28=0x3 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x4 rd 6..0=0x1b
+predsumu.dbs         31=0 30..28=0x3 27=1 26..25=0x2 rs2 p_rs1_p 15..12=0x4 rd 6..0=0x1b
+
+pnsrli.b          31=0 30..28=0x0 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnsrli.h          31=0 30..28=0x0 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nsrli             31=0 30..28=0x0 27=0 26=1       p_w_uimm6 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnclipiu.b          31=0 30..28=0x2 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnclipiu.h          31=0 30..28=0x2 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nclipiu             31=0 30..28=0x2 27=0 26=1       p_w_uimm6 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnclipriu.b          31=0 30..28=0x3 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnclipriu.h          31=0 30..28=0x3 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nclipriu             31=0 30..28=0x3 27=0 26=1       p_w_uimm6 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnsrai.b          31=0 30..28=0x4 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnsrai.h          31=0 30..28=0x4 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nsrai             31=0 30..28=0x4 27=0 26=1       p_w_uimm6 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnsrari.b          31=0 30..28=0x5 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnsrari.h          31=0 30..28=0x5 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nsrari             31=0 30..28=0x5 27=0 26=1       p_w_uimm6 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnclipi.b          31=0 30..28=0x6 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnclipi.h          31=0 30..28=0x6 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nclipi             31=0 30..28=0x6 27=0 26=1       p_w_uimm6 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnclipri.b          31=0 30..28=0x7 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnclipri.h          31=0 30..28=0x7 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nclipri             31=0 30..28=0x7 27=0 26=1       p_w_uimm6 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnsrl.bs           31=0 30..28=0x0 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnsrl.hs           31=0 30..28=0x0 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nsrl               31=0 30..28=0x0 27=1 26..25=0x3 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnclipu.bs           31=0 30..28=0x2 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnclipu.hs           31=0 30..28=0x2 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nclipu               31=0 30..28=0x2 27=1 26..25=0x3 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnclipru.bs           31=0 30..28=0x3 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnclipru.hs           31=0 30..28=0x3 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nclipru               31=0 30..28=0x3 27=1 26..25=0x3 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnsra.bs           31=0 30..28=0x4 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnsra.hs           31=0 30..28=0x4 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nsra               31=0 30..28=0x4 27=1 26..25=0x3 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnsrar.bs           31=0 30..28=0x5 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnsrar.hs           31=0 30..28=0x5 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nsrar               31=0 30..28=0x5 27=1 26..25=0x3 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnclip.bs           31=0 30..28=0x6 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnclip.hs           31=0 30..28=0x6 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nclip               31=0 30..28=0x6 27=1 26..25=0x3 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pnclipr.bs           31=0 30..28=0x7 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+pnclipr.hs           31=0 30..28=0x7 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+nclipr               31=0 30..28=0x7 27=1 26..25=0x3 rs2 p_rs1_p 15..12=0xc rd 6..0=0x1b
+
+pslli.db           31=0 30..28=0x0 27=0 26..23=0x1 p_w_uimm3 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pslli.dh           31=0 30..28=0x0 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pslli.dw           31=0 30..28=0x0 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+pslai.dh           31=0 30..28=0x5 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pslai.dw           31=0 30..28=0x5 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+psext.dh.b         31=0 30..28=0x6 27=0 26..25=0x0 24..20=0x4 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psext.dw.b         31=0 30..28=0x6 27=0 26..25=0x1 24..20=0x4 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psext.dw.h         31=0 30..28=0x6 27=0 26..25=0x1 24..20=0x5 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+psabs.dh           31=0 30..28=0x6 27=0 26..25=0x0 24..20=0x7 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psabs.db           31=0 30..28=0x6 27=0 26..25=0x2 24..20=0x7 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+psll.dhs           31=0 30..28=0x0 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psll.dws           31=0 30..28=0x0 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psll.dbs           31=0 30..28=0x0 27=1 26..25=0x2 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+padd.dhs           31=0 30..28=0x1 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+padd.dws           31=0 30..28=0x1 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+padd.dbs           31=0 30..28=0x1 27=1 26..25=0x2 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+pssha.dhs           31=0 30..28=0x6 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pssha.dws           31=0 30..28=0x6 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+psshar.dhs          31=0 30..28=0x7 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psshar.dws          31=0 30..28=0x7 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+psrli.db            31=0 30..28=0x0 27=0 26..23=0x1 p_w_uimm3 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psrli.dh            31=0 30..28=0x0 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psrli.dw            31=0 30..28=0x0 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+pusati.dh           31=0 30..28=0x2 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pusati.dw           31=0 30..28=0x2 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+psrai.db            31=0 30..28=0x4 27=0 26..23=0x1 p_w_uimm3 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psrai.dh            31=0 30..28=0x4 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psrai.dw            31=0 30..28=0x4 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+psrari.dh           31=0 30..28=0x5 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psrari.dw           31=0 30..28=0x5 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+psati.dh            31=0 30..28=0x6 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psati.dw            31=0 30..28=0x6 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+psrl.dhs           31=0 30..28=0x0 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psrl.dws           31=0 30..28=0x0 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psrl.dbs           31=0 30..28=0x0 27=1 26..25=0x2 rs2 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+psra.dhs           31=0 30..28=0x4 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psra.dws           31=0 30..28=0x4 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psra.dbs           31=0 30..28=0x4 27=1 26..25=0x2 rs2 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+padd.dh            31=1 30..27=0x0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+padd.dw            31=1 30..27=0x0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+padd.db            31=1 30..27=0x0 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+addd                31=1 30..27=0x0 26..25=0x3 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+psadd.dh            31=1 30..27=0x2 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psadd.dw            31=1 30..27=0x2 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psadd.db            31=1 30..27=0x2 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+paadd.dh            31=1 30..27=0x3 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+paadd.dw            31=1 30..27=0x3 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+paadd.db            31=1 30..27=0x3 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+psaddu.dh           31=1 30..27=0x6 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psaddu.dw           31=1 30..27=0x6 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psaddu.db           31=1 30..27=0x6 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+paaddu.dh           31=1 30..27=0x7 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+paaddu.dw           31=1 30..27=0x7 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+paaddu.db           31=1 30..27=0x7 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+psub.dh             31=1 30..27=0x8 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psub.dw             31=1 30..27=0x8 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psub.db             31=1 30..27=0x8 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+subd                31=1 30..27=0x8 26..25=0x3 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+pdif.dh             31=1 30..27=0x9 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pdif.db             31=1 30..27=0x9 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+pssub.dh            31=1 30..27=0xa 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pssub.dw            31=1 30..27=0xa 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pssub.db            31=1 30..27=0xa 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+pasub.dh            31=1 30..27=0xb 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pasub.dw            31=1 30..27=0xb 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pasub.db            31=1 30..27=0xb 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+pdifu.dh            31=1 30..27=0xd 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pdifu.db            31=1 30..27=0xd 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+pssubu.dh           31=1 30..27=0xe 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pssubu.dw           31=1 30..27=0xe 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pssubu.db           31=1 30..27=0xe 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+pasubu.dh           31=1 30..27=0xf 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pasubu.dw           31=1 30..27=0xf 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pasubu.db           31=1 30..27=0xf 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+psh1add.dh          31=1 30..28=0x2 27=0 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psh1add.dw          31=1 30..28=0x2 27=0 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+pssh1sadd.dh        31=1 30..28=0x3 27=0 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pssh1sadd.dw        31=1 30..28=0x3 27=0 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+ppack.dh          31=1 30..28=0x0 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppack.dw          31=1 30..28=0x0 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+ppackbt.dh        31=1 30..28=0x1 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppackbt.dw        31=1 30..28=0x1 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+ppacktb.dh        31=1 30..28=0x2 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppacktb.dw        31=1 30..28=0x2 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+ppackt.dh         31=1 30..28=0x3 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppackt.dw         31=1 30..28=0x3 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+
+pas.dhx           31=1 30..27=0x0 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+psa.dhx           31=1 30..27=0x0 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+psas.dhx          31=1 30..27=0x2 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pssa.dhx          31=1 30..27=0x2 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+paas.dhx          31=1 30..27=0x3 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pasa.dhx          31=1 30..27=0x3 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+pmseq.dh          31=1 30..27=0x8 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmseq.dw          31=1 30..27=0x8 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmseq.db          31=1 30..27=0x8 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+pmslt.dh          31=1 30..27=0xa 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmslt.dw          31=1 30..27=0xa 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmslt.db          31=1 30..27=0xa 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+pmsltu.dh         31=1 30..27=0xb 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmsltu.dw         31=1 30..27=0xb 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmsltu.db         31=1 30..27=0xb 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+pmin.dh         31=1 30..27=0xc 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmin.dw         31=1 30..27=0xc 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmin.db         31=1 30..27=0xc 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+pminu.dh         31=1 30..27=0xd 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pminu.dw         31=1 30..27=0xd 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pminu.db         31=1 30..27=0xd 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+pmax.dh          31=1 30..27=0xe 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmax.dw          31=1 30..27=0xe 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmax.db          31=1 30..27=0xe 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+pmaxu.dh         31=1 30..27=0xf 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmaxu.dw         31=1 30..27=0xf 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+pmaxu.db         31=1 30..27=0xf 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b

@@ -6,6 +6,9 @@ overlapping_extensions = {
     "rv_zcmt": {"rv_c_d"},
     "rv_zcmp": {"rv_c_d"},
     "rv_c": {"rv_zcmop"},
+    "rv64_p": {"rv32_p", "rv64_zbp"},
+    "rv32_p": {"rv64_p", "rv_zcmt", "rv_c_d"},
+    "rv_p": {"rv_zbb"},
 }
 
 overlapping_instructions = {
