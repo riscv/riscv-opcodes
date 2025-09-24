@@ -1,0 +1,3 @@
+# rv_zibi
+beqi     imm12hi imm5 14..12=2 imm12lo 6..2=0x18 1..0=3
+bnei     imm12hi imm5 14..12=3 imm12lo 6..2=0x18 1..0=3
