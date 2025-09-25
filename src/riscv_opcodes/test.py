@@ -4,12 +4,11 @@ import logging
 import unittest
 from unittest.mock import Mock, patch
 
-from shared_utils import (
+from .shared_utils import (
     InstrDict,
     check_arg_lut,
     check_overlapping_bits,
     extract_isa_type,
-    find_extension_file,
     handle_arg_lut_mapping,
     initialize_encoding,
     is_rv_variant,
@@ -202,26 +201,6 @@ class InstructionProcessingTest(unittest.TestCase):
         self.assertEqual(data["extension"], ["rv_i"])
         self.assertIn("rd", data["variable_fields"])
         self.assertIn("imm20", data["variable_fields"])
-
-    @patch("os.path.exists")
-    @patch("shared_utils.logging.error")
-    def test_find_extension_file(self, mock_logging: Mock, mock_exists: Mock):
-        """Test extension file finding"""
-        # Test successful case - file exists in main directory
-        mock_exists.side_effect = [True, False]
-        result = find_extension_file("rv32i", "/path/to/opcodes")
-        self.assertEqual(result, "/path/to/opcodes/rv32i")
-
-        # Test successful case - file exists in unratified directory
-        mock_exists.side_effect = [False, True]
-        result = find_extension_file("rv32i", "/path/to/opcodes")
-        self.assertEqual(result, "/path/to/opcodes/unratified/rv32i")
-
-        # Test failure case - file doesn't exist anywhere
-        mock_exists.side_effect = [False, False]
-        with self.assertRaises(SystemExit):
-            find_extension_file("rv32i", "/path/to/opcodes")
-        mock_logging.assert_called_with("Extension rv32i not found.")
 
     def test_process_standard_instructions(self):
         """Test processing of standard instructions"""

@@ -25,6 +25,10 @@ disable=
     missing-module-docstring,
     missing-function-docstring,
     missing-class-docstring,
+    # TODO: Migrate easy-to-use resourcelib functions that have been
+    # deprecated in favour of much more complicated API.
+    # See https://importlib-resources.readthedocs.io/en/latest/using.html#migrating-from-legacy
+    deprecated-method,
 
 # These names are fine when used sensibly. Without listing them here
 # Pylint will complain they are too short.

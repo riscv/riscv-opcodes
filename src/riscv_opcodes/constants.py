@@ -1,5 +1,6 @@
 import csv
 import re
+from importlib.resources import open_text
 
 # TODO: The constants in this file should be in all caps.
 overlapping_extensions = {
@@ -55,7 +56,7 @@ def read_int_map_csv(filename: str) -> "list[tuple[int, str]]":
     Returns:
         list of tuple: A list of (int, str) tuples extracted from the CSV file.
     """
-    with open(filename, encoding="utf-8") as f:
+    with open_text("riscv_opcodes", filename) as f:
         csv_reader = csv.reader(f, skipinitialspace=True)
         return [(int(row[0], 0), row[1]) for row in csv_reader]
 
@@ -69,7 +70,7 @@ def read_arg_lut_csv(filename: str) -> "dict[str, tuple[int, int]]":
     """
     Load the argument lookup table (arg_lut) from a CSV file, mapping argument names to their bit positions.
     """
-    with open(filename, encoding="utf-8") as f:
+    with open_text("riscv_opcodes", filename) as f:
         csv_reader = csv.reader(f, skipinitialspace=True)
         return {row[0]: (int(row[1]), int(row[2])) for row in csv_reader}
 

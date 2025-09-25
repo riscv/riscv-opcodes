@@ -5,8 +5,8 @@ from typing import Dict, List, NamedTuple
 from matplotlib import patches
 from matplotlib import pyplot as plt
 
-from rv_colors import palette
-from shared_utils import InstrDict, instr_dict_2_extensions
+from .rv_colors import palette
+from .shared_utils import InstrDict, instr_dict_2_extensions
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")

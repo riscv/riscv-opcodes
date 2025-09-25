@@ -12,3 +12,5 @@ inst.svg
 instr_dict.json
 
 __pycache__/
+
+/.venv
