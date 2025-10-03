@@ -1,14 +1,14 @@
-#!/usr/bin/env python3
 import copy
-import glob
 import logging
 import os
 import pprint
 import re
+from fnmatch import fnmatch
+from io import StringIO
 from itertools import chain
-from typing import Dict, Optional, TypedDict
+from typing import Dict, NoReturn, Optional, TypedDict
 
-from constants import (
+from .constants import (
     arg_lut,
     fixed_ranges,
     imported_regex,
@@ -17,6 +17,7 @@ from constants import (
     pseudo_regex,
     single_fixed,
 )
+from .resources import open_text_resource, resource_root
 
 LOG_FORMAT = "%(levelname)s:: %(message)s"
 LOG_LEVEL = logging.INFO
@@ -26,7 +27,7 @@ logging.basicConfig(level=LOG_LEVEL, format=LOG_FORMAT)
 
 
 # Log an error message
-def log_and_exit(message: str):
+def log_and_exit(message: str) -> NoReturn:
     """Log an error message and exit the program."""
     logging.error(message)
     raise SystemExit(1)
@@ -394,10 +395,12 @@ def create_expanded_instruction(
     return (new_name, new_single_dict)
 
 
-# Return a list of relevant lines from the specified file
 def read_lines(file: str) -> "list[str]":
-    """Reads lines from a file and returns non-blank, non-comment lines."""
-    with open(file, encoding="utf-8") as fp:
+    """
+    Reads lines from a file and returns non-blank, non-comment lines.
+    The file must be a resource relative to the root of this repo.
+    """
+    with open_text_resource(file) as fp:
         lines = (line.rstrip() for line in fp)
         return [line for line in lines if line and not line.startswith("#")]
 
@@ -446,7 +449,6 @@ def process_pseudo_instructions(
     lines: "list[str]",
     instr_dict: InstrDict,
     file_name: str,
-    opcodes_dir: str,
     include_pseudo: bool,
     include_pseudo_ops: "list[str]",
 ):
@@ -456,8 +458,8 @@ def process_pseudo_instructions(
             continue
         logging.debug(f"Processing pseudo line: {line}")
         ext, orig_inst, pseudo_inst, line_content = pseudo_regex.findall(line)[0]
-        ext_file = find_extension_file(ext, opcodes_dir)
-        # print("ext_file",ext_file)
+        ext_file = read_extension_file(ext)
+
         validate_instruction_in_extension(orig_inst, ext_file, file_name, pseudo_inst)
 
         name, single_dict = process_enc_line(f"{pseudo_inst} {line_content}", file_name)
@@ -479,7 +481,7 @@ def process_pseudo_instructions(
 
 # Integrate imported instructions into the instruction dictionary
 def process_imported_instructions(
-    lines: "list[str]", instr_dict: InstrDict, file_name: str, opcodes_dir: str
+    lines: "list[str]", instr_dict: InstrDict, file_name: str
 ):
     """Processes imported instructions from the given lines and updates the instruction dictionary."""
     for line in lines:
@@ -487,48 +489,49 @@ def process_imported_instructions(
             continue
         logging.debug(f"Processing imported line: {line}")
         import_ext, reg_instr = imported_regex.findall(line)[0]
-        ext_filename = find_extension_file(import_ext, opcodes_dir)
+        ext_file = read_extension_file(import_ext)
 
-        validate_instruction_in_extension(reg_instr, ext_filename, file_name, line)
+        validate_instruction_in_extension(reg_instr, ext_file, file_name, line)
 
-        with open(ext_filename, encoding="utf-8") as ext_file:
-            for oline in ext_file:
-                if re.findall(f"^\\s*{reg_instr}\\s+", oline):
-                    name, single_dict = process_enc_line(oline, file_name)
-                    if name in instr_dict:
-                        if instr_dict[name]["encoding"] != single_dict["encoding"]:
-                            log_and_exit(
-                                f"Imported instruction {name} from {os.path.basename(file_name)} has different encodings"
-                            )
-                        instr_dict[name]["extension"].extend(single_dict["extension"])
-                    else:
-                        instr_dict[name] = single_dict
-                    break
+        for oline in StringIO(ext_file):
+            if re.findall(f"^\\s*{reg_instr}\\s+", oline):
+                name, single_dict = process_enc_line(oline, file_name)
+                if name in instr_dict:
+                    if instr_dict[name]["encoding"] != single_dict["encoding"]:
+                        log_and_exit(
+                            f"Imported instruction {name} from {os.path.basename(file_name)} has different encodings"
+                        )
+                    instr_dict[name]["extension"].extend(single_dict["extension"])
+                else:
+                    instr_dict[name] = single_dict
+                break
 
 
-# Locate the path of the specified extension file, checking fallback directories
-def find_extension_file(ext: str, opcodes_dir: str):
-    """Finds the extension file path, considering the unratified directory if necessary."""
-    ext_file = f"{opcodes_dir}/{ext}"
-    if not os.path.exists(ext_file):
-        ext_file = f"{opcodes_dir}/unratified/{ext}"
-        if not os.path.exists(ext_file):
-            log_and_exit(f"Extension {ext} not found.")
-    # print(ext_file)
-    return ext_file
+def read_extension_file(ext: str) -> str:
+    """
+    Read the extension file path, considering the unratified directory if necessary.
+    """
+    file = resource_root() / "extensions" / ext
+    if file.is_file():
+        return file.read_text(encoding="utf-8")
+    file = resource_root() / "extensions" / "unratified" / ext
+    if file.is_file():
+        return file.read_text(encoding="utf-8")
+
+    log_and_exit(f"Extension {ext} not found.")
 
 
 # Confirm the presence of an original instruction in the corresponding extension file.
 def validate_instruction_in_extension(
-    inst: str, ext_filename: str, file_name: str, pseudo_inst: str
+    inst: str, ext_file: str, file_name: str, pseudo_inst: str
 ):
     """Validates if the original instruction exists in the dependent extension."""
     found = False
-    with open(ext_filename, encoding="utf-8") as ext_file:
-        for oline in ext_file:
-            if re.findall(f"^\\s*{inst}\\s+", oline):
-                found = True
-                break
+
+    for oline in StringIO(ext_file):
+        if re.findall(f"^\\s*{inst}\\s+", oline):
+            found = True
+            break
     if not found:
         log_and_exit(
             f"Original instruction {inst} required by pseudo_op {pseudo_inst} in {file_name} not found in {ext_file}"
@@ -575,14 +578,30 @@ def create_inst_dict(
     if include_pseudo_ops is None:
         include_pseudo_ops = []
 
-    opcodes_dir = os.path.dirname(os.path.realpath(__file__)) + "/extensions"
     instr_dict: InstrDict = {}
 
-    file_names = [
-        file
-        for fil in file_filter
-        for file in sorted(glob.glob(f"{opcodes_dir}/{fil}"), reverse=True)
+    ratified_file_filters = [
+        fil for fil in file_filter if not fil.startswith("unratified/")
     ]
+    unratified_file_filters = [
+        fil.removeprefix("unratified/")
+        for fil in file_filter
+        if fil.startswith("unratified/")
+    ]
+
+    # Extension file name, "extensions[/unratified]/rv_foo".
+    file_names: list[str] = []
+
+    for file in (resource_root() / "extensions").iterdir():
+        if file.is_file() and any(
+            fnmatch(file.name, fil) for fil in ratified_file_filters
+        ):
+            file_names.append("extensions/" + file.name)
+    for file in (resource_root() / "extensions" / "unratified").iterdir():
+        if file.is_file() and any(
+            fnmatch(file.name, fil) for fil in unratified_file_filters
+        ):
+            file_names.append("extensions/unratified/" + file.name)
 
     logging.debug("Collecting standard instructions")
     for file_name in file_names:
@@ -598,7 +617,6 @@ def create_inst_dict(
             lines,
             instr_dict,
             file_name,
-            opcodes_dir,
             include_pseudo,
             include_pseudo_ops,
         )
@@ -608,7 +626,7 @@ def create_inst_dict(
     for file_name in file_names:
         logging.debug(f"Parsing File: {file_name} for imported instructions")
         lines = read_lines(file_name)
-        process_imported_instructions(lines, instr_dict, file_name, opcodes_dir)
+        process_imported_instructions(lines, instr_dict, file_name)
 
     return instr_dict
 
