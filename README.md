@@ -181,13 +181,12 @@ If you only want a specific artifact you can use one or more of the following ta
 For example, if you want to generate the `c` based artifact with extensions as shown earlier, you can use the following command:
 
 ```bash
-./parse.py -c  EXTENSIONS='rv*_i rv*_m'
+./parse.py -c rv*_i rv*_m
 ```
 Which will print the following log:
 
 ```
-Running with args : ['./parse.py', '-c', 'EXTENSIONS=rv*_i rv*_m']
-Extensions selected : ['EXTENSIONS=rv*_i rv*_m']
+Extensions selected : ['rv*_i', 'rv*_m']
 INFO:: encoding.out.h generated successfully
 ```
 
