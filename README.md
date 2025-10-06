@@ -10,21 +10,19 @@ tools and projects like Spike, PK, RISC-V Manual, etc.
 ## Project Structure
 
 ```bash
-├── constants.py    # contains variables, constants and data-structures used in parse.py
-├── encoding.h      # the template encoding.h file
-├── LICENSE         # license file
-├── Makefile        # makefile to generate artifacts
-├── parse.py        # python file to perform checks on the instructions and generate artifacts
-├── README.md       # this file
-├── rv*             # instruction opcode files
-└── unratified      # contains unratified instruction opcode files
+├── extensions             # instruction opcodes
+├── extensions/unratified  # unratified instruction opcodes
+├── encoding.h        # the template encoding.h file
+├── Makefile          # makefile to generate artifacts
+└── src/riscv_opcodes # python files to perform checks on
+                      # the instructions and generate artifacts
 ```
 
 ## File Naming Policy
 
 This project follows a very specific file structure to define the instruction encodings. All files
 containing instruction encodings start with the prefix `rv`. These files can either be present in
-the root directory (if the instructions have been ratified) or the `unratified` directory. The exact
+the `extensions` directory (if the instructions have been ratified) or the `extensions/unratified` directory. The exact
 file-naming policy and location is as mentioned below:
 
 1. `rv_x` - contains instructions common within the 32-bit and 64-bit modes of extension X.
@@ -140,10 +138,11 @@ The following artifacts can be generated using parse.py:
 - inst.spinalhdl : spinalhdl code to decode instructions
 - inst.go : go code to decode instructions
 
-To generate all the above artifacts for all instructions currently checked in, simply run `make` from the root-directory. This should print the following log on the command-line:
+To generate all the above artifacts for all instructions currently checked in, simply run `make` from the root-directory. [`uv`](https://docs.astral.sh/uv/) is required (see [easy installation instructions](https://docs.astral.sh/uv/getting-started/installation/)).
+
+`make` should print the following log on the command-line:
 
 ```
-Running with args : ['./parse.py', '-c', '-go', '-chisel', '-sverilog', '-rust', '-latex', '-spinalhdl', 'rv*', 'unratified/rv*']
 Extensions selected : ['rv*', 'unratified/rv*']
 INFO:: encoding.out.h generated successfully
 INFO:: inst.chisel generated successfully
@@ -165,7 +164,6 @@ make EXTENSIONS='rv*_i rv*_m'
 Which will print the following log:
 
 ```
-Running with args : ['./parse.py', '-c', '-go', '-chisel', '-sverilog', '-rust', '-latex', '-spinalhdl', 'rv32_i', 'rv64_i', 'rv_i', 'rv64_m', 'rv_m']
 Extensions selected : ['rv32_i', 'rv64_i', 'rv_i', 'rv64_m', 'rv_m']
 INFO:: encoding.out.h generated successfully
 INFO:: inst.chisel generated successfully
@@ -181,7 +179,7 @@ If you only want a specific artifact you can use one or more of the following ta
 For example, if you want to generate the `c` based artifact with extensions as shown earlier, you can use the following command:
 
 ```bash
-./parse.py -c rv*_i rv*_m
+uv run riscv_opcodes -c 'rv*_i' 'rv*_m'
 ```
 Which will print the following log:
 
@@ -202,7 +200,6 @@ You can use the `clean` target to remove all artifacts.
 To add a new extension of instructions, create an appropriate `rv*` file based on the policy defined in [File Structure](#file-naming-policy). Run `make` from the root directory to ensure that all checks pass and all artifacts are created correctly. A successful run should print the following log on the terminal:
 
 ```
-Running with args : ['./parse.py', '-c', '-chisel', '-sverilog', '-rust', '-latex', 'rv*', 'unratified/rv*']
 Extensions selected : ['rv*', 'unratified/rv*']
 INFO:: encoding.out.h generated successfully
 INFO:: inst.chisel generated successfully
@@ -216,7 +213,7 @@ Create a PR for review.
 
 ## Enabling Debug logs in parse.py
 
-To enable debug logs in parse.py change `level=logging.INFO` to `level=logging.DEBUG` and run the python command. You will now see debug statements on
+To enable debug logs in `parse.py` change `level=logging.INFO` to `level=logging.DEBUG` and run the python command. You will now see debug statements on
 the terminal like below:
 ```
 DEBUG:: Collecting standard instructions first

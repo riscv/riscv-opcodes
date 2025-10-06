@@ -2,8 +2,8 @@ import logging
 import pprint
 from pathlib import Path
 
-from constants import csrs, csrs32
-from shared_utils import InstrDict
+from .constants import csrs, csrs32
+from .shared_utils import InstrDict
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
