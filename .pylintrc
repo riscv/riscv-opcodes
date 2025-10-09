@@ -18,6 +18,8 @@ disable=
     too-many-statements,
     # Handled by Black.
     line-too-long,
+    # Conditional dependence on matplotlib
+    import-outside-toplevel,
     # This is technically correct but not that important.
     logging-fstring-interpolation,
     # TODO: These should be enabled but writing documentation for
