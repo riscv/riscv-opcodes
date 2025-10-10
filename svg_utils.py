@@ -2,9 +2,6 @@ import logging
 import pprint
 from typing import Dict, List, NamedTuple
 
-from matplotlib import patches
-from matplotlib import pyplot as plt
-
 from rv_colors import palette
 from shared_utils import InstrDict, instr_dict_2_extensions
 
@@ -76,6 +73,9 @@ def plot_image(
     extension_sizes: Dict[str, float],
 ) -> None:
     """Plot the instruction rectangles using matplotlib."""
+
+    from matplotlib import patches
+    from matplotlib import pyplot as plt
 
     def get_readable_font_color(bg_hex: str) -> str:
         """Determine readable font color based on background color."""
