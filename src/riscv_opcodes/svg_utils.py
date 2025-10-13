@@ -2,8 +2,8 @@ import logging
 import pprint
 from typing import Dict, List, NamedTuple
 
-from rv_colors import palette
-from shared_utils import InstrDict, instr_dict_2_extensions
+from .rv_colors import palette
+from .shared_utils import InstrDict, instr_dict_2_extensions
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")

@@ -1,19 +1,17 @@
-#!/usr/bin/env python3
-
 import argparse
 import json
 import logging
 import pprint
 
-from c_utils import make_c
-from chisel_utils import make_chisel
-from constants import emitted_pseudo_ops
-from go_utils import make_go
-from latex_utils import make_latex_table, make_priv_latex_table
-from rust_utils import make_rust
-from shared_utils import add_segmented_vls_insn, create_inst_dict
-from sverilog_utils import make_sverilog
-from svg_utils import make_svg
+from .c_utils import make_c
+from .chisel_utils import make_chisel
+from .constants import emitted_pseudo_ops
+from .go_utils import make_go
+from .latex_utils import make_latex_table, make_priv_latex_table
+from .rust_utils import make_rust
+from .shared_utils import add_segmented_vls_insn, create_inst_dict
+from .sverilog_utils import make_sverilog
+from .svg_utils import make_svg
 
 LOG_FORMAT = "%(levelname)s:: %(message)s"
 LOG_LEVEL = logging.INFO
@@ -121,7 +119,3 @@ def main():
         args.latex,
         args.svg,
     )
-
-
-if __name__ == "__main__":
-    main()

@@ -4,12 +4,11 @@ import logging
 import unittest
 from unittest.mock import Mock, patch
 
-from shared_utils import (
+from riscv_opcodes.shared_utils import (
     InstrDict,
     check_arg_lut,
     check_overlapping_bits,
     extract_isa_type,
-    find_extension_file,
     handle_arg_lut_mapping,
     initialize_encoding,
     is_rv_variant,
@@ -19,6 +18,7 @@ from shared_utils import (
     process_enc_line,
     process_fixed_ranges,
     process_standard_instructions,
+    read_extension_file,
     same_base_isa,
     update_encoding_for_fixed_range,
     validate_bit_range,
@@ -105,7 +105,7 @@ class EncodingArgsTest(unittest.TestCase):
         self.logger = logging.getLogger()
         self.logger.disabled = True
 
-    @patch.dict("shared_utils.arg_lut", {"rd": (11, 7), "rs1": (19, 15)})
+    @patch.dict("riscv_opcodes.shared_utils.arg_lut", {"rd": (11, 7), "rs1": (19, 15)})
     def test_check_arg_lut(self):
         """Test argument lookup table checking"""
         encoding_args = initialize_encoding()
@@ -116,7 +116,7 @@ class EncodingArgsTest(unittest.TestCase):
         self.assertEqual(encoding_args[31 - 11 : 31 - 6], ["rd"] * 5)
         self.assertEqual(encoding_args[31 - 19 : 31 - 14], ["rs1"] * 5)
 
-    @patch.dict("shared_utils.arg_lut", {"rs1": (19, 15)})
+    @patch.dict("riscv_opcodes.shared_utils.arg_lut", {"rs1": (19, 15)})
     def test_handle_arg_lut_mapping(self):
         """Test handling of argument mappings"""
         # Valid mapping
@@ -175,15 +175,15 @@ class InstructionProcessingTest(unittest.TestCase):
         self.logger.disabled = True
         # Create a patch for arg_lut
         self.arg_lut_patcher = patch.dict(
-            "shared_utils.arg_lut", {"rd": (11, 7), "imm20": (31, 12)}
+            "riscv_opcodes.shared_utils.arg_lut", {"rd": (11, 7), "imm20": (31, 12)}
         )
         self.arg_lut_patcher.start()
 
     def tearDown(self):
         self.arg_lut_patcher.stop()
 
-    @patch("shared_utils.fixed_ranges")
-    @patch("shared_utils.single_fixed")
+    @patch("riscv_opcodes.shared_utils.fixed_ranges")
+    @patch("riscv_opcodes.shared_utils.single_fixed")
     def test_process_enc_line(self, mock_single_fixed: Mock, mock_fixed_ranges: Mock):
         """Test processing of encoding lines"""
         # Setup mock return values
@@ -203,26 +203,6 @@ class InstructionProcessingTest(unittest.TestCase):
         self.assertIn("rd", data["variable_fields"])
         self.assertIn("imm20", data["variable_fields"])
 
-    @patch("os.path.exists")
-    @patch("shared_utils.logging.error")
-    def test_find_extension_file(self, mock_logging: Mock, mock_exists: Mock):
-        """Test extension file finding"""
-        # Test successful case - file exists in main directory
-        mock_exists.side_effect = [True, False]
-        result = find_extension_file("rv32i", "/path/to/opcodes")
-        self.assertEqual(result, "/path/to/opcodes/rv32i")
-
-        # Test successful case - file exists in unratified directory
-        mock_exists.side_effect = [False, True]
-        result = find_extension_file("rv32i", "/path/to/opcodes")
-        self.assertEqual(result, "/path/to/opcodes/unratified/rv32i")
-
-        # Test failure case - file doesn't exist anywhere
-        mock_exists.side_effect = [False, False]
-        with self.assertRaises(SystemExit):
-            find_extension_file("rv32i", "/path/to/opcodes")
-        mock_logging.assert_called_with("Extension rv32i not found.")
-
     def test_process_standard_instructions(self):
         """Test processing of standard instructions"""
         lines = [
@@ -235,7 +215,7 @@ class InstructionProcessingTest(unittest.TestCase):
         instr_dict: InstrDict = {}
         file_name = "rv32i"
 
-        with patch("shared_utils.process_enc_line") as mock_process_enc:
+        with patch("riscv_opcodes.shared_utils.process_enc_line") as mock_process_enc:
             # Setup mock return values
             mock_process_enc.side_effect = [
                 ("add", {"extension": ["rv32i"], "encoding": "encoding1"}),
@@ -251,6 +231,18 @@ class InstructionProcessingTest(unittest.TestCase):
             self.assertEqual(len(instr_dict), 2)
             self.assertIn("add", instr_dict)
             self.assertIn("sub", instr_dict)
+
+    def test_read_extension_file(self):
+        """
+        Check that read_extension_file works.
+        """
+        # Ratified
+        read_extension_file("rv_a")
+        # Unratified
+        read_extension_file("rv_zbp")
+        # Nonexistent
+        with self.assertRaises(SystemExit):
+            read_extension_file("floop")
 
 
 if __name__ == "__main__":

@@ -27,6 +27,9 @@ disable=
     missing-module-docstring,
     missing-function-docstring,
     missing-class-docstring,
+    # Unfortunately pylint doesn't respect py-version when warning
+    # about deprecated items. See https://github.com/pylint-dev/pylint/issues/10608
+    deprecated-class,
 
 # These names are fine when used sensibly. Without listing them here
 # Pylint will complain they are too short.

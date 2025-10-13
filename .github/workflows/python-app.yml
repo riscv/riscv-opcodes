@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.9', '3.10', '3.11', '3.12','3.13']
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
 
     steps:
     - uses: actions/checkout@v4
@@ -29,20 +29,37 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pre-commit-
 
-    - name: Install dependencies
-      run: python3 -m pip install pre-commit coverage matplotlib
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        version: "0.8.22"
+
+    - name: Install pre-commit
+      run: uv tool install pre-commit
 
     - name: Run pre-commit
       run: pre-commit run --all-files
 
+    # Generate all output with code coverage. Unfortunately due to limitations in
+    # the `coverage` tool we need to run `riscv_opcodes` as a module.
     - name: Generate
-      run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -svg -go "rv*" "unratified/rv*"
+      run: uv run -- coverage run -m riscv_opcodes -c -chisel -sverilog -rust -latex -spinalhdl -svg -go "rv*" "unratified/rv*"
 
     - name: Check C output
       run: cat encoding.out.h | cpp
 
     - name: Generate coverage
-      run: coverage xml
+      run: uv run -- coverage xml
 
     - name: Upload coverage
       uses: codecov/codecov-action@v4
+
+    - name: Build wheels
+      run: uv build
+
+    - name: Upload wheels
+      if: matrix.python-version == '3.13'
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: dist
