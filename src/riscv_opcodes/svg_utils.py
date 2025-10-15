@@ -67,6 +67,18 @@ def encoding_to_rect(encoding: str) -> RectangleDimensions:
 FIGSIZE = 128
 
 
+def _require_matplotlib():
+    try:
+        import matplotlib.pyplot as plt
+        from matplotlib import patches
+
+        return plt, patches
+    except ImportError as e:
+        raise RuntimeError(
+            "This feature requires the optional dependency 'matplotlib'."
+        ) from e
+
+
 def plot_image(
     instr_dict: InstrDict,
     instr_dims_dict: InstrDimsDict,
@@ -74,8 +86,7 @@ def plot_image(
 ) -> None:
     """Plot the instruction rectangles using matplotlib."""
 
-    from matplotlib import patches
-    from matplotlib import pyplot as plt
+    plt, patches = _require_matplotlib()
 
     def get_readable_font_color(bg_hex: str) -> str:
         """Determine readable font color based on background color."""
