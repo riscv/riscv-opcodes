@@ -1,0 +1,6 @@
+#rv_zvabd
+vabs.v        31..26=0x12 vm vs2 19..15=0x10 14..12=0x2 vd 6..0=0x57
+vabd.vv       31..26=0x11 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vabdu.vv      31..26=0x13 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vwabdacc.vv   31..26=0x15 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vwabdaccu.vv  31..26=0x16 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
