@@ -11,6 +11,13 @@ inst.sverilog
 inst.svg
 instr_dict.json
 
+# Ignored Output Files from Python Scripts in Assignment 1
+all_opcodes.txt
+search.json
+extension_counts.csv
+combinations.json
+opcode_frequencies.txt
+
 __pycache__/
 
 # Default uv virtual environment location.
