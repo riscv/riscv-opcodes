@@ -366,7 +366,7 @@
 #define PMP_W     0x02
 #define PMP_X     0x04
 #define PMP_A     0x18
-#define PMP_A     0x60
+#define PMP_MT    0x60
 #define PMP_L     0x80
 #define PMP_SHIFT 2
 
