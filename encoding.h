@@ -374,6 +374,9 @@
 #define PMP_NA4   0x10
 #define PMP_NAPOT 0x18
 
+#define SPMP_U      0x100
+#define SPMP_SHARED 0x200
+
 #define MCTRCTL_U          0x0000000000000001
 #define MCTRCTL_S          0x0000000000000002
 #define MCTRCTL_M          0x0000000000000004
