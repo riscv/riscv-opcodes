@@ -204,6 +204,7 @@ emitted_pseudo_ops = [
     "srai_rv32",
     "srli_rv32",
     "umax32",
+    "c_ret",
     "c_mop_1",
     "c_sspush_x1",
     "c_mop_3",
