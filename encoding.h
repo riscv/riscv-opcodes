@@ -162,26 +162,10 @@
 #define MIP_VS_MASK         (MIP_VSSIP | MIP_VSTIP | MIP_VSEIP)
 #define MIP_HS_MASK         (MIP_VS_MASK | MIP_SGEIP)
 
-#define MIE_SSIE            (1 << IRQ_S_SOFT)
-#define MIE_VSSIE           (1 << IRQ_VS_SOFT)
-#define MIE_MSIE            (1 << IRQ_M_SOFT)
-#define MIE_STIE            (1 << IRQ_S_TIMER)
-#define MIE_VSTIE           (1 << IRQ_VS_TIMER)
-#define MIE_MTIE            (1 << IRQ_M_TIMER)
-#define MIE_SEIE            (1 << IRQ_S_EXT)
-#define MIE_VSEIE           (1 << IRQ_VS_EXT)
-#define MIE_MEIE            (1 << IRQ_M_EXT)
-#define MIE_SGEIE           (1 << IRQ_S_GEXT)
-#define MIE_LCOFIE          (1 << IRQ_LCOF)
-#define MIE_MSDEIE          (1 << IRQ_MSDEI)
-
 #define MIDELEG_FORCED_MASK MIP_HS_MASK
 
 #define SIP_SSIP MIP_SSIP
 #define SIP_STIP MIP_STIP
-#define SIP_MSDEIP MIP_MSDEIP
-
-#define SIE_MSDEIE MIE_MSDEIE
 
 #define MENVCFG_FIOM  0x00000001
 #define MENVCFG_LPE   0x00000004
