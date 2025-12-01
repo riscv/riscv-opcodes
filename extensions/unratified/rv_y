@@ -5,7 +5,7 @@ sy                imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x08 1..0=3
 addiy             rd rs1          imm12   14..12=2 6..2=0x06 1..0=3
 
 #not sure how to code it but we can restrict rd==rs1 and make the other code-points illegal
-ybndswi           rd rs1 31..30=0x0 zimm10 14..12=3 6..2=0x06 1..0=3
+ybndswi           rd rs1 31..28=0x0 imm8 14..12=3 6..2=0x06 1..0=3
 
 #if rs2=x0 decode as ymv
 addy              rd rs1 rs2_n0     31..25=6 14..12=0 6..2=0x0C 1..0=3
