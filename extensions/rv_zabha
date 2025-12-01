@@ -8,7 +8,6 @@ amomin.b  rd rs1 rs2 aq rl 31..29=4 28..27=0 14..12=0 6..2=0x0B 1..0=3
 amomax.b  rd rs1 rs2 aq rl 31..29=5 28..27=0 14..12=0 6..2=0x0B 1..0=3
 amominu.b rd rs1 rs2 aq rl 31..29=6 28..27=0 14..12=0 6..2=0x0B 1..0=3
 amomaxu.b rd rs1 rs2 aq rl 31..29=7 28..27=0 14..12=0 6..2=0x0B 1..0=3
-amocas.b  rd rs1 rs2 aq rl 31..29=1 28..27=1 14..12=0 6..2=0x0B 1..0=3
 
 # halfword width AMO
 amoswap.h rd rs1 rs2 aq rl 31..29=0 28..27=1 14..12=1 6..2=0x0B 1..0=3
@@ -20,4 +19,3 @@ amomin.h  rd rs1 rs2 aq rl 31..29=4 28..27=0 14..12=1 6..2=0x0B 1..0=3
 amomax.h  rd rs1 rs2 aq rl 31..29=5 28..27=0 14..12=1 6..2=0x0B 1..0=3
 amominu.h rd rs1 rs2 aq rl 31..29=6 28..27=0 14..12=1 6..2=0x0B 1..0=3
 amomaxu.h rd rs1 rs2 aq rl 31..29=7 28..27=0 14..12=1 6..2=0x0B 1..0=3
-amocas.h  rd rs1 rs2 aq rl 31..29=1 28..27=1 14..12=1 6..2=0x0B 1..0=3

@@ -29,6 +29,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pre-commit-
 
+    - name: Generate all outputs without uv
+      run: make
+
     - name: Install uv
       uses: astral-sh/setup-uv@v6
       with:

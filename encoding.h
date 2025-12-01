@@ -366,12 +366,16 @@
 #define PMP_W     0x02
 #define PMP_X     0x04
 #define PMP_A     0x18
+#define PMP_MT    0x60
 #define PMP_L     0x80
 #define PMP_SHIFT 2
 
 #define PMP_TOR   0x08
 #define PMP_NA4   0x10
 #define PMP_NAPOT 0x18
+
+#define SPMP_U      0x100
+#define SPMP_SHARED 0x200
 
 #define MCTRCTL_U          0x0000000000000001
 #define MCTRCTL_S          0x0000000000000002
@@ -482,7 +486,8 @@
 #define PTE_A     0x040 /* Accessed */
 #define PTE_D     0x080 /* Dirty */
 #define PTE_SOFT  0x300 /* Reserved for Software */
-#define PTE_RSVD  0x1FC0000000000000 /* Reserved for future standard use */
+#define PTE_SVRSW60T59B  0x1800000000000000 /* Svrsw60t59b: Reserved for software use */
+#define PTE_RSVD         0x07C0000000000000 /* Reserved for future standard use */
 #define PTE_PBMT  0x6000000000000000 /* Svpbmt: Page-based memory types */
 #define PTE_N     0x8000000000000000 /* Svnapot: NAPOT translation contiguity */
 #define PTE_ATTR  0xFFC0000000000000 /* All attributes and reserved bits */

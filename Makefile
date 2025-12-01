@@ -6,6 +6,11 @@ OPENOCD_H := ../riscv-openocd/src/target/riscv/encoding.h
 INSTALL_HEADER_FILES := $(ISASIM_H) $(PK_H) $(ENV_H) $(OPENOCD_H)
 PSEUDO_FLAG := $(if $(PSEUDO),-pseudo,)
 
+ifeq ($(shell command -v uv 2>/dev/null),)
+	RUNNER := PYTHONPATH=src python -m
+else
+	RUNNER := $(RUNNER)
+endif
 
 .PHONY : default
 default: everything
@@ -16,25 +21,25 @@ pseudo:
 	@$(MAKE) PSEUDO=1 everything
 
 everything:
-	@uv run riscv_opcodes $(PSEUDO_FLAG) -c -go -chisel -sverilog -rust -latex -spinalhdl $(EXTENSIONS)
+	@$(RUNNER) riscv_opcodes $(PSEUDO_FLAG) -c -go -chisel -sverilog -rust -latex -spinalhdl $(EXTENSIONS)
 
 encoding.out.h:
-	@uv run riscv_opcodes -c $(PSEUDO_FLAG) $(EXTENSIONS)
+	@$(RUNNER) riscv_opcodes -c $(PSEUDO_FLAG) $(EXTENSIONS)
 
 inst.chisel:
-	@uv run riscv_opcodes -chisel $(PSEUDO_FLAG) $(EXTENSIONS)
+	@$(RUNNER) riscv_opcodes -chisel $(PSEUDO_FLAG) $(EXTENSIONS)
 
 inst.go:
-	@uv run riscv_opcodes -go $(PSEUDO_FLAG) $(EXTENSIONS)
+	@$(RUNNER) riscv_opcodes -go $(PSEUDO_FLAG) $(EXTENSIONS)
 
 latex:
-	@uv run riscv_opcodes -latex $(PSEUDO_FLAG) $(EXTENSIONS)
+	@$(RUNNER) riscv_opcodes -latex $(PSEUDO_FLAG) $(EXTENSIONS)
 
 inst.sverilog:
-	@uv run riscv_opcodes -sverilog $(PSEUDO_FLAG) $(EXTENSIONS)
+	@$(RUNNER) riscv_opcodes -sverilog $(PSEUDO_FLAG) $(EXTENSIONS)
 
 inst.rs:
-	@uv run riscv_opcodes -rust $(PSEUDO_FLAG) $(EXTENSIONS)
+	@$(RUNNER) riscv_opcodes -rust $(PSEUDO_FLAG) $(EXTENSIONS)
 
 clean:
 	rm -f inst* priv-instr-table.tex encoding.out.h
@@ -46,11 +51,11 @@ install: everything
 	done
 
 test:
-	@uv run -m unittest -b tests/test.py
+	@$(RUNNER) -m unittest -b tests/test.py
 
 instr-table.tex: latex
 
 priv-instr-table.tex: latex
 
 inst.spinalhdl:
-	@uv run riscv_opcodes -spinalhdl $(PSEUDO_FLAG) $(EXTENSIONS)
+	@$(RUNNER) riscv_opcodes -spinalhdl $(PSEUDO_FLAG) $(EXTENSIONS)
