@@ -9,22 +9,40 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12','3.13']
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
       with:
-        python-version: 3.8
-    - name: Install PyYAML
-      run: |
-         pip3 install -r requirements.txt
-         pip3 install coverage
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pre-commit environment
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pre-commit
+        key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pre-commit-
+
+    - name: Install dependencies
+      run: python3 -m pip install pre-commit coverage matplotlib
+
+    - name: Run pre-commit
+      run: pre-commit run --all-files
+
     - name: Generate
-      run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -go "rv*" "unratified/rv*"
+      run: coverage run ./parse.py -c -chisel -sverilog -rust -latex -spinalhdl -svg -go "rv*" "unratified/rv*"
+
     - name: Check C output
-      run: cat encoding.out.h  | cpp
+      run: cat encoding.out.h | cpp
+
     - name: Generate coverage
       run: coverage xml
+
     - name: Upload coverage
-      uses: codecov/codecov-action@v2
-          
+      uses: codecov/codecov-action@v4

@@ -9,20 +9,35 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12','3.13']
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
       with:
-        python-version: 3.8
-    - name: Install PyYAML
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-coverage
+        restore-keys: |
+          ${{ runner.os }}-pip-${{ matrix.python-version }}-
+
+    - name: Install dependencies
       run: |
-         pip3 install -r requirements.txt
          pip3 install coverage
+
     - name: Test error outputs
       run: coverage run -m unittest -b
-    - name: Generate coverage
+
+    - name: Generate coverage report
       run: coverage xml
-    - name: Upload coverage
-      uses: codecov/codecov-action@v2
-          
+
+    - name: Upload coverage report
+      uses: codecov/codecov-action@v4

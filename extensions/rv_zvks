@@ -1,0 +1,21 @@
+# Zvk, Vector Crypto Extension, ShangMi Algorithm Suite
+
+# Import Zvkb (proper subset of the Zvbb extension)
+$import rv_zvbb::vandn.vv
+$import rv_zvbb::vandn.vx
+$import rv_zvbb::vbrev8.v
+$import rv_zvbb::vrev8.v
+$import rv_zvbb::vrol.vv
+$import rv_zvbb::vrol.vx
+$import rv_zvbb::vror.vv
+$import rv_zvbb::vror.vx
+$import rv_zvbb::vror.vi
+
+# Import Zvksed
+$import rv_zvksed::vsm4k.vi
+$import rv_zvksed::vsm4r.vv
+$import rv_zvksed::vsm4r.vs
+
+# Import Zvksh
+$import rv_zvksh::vsm3c.vi
+$import rv_zvksh::vsm3me.vv

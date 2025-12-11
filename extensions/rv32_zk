@@ -1,0 +1,24 @@
+#import zbkb
+$pseudo_op rv64_zbp::shfli    zip rd rs1 31..25=4 24..20=15 14..12=1 6..2=4 1..0=3
+$pseudo_op rv64_zbp::unshfli  unzip rd rs1 31..25=4 24..20=15 14..12=5 6..2=4 1..0=3
+$pseudo_op rv64_zbb::rori     rori.rv32 rd rs1   31..25=0x30 shamtw 14..12=5 6..2=0x04 1..0=3
+$pseudo_op rv64_zbp::grevi    rev8.rv32 rd rs1   31..20=0x698 14..12=5 6..0=0x13
+
+#import zkne
+$import rv32_zkne::aes32esmi
+$import rv32_zkne::aes32esi
+
+#import zknd
+# Scalar AES - RV32
+$import rv32_zknd::aes32dsmi
+$import rv32_zknd::aes32dsi
+
+
+#import zknh
+# Scalar SHA512 - RV32
+$import rv32_zknh::sha512sum0r
+$import rv32_zknh::sha512sum1r
+$import rv32_zknh::sha512sig0l
+$import rv32_zknh::sha512sig0h
+$import rv32_zknh::sha512sig1l
+$import rv32_zknh::sha512sig1h

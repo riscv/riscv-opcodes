@@ -1,0 +1,9 @@
+clzw  rd rs1                                31..20=0x600 14..12=1 6..2=0x06 1..0=3
+ctzw  rd rs1                                31..20=0x601 14..12=1 6..2=0x06 1..0=3
+cpopw rd rs1                                31..20=0x602 14..12=1 6..2=0x06 1..0=3
+rolw  rd rs1 rs2                            31..25=0x30 14..12=1 6..2=0x0E 1..0=3
+rorw  rd rs1 rs2                            31..25=0x30 14..12=5 6..2=0x0E 1..0=3
+roriw rd rs1                                31..25=0x30 shamtw 14..12=5 6..2=0x06 1..0=3
+rori  rd rs1                                31..26=0x18 shamtd 14..12=5 6..2=0x04 1..0=3
+$pseudo_op rv64_zbkb::packw zext.h rd rs1    31..25=0x04 24..20=0 14..12=0x4 6..2=0xE 1..0=0x3
+$pseudo_op rv64_zbp::grevi rev8 rd rs1      31..20=0x6B8 14..12=5 6..0=0x13

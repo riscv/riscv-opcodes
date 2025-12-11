@@ -1,0 +1,27 @@
+#import zbkb
+$pseudo_op rv64_zbp::grevi rev8 rd rs1      31..20=0x6B8 14..12=5 6..0=0x13
+$import rv64_zbb::rolw
+$import rv64_zbb::rorw
+$import rv64_zbb::roriw
+$import rv64_zbb::rori
+$import rv64_zbkb::packw
+
+#import zkne
+# Scalar AES - RV64
+$import rv64_zkne::aes64esm
+$import rv64_zkne::aes64es
+$import rv64_zknd::aes64ks1i
+$import rv64_zknd::aes64ks2
+
+#import zknd
+# Scalar AES - RV64
+$import rv64_zknd::aes64dsm
+$import rv64_zknd::aes64ds
+$import rv64_zknd::aes64im
+
+#import zknh
+# Scalar SHA512 - RV64
+$import rv64_zknh::sha512sum0
+$import rv64_zknh::sha512sum1
+$import rv64_zknh::sha512sig0
+$import rv64_zknh::sha512sig1

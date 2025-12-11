@@ -1,0 +1,4 @@
+bclri       rd rs1 31..26=0x12 shamtd 14..12=1 6..2=0x04 1..0=3
+bexti       rd rs1 31..26=0x12 shamtd 14..12=5 6..2=0x04 1..0=3
+binvi       rd rs1 31..26=0x1a shamtd 14..12=1 6..2=0x04 1..0=3
+bseti       rd rs1 31..26=0x0a shamtd 14..12=1 6..2=0x04 1..0=3

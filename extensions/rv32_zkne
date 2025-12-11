@@ -1,0 +1,4 @@
+# Scalar AES - RV32
+
+aes32esmi     rd rs1 rs2 bs          29..25=0b10011 14..12=0 6..0=0x33
+aes32esi      rd rs1 rs2 bs          29..25=0b10001 14..12=0 6..0=0x33
