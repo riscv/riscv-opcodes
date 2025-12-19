@@ -1,0 +1,2 @@
+fence_i(pred, succ);
+nextPC = PC + 4
