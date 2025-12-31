@@ -1,0 +1,30 @@
+ly                rd rs1          imm12   14..12=4 6..2=0x03 1..0=3
+sy                imm12hi rs1 rs2 imm12lo 14..12=4 6..2=0x08 1..0=3
+
+#next to ADDIW
+addiy             rd rs1          imm12   14..12=2 6..2=0x06 1..0=3
+
+#not sure how to code it but we can restrict rd==rs1 and make the other code-points illegal
+ybndswi           rd rs1 31..30=0x0 zimm10 14..12=3 6..2=0x06 1..0=3
+
+#if rs2=x0 decode as ymv
+addy              rd rs1 rs2_n0     31..25=6 14..12=0 6..2=0x0C 1..0=3
+ymv               rd rs1 24..20=0x0 31..25=6 14..12=0 6..2=0x0C 1..0=3
+yaddrw            rd rs1 rs2      31..25=6 14..12=1 6..2=0x0C 1..0=3
+ypermc            rd rs1 rs2      31..25=6 14..12=2 6..2=0x0C 1..0=3
+syeq              rd rs1 rs2      31..25=6 14..12=4 6..2=0x0C 1..0=3
+ylt               rd rs1 rs2      31..25=6 14..12=6 6..2=0x0C 1..0=3
+
+ybndsw            rd rs1 rs2      31..25=7 14..12=0 6..2=0x0C 1..0=3
+ybndsrw           rd rs1 rs2      31..25=7 14..12=1 6..2=0x0C 1..0=3
+ysunseal          rd rs1 rs2      31..25=7 14..12=2 6..2=0x0C 1..0=3
+
+ytagr             rd rs1 31..25=8 24..20=0 14..12=0 6..2=0x0C 1..0=3
+ypermr            rd rs1 31..25=8 24..20=1 14..12=0 6..2=0x0C 1..0=3
+ytyper            rd rs1 31..25=8 24..20=2 14..12=0 6..2=0x0C 1..0=3
+ybaser            rd rs1 31..25=8 24..20=5 14..12=0 6..2=0x0C 1..0=3
+ylenr             rd rs1 31..25=8 24..20=6 14..12=0 6..2=0x0C 1..0=3
+yamask            rd rs1 31..25=8 24..20=7 14..12=0 6..2=0x0C 1..0=3
+
+packy                       rd rs1 31..27=0 26..20=0x40 14..12=0x5 6..2=0x0C 1..0=3
+$pseudo_op rv_y::packy yhiw rd rs1 31..27=0 26..20=0x40 14..12=0x5 6..2=0x0C 1..0=3
