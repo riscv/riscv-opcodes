@@ -1,5 +1,5 @@
-grevi      rd rs1 31..26=26 shamtd 14..12=5 6..2=0x04 1..0=3
-gorci      rd rs1 31..26=10 shamtd 14..12=5 6..2=0x04 1..0=3
-shfli      rd rs1 31..26=2 25=0 shamtw 14..12=1 6..2=0x04 1..0=3
-unshfli    rd rs1 31..26=2 25=0 shamtw 14..12=5 6..2=0x04 1..0=3
+$pseudo_op rv64_zbb::rev8 grevi rd rs1 31..26=26 shamtd 14..12=5 6..2=0x04 1..0=3
+$pseudo_op rv_zbb::orc.b gorci rd rs1 31..26=10 shamtd 14..12=5 6..2=0x04 1..0=3
+$pseudo_op rv32_zbkb::zip shfli rd rs1 31..26=2 25=0 shamtw 14..12=1 6..2=0x04 1..0=3
+$pseudo_op rv32_zbkb::unzip unshfli rd rs1 31..26=2 25=0 shamtw 14..12=5 6..2=0x04 1..0=3
 xperm32    rd rs1 rs2 31..25=20 14..12=0 6..2=0x0C 1..0=3
