@@ -1,0 +1,7 @@
+# Zvksh - Vector Crypto SM3 (Hash)
+
+# SM3 Message Compression
+vsm3c.vi     31..26=0x2B 25=1 vs2 zimm5 14..12=0x2 vd 6..0=0x77
+
+# SM3 Message Expansion
+vsm3me.vv    31..26=0x20 25=1 vs2 vs1   14..12=0x2 vd 6..0=0x77
