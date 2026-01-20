@@ -64,7 +64,7 @@ def generate_extensions(
         logging.info("inst.rs generated successfully")
 
     if go:
-        make_go(instr_dict_with_segment)
+        make_go(instr_dict_with_segment, extensions)
         logging.info("inst.go generated successfully")
 
     if latex:
