@@ -15,7 +15,7 @@ def make_chisel(instr_dict: InstrDict, spinal_hdl: bool = False):
     csr_names_str = ""
     for i in instr_dict:
         if spinal_hdl:
-            chisel_names += f'  def {i.upper().replace(".","_"):<18s} = M"b{instr_dict[i]["encoding"].replace("-","-")}"\n'
+            chisel_names += f'  def {i.upper().replace(".","_"):<18s} = M"{instr_dict[i]["encoding"].replace("-","-")}"\n'
         # else:
         #     chisel_names += f'  def {i.upper().replace(".","_"):<18s} = BitPat("b{instr_dict[i]["encoding"].replace("-","?")}")\n'
     if not spinal_hdl:
