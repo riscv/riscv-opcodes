@@ -37,7 +37,7 @@ When an instruction is present in multiple extensions and the spec is vague in d
 ## Encoding Syntax
 
 
-The encoding syntax uses `$` to indicate keywords. As of now 2 keywords have been identified : `$import` and `$pseudo_op` (described below). The syntax also uses `::` as a means to define the relationship between extension and instruction. `..` is used to defined bit ranges. We use `#` to define comments in the files. All comments must be in a separate line. In-line comments are not supported.
+The encoding syntax uses `$` to indicate keywords. As of now 2 keywords have been identified : `$import` and `$pseudo_op` (described below). The syntax also uses `::` as a means to define the relationship between extension and instruction. `..` is used to define bit ranges. We use `#` to define comments in the files. All comments must be in a separate line. In-line comments are not supported.
 
 Instruction syntaxes used in this project are broadly categorized into three:
 
