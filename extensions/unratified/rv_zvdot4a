@@ -1,0 +1,7 @@
+vdot4a.vv         31..26=0x2c vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vdot4a.vx         31..26=0x2c vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+vdot4au.vv        31..26=0x28 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vdot4au.vx        31..26=0x28 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+vdot4asu.vv       31..26=0x2a vm vs2 vs1 14..12=0x2 vd 6..0=0x57
+vdot4asu.vx       31..26=0x2a vm vs2 rs1 14..12=0x6 vd 6..0=0x57
+vdot4aus.vx       31..26=0x2e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
