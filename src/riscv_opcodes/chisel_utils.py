@@ -13,28 +13,30 @@ def make_chisel(instr_dict: InstrDict, spinal_hdl: bool = False):
     chisel_names = ""
     cause_names_str = ""
     csr_names_str = ""
-    for i in instr_dict:
-        if spinal_hdl:
-            chisel_names += f'  def {i.upper().replace(".","_"):<18s} = M"{instr_dict[i]["encoding"].replace("-","-")}"\n'
-        # else:
-        #     chisel_names += f'  def {i.upper().replace(".","_"):<18s} = BitPat("b{instr_dict[i]["encoding"].replace("-","?")}")\n'
-    if not spinal_hdl:
-        extensions = instr_dict_2_extensions(instr_dict)
-        for e in extensions:
-            if "rv64_" in e:
-                e_format = e.replace("rv64_", "").upper() + "64"
-            elif "rv32_" in e:
-                e_format = e.replace("rv32_", "").upper() + "32"
-            elif "rv_" in e:
-                e_format = e.replace("rv_", "").upper()
-            else:
-                e_format = e.upper()
+    extensions = instr_dict_2_extensions(instr_dict)
+    for e in extensions:
+        if "rv64_" in e:
+            e_format = e.replace("rv64_", "").upper() + "64"
+        elif "rv32_" in e:
+            e_format = e.replace("rv32_", "").upper() + "32"
+        elif "rv_" in e:
+            e_format = e.replace("rv_", "").upper()
+        else:
+            e_format = e.upper()
+        if not spinal_hdl:
             chisel_names += f'  val {e_format+"Type"} = Map(\n'
             for instr_name, instr in instr_dict.items():
                 if instr["extension"][0] == e:
                     tmp_instr_name = '"' + instr_name.upper().replace(".", "_") + '"'
                     chisel_names += f'   {tmp_instr_name:<18s} -> BitPat("b{instr["encoding"].replace("-","?")}"),\n'
             chisel_names += "  )\n"
+        else:
+            chisel_names += f'  val {e_format+"Type"} = new {{\n'
+            for instr_name, instr in instr_dict.items():
+                if instr["extension"][0] == e:
+                    tmp_instr_name = instr_name.upper().replace(".", "_")
+                    chisel_names += f'    def {tmp_instr_name:<18s} -> M"{instr["encoding"].replace("-","-")}"\n'
+            chisel_names += "  }\n"
 
     for num, name in causes:
         cause_names_str += f'  val {name.lower().replace(" ","_")} = {hex(num)}\n'
