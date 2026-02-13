@@ -1,7 +1,0 @@
-vqdot.vv         31..26=0x2c vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vqdot.vx         31..26=0x2c vm vs2 rs1 14..12=0x6 vd 6..0=0x57
-vqdotu.vv        31..26=0x28 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vqdotu.vx        31..26=0x28 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
-vqdotsu.vv       31..26=0x2a vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vqdotsu.vx       31..26=0x2a vm vs2 rs1 14..12=0x6 vd 6..0=0x57
-vqdotus.vx       31..26=0x2e vm vs2 rs1 14..12=0x6 vd 6..0=0x57
