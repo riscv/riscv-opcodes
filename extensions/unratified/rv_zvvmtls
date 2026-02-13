@@ -1,0 +1,4 @@
+vmtl.v         lambda 28=1 27..26=0 vm rs2 rs1 14..12=0x7 vd 6..0=0x07
+vmttl.v        lambda 28=1 27..26=1 vm rs2 rs1 14..12=0x7 vd 6..0=0x07
+vmts.v         lambda 28=1 27..26=0 vm rs2 rs1 14..12=0x7 vd 6..0=0x27
+vmtts.v        lambda 28=1 27..26=1 vm rs2 rs1 14..12=0x7 vd 6..0=0x27
