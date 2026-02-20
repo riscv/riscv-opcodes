@@ -147,7 +147,6 @@
 0x30D, "mstateen1"
 0x30E, "mstateen2"
 0x30F, "mstateen3"
-0x312, "medelegh"
 0x320, "mcountinhibit"
 0x340, "mscratch"
 0x341, "mepc"
