@@ -9,7 +9,7 @@ PSEUDO_FLAG := $(if $(PSEUDO),-pseudo,)
 ifeq ($(shell command -v uv 2>/dev/null),)
 	RUNNER := PYTHONPATH=src python -m
 else
-	RUNNER := $(RUNNER)
+	RUNNER := uv run
 endif
 
 .PHONY : default
