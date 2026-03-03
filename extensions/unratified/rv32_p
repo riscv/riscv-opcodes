@@ -160,9 +160,9 @@ wmaccsu               31=0 30..27=0xd 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=
 pm2waddasu.h          31=0 30..27=0xd 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
 
 pmqwacc.h           31=0 30..27=0xf 26..25=0x0 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
-pmqwacc             31=0 30..27=0xf 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+mqwacc             31=0 30..27=0xf 26..25=0x1 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
 pmqrwacc.h          31=0 30..27=0xf 26..25=0x2 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
-pmqrwacc            31=0 30..27=0xf 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
+mqrwacc            31=0 30..27=0xf 26..25=0x3 rs2 rs1 14..12=0x2 p_rd_p 7..0=0x9b
 
 
 predsum.dhs          31=0 30..28=0x1 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x4 rd 6..0=0x1b
