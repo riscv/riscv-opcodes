@@ -334,17 +334,7 @@ psh1add.dw          31=1 30..28=0x2 27=0 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=
 pssh1sadd.dh        31=1 30..28=0x3 27=0 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 pssh1sadd.dw        31=1 30..28=0x3 27=0 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 
-ppack.dh          31=1 30..28=0x0 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
-ppack.dw          31=1 30..28=0x0 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
 
-ppackbt.dh        31=1 30..28=0x1 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
-ppackbt.dw        31=1 30..28=0x1 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
-
-ppacktb.dh        31=1 30..28=0x2 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
-ppacktb.dw        31=1 30..28=0x2 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
-
-ppackt.dh         31=1 30..28=0x3 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
-ppackt.dw         31=1 30..28=0x3 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
 
 
 pas.dhx           31=1 30..27=0x0 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
@@ -383,3 +373,13 @@ pmax.db          31=1 30..27=0xe 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd
 pmaxu.dh         31=1 30..27=0xf 26..25=0x0 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
 pmaxu.dw         31=1 30..27=0xf 26..25=0x1 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
 pmaxu.db         31=1 30..27=0xf 26..25=0x2 p_rs2_p 20=1 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+
+# PPAIR Instructions for RV32 register-pair (Page 23, funct3=1110, opcode=0x1B)
+ppaire.db        31=1 30..28=0x0 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppaire.dh        31=1 30..28=0x0 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppaireo.db       31=1 30..28=0x1 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppaireo.dh       31=1 30..28=0x1 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppairoe.db       31=1 30..28=0x2 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppairoe.dh       31=1 30..28=0x2 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppairo.db        31=1 30..28=0x3 27=0 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b
+ppairo.dh        31=1 30..28=0x3 27=0 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0xe p_rd_p 7..0=0x1b

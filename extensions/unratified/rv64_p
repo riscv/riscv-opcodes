@@ -86,12 +86,7 @@ pmulsu.w.h11        31=1 30..27=0xe 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
 mulsu.w11        31=1 30..27=0xe 26..25=0x3 rs2 rs1 14..12=0x3 rd 6..0=0x3b
 pmaccsu.w.h11        31=1 30..27=0xf 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
 maccsu.w11        31=1 30..27=0xf 26..25=0x3 rs2 rs1 14..12=0x3 rd 6..0=0x3b
-ppackbt.w           31=1 30..28=0x1 27=0 26..25=0x1 rs2 rs1 14..12=0x4 rd 6..0=0x3b
-packbt            31=1 30..28=0x1 27=0 26..25=0x3 rs2 rs1 14..12=0x4 rd 6..0=0x3b
-ppacktb.w           31=1 30..28=0x2 27=0 26..25=0x1 rs2 rs1 14..12=0x4 rd 6..0=0x3b
-packtb            31=1 30..28=0x2 27=0 26..25=0x3 rs2 rs1 14..12=0x4 rd 6..0=0x3b
-ppackt.w            31=1 30..28=0x3 27=0 26..25=0x1 rs2 rs1 14..12=0x4 rd 6..0=0x3b
-packt             31=1 30..28=0x3 27=0 26..25=0x3 rs2 rs1 14..12=0x4 rd 6..0=0x3b
+
 pm2add.w            31=1 30..27=0x0 26..25=0x1 rs2 rs1 14..12=0x5 rd 6..0=0x3b
 pm4add.h            31=1 30..27=0x0 26..25=0x3 rs2 rs1 14..12=0x5 rd 6..0=0x3b
 pm2adda.w            31=1 30..27=0x1 26..25=0x1 rs2 rs1 14..12=0x5 rd 6..0=0x3b
@@ -161,3 +156,9 @@ pmqacc.w.h11          31=1 30..27=0xf 26..25=0x0 rs2 rs1 14..12=0x7 rd 6..0=0x3b
 mqacc.w11             31=1 30..27=0xf 26..25=0x1 rs2 rs1 14..12=0x7 rd 6..0=0x3b
 pmqracc.w.h11         31=1 30..27=0xf 26..25=0x2 rs2 rs1 14..12=0x7 rd 6..0=0x3b
 mqracc.w11             31=1 30..27=0xf 26..25=0x3 rs2 rs1 14..12=0x7 rd 6..0=0x3b
+
+# PPAIR Instructions RV64 only (Page 13, funct3=100, opcode=0x3B)
+ppaire.h              31=1 30..28=0x0 27=0 26..25=0x1 rs2 rs1 14..12=0x4 rd 6..0=0x3b
+ppaireo.w             31=1 30..28=0x1 27=0 26..25=0x3 rs2 rs1 14..12=0x4 rd 6..0=0x3b
+ppairoe.w             31=1 30..28=0x2 27=0 26..25=0x3 rs2 rs1 14..12=0x4 rd 6..0=0x3b
+ppairo.w              31=1 30..28=0x3 27=0 26..25=0x3 rs2 rs1 14..12=0x4 rd 6..0=0x3b
