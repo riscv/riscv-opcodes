@@ -231,8 +231,8 @@ pslli.db           31=0 30..28=0x0 27=0 26..23=0x1 p_w_uimm3 p_rs1_p 15..12=0x6 
 pslli.dh           31=0 30..28=0x0 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 pslli.dw           31=0 30..28=0x0 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 
-pslai.dh           31=0 30..28=0x5 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
-pslai.dw           31=0 30..28=0x5 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psslai.dh          31=0 30..28=0x5 27=0 26..24=0x1 p_w_uimm4 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psslai.dw          31=0 30..28=0x5 27=0 26..25=0x1 p_w_uimm5 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 
 psext.dh.b         31=0 30..28=0x6 27=0 26..25=0x0 24..20=0x4 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 psext.dw.b         31=0 30..28=0x6 27=0 26..25=0x1 24..20=0x4 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
@@ -307,7 +307,7 @@ psub.db             31=1 30..27=0x8 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p
 subd                31=1 30..27=0x8 26..25=0x3 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 
 pabd.dh             31=1 30..27=0x9 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
-padb.db             31=1 30..27=0x9 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+pabd.db             31=1 30..27=0x9 26..25=0x2 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 
 pssub.dh            31=1 30..27=0xa 26..25=0x0 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 pssub.dw            31=1 30..27=0xa 26..25=0x1 p_rs2_p 20=0 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b

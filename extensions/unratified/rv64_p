@@ -116,7 +116,7 @@ pm2addasu.w            31=1 30..27=0xd 26..25=0x1 rs2 rs1 14..12=0x5 rd 6..0=0x3
 pm4addasu.h            31=1 30..27=0xd 26..25=0x3 rs2 rs1 14..12=0x5 rd 6..0=0x3b
 pmqacc.w.h01            31=1 30..27=0xf 26..25=0x0 rs2 rs1 14..12=0x5 rd 6..0=0x3b
 mqacc.w01            31=1 30..27=0xf 26..25=0x1 rs2 rs1 14..12=0x5 rd 6..0=0x3b
-pmracc.w.h01            31=1 30..27=0xf 26..25=0x2 rs2 rs1 14..12=0x5 rd 6..0=0x3b
+pmqracc.w.h01           31=1 30..27=0xf 26..25=0x2 rs2 rs1 14..12=0x5 rd 6..0=0x3b
 mqracc.w01            31=1 30..27=0xf 26..25=0x3 rs2 rs1 14..12=0x5 rd 6..0=0x3b
 pas.wx            31=1 30..27=0x0 26..25=0x1 rs2 rs1 14..12=0x6 rd 6..0=0x3b
 psa.wx            31=1 30..27=0x0 26..25=0x3 rs2 rs1 14..12=0x6 rd 6..0=0x3b
