@@ -70,7 +70,7 @@ maccu.w01           31=1 30..27=0x7 26..25=0x3 rs2 rs1 14..12=0x1 rd 6..0=0x3b
 
 # Page 11: Shift-Add & ZIP/UNZIP Instructions (OP-32, funct3=010)
 psh1add.w           31=1 30..28=0x2 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
-psh1sadd.w          31=1 30..28=0x3 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+pssh1sadd.w         31=1 30..28=0x3 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
 unzip8p             31=1 30..28=0x6 27=0 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x3b
 unzip16p            31=1 30..28=0x6 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
 unzip8hp            31=1 30..28=0x6 27=0 26..25=0x2 rs2 rs1 14..12=0x2 rd 6..0=0x3b

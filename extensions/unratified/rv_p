@@ -86,11 +86,11 @@ merge               31=1 30..27=0x5 26..25=0x2 rs2 rs1 14..12=0x1 rd 6..0=0x3b
 srx                 31=1 30..27=0x5 26..25=0x3 rs2 rs1 14..12=0x1 rd 6..0=0x3b
 pmulu.h.b01         31=1 30..27=0x6 26..25=0x0 rs2 rs1 14..12=0x1 rd 6..0=0x3b
 pabdsumu.b          31=1 30..27=0x6 26..25=0x2 rs2 rs1 14..12=0x1 rd 6..0=0x3b
-pabdsumau           31=1 30..27=0x7 26..25=0x2 rs2 rs1 14..12=0x1 rd 6..0=0x3b
+pabdsumau.b         31=1 30..27=0x7 26..25=0x2 rs2 rs1 14..12=0x1 rd 6..0=0x3b
 
 # Page 11: Shift-Add Instructions (OP-32, funct3=010)
 psh1add.h           31=1 30..28=0x2 27=0 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x3b
-psh1sadd.h          31=1 30..28=0x3 27=0 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+pssh1sadd.h         31=1 30..28=0x3 27=0 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x3b
 
 # Page 12: Multiply B00/B11 Instructions (OP-32, funct3=011)
 pmul.h.b00          31=1 30..27=0x0 26..25=0x0 rs2 rs1 14..12=0x3 rd 6..0=0x3b

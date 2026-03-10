@@ -35,7 +35,7 @@ $pseudo_op rv64_p::pmulu.w.h01 mulu.h01           31=1 30..27=0x6 26..25=0x1 rs2
 $pseudo_op rv64_p::pmaccu.w.h01 maccu.h01         31=1 30..27=0x7 26..25=0x1 rs2 rs1 14..12=0x1 rd 6..0=0x3b
 
 # Page 11: Shift-Add Instructions - Pseudo-instructions
-$pseudo_op rv64_p::psh1sadd.w sh1sadd             31=1 30..28=0x3 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+$pseudo_op rv64_p::pssh1sadd.w ssh1sadd           31=1 30..28=0x3 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
 
 # Page 12: Multiply B00/B11 Instructions - Pseudo-instructions
 $pseudo_op rv64_p::pmul.w.h00 mul.h00             31=1 30..27=0x0 26..25=0x1 rs2 rs1 14..12=0x3 rd 6..0=0x3b
