@@ -1,0 +1,6 @@
+vfmmacc.vv     31..26=0x14 vm vs2 vs1 14..12=1 vd 6..0=0x57
+vfwmmacc.vv    31..26=0x15 vm vs2 vs1 14..12=1 vd 6..0=0x57
+vfqwmmacc.vv   31..26=0x16 vm vs2 vs1 14..12=1 vd 6..0=0x57
+vmmacc.vv      31..26=0x38 vm vs2 vs1 14..12=0 vd 6..0=0x57
+vwmmacc.vv     31..26=0x39 vm vs2 vs1 14..12=0 vd 6..0=0x57
+vqwmmacc.vv    31..26=0x3a vm vs2 vs1 14..12=0 vd 6..0=0x57
