@@ -382,6 +382,8 @@
 #define PMP_NA4   _RISCV_UL(0x10)
 #define PMP_NAPOT _RISCV_UL(0x18)
 
+#define MPMPDELEG_PMPNUM _RISCV_UL(0x7F)
+
 #define SPMP_U      _RISCV_UL(0x100)
 #define SPMP_SHARED _RISCV_UL(0x200)
 
