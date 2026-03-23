@@ -327,6 +327,8 @@ emitted_pseudo_ops = [
     "srari_rv32",
     "ssha",
     "sshar",
+    "sshl",
+    "sshlr",
     "sslai",
     "ssub",
     "ssubu",

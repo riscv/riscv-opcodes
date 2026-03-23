@@ -10,6 +10,8 @@ $pseudo_op rv64_p::psslai.w sslai                 31=1 30..28=0x5 27=0 26..25=0x
 
 
 # Page 7: Scalar Operand Shift Instructions - Pseudo-instructions
+$pseudo_op rv64_p::psshl.ws sshl                  31=1 30..28=0x2 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
+$pseudo_op rv64_p::psshlr.ws sshlr                31=1 30..28=0x3 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 $pseudo_op rv64_p::pssha.ws ssha                  31=1 30..28=0x6 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 $pseudo_op rv64_p::psshar.ws sshar                31=1 30..28=0x7 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 
@@ -271,6 +273,11 @@ psll.dbs            31=0 30..28=0x0 27=1 26..25=0x2 rs2 p_rs1_p 15..12=0x6 p_rd_
 padd.dhs            31=0 30..28=0x1 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 padd.dws            31=0 30..28=0x1 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 padd.dbs            31=0 30..28=0x1 27=1 26..25=0x2 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+
+psshl.dhs           31=0 30..28=0x2 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psshl.dws           31=0 30..28=0x2 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psshlr.dhs          31=0 30..28=0x3 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
+psshlr.dws          31=0 30..28=0x3 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 
 pssha.dhs           31=0 30..28=0x6 27=1 26..25=0x0 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b
 pssha.dws           31=0 30..28=0x6 27=1 26..25=0x1 rs2 p_rs1_p 15..12=0x6 p_rd_p 7..0=0x1b

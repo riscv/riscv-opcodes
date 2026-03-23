@@ -18,10 +18,14 @@ pli.w               31=1 30..28=0x3 27=0 26..25=0x1 p_imm10    14..12=0x2 rd 6..
 psll.ws             31=1 30..28=0x0 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 padd.ws             31=1 30..28=0x1 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 
+psshl.ws            31=1 30..28=0x2 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
+psshlr.ws           31=1 30..28=0x3 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 pssha.ws            31=1 30..28=0x6 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 sha                 31=1 30..28=0x6 27=1 26..25=0x3 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 psshar.ws           31=1 30..28=0x7 27=1 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 shar                31=1 30..28=0x7 27=1 26..25=0x3 rs2 rs1 14..12=0x2 rd 6..0=0x1b
+shl                 31=1 30..28=0x2 27=1 26..25=0x3 rs2 rs1 14..12=0x2 rd 6..0=0x1b
+shlr                31=1 30..28=0x3 27=1 26..25=0x3 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 
 
 # Page 6: Unary Instructions & PLUI (OP-IMM-32, funct3=010)
@@ -69,8 +73,17 @@ pmaccu.w.h01        31=1 30..27=0x7 26..25=0x1 rs2 rs1 14..12=0x1 rd 6..0=0x3b
 maccu.w01           31=1 30..27=0x7 26..25=0x3 rs2 rs1 14..12=0x1 rd 6..0=0x3b
 
 # Page 11: Shift-Add & ZIP/UNZIP Instructions (OP-32, funct3=010)
+pnclipup.b          31=1 30..28=0x0 27=0 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+pnclipup.h          31=1 30..28=0x0 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+pnclipup.w          31=1 30..28=0x0 27=0 26..25=0x3 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+
 psh1add.w           31=1 30..28=0x2 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
 pssh1sadd.w         31=1 30..28=0x3 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+
+pnclipp.b           31=1 30..28=0x4 27=0 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+pnclipp.h           31=1 30..28=0x4 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+pnclipp.w           31=1 30..28=0x4 27=0 26..25=0x3 rs2 rs1 14..12=0x2 rd 6..0=0x3b
+
 unzip8p             31=1 30..28=0x6 27=0 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x3b
 unzip16p            31=1 30..28=0x6 27=0 26..25=0x1 rs2 rs1 14..12=0x2 rd 6..0=0x3b
 unzip8hp            31=1 30..28=0x6 27=0 26..25=0x2 rs2 rs1 14..12=0x2 rd 6..0=0x3b

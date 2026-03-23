@@ -29,6 +29,8 @@ plui.h              31..27=0x1e 26..25=0x0 p_imm10 14..12=0x2 rd 6..0=0x1b
 # Page 7: Scalar Operand Shift/Add Instructions (OP-IMM-32, funct3=010)
 psll.hs             31=1 30..28=0x0 27=1 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 psll.bs             31=1 30..28=0x0 27=1 26..25=0x2 rs2 rs1 14..12=0x2 rd 6..0=0x1b
+psshl.hs            31=1 30..28=0x2 27=1 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x1b
+psshlr.hs           31=1 30..28=0x3 27=1 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x1b
 
 # Page 9: Packed Add/Sub Instructions (OP-32, funct3=000)
 padd.hs             31=1 30..28=0x1 27=1 26..25=0x0 rs2 rs1 14..12=0x2 rd 6..0=0x1b
