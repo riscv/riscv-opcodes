@@ -1,0 +1,14 @@
+# Asynchronous Data Movement extension
+
+# INFO: overlaps with rv32_xpulppostmod
+
+dmsrc   rs1 rs2      11..7=0 31..25=0 14..12=0 6..2=0x0A 1..0=0x3
+dmdst   rs1 rs2      11..7=0 31..25=1 14..12=0 6..2=0x0A 1..0=0x3
+dmcpyi  rd rs1 imm5          31..25=2 14..12=0 6..2=0x0A 1..0=0x3
+dmcpy   rd rs1 rs2           31..25=3 14..12=0 6..2=0x0A 1..0=0x3
+dmstati rd imm5     19..15=0 31..25=4 14..12=0 6..2=0x0A 1..0=0x3
+dmstat  rd rs2      19..15=0 31..25=5 14..12=0 6..2=0x0A 1..0=0x3
+dmstr   rs1 rs2      11..7=0 31..25=6 14..12=0 6..2=0x0A 1..0=0x3
+dmrep   rs1 24..20=0 11..7=0 31..25=7 14..12=0 6..2=0x0A 1..0=0x3
+dmuser  rs1 rs2      11..7=0 31..25=8 14..12=0 6..2=0x0A 1..0=0x3
+dminit  rd rs1 imm5          31..25=9 14..12=0 6..2=0x0A 1..0=0x3

@@ -1,0 +1,3 @@
+# Xpulp extension subset: general ALU operations: abs
+
+p.abs    rd rs1      31..25=2  24..20=0 14..12=0 6..2=0x0C 1..0=3

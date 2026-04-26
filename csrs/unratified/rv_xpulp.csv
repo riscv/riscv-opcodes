@@ -1,0 +1,15 @@
+# PULP/Snitch custom CSRs.
+#
+# format of a line in this file:
+# 0xENCODING, "csr_name"
+0x7C0, "ssr"
+0x7C3, "sc"
+0x7C4, "user_low"
+0x7C5, "user_high"
+# Smallfloat and misc PULP CSRs
+0x7C1, "fpmode"
+0x7C2, "barrier"
+0x7C6, "copift"
+0x7C7, "dump"
+0x7D1, "stacklimit"
+0x800, "fmode"

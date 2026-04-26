@@ -1,0 +1,10 @@
+# Xpulp extension subset: general ALU operations: min, max, avg
+
+# INFO: overlaps with rv32_b, rv_ipu
+
+p.min    rd rs1 rs2  31..25=2           14..12=4 6..2=0x0C 1..0=3
+p.minu   rd rs1 rs2  31..25=2           14..12=5 6..2=0x0C 1..0=3
+p.max    rd rs1 rs2  31..25=2           14..12=6 6..2=0x0C 1..0=3
+p.maxu   rd rs1 rs2  31..25=2           14..12=7 6..2=0x0C 1..0=3
+p.addN   rd rs1 rs2  31..30=0 Luimm5 14..12=2 6..2=0x16 1..0=3
+p.adduN  rd rs1 rs2  31..30=2 Luimm5 14..12=2 6..2=0x16 1..0=3

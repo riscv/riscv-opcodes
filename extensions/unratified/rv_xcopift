@@ -1,0 +1,7 @@
+# COPIFT extension
+# Both customized flt.d.copift and fcvt.d.wu.copift utilize ssr for data reading and writing
+
+flt.d.copift     rd rs1 rs2      31..27=0x14 14..12=1 26..25=1 6..2=0x0A 1..0=3
+
+fcvt.d.w.copift  rd rs1 24..20=0 31..27=0x1A rm       26..25=1 6..2=0x0A 1..0=3
+fcvt.d.wu.copift rd rs1 24..20=1 31..27=0x1A rm       26..25=1 6..2=0x0A 1..0=3

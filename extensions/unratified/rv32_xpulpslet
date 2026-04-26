@@ -1,0 +1,4 @@
+# Xpulp extension subset: general ALU operations: slet
+
+p.slet   rd rs1 rs2  31..25=2           14..12=2 6..2=0x0C 1..0=3
+p.sletu  rd rs1 rs2  31..25=2           14..12=3 6..2=0x0C 1..0=3

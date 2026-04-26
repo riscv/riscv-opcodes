@@ -1,0 +1,31 @@
+# CORE-V Xcvmem extension: post-incrementing load & store operations
+# and register-register loads & store operations
+# Encodings as defined by OpenHW Group CV32E40P v1.3.2
+
+# Post-increment and reg-reg loads
+cv.lb.irpost  rd rs1 imm12             14..12=0 6..2=0x02 1..0=3
+cv.lbu.irpost rd rs1 imm12             14..12=4 6..2=0x02 1..0=3
+cv.lh.irpost  rd rs1 imm12             14..12=1 6..2=0x02 1..0=3
+cv.lhu.irpost rd rs1 imm12             14..12=5 6..2=0x02 1..0=3
+cv.lw.irpost  rd rs1 imm12             14..12=2 6..2=0x02 1..0=3
+cv.lb.rrpost  rd rs1 rs2   31..25=0x00 14..12=3 6..2=0x0A 1..0=3
+cv.lbu.rrpost rd rs1 rs2   31..25=0x08 14..12=3 6..2=0x0A 1..0=3
+cv.lh.rrpost  rd rs1 rs2   31..25=0x01 14..12=3 6..2=0x0A 1..0=3
+cv.lhu.rrpost rd rs1 rs2   31..25=0x09 14..12=3 6..2=0x0A 1..0=3
+cv.lw.rrpost  rd rs1 rs2   31..25=0x02 14..12=3 6..2=0x0A 1..0=3
+cv.lb.rr      rd rs1 rs2   31..25=0x04 14..12=3 6..2=0x0A 1..0=3
+cv.lbu.rr     rd rs1 rs2   31..25=0x0C 14..12=3 6..2=0x0A 1..0=3
+cv.lh.rr      rd rs1 rs2   31..25=0x05 14..12=3 6..2=0x0A 1..0=3
+cv.lhu.rr     rd rs1 rs2   31..25=0x0D 14..12=3 6..2=0x0A 1..0=3
+cv.lw.rr      rd rs1 rs2   31..25=0x06 14..12=3 6..2=0x0A 1..0=3
+
+# Post-increment and reg-reg stores
+cv.sb.irpost  rs1 rs2 imm12hi imm12lo              14..12=0 6..2=0x0A 1..0=3
+cv.sh.irpost  rs1 rs2 imm12hi imm12lo              14..12=1 6..2=0x0A 1..0=3
+cv.sw.irpost  rs1 rs2 imm12hi imm12lo              14..12=2 6..2=0x0A 1..0=3
+cv.sb.rrpost  rs1 rs2 prs3             31..25=0x10 14..12=3 6..2=0x0A 1..0=3
+cv.sh.rrpost  rs1 rs2 prs3             31..25=0x11 14..12=3 6..2=0x0A 1..0=3
+cv.sw.rrpost  rs1 rs2 prs3             31..25=0x12 14..12=3 6..2=0x0A 1..0=3
+cv.sb.rr      rs1 rs2 prs3             31..25=0x14 14..12=3 6..2=0x0A 1..0=3
+cv.sh.rr      rs1 rs2 prs3             31..25=0x15 14..12=3 6..2=0x0A 1..0=3
+cv.sw.rr      rs1 rs2 prs3             31..25=0x16 14..12=3 6..2=0x0A 1..0=3

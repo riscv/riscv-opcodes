@@ -1,0 +1,8 @@
+# Stream Semantic Registers extension
+
+# INFO: overlaps with rv32_xpulppostmod
+
+scfgri  rd imm12            19..15=0 14..12=1 6..2=0x0A 1..0=0x3
+scfgwi  rs1 imm12            11..7=0 14..12=2 6..2=0x0A 1..0=0x3
+scfgr   rd rs2     31..25=0 19..15=1 14..12=1 6..2=0x0A 1..0=0x3
+scfgw   rs1 rs2    31..25=0  11..7=1 14..12=2 6..2=0x0A 1..0=0x3

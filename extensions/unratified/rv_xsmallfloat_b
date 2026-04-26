@@ -1,0 +1,66 @@
+# Smallfloat extension; based on Occamy
+
+# ASCII Art from here: https://fsymbols.com/generators/carty/
+
+# ░██████╗░█████╗░░█████╗░██╗░░░░░░█████╗░██████╗░
+# ██╔════╝██╔══██╗██╔══██╗██║░░░░░██╔══██╗██╔══██╗
+# ╚█████╗░██║░░╚═╝███████║██║░░░░░███████║██████╔╝
+# ░╚═══██╗██║░░██╗██╔══██║██║░░░░░██╔══██║██╔══██╗
+# ██████╔╝╚█████╔╝██║░░██║███████╗██║░░██║██║░░██║
+# ╚═════╝░░╚════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝
+
+#SMALLFLOAT SCALAR (fmt: 0=s, 1=d, 2=h (ha with rm=0b101) 3=b)
+# same instrucion format as F extension
+# collected under "Xsmallfloat" name - naming not final
+
+# █▀█ █░█ ▄▀█ █▀█ ▀█▀ █▀▀ █▀█
+# ▀▀█ █▄█ █▀█ █▀▄ ░█░ ██▄ █▀▄
+
+# RV32Xfquarter - quarter-precision floats
+# startgroup Xfquarter quarter-precision floats
+flb       rd rs1 imm12 14..12=0 6..2=0x01 1..0=3
+fsb       imm12hi rs1 rs2 imm12lo 14..12=0 6..2=0x09 1..0=3
+fmadd.b   rd rs1 rs2 rs3 rm 26..25=3 6..2=0x10 1..0=3
+fmsub.b   rd rs1 rs2 rs3 rm 26..25=3 6..2=0x11 1..0=3
+fnmsub.b  rd rs1 rs2 rs3 rm 26..25=3 6..2=0x12 1..0=3
+fnmadd.b  rd rs1 rs2 rs3 rm 26..25=3 6..2=0x13 1..0=3
+fadd.b    rd rs1 rs2      31..27=0x00 rm       26..25=3 6..2=0x14 1..0=3
+fsub.b    rd rs1 rs2      31..27=0x01 rm       26..25=3 6..2=0x14 1..0=3
+fmul.b    rd rs1 rs2      31..27=0x02 rm       26..25=3 6..2=0x14 1..0=3
+fdiv.b    rd rs1 rs2      31..27=0x03 rm       26..25=3 6..2=0x14 1..0=3
+fsqrt.b   rd rs1 24..20=0 31..27=0x0B rm       26..25=3 6..2=0x14 1..0=3
+fsgnj.b   rd rs1 rs2      31..27=0x04 14..12=0 26..25=3 6..2=0x14 1..0=3
+fsgnjn.b  rd rs1 rs2      31..27=0x04 14..12=1 26..25=3 6..2=0x14 1..0=3
+fsgnjx.b  rd rs1 rs2      31..27=0x04 14..12=2 26..25=3 6..2=0x14 1..0=3
+fmin.b    rd rs1 rs2      31..27=0x05 14..12=0 26..25=3 6..2=0x14 1..0=3
+fmax.b    rd rs1 rs2      31..27=0x05 14..12=1 26..25=3 6..2=0x14 1..0=3
+feq.b     rd rs1 rs2      31..27=0x14 14..12=2 26..25=3 6..2=0x14 1..0=3
+flt.b     rd rs1 rs2      31..27=0x14 14..12=1 26..25=3 6..2=0x14 1..0=3
+fle.b     rd rs1 rs2      31..27=0x14 14..12=0 26..25=3 6..2=0x14 1..0=3
+fcvt.w.b  rd rs1 24..20=0 31..27=0x18 rm       26..25=3 6..2=0x14 1..0=3
+fcvt.wu.b rd rs1 24..20=1 31..27=0x18 rm       26..25=3 6..2=0x14 1..0=3
+fcvt.b.w  rd rs1 24..20=0 31..27=0x1A rm       26..25=3 6..2=0x14 1..0=3
+fcvt.b.wu rd rs1 24..20=1 31..27=0x1A rm       26..25=3 6..2=0x14 1..0=3
+fmv.x.b   rd rs1 24..20=0 31..27=0x1C 14..12=0 26..25=3 6..2=0x14 1..0=3
+fclass.b  rd rs1 24..20=0 31..27=0x1C 14..12=1 26..25=3 6..2=0x14 1..0=3
+fmv.b.x   rd rs1 24..20=0 31..27=0x1E 14..12=0 26..25=3 6..2=0x14 1..0=3
+# RV64Xfquarter: in addition to the above
+fcvt.l.b  rd rs1 24..20=2 31..27=0x18 rm       26..25=3 6..2=0x14 1..0=3
+fcvt.lu.b rd rs1 24..20=3 31..27=0x18 rm       26..25=3 6..2=0x14 1..0=3
+fcvt.b.l  rd rs1 24..20=2 31..27=0x1A rm       26..25=3 6..2=0x14 1..0=3
+fcvt.b.lu rd rs1 24..20=3 31..27=0x1A rm       26..25=3 6..2=0x14 1..0=3
+# XfquarterwithF - quarter-precision conversions with F extension
+fcvt.s.b  rd rs1 24..20=3 31..27=0x08 14..12=0 26..25=0 6..2=0x14 1..0=3
+fcvt.b.s  rd rs1 24..20=0 31..27=0x08 rm       26..25=3 6..2=0x14 1..0=3
+# XfquarterwithD - quarter-precision conversions with D extension (in addition to XfquarterwithF)
+fcvt.d.b  rd rs1 24..20=3 31..27=0x08 14..12=0 26..25=1 6..2=0x14 1..0=3
+fcvt.b.d  rd rs1 24..20=1 31..27=0x08 rm       26..25=3 6..2=0x14 1..0=3
+# Xfquarterwithhalf - quarter-precision conversions with Xfhalf extension
+fcvt.h.b    rd rs1 24..20=3 31..27=0x08 14..12=0 26..25=2 6..2=0x14 1..0=3
+fcvt.b.h    rd rs1 24..20=2 31..27=0x08 rm       26..25=3 6..2=0x14 1..0=3
+# endgroup
+
+# startgroup Xfauxquarter quarter-precision auxiliary operations - requires Xfquarter extension
+fmulex.s.b        rd rs1 rs2     31..27=0x09 rm       26..25=3 6..2=0x14 1..0=3
+fmacex.s.b        rd rs1 rs2     31..27=0x0A rm       26..25=3 6..2=0x14 1..0=3
+# endgroup

@@ -1,0 +1,91 @@
+# Smallfloat extension; based on Occamy
+
+# ASCII Art from here: https://fsymbols.com/generators/carty/
+
+# ██╗░░░██╗███████╗░█████╗░████████╗░█████╗░██████╗░
+# ██║░░░██║██╔════╝██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗
+# ╚██╗░██╔╝█████╗░░██║░░╚═╝░░░██║░░░██║░░██║██████╔╝
+# ░╚████╔╝░██╔══╝░░██║░░██╗░░░██║░░░██║░░██║██╔══██╗
+# ░░╚██╔╝░░███████╗╚█████╔╝░░░██║░░░╚█████╔╝██║░░██║
+# ░░░╚═╝░░░╚══════╝░╚════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝
+
+#SMALLFLOAT VECTORIAL (vfmt: 0=s (ILLEGAL in RV32), 1=ah, 2=h, 3=b)
+# 31..30=2 29..25=vecfltop rs2 rs1 14=R 13..12=vfmt rd 6..2=OP 1..0=3
+# 29..25=0x00 is already used by a bitman instruction
+# collected under Xfvec - naming not final
+
+# █▀ █ █▄░█ █▀▀ █░░ █▀▀
+# ▄█ █ █░▀█ █▄█ █▄▄ ██▄
+
+# Xfvecsingle - vectorial single-precision floats - requires FLEN >= 64
+# startgroup Xfvecsingle vectorial single-precision floats - requires FLEN >= 64
+vfadd.s     rd rs1 rs2      31..30=2 29..25=0x01 14=0 13..12=0 6..2=0x0C 1..0=3
+vfadd.r.s   rd rs1 rs2      31..30=2 29..25=0x01 14=1 13..12=0 6..2=0x0C 1..0=3
+vfsub.s     rd rs1 rs2      31..30=2 29..25=0x02 14=0 13..12=0 6..2=0x0C 1..0=3
+vfsub.r.s   rd rs1 rs2      31..30=2 29..25=0x02 14=1 13..12=0 6..2=0x0C 1..0=3
+vfmul.s     rd rs1 rs2      31..30=2 29..25=0x03 14=0 13..12=0 6..2=0x0C 1..0=3
+vfmul.r.s   rd rs1 rs2      31..30=2 29..25=0x03 14=1 13..12=0 6..2=0x0C 1..0=3
+vfdiv.s     rd rs1 rs2      31..30=2 29..25=0x04 14=0 13..12=0 6..2=0x0C 1..0=3
+vfdiv.r.s   rd rs1 rs2      31..30=2 29..25=0x04 14=1 13..12=0 6..2=0x0C 1..0=3
+vfmin.s     rd rs1 rs2      31..30=2 29..25=0x05 14=0 13..12=0 6..2=0x0C 1..0=3
+vfmin.r.s   rd rs1 rs2      31..30=2 29..25=0x05 14=1 13..12=0 6..2=0x0C 1..0=3
+vfmax.s     rd rs1 rs2      31..30=2 29..25=0x06 14=0 13..12=0 6..2=0x0C 1..0=3
+vfmax.r.s   rd rs1 rs2      31..30=2 29..25=0x06 14=1 13..12=0 6..2=0x0C 1..0=3
+vfsqrt.s    rd rs1 24..20=0 31..30=2 29..25=0x07 14=0 13..12=0 6..2=0x0C 1..0=3
+vfmac.s     rd rs1 rs2      31..30=2 29..25=0x08 14=0 13..12=0 6..2=0x0C 1..0=3
+vfmac.r.s   rd rs1 rs2      31..30=2 29..25=0x08 14=1 13..12=0 6..2=0x0C 1..0=3
+vfmre.s     rd rs1 rs2      31..30=2 29..25=0x09 14=0 13..12=0 6..2=0x0C 1..0=3
+vfmre.r.s   rd rs1 rs2      31..30=2 29..25=0x09 14=1 13..12=0 6..2=0x0C 1..0=3
+vfclass.s   rd rs1 24..20=1 31..30=2 29..25=0x0C 14=0 13..12=0 6..2=0x0C 1..0=3
+vfsgnj.s    rd rs1 rs2      31..30=2 29..25=0x0D 14=0 13..12=0 6..2=0x0C 1..0=3
+vfsgnj.r.s  rd rs1 rs2      31..30=2 29..25=0x0D 14=1 13..12=0 6..2=0x0C 1..0=3
+vfsgnjn.s   rd rs1 rs2      31..30=2 29..25=0x0E 14=0 13..12=0 6..2=0x0C 1..0=3
+vfsgnjn.r.s rd rs1 rs2      31..30=2 29..25=0x0E 14=1 13..12=0 6..2=0x0C 1..0=3
+vfsgnjx.s   rd rs1 rs2      31..30=2 29..25=0x0F 14=0 13..12=0 6..2=0x0C 1..0=3
+vfsgnjx.r.s rd rs1 rs2      31..30=2 29..25=0x0F 14=1 13..12=0 6..2=0x0C 1..0=3
+vfeq.s      rd rs1 rs2      31..30=2 29..25=0x10 14=0 13..12=0 6..2=0x0C 1..0=3
+vfeq.r.s    rd rs1 rs2      31..30=2 29..25=0x10 14=1 13..12=0 6..2=0x0C 1..0=3
+vfne.s      rd rs1 rs2      31..30=2 29..25=0x11 14=0 13..12=0 6..2=0x0C 1..0=3
+vfne.r.s    rd rs1 rs2      31..30=2 29..25=0x11 14=1 13..12=0 6..2=0x0C 1..0=3
+vflt.s      rd rs1 rs2      31..30=2 29..25=0x12 14=0 13..12=0 6..2=0x0C 1..0=3
+vflt.r.s    rd rs1 rs2      31..30=2 29..25=0x12 14=1 13..12=0 6..2=0x0C 1..0=3
+vfge.s      rd rs1 rs2      31..30=2 29..25=0x13 14=0 13..12=0 6..2=0x0C 1..0=3
+vfge.r.s    rd rs1 rs2      31..30=2 29..25=0x13 14=1 13..12=0 6..2=0x0C 1..0=3
+vfle.s      rd rs1 rs2      31..30=2 29..25=0x14 14=0 13..12=0 6..2=0x0C 1..0=3
+vfle.r.s    rd rs1 rs2      31..30=2 29..25=0x14 14=1 13..12=0 6..2=0x0C 1..0=3
+vfgt.s      rd rs1 rs2      31..30=2 29..25=0x15 14=0 13..12=0 6..2=0x0C 1..0=3
+vfgt.r.s    rd rs1 rs2      31..30=2 29..25=0x15 14=1 13..12=0 6..2=0x0C 1..0=3
+# XfvecsinglenothirtytwoD: only unless RV32D
+vfmv.x.s    rd rs1 24..20=0 31..30=2 29..25=0x0C 14=0 13..12=0 6..2=0x0C 1..0=3
+vfmv.s.x    rd rs1 24..20=0 31..30=2 29..25=0x0C 14=1 13..12=0 6..2=0x0C 1..0=3
+vfcvt.x.s   rd rs1 24..20=2 31..30=2 29..25=0x0C 14=0 13..12=0 6..2=0x0C 1..0=3
+vfcvt.xu.s  rd rs1 24..20=2 31..30=2 29..25=0x0C 14=1 13..12=0 6..2=0x0C 1..0=3
+vfcvt.s.x   rd rs1 24..20=3 31..30=2 29..25=0x0C 14=0 13..12=0 6..2=0x0C 1..0=3
+vfcvt.s.xu  rd rs1 24..20=3 31..30=2 29..25=0x0C 14=1 13..12=0 6..2=0x0C 1..0=3
+# XfvecsinglewithF - vectorial single-precision conversions with F extension, a-d legality depends on FLEN
+vfcpka.s.s  rd rs1 rs2        31..30=2 29..25=0x18 14=0 13..12=0 6..2=0x0C 1..0=3
+vfcpkb.s.s  rd rs1 rs2        31..30=2 29..25=0x18 14=1 13..12=0 6..2=0x0C 1..0=3
+vfcpkc.s.s  rd rs1 rs2        31..30=2 29..25=0x19 14=0 13..12=0 6..2=0x0C 1..0=3
+vfcpkd.s.s  rd rs1 rs2        31..30=2 29..25=0x19 14=1 13..12=0 6..2=0x0C 1..0=3
+# XfvecsinglewithD - vectorial single-precision conversions with D extension, a-d legality depends on FLEN (in addition to the above)
+vfcpka.s.d  rd rs1 rs2        31..30=2 29..25=0x1A 14=0 13..12=0 6..2=0x0C 1..0=3
+vfcpkb.s.d  rd rs1 rs2        31..30=2 29..25=0x1A 14=1 13..12=0 6..2=0x0C 1..0=3
+vfcpkc.s.d  rd rs1 rs2        31..30=2 29..25=0x1B 14=0 13..12=0 6..2=0x0C 1..0=3
+vfcpkd.s.d  rd rs1 rs2        31..30=2 29..25=0x1B 14=1 13..12=0 6..2=0x0C 1..0=3
+# Xfvecalthalfwithhalf - vectorial alternate half-precision conversions with Xfvechalf extension
+vfcvt.h.h     rd rs1 24..20=5 31..30=2 29..25=0x0C 14=0 13..12=2 6..2=0x0C 1..0=3
+vfcvtu.h.h    rd rs1 24..20=5 31..30=2 29..25=0x0C 14=1 13..12=2 6..2=0x0C 1..0=3
+# endgroup
+
+# startgroup Xfauxsingle single-precision auxiliary operations - requires F extension
+# no instructions currently
+# endgroup
+
+# startgroup Xfauxvecsingle vectorial single-precision auxiliary operations - requires Xfvecsingle extension
+vfsum.s         rd rs1 24..20=0x1C 31..30=2 29..25=0x07 14=0 13..12=0 6..2=0x0C 1..0=3
+vfnsum.s        rd rs1 24..20=0x1C 31..30=2 29..25=0x17 14=0 13..12=0 6..2=0x0C 1..0=3
+#vfdotp.s       rd rs1 rs2         31..30=2 29..25=0x0A 14=0 13..12=0 6..2=0x0C 1..0=3
+#vfdotp.r.s     rd rs1 rs2         31..30=2 29..25=0x0A 14=1 13..12=0 6..2=0x0C 1..0=3
+#vfavg.s        rd rs1 rs2         31..30=2 29..25=0x16 14=0 13..12=0 6..2=0x0C 1..0=3
+#vfavg.r.s      rd rs1 rs2         31..30=2 29..25=0x16 14=1 13..12=0 6..2=0x0C 1..0=3
+# endgroup

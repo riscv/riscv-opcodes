@@ -1,0 +1,6 @@
+# Floating-Point Repetition extension
+
+# INFO: overlaps with rv32_xpulppostmod
+
+frep.o          rs1 imm12 stagger_max stagger_mask 7=1 6..2=0x02 1..0=3
+irep            rd rs1 imm12 rm 6..2=0x0F 1..0=3
