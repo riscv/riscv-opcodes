@@ -407,7 +407,7 @@ def read_lines(file: str) -> "list[str]":
 
 # Update the instruction dictionary
 def process_standard_instructions(
-    lines: "list[str]", instr_dict: InstrDict, file_name: str
+    lines: "list[str]", instr_dict: InstrDict, file_name: str, warn_overlap: bool = False
 ):
     """Processes standard instructions from the given lines and updates the instruction dictionary."""
     for line in lines:
@@ -437,9 +437,11 @@ def process_standard_instructions(
                     and not instruction_overlap_allowed(name, key)
                     and same_base_isa(ext_name, item["extension"])
                 ):
-                    log_and_exit(
-                        f'Instruction {name} in extension {ext_name} overlaps with {key} in {item["extension"]}'
-                    )
+                    overlap_msg = f'Instruction {name} in extension {ext_name} overlaps with {key} in {item["extension"]}'
+                    if warn_overlap:
+                        logging.warning(overlap_msg)
+                    else:
+                        log_and_exit(overlap_msg)
 
             instr_dict[name] = single_dict
 
@@ -543,6 +545,7 @@ def create_inst_dict(
     file_filter: "list[str]",
     include_pseudo: bool = False,
     include_pseudo_ops: "Optional[list[str]]" = None,
+    warn_overlap: bool = False,
 ) -> InstrDict:
     """
     Creates a dictionary of instructions based on the provided file filters.
@@ -607,7 +610,7 @@ def create_inst_dict(
     for file_name in file_names:
         logging.debug(f"Parsing File: {file_name} for standard instructions")
         lines = read_lines(file_name)
-        process_standard_instructions(lines, instr_dict, file_name)
+        process_standard_instructions(lines, instr_dict, file_name, warn_overlap)
 
     logging.debug("Collecting pseudo instructions")
     for file_name in file_names:

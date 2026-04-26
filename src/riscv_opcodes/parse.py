@@ -31,8 +31,9 @@ def generate_extensions(
     go: bool,
     latex: bool,
     svg: bool,
+    warn_overlap: bool = False,
 ):
-    instr_dict = create_inst_dict(extensions, include_pseudo)
+    instr_dict = create_inst_dict(extensions, include_pseudo, warn_overlap=warn_overlap)
     instr_dict = dict(sorted(instr_dict.items()))
     instr_dict_with_segment = add_segmented_vls_insn(instr_dict)
 
@@ -41,7 +42,7 @@ def generate_extensions(
 
     if c:
         instr_dict_c = create_inst_dict(
-            extensions, False, include_pseudo_ops=emitted_pseudo_ops
+            extensions, False, include_pseudo_ops=emitted_pseudo_ops, warn_overlap=warn_overlap
         )
         instr_dict_c = dict(sorted(instr_dict_c.items()))
         make_c(instr_dict_c)
@@ -98,6 +99,11 @@ def main():
     parser.add_argument("-latex", action="store_true", help="Generate output for Latex")
     parser.add_argument("-svg", action="store_true", help="Generate .svg output")
     parser.add_argument(
+        "--warn-overlap",
+        action="store_true",
+        help="Warn instead of error on overlapping instruction encodings",
+    )
+    parser.add_argument(
         "extensions",
         nargs="*",
         help="Extensions to use. This is a glob of the rv_.. files, e.g. 'rv*' will give all extensions.",
@@ -118,4 +124,5 @@ def main():
         args.go,
         args.latex,
         args.svg,
+        args.warn_overlap,
     )
