@@ -407,7 +407,10 @@ def read_lines(file: str) -> "list[str]":
 
 # Update the instruction dictionary
 def process_standard_instructions(
-    lines: "list[str]", instr_dict: InstrDict, file_name: str, warn_overlap: bool = False
+    lines: "list[str]",
+    instr_dict: InstrDict,
+    file_name: str,
+    warn_overlap: bool = False,
 ):
     """Processes standard instructions from the given lines and updates the instruction dictionary."""
     for line in lines:

@@ -42,7 +42,10 @@ def generate_extensions(
 
     if c:
         instr_dict_c = create_inst_dict(
-            extensions, False, include_pseudo_ops=emitted_pseudo_ops, warn_overlap=warn_overlap
+            extensions,
+            False,
+            include_pseudo_ops=emitted_pseudo_ops,
+            warn_overlap=warn_overlap,
         )
         instr_dict_c = dict(sorted(instr_dict_c.items()))
         make_c(instr_dict_c)
