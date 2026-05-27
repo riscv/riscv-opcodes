@@ -1,0 +1,2 @@
+# When the base ISA is RVY, c.mv is remapped to c.ymv to copy YLEN-wide values
+c.ymv rd_n0 c_rs2_n0                      1..0=2 15..13=4 12=0

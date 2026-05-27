@@ -1,0 +1,48 @@
+# R-Type Instructions
+#
+# The lower 3 bits of funct7 [27:25] are a bitmask indicating YLEN (capability) operands:
+#   bit 25: rd (0 = XLEN, 1 = YLEN)
+#   bit 26: rs1 (0 = XLEN, 1 = YLEN)
+#   bit 27: rs2 (0 = XLEN, 1 = YLEN)
+
+# Operand Types: rd YLEN, rs1 XLEN, rs2 XLEN (0b001)
+packy                           rd rs1 rs2                31..25=0b0000_001 14..12=0 6..2=0x1E 1..0=3
+$pseudo_op rv_y::packy yhiw     rd rs1 rs2                31..25=0b0000_001 14..12=0 6..2=0x1E 1..0=3
+
+# Operand Types: rd YLEN, rs1 YLEN, rs2 XLEN (0b011)
+yadd                            rd rs1 rs2_n0             31..25=0b0000_011 14..12=0 6..2=0x1E 1..0=3
+ymv                             rd rs1                    31..25=0b0000_011 24..20=0 14..12=0 6..2=0x1E 1..0=3
+yaddrw                          rd rs1 rs2                31..25=0b0001_011 14..12=0 6..2=0x1E 1..0=3
+ypermc                          rd rs1 rs2                31..25=0b0010_011 14..12=0 6..2=0x1E 1..0=3
+ybndsw                          rd rs1 rs2                31..25=0b0011_011 14..12=0 6..2=0x1E 1..0=3
+ybndsrw                         rd rs1 rs2                31..25=0b0100_011 14..12=0 6..2=0x1E 1..0=3
+
+# Operand Types: rd XLEN, rs1 YLEN, rs2 YLEN (0b110)
+yeq                             rd rs1 rs2                31..25=0b0000_110 14..12=0 6..2=0x1E 1..0=3
+yss                             rd rs1 rs2                31..25=0b0001_110 14..12=0 6..2=0x1E 1..0=3
+
+# Operand Types: rd YLEN, rs1 YLEN, rs2 YLEN (0b111)
+ysunseal                        rd rs1 rs2                31..25=0b0000_111 14..12=0 6..2=0x1E 1..0=3
+ybld                            rd rs1 rs2                31..25=0b0001_111 14..12=0 6..2=0x1E 1..0=3
+#rs1 is in the format, but must be zero for now (non-zero will be yseal)
+ysentry                         rd rs2 19..15=0           31..25=0b0010_111 14..12=0 6..2=0x1E 1..0=3
+
+# 2-OP Instructions (encoded as R-type with using 1111 in the upper bits of funct7 and rs2=funct5)
+# Operand Types: rd XLEN, rs1 XLEN, rs2 N/A (0b000)
+yamask                          rd rs1                    31..25=0b1111_000 24..20=0 14..12=0 6..2=0x1E 1..0=3
+# Operand Types: rd XLEN, rs1 YLEN, rs2 N/A (0b010)
+ybaser                          rd rs1                    31..25=0b1111_010 24..20=0 14..12=0 6..2=0x1E 1..0=3
+ypermr                          rd rs1                    31..25=0b1111_010 24..20=1 14..12=0 6..2=0x1E 1..0=3
+ytopr                           rd rs1                    31..25=0b1111_010 24..20=2 14..12=0 6..2=0x1E 1..0=3
+ylenr                           rd rs1                    31..25=0b1111_010 24..20=3 14..12=0 6..2=0x1E 1..0=3
+ytagr                           rd rs1                    31..25=0b1111_010 24..20=4 14..12=0 6..2=0x1E 1..0=3
+ytyper                          rd rs1                    31..25=0b1111_010 24..20=5 14..12=0 6..2=0x1E 1..0=3
+
+# I-Type / S-Type Instructions
+yaddi                           rd rs1 imm12              14..12=4 6..2=0x1E 1..0=3
+ly                              rd rs1 imm12              14..12=1 6..2=0x1E 1..0=3
+sy                              imm12hi rs1 rs2 imm12lo   14..12=2 6..2=0x1E 1..0=3
+
+# MISC Instructions
+ybndswi                         rd rs1 ybndswimm9         31..29=0b111 14..12=5 6..2=0x1E 1..0=3
+srliy                           rd rs1 shamtq             31..27=0b00000 14..12=5 6..2=0x1E 1..0=3
