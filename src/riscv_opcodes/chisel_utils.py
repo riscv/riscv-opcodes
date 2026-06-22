@@ -1,14 +1,14 @@
 import logging
 import pprint
 
-from .constants import causes, csrs, csrs32
-from .shared_utils import InstrDict, instr_dict_2_extensions
+from .constants import causes
+from .shared_utils import CsrDict, InstrDict, instr_dict_2_extensions
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
 
 
-def make_chisel(instr_dict: InstrDict, spinal_hdl: bool = False):
+def make_chisel(instr_dict: InstrDict, csr_dict: CsrDict, spinal_hdl: bool = False):
 
     chisel_names = ""
     cause_names_str = ""
@@ -48,19 +48,19 @@ def make_chisel(instr_dict: InstrDict, spinal_hdl: bool = False):
     cause_names_str += """    res.toArray
   }"""
 
-    for num, name in csrs + csrs32:
+    for num, name in [csr for csrs in csr_dict.values() for csr in csrs]:
         csr_names_str += f"  val {name} = {hex(num)}\n"
     csr_names_str += """  val all = {
     val res = collection.mutable.ArrayBuffer[Int]()
 """
-    for num, name in csrs:
+    for num, name in csr_dict.get("csrs", []):
         csr_names_str += f"""    res += {name}\n"""
     csr_names_str += """    res.toArray
   }
   val all32 = {
     val res = collection.mutable.ArrayBuffer(all:_*)
 """
-    for num, name in csrs32:
+    for num, name in csr_dict.get("csrs32", []):
         csr_names_str += f"""    res += {name}\n"""
     csr_names_str += """    res.toArray
   }"""

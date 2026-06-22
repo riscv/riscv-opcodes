@@ -1,4 +1,5 @@
 import copy
+import csv
 import logging
 import os
 import pprint
@@ -6,7 +7,7 @@ import re
 from fnmatch import fnmatch
 from io import StringIO
 from itertools import chain
-from typing import Dict, NoReturn, Optional, TypedDict
+from typing import Dict, List, NoReturn, Optional, Tuple, TypedDict
 
 from .constants import (
     arg_lut,
@@ -17,7 +18,7 @@ from .constants import (
     pseudo_regex,
     single_fixed,
 )
-from .resources import open_text_resource, resource_root
+from .resources import read_lines, resource_root
 
 LOG_FORMAT = "%(levelname)s:: %(message)s"
 LOG_LEVEL = logging.INFO
@@ -165,6 +166,7 @@ class SingleInstr(TypedDict):
 
 
 InstrDict = Dict[str, SingleInstr]
+CsrDict = Dict[str, List[Tuple[int, str]]]
 
 
 # Processing main function for a line in the encoding file
@@ -395,16 +397,6 @@ def create_expanded_instruction(
     return (new_name, new_single_dict)
 
 
-def read_lines(file: str) -> "list[str]":
-    """
-    Reads lines from a file and returns non-blank, non-comment lines.
-    The file must be a resource relative to the root of this repo.
-    """
-    with open_text_resource(file) as fp:
-        lines = (line.rstrip() for line in fp)
-        return [line for line in lines if line and not line.startswith("#")]
-
-
 # Update the instruction dictionary
 def process_standard_instructions(
     lines: "list[str]",
@@ -541,6 +533,30 @@ def validate_instruction_in_extension(
         log_and_exit(
             f"Original instruction {inst} required by pseudo_op {pseudo_inst} in {file_name} not found in {ext_file}"
         )
+
+
+# Construct a dictionary of CSR sets
+def create_csr_dict(csrs: "Optional[list[str]]" = None) -> CsrDict:
+    d: CsrDict = {}
+    for file in (resource_root() / "csrs").iterdir():
+        name = file.name.removesuffix(".csv")
+        if file.is_file() and (not csrs or name in csrs):
+            d[name] = [
+                (int(row[0], 0), row[1])
+                for row in csv.reader(
+                    read_lines("csrs/" + file.name), skipinitialspace=True
+                )
+            ]
+    for file in (resource_root() / "csrs" / "unratified").iterdir():
+        name = file.name.removesuffix(".csv")
+        if file.is_file() and (not csrs or name in csrs):
+            d[name] = [
+                (int(row[0], 0), row[1])
+                for row in csv.reader(
+                    read_lines("csrs/unratified/" + file.name), skipinitialspace=True
+                )
+            ]
+    return d
 
 
 # Construct a dictionary of instructions filtered by specified criteria

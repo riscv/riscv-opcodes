@@ -1,19 +1,19 @@
 import logging
 import pprint
 
-from .constants import causes, csrs, csrs32
-from .shared_utils import InstrDict
+from .constants import causes
+from .shared_utils import CsrDict, InstrDict
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
 
 
-def make_rust(instr_dict: InstrDict):
+def make_rust(instr_dict: InstrDict, csr_dict: CsrDict):
     mask_match_str = ""
     for i in instr_dict:
         mask_match_str += f'const MATCH_{i.upper().replace(".","_")}: u32 = {(instr_dict[i]["match"])};\n'
         mask_match_str += f'const MASK_{i.upper().replace(".","_")}: u32 = {(instr_dict[i]["mask"])};\n'
-    for num, name in csrs + csrs32:
+    for num, name in [csr for csrs in csr_dict.values() for csr in csrs]:
         mask_match_str += f"const CSR_{name.upper()}: u16 = {hex(num)};\n"
     for num, name in causes:
         mask_match_str += (

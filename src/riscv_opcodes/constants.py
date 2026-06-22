@@ -1,7 +1,7 @@
 import csv
 import re
 
-from .resources import open_text_resource
+from .resources import open_text_resource, read_lines
 
 # TODO: The constants in this file should be in all caps.
 overlapping_extensions = {
@@ -60,14 +60,13 @@ def read_int_map_csv(filename: str) -> "list[tuple[int, str]]":
     Returns:
         list of tuple: A list of (int, str) tuples extracted from the CSV file.
     """
-    with open_text_resource(filename) as f:
-        csv_reader = csv.reader(f, skipinitialspace=True)
-        return [(int(row[0], 0), row[1]) for row in csv_reader]
+    return [
+        (int(row[0], 0), row[1])
+        for row in csv.reader(read_lines(filename), skipinitialspace=True)
+    ]
 
 
 causes = read_int_map_csv("causes.csv")
-csrs = read_int_map_csv("csrs.csv")
-csrs32 = read_int_map_csv("csrs32.csv")
 
 
 def read_arg_lut_csv(filename: str) -> "dict[str, tuple[int, int]]":
