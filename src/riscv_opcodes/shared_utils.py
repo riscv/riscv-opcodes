@@ -17,7 +17,7 @@ from .constants import (
     pseudo_regex,
     single_fixed,
 )
-from .resources import open_text_resource, resource_root
+from .resources import open_text_resource, read_lines, resource_root
 
 LOG_FORMAT = "%(levelname)s:: %(message)s"
 LOG_LEVEL = logging.INFO
@@ -394,15 +394,6 @@ def create_expanded_instruction(
 
     return (new_name, new_single_dict)
 
-
-def read_lines(file: str) -> "list[str]":
-    """
-    Reads lines from a file and returns non-blank, non-comment lines.
-    The file must be a resource relative to the root of this repo.
-    """
-    with open_text_resource(file) as fp:
-        lines = (line.rstrip() for line in fp)
-        return [line for line in lines if line and not line.startswith("#")]
 
 
 # Update the instruction dictionary

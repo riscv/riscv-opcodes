@@ -37,3 +37,13 @@ def open_text_resource(path_relative_to_root: str) -> IO[str]:
     Open a text file relative to the root of this repo.
     """
     return resource_root().joinpath(path_relative_to_root).open("r", encoding="utf-8")
+
+
+def read_lines(file: str) -> "list[str]":
+    """
+    Reads lines from a file and returns non-blank, non-comment lines.
+    The file must be a resource relative to the root of this repo.
+    """
+    with open_text_resource(file) as fp:
+        lines = (line.rstrip() for line in fp)
+        return [line for line in lines if line and not line.startswith("#")]
