@@ -9,7 +9,7 @@ from .constants import emitted_pseudo_ops
 from .go_utils import make_go
 from .latex_utils import make_latex_table, make_priv_latex_table
 from .rust_utils import make_rust
-from .shared_utils import add_segmented_vls_insn, create_inst_dict
+from .shared_utils import add_segmented_vls_insn, create_csr_dict, create_inst_dict
 from .sverilog_utils import make_sverilog
 from .svg_utils import make_svg
 
@@ -22,6 +22,7 @@ logging.basicConfig(level=LOG_LEVEL, format=LOG_FORMAT)
 
 def generate_extensions(
     extensions: list[str],
+    csrs: list[str],
     include_pseudo: bool,
     c: bool,
     chisel: bool,
@@ -33,6 +34,7 @@ def generate_extensions(
     svg: bool,
     warn_overlap: bool = False,
 ):
+    csr_dict = create_csr_dict(csrs or [])
     instr_dict = create_inst_dict(extensions, include_pseudo, warn_overlap=warn_overlap)
     instr_dict = dict(sorted(instr_dict.items()))
     instr_dict_with_segment = add_segmented_vls_insn(instr_dict)
@@ -48,27 +50,27 @@ def generate_extensions(
             warn_overlap=warn_overlap,
         )
         instr_dict_c = dict(sorted(instr_dict_c.items()))
-        make_c(instr_dict_c)
+        make_c(instr_dict_c, csr_dict)
         logging.info("encoding.out.h generated successfully")
 
     if chisel:
-        make_chisel(instr_dict)
+        make_chisel(instr_dict, csr_dict)
         logging.info("inst.chisel generated successfully")
 
     if spinalhdl:
-        make_chisel(instr_dict, True)
+        make_chisel(instr_dict, csr_dict, True)
         logging.info("inst.spinalhdl generated successfully")
 
     if sverilog:
-        make_sverilog(instr_dict)
+        make_sverilog(instr_dict, csr_dict)
         logging.info("inst.sverilog generated successfully")
 
     if rust:
-        make_rust(instr_dict)
+        make_rust(instr_dict, csr_dict)
         logging.info("inst.rs generated successfully")
 
     if go:
-        make_go(instr_dict_with_segment, extensions)
+        make_go(instr_dict_with_segment, extensions, csr_dict)
         logging.info("inst.go generated successfully")
 
     if latex:
@@ -111,6 +113,13 @@ def main():
         nargs="*",
         help="Extensions to use. This is a glob of the rv_.. files, e.g. 'rv*' will give all extensions.",
     )
+    parser.add_argument(
+        "--csr",
+        action="append",
+        dest="csrs",
+        default=None,
+        help="CSRs to use. If omitted, all CSR sets are included.",
+    )
 
     args = parser.parse_args()
 
@@ -118,6 +127,7 @@ def main():
 
     generate_extensions(
         args.extensions,
+        args.csrs,
         args.pseudo,
         args.c,
         args.chisel,

@@ -2,19 +2,18 @@ import logging
 import pprint
 from pathlib import Path
 
-from .constants import csrs, csrs32
-from .shared_utils import InstrDict
+from .shared_utils import CsrDict, InstrDict
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
 
 
-def make_sverilog(instr_dict: InstrDict):
+def make_sverilog(instr_dict: InstrDict, csr_dict: CsrDict):
     names_str = ""
     for i in instr_dict:
         names_str += f"  localparam [31:0] {i.upper().replace('.','_'):<18s} = 32'b{instr_dict[i]['encoding'].replace('-','?')};\n"
     names_str += "  /* CSR Addresses */\n"
-    for num, name in csrs + csrs32:
+    for num, name in [csr for csrs in csr_dict.values() for csr in csrs]:
         names_str += (
             f"  localparam logic [11:0] CSR_{name.upper()} = 12'h{hex(num)[2:]};\n"
         )

@@ -1,4 +1,5 @@
 import copy
+import csv
 import logging
 import os
 import pprint
@@ -6,7 +7,7 @@ import re
 from fnmatch import fnmatch
 from io import StringIO
 from itertools import chain
-from typing import Dict, NoReturn, Optional, TypedDict
+from typing import Dict, List, NoReturn, Optional, Tuple, TypedDict
 
 from .constants import (
     arg_lut,
@@ -165,6 +166,7 @@ class SingleInstr(TypedDict):
 
 
 InstrDict = Dict[str, SingleInstr]
+CsrDict = Dict[str, List[Tuple[int, str]]]
 
 
 # Processing main function for a line in the encoding file
@@ -532,6 +534,24 @@ def validate_instruction_in_extension(
         log_and_exit(
             f"Original instruction {inst} required by pseudo_op {pseudo_inst} in {file_name} not found in {ext_file}"
         )
+
+
+# Construct a dictionary of CSR sets
+def create_csr_dict(csrs: "list[str]" = []) -> CsrDict:
+    d = {}
+    for file in (resource_root() / "csrs").iterdir():
+        if file.is_file() and (not csrs or file.stem in csrs):
+            d[file.stem] = [
+                (int(row[0], 0), row[1])
+                for row in csv.reader(read_lines("csrs/" + file.name), skipinitialspace=True)
+            ]
+    for file in (resource_root() / "csrs" / "unratified").iterdir():
+        if file.is_file() and (not csrs or file.stem in csrs):
+            d[file.stem] = [
+                (int(row[0], 0), row[1])
+                for row in csv.reader(read_lines("csrs/unratified/" + file.name), skipinitialspace=True)
+            ]
+    return d
 
 
 # Construct a dictionary of instructions filtered by specified criteria
