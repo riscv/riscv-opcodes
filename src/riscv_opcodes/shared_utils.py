@@ -18,7 +18,7 @@ from .constants import (
     pseudo_regex,
     single_fixed,
 )
-from .resources import open_text_resource, read_lines, resource_root
+from .resources import read_lines, resource_root
 
 LOG_FORMAT = "%(levelname)s:: %(message)s"
 LOG_LEVEL = logging.INFO
@@ -397,7 +397,6 @@ def create_expanded_instruction(
     return (new_name, new_single_dict)
 
 
-
 # Update the instruction dictionary
 def process_standard_instructions(
     lines: "list[str]",
@@ -537,19 +536,25 @@ def validate_instruction_in_extension(
 
 
 # Construct a dictionary of CSR sets
-def create_csr_dict(csrs: "list[str]" = []) -> CsrDict:
-    d = {}
+def create_csr_dict(csrs: "Optional[list[str]]" = None) -> CsrDict:
+    d: CsrDict = {}
     for file in (resource_root() / "csrs").iterdir():
-        if file.is_file() and (not csrs or file.stem in csrs):
-            d[file.stem] = [
+        name = file.name.removesuffix(".csv")
+        if file.is_file() and (not csrs or name in csrs):
+            d[name] = [
                 (int(row[0], 0), row[1])
-                for row in csv.reader(read_lines("csrs/" + file.name), skipinitialspace=True)
+                for row in csv.reader(
+                    read_lines("csrs/" + file.name), skipinitialspace=True
+                )
             ]
     for file in (resource_root() / "csrs" / "unratified").iterdir():
-        if file.is_file() and (not csrs or file.stem in csrs):
-            d[file.stem] = [
+        name = file.name.removesuffix(".csv")
+        if file.is_file() and (not csrs or name in csrs):
+            d[name] = [
                 (int(row[0], 0), row[1])
-                for row in csv.reader(read_lines("csrs/unratified/" + file.name), skipinitialspace=True)
+                for row in csv.reader(
+                    read_lines("csrs/unratified/" + file.name), skipinitialspace=True
+                )
             ]
     return d
 

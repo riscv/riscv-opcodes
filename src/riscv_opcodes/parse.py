@@ -34,7 +34,7 @@ def generate_extensions(
     svg: bool,
     warn_overlap: bool = False,
 ):
-    csr_dict = create_csr_dict(csrs or [])
+    csr_dict = create_csr_dict(csrs)
     instr_dict = create_inst_dict(extensions, include_pseudo, warn_overlap=warn_overlap)
     instr_dict = dict(sorted(instr_dict.items()))
     instr_dict_with_segment = add_segmented_vls_insn(instr_dict)

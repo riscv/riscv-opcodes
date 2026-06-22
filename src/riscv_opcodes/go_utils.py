@@ -53,7 +53,9 @@ var csrs = map[uint16]string {
         instr_str += f"""  case A{i.upper().replace("_","")}:
     return &inst{{ {hex(opcode)}, {hex(funct3)}, {hex(rs1)}, {hex(rs2)}, {signed(csr,12)}, {hex(funct7)} }}
 """
-    for num, name in sorted([csr for csrs in csr_dict.values() for csr in csrs], key=lambda csr: csr[0]):
+    for num, name in sorted(
+        [csr for csrs in csr_dict.values() for csr in csrs], key=lambda csr: csr[0]
+    ):
         csrs_map_str += f'{hex(num)} : "{name.upper()}",\n'
 
     with open("inst.go", "w", encoding="utf-8") as file:
