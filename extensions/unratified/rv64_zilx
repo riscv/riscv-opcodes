@@ -1,0 +1,25 @@
+# rv64_zilx
+# Zilx indexed integer load instructions available only on RV64:
+#   - doubleword loads (funct3=011)
+#   - unsigned-word loads (funct3=110)
+#   - the scaled unsigned-word-index mode (funct5=11110), which zero-extends
+#     X[rs1][31:0] to 64 bits before scaling
+# See rv_zilx for the shared encoding layout.
+
+# Unscaled indexed loads, RV64-only widths (funct5=10010)
+lxwu    rd rs1 rs2 31..27=0x12 26..25=0 14..12=6 6..2=0x0B 1..0=3
+lxd     rd rs1 rs2 31..27=0x12 26..25=0 14..12=3 6..2=0x0B 1..0=3
+
+# Scaled indexed loads, RV64-only widths (funct5=11010)
+lxswu   rd rs1 rs2 31..27=0x1A 26..25=0 14..12=6 6..2=0x0B 1..0=3
+lxsd    rd rs1 rs2 31..27=0x1A 26..25=0 14..12=3 6..2=0x0B 1..0=3
+
+# Scaled indexed loads with zero-extended 32-bit index (funct5=11110),
+# EA = X[rs2] + (zext32(X[rs1]) << log2(size)); RV64-only
+lxsuwb  rd rs1 rs2 31..27=0x1E 26..25=0 14..12=0 6..2=0x0B 1..0=3
+lxsuwbu rd rs1 rs2 31..27=0x1E 26..25=0 14..12=4 6..2=0x0B 1..0=3
+lxsuwh  rd rs1 rs2 31..27=0x1E 26..25=0 14..12=1 6..2=0x0B 1..0=3
+lxsuwhu rd rs1 rs2 31..27=0x1E 26..25=0 14..12=5 6..2=0x0B 1..0=3
+lxsuww  rd rs1 rs2 31..27=0x1E 26..25=0 14..12=2 6..2=0x0B 1..0=3
+lxsuwwu rd rs1 rs2 31..27=0x1E 26..25=0 14..12=6 6..2=0x0B 1..0=3
+lxsuwd  rd rs1 rs2 31..27=0x1E 26..25=0 14..12=3 6..2=0x0B 1..0=3
