@@ -1,0 +1,8 @@
+# Operand Types: rd YLEN, rs1 YLEN, rs2 XLEN (0b011)
+ymodew            rd_n0 rs1 rs2      31..25=0b0101_011 14..12=0 6..2=0x1E 1..0=3
+# Encoded as ymodew with rd=x0, using rs2 as funct5
+ymodeswi                             31..25=0b0101_011 24..20=1 19..15=0 14..12=0 11..7=0 6..2=0x1E 1..0=3
+ymodeswy                             31..25=0b0101_011 24..15=0 14..12=0 11..7=0 6..2=0x1E 1..0=3
+
+# Operand Types: rd XLEN, rs1 YLEN, rs2 N/A (0b010)
+ymoder            rd rs1             31..25=0b1111_010 24..20=6 14..12=0 6..2=0x1E 1..0=3

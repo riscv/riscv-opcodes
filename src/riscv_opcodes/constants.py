@@ -5,20 +5,25 @@ from .resources import open_text_resource
 
 # TODO: The constants in this file should be in all caps.
 overlapping_extensions = {
-    "rv_zcmt": {"rv_c_d"},
-    "rv_zcmp": {"rv_c_d"},
+    "rv_zcmt": {"rv_c_d", "rv64_y_c"},
+    "rv_zcmp": {"rv_c_d", "rv64_y_c"},
     "rv_c": {"rv_zcmop"},
     "rv64_p": {"rv32_p", "rv64_zbp"},
     "rv32_p": {"rv64_p", "rv_zcmt", "rv_c_d"},
     "rv_p": {"rv_zbb"},
+    "rv32_y_c": {"rv32_c_f", "rv32_zclsd"},
+    "rv64_y_c": {"rv_c_d"},
 }
 
 overlapping_instructions = {
     "c_addi": {"c_nop"},
     "c_lui": {"c_addi16sp"},
-    "c_mv": {"c_jr"},
+    "c_mv": {"c_jr", "c_ymv"},
+    "c_ymv": {"c_jr"},
     "c_jalr": {"c_ebreak"},
     "c_add": {"c_ebreak", "c_jalr"},
+    "yadd": {"ymv"},
+    "ymodew": {"ymodeswy", "ymodeswi"},
 }
 
 isa_regex = re.compile(
@@ -103,6 +108,7 @@ latex_mapping = {
     "imm12lo": "imm[4:0]",
     "jimm20": "imm[20$\\vert$10:1$\\vert$11$\\vert$19:12]",
     "zimm": "uimm",
+    "ybndswimm9": "uimm[8:0]",
     "shamtw": "shamt",
     "shamtd": "shamt",
     "shamtq": "shamt",
@@ -115,6 +121,7 @@ latex_mapping = {
     "c_rs2_n0": "rs2$\\neq$0",
     "rd_n0": "rd$\\neq$0",
     "rs1_n0": "rs1$\\neq$0",
+    "rs2_n0": "rs2$\\neq$0",
     "c_rs1_n0": "rs1$\\neq$0",
     "rd_rs1": "rd/rs1",
     "zimm6hi": "uimm[5]",
