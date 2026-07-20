@@ -1,0 +1,3 @@
+# Scalar SM4 - RV32, RV64
+sm4ed         rd rs1 rs2 bs 29..25=0b11000 14..12=0 6..0=0x33
+sm4ks         rd rs1 rs2 bs 29..25=0b11010 14..12=0 6..0=0x33

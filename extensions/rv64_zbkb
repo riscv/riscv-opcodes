@@ -1,0 +1,6 @@
+$pseudo_op rv64_zbb::rev8 rev8 rd rs1      31..20=0x6B8 14..12=5 6..0=0x13
+$import rv64_zbb::rolw
+$import rv64_zbb::rorw
+$import rv64_zbb::roriw
+$import rv64_zbb::rori
+packw      rd rs1 rs2 31..25=4  14..12=4 6..2=0x0E 1..0=3

@@ -1,0 +1,5 @@
+vunzipe.v      31..26=0x12 vm vs2 19..15=0xB 14..12=0x2 vd 6..0=0x57
+vunzipo.v      31..26=0x12 vm vs2 19..15=0xF 14..12=0x2 vd 6..0=0x57
+vzip.vv        31..26=0x3e vm vs2 vs1        14..12=0x2 vd 6..0=0x57
+vpaire.vv      31..26=0x0f vm vs2 vs1        14..12=0x0 vd 6..0=0x57
+vpairo.vv      31..26=0x0f vm vs2 vs1        14..12=0x2 vd 6..0=0x57

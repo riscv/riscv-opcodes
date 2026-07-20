@@ -1,0 +1,5 @@
+# c.sspush x1 -> c.mop.1
+$pseudo_op rv_zcmop::c.mop.N c.sspush.x1   1..0=1 6..2=0 11..7=1  12=0 15..13=3
+
+# c.sspopchk x5 -> c.mop.5
+$pseudo_op rv_zcmop::c.mop.N c.sspopchk.x5 1..0=1 6..2=0 11..7=5  12=0 15..13=3

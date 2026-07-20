@@ -1,0 +1,6 @@
+$pseudo_op rv64_i::slli slli rd rs1 shamtw 31..25=0  14..12=1 6..2=0x04 1..0=3
+$pseudo_op rv64_i::srli srli rd rs1 shamtw 31..25=0  14..12=5 6..2=0x04 1..0=3
+$pseudo_op rv64_i::srai srai rd rs1 shamtw 31..25=32 14..12=5 6..2=0x04 1..0=3
+$pseudo_op rv64_i::slli slli_rv32 rd rs1 shamtw 31..25=0  14..12=1 6..2=0x04 1..0=3
+$pseudo_op rv64_i::srli srli_rv32 rd rs1 shamtw 31..25=0  14..12=5 6..2=0x04 1..0=3
+$pseudo_op rv64_i::srai srai_rv32 rd rs1 shamtw 31..25=32 14..12=5 6..2=0x04 1..0=3
