@@ -1,0 +1,68 @@
+name: Opcodes generation
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pre-commit environment
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pre-commit
+        key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pre-commit-
+
+    - name: Generate all outputs without uv
+      run: make
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        version: "0.8.22"
+
+    - name: Install pre-commit
+      run: uv tool install pre-commit
+
+    - name: Run pre-commit
+      run: pre-commit run --all-files
+
+    # Generate all output with code coverage. Unfortunately due to limitations in
+    # the `coverage` tool we need to run `riscv_opcodes` as a module.
+    - name: Generate
+      run: uv run -- coverage run -m riscv_opcodes -c -chisel -sverilog -rust -latex -spinalhdl -svg -go "rv*" "unratified/rv*"
+
+    - name: Check C output
+      run: cat encoding.out.h | cpp
+
+    - name: Generate coverage
+      run: uv run -- coverage xml
+
+    - name: Upload coverage
+      uses: codecov/codecov-action@v4
+
+    - name: Build wheels
+      run: uv build
+
+    - name: Upload wheels
+      if: matrix.python-version == '3.13'
+      uses: actions/upload-artifact@v6
+      with:
+        name: dist
+        path: dist

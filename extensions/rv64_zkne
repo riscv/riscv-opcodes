@@ -1,0 +1,5 @@
+# Scalar AES - RV64
+aes64esm   rd rs1 rs2  31..30=0 29..25=0b11011          14..12=0b000 6..0=0x33
+aes64es    rd rs1 rs2  31..30=0 29..25=0b11001          14..12=0b000 6..0=0x33
+$import rv64_zknd::aes64ks1i
+$import rv64_zknd::aes64ks2

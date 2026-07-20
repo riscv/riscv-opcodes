@@ -1,0 +1,2 @@
+vfncvtbf16.f.f.w     31..26=0x12 vm vs2 19..15=0x1D 14..12=0x1 vd 6..0=0x57
+vfwcvtbf16.f.f.v     31..26=0x12 vm vs2 19..15=0x0D 14..12=0x1 vd 6..0=0x57
