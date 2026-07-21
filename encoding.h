@@ -486,6 +486,28 @@
 #define IRQ_RAS_LOW_PRIO  35
 #define IRQ_RAS_HIGH_PRIO 43
 
+/* PULP/Snitch custom interrupt sources */
+#define IRQ_HOST          13  /* legacy alias for IRQ_LCOF */
+#define IRQ_S_CLUSTER     17
+#define IRQ_M_CLUSTER     19
+#define IRQ_M_ACC         20  /* machine-level accelerator interrupt */
+
+#define MIP_SCIP          (1 << IRQ_S_CLUSTER)
+#define MIP_MCIP          (1 << IRQ_M_CLUSTER)
+#define MIP_MXIP          (1 << IRQ_M_ACC)
+
+/* PULP/Snitch custom CSR addresses */
+#define CSR_SSR           0x7C0  // Stream semantic registers
+#define CSR_FPMODE        0x7C1  // Floating-point mode
+#define CSR_BARRIER       0x7C2  // Hardware barrier
+#define CSR_SC            0x7C3  // Scalar chaining
+#define CSR_USER_LOW      0x7C4  // AWUSER[31:0]
+#define CSR_USER_HIGH     0x7C5  // AWUSER[63:32]
+#define CSR_COPIFT        0x7C6  // Enable COPIFT
+#define CSR_DUMP          0x7C7  // Dump CSR
+#define CSR_STACKLIMIT    0x7D1  // Mempool stack overflow limit
+#define CSR_FMODE         0x800  // Floating-point mode (legacy)
+
 /* page table entry (PTE) fields */
 #define PTE_V     0x001 /* Valid */
 #define PTE_R     0x002 /* Read */

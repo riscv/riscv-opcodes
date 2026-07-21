@@ -2,15 +2,15 @@ import logging
 import os
 import pprint
 
-from .constants import causes, csrs, csrs32
+from .constants import causes
 from .resources import read_text_resource
-from .shared_utils import InstrDict, arg_lut
+from .shared_utils import CsrDict, InstrDict, arg_lut
 
 pp = pprint.PrettyPrinter(indent=2)
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:: %(message)s")
 
 
-def make_c(instr_dict: InstrDict):
+def make_c(instr_dict: InstrDict, csr_dict: CsrDict):
     mask_match_str = ""
     declare_insn_str = ""
     for i in instr_dict:
@@ -24,7 +24,7 @@ def make_c(instr_dict: InstrDict):
 
     csr_names_str = ""
     declare_csr_str = ""
-    for num, name in csrs + csrs32:
+    for num, name in [csr for csrs in csr_dict.values() for csr in csrs]:
         csr_names_str += f"#define CSR_{name.upper()} {hex(num)}\n"
         declare_csr_str += f"DECLARE_CSR({name}, CSR_{name.upper()})\n"
 

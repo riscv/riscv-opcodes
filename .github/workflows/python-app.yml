@@ -46,7 +46,7 @@ jobs:
     # Generate all output with code coverage. Unfortunately due to limitations in
     # the `coverage` tool we need to run `riscv_opcodes` as a module.
     - name: Generate
-      run: uv run -- coverage run -m riscv_opcodes -c -chisel -sverilog -rust -latex -spinalhdl -svg -go "rv*" "unratified/rv*"
+      run: uv run -- coverage run -m riscv_opcodes --warn-overlap -c -chisel -sverilog -rust -latex -spinalhdl -svg -go "rv*" "unratified/rv*"
 
     - name: Check C output
       run: cat encoding.out.h | cpp

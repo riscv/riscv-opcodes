@@ -113,3 +113,10 @@
 "p_rd_p", 11, 8
 "p_rs1_p", 19, 16
 "p_rs2_p", 24, 21
+"shamt", 25, 20
+"prs3", 11, 7
+"L", 7, 7
+"uimms", 19, 15
+"Luimm5", 29, 25
+"stagger_max", 14, 12
+"stagger_mask", 11, 8

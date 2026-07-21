@@ -1,0 +1,26 @@
+# Xpulp extension subset: bit manipulation operations & general ALU operations
+
+# INFO: overlaps with rv32_b
+# INFO: this is a superset of rv32_xpulpbitopsmall
+
+p.exths  rd rs1      31..25=8  24..20=0 14..12=4 6..2=0x0C 1..0=3
+p.exthz  rd rs1      31..25=8  24..20=0 14..12=5 6..2=0x0C 1..0=3
+p.extbs  rd rs1      31..25=8  24..20=0 14..12=6 6..2=0x0C 1..0=3
+p.extbz  rd rs1      31..25=8  24..20=0 14..12=7 6..2=0x0C 1..0=3
+
+p.extract    rd rs1 Luimm5 imm5   31..30=3 14..12=0 6..2=0x0C 1..0=3
+p.extractr   rd rs1 rs2  31..30=2 29..25=0 14..12=0 6..2=0x0C 1..0=3
+p.extractu   rd rs1 Luimm5 imm5   31..30=3 14..12=1 6..2=0x0C 1..0=3
+p.extractur  rd rs1 rs2  31..30=2 29..25=0 14..12=1 6..2=0x0C 1..0=3
+p.insert     rd rs1 Luimm5 imm5   31..30=3 14..12=2 6..2=0x0C 1..0=3
+p.insertr    rd rs1 rs2  31..30=2 29..25=0 14..12=2 6..2=0x0C 1..0=3
+p.bset       rd rs1 Luimm5 imm5   31..30=3 14..12=4 6..2=0x0C 1..0=3
+p.bsetr      rd rs1 rs2  31..30=2 29..25=0 14..12=4 6..2=0x0C 1..0=3
+p.bclr       rd rs1 Luimm5 imm5   31..30=3 14..12=3 6..2=0x0C 1..0=3
+p.bclrr      rd rs1 rs2  31..30=2 29..25=0 14..12=3 6..2=0x0C 1..0=3
+
+p.cnt    rd rs1 rs2  31..25=8           14..12=3 6..2=0x0C 1..0=3
+p.clb    rd rs1      31..25=8  24..20=0 14..12=2 6..2=0x0C 1..0=3
+p.fl1    rd rs1      31..25=8  24..20=0 14..12=1 6..2=0x0C 1..0=3
+p.ff1    rd rs1      31..25=8  24..20=0 14..12=0 6..2=0x0C 1..0=3
+p.ror    rd rs1      31..25=4  24..20=0 14..12=5 6..2=0x0C 1..0=3

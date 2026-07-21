@@ -1,0 +1,17 @@
+# Xpulp extension subset: shuffle & pack operations
+
+# INFO: overlaps with rv_v (RVV)
+
+pv.shuffle.h        rd rs1 rs2  31..27=24 26=0 25=0 14..12=0 6..2=0x15 1..0=3
+pv.shuffle.sci.h    rd rs1 imm6 31..27=24 26=0      14..12=6 6..2=0x15 1..0=3
+pv.shuffle.b        rd rs1 rs2  31..27=24 26=0 25=0 14..12=1 6..2=0x15 1..0=3
+pv.shufflei0.sci.b  rd rs1 imm6 31..27=24 26=0      14..12=7 6..2=0x15 1..0=3
+pv.shufflei1.sci.b  rd rs1 imm6 31..27=29 26=0      14..12=7 6..2=0x15 1..0=3
+pv.shufflei2.sci.b  rd rs1 imm6 31..27=30 26=0      14..12=7 6..2=0x15 1..0=3
+pv.shufflei3.sci.b  rd rs1 imm6 31..27=31 26=0      14..12=7 6..2=0x15 1..0=3
+pv.shuffle2.h       rd rs1 rs2  31..27=25 26=0 25=0 14..12=0 6..2=0x15 1..0=3
+pv.shuffle2.b       rd rs1 rs2  31..27=25 26=0 25=0 14..12=1 6..2=0x15 1..0=3
+pv.pack             rd rs1 rs2  31..27=26 26=0 25=0 14..12=0 6..2=0x15 1..0=3
+pv.pack.h           rd rs1 rs2  31..27=26 26=0 25=1 14..12=0 6..2=0x15 1..0=3
+pv.packhi.b         rd rs1 rs2  31..27=27 26=0 25=0 14..12=1 6..2=0x15 1..0=3
+pv.packlo.b         rd rs1 rs2  31..27=28 26=0 25=0 14..12=1 6..2=0x15 1..0=3

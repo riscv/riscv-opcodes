@@ -1,0 +1,4 @@
+# Xpulp extension subset: immediate branching operations
+
+p.beqimm rs1 imm5 bimm12hi bimm12lo 14..12=2 6..2=0x18 1..0=3
+p.bneimm rs1 imm5 bimm12hi bimm12lo 14..12=3 6..2=0x18 1..0=3
