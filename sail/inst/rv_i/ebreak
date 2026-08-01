@@ -1,0 +1,58 @@
+// deal with delegation
+let idx = num_of_ExceptionType(E_Breakpoint());
+let super = bit_to_bool(medeleg.bits[idx]);
+let deleg = if extensionEnabled(Ext_S) & super then Supervisor else Machine;
+
+let del_priv = if privLevel_to_bits(deleg) <_u privLevel_to_bits(cur_privilege) then cur_privilege else deleg; 
+
+match (del_priv) {
+  Machine => {
+    mcause[IsInterrupt] = 0b0;
+    mcause[Cause] = zero_extend(exceptionType_to_bits(E_Breakpoint()));
+
+    mstatus[MPIE] = mstatus[MIE];
+    mstatus[MIE] = 0b0;
+    mstatus[MPP] = privLevel_to_bits(cur_privilege);
+    mtval.bits = PC;
+    mepc.bits = PC;
+
+    cur_privilege = del_priv;
+
+    let base : XLENBITS = mtvec[Base] @ 0b00;
+    nextPC = match (trapVectorMode_of_bits(mtvec[Mode])) {
+      TV_Direct =>  base,
+      TV_Vector =>  if mcause[IsInterrupt] == 0b1
+                    then (base + (zero_extend(mcause[Cause] << 2)))
+                    else base,
+      TV_Reserved => internal_error("Invalid mtvec mode")
+    }
+  },
+  Supervisor => {
+    assert(extensionEnabled(Ext_S), "no supervisor mode present for delegation");
+
+    scause[IsInterrupt] = 0b0;
+    scause[Cause] = zero_extend(exceptionType_to_bits(E_Breakpoint()));
+
+    mstatus[SPIE] = mstatus[SIE];
+    mstatus[SIE] = 0b0;
+    mstatus[SPP] = match cur_privilege {
+      User => 0b0,
+      Supervisor => 0b1,
+      Machine => internal_error("Invalid privilege for s-mode trap")
+    };
+    stval.bits = PC;
+    sepc.bits = PC;
+
+    cur_privilege = del_priv;
+
+    let base : XLENBITS = stvec[Base] @ 0b00;
+    nextPC = match (trapVectorMode_of_bits(stvec[Mode])) {
+      TV_Direct =>  base,
+      TV_Vector =>  if scause[IsInterrupt] == 0b1
+                    then (base + (zero_extend(scause[Cause] << 2)))
+                    else base,
+      TV_Reserved => internal_error("Invalid stvec mode")
+    }
+  },
+  User => internal_error("Invalid privilege level")
+}

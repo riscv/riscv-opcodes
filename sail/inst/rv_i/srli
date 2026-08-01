@@ -1,0 +1,3 @@
+let rs1_val = read_GPR(rs1);
+write_GPR(rd, if xlen == 32 then rs1_val >> shamt[4..0] else rs1_val >> shamt);
+nextPC = PC + 4
