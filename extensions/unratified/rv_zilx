@@ -1,0 +1,26 @@
+# rv_zilx
+# Zilx indexed integer load instructions (Version 0.1).
+# Zilx reuses the AMO major opcode (0101111). rs1 is the index operand and
+# rs2 is the base operand. funct3 encodes the base-load width/signedness and
+# funct5 encodes the addressing mode; aq and rl must both be 0.
+# Encoding layout:
+#   [31:27]=funct5  [26]=aq(0)  [25]=rl(0)  [24:20]=rs2(base)
+#   [19:15]=rs1(index)  [14:12]=funct3  [11:7]=rd  [6:0]=AMO(0101111)
+# funct5 : 10010=unscaled(lx) 11010=scaled(lxs) 11110=scaled uw-index(lxsuw)
+# This file holds the forms available on both RV32 and RV64.
+
+# Unscaled indexed loads (funct5=10010, EA = X[rs2] + X[rs1])
+lxh   rd rs1 rs2 31..27=0x12 26..25=0 14..12=1 6..2=0x0B 1..0=3
+lxhu  rd rs1 rs2 31..27=0x12 26..25=0 14..12=5 6..2=0x0B 1..0=3
+lxw   rd rs1 rs2 31..27=0x12 26..25=0 14..12=2 6..2=0x0B 1..0=3
+
+# Scaled indexed loads (funct5=11010, EA = X[rs2] + (X[rs1] << log2(size)))
+lxsb  rd rs1 rs2 31..27=0x1A 26..25=0 14..12=0 6..2=0x0B 1..0=3
+lxsbu rd rs1 rs2 31..27=0x1A 26..25=0 14..12=4 6..2=0x0B 1..0=3
+lxsh  rd rs1 rs2 31..27=0x1A 26..25=0 14..12=1 6..2=0x0B 1..0=3
+lxshu rd rs1 rs2 31..27=0x1A 26..25=0 14..12=5 6..2=0x0B 1..0=3
+lxsw  rd rs1 rs2 31..27=0x1A 26..25=0 14..12=2 6..2=0x0B 1..0=3
+
+# lxb/lxbu are assembler pseudoinstructions for the scaled byte loads
+$pseudo_op rv_zilx::lxsb  lxb  rd rs1 rs2 31..27=0x1A 26..25=0 14..12=0 6..2=0x0B 1..0=3
+$pseudo_op rv_zilx::lxsbu lxbu rd rs1 rs2 31..27=0x1A 26..25=0 14..12=4 6..2=0x0B 1..0=3
