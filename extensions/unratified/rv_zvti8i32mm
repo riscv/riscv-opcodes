@@ -1,0 +1,2 @@
+vtmmu.tvv     31..26=0x3c 25=1 vs2 vs1 14..12=0x0 zvt_mtd8  8..7=0 6..0=0x77
+vtmms.tvv     31..26=0x3c 25=1 vs2 vs1 14..12=0x0 zvt_mtd8  8..7=1 6..0=0x77
