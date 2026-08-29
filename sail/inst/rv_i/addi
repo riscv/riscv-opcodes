@@ -1,0 +1,4 @@
+let rs1_val = read_GPR(rs1);
+let immext : XLENBITS = sign_extend(imm12);
+write_GPR(rd, rs1_val + immext);
+nextPC = PC + 4;
