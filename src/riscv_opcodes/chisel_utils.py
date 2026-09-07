@@ -35,7 +35,7 @@ def make_chisel(instr_dict: InstrDict, spinal_hdl: bool = False):
             for instr_name, instr in instr_dict.items():
                 if instr["extension"][0] == e:
                     tmp_instr_name = instr_name.upper().replace(".", "_")
-                    chisel_names += f'    def {tmp_instr_name:<18s} -> M"{instr["encoding"].replace("-","-")}"\n'
+                    chisel_names += f'    def {tmp_instr_name:<18s} = M"{instr["encoding"].replace("-","-")}"\n'
             chisel_names += "  }\n"
 
     for num, name in causes:
