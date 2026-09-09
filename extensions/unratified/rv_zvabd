@@ -1,9 +1,9 @@
 # rv_zvabd
 vabd.vv       31..26=0x15 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vabd.vx       31..26=0x15 vm vs2 vs1 14..12=0x6 vd 6..0=0x57
+vabd.vx       31..26=0x15 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vabdu.vv      31..26=0x16 vm vs2 vs1 14..12=0x2 vd 6..0=0x57
-vabdu.vx      31..26=0x16 vm vs2 vs1 14..12=0x6 vd 6..0=0x57
+vabdu.vx      31..26=0x16 vm vs2 rs1 14..12=0x6 vd 6..0=0x57
 vwabda.vv     31..26=0x3d vm vs2 vs1 14..12=0x0 vd 6..0=0x57
-vwabda.vx     31..26=0x3d vm vs2 vs1 14..12=0x4 vd 6..0=0x57
+vwabda.vx     31..26=0x3d vm vs2 rs1 14..12=0x4 vd 6..0=0x57
 vwabdau.vv    31..26=0x3e vm vs2 vs1 14..12=0x0 vd 6..0=0x57
-vwabdau.vx    31..26=0x3e vm vs2 vs1 14..12=0x4 vd 6..0=0x57
+vwabdau.vx    31..26=0x3e vm vs2 rs1 14..12=0x4 vd 6..0=0x57
