@@ -1,0 +1,4 @@
+# Region-filler placeholder for the custom subspace hidden inside the SYSTEM
+# major opcode. This is NOT a real instruction.
+#
+custom.sys 31=1 27=1 26=1 14..12=0 6..2=0x1C 1..0=3
