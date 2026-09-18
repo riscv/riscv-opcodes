@@ -96,7 +96,7 @@ latex_mapping = {
     "rs1": "rs1",
     "rs2": "rs2",
     "rd": "rd",
-    "vs2_bdot": "vs2[4:3]",
+    "vs2x8": "vs2[4:3]",
     "ci": "ci[5:3]",
     "imm20": "imm[31:12]",
     "bimm12hi": "imm[12$\\vert$10:5]",
