@@ -82,12 +82,12 @@ def read_arg_lut_csv(filename: str) -> "dict[str, tuple[int, int]]":
 arg_lut = read_arg_lut_csv("arg_lut.csv")
 
 # for mop
-arg_lut["mop_r_t_30"] = (30, 30)
-arg_lut["mop_r_t_27_26"] = (27, 26)
-arg_lut["mop_r_t_21_20"] = (21, 20)
-arg_lut["mop_rr_t_30"] = (30, 30)
-arg_lut["mop_rr_t_27_26"] = (27, 26)
-arg_lut["c_mop_t"] = (10, 8)
+arg_lut["mop_r_30"] = (30, 30)
+arg_lut["mop_r_27_26"] = (27, 26)
+arg_lut["mop_r_21_20"] = (21, 20)
+arg_lut["mop_rr_30"] = (30, 30)
+arg_lut["mop_rr_27_26"] = (27, 26)
+arg_lut["c_mop"] = (10, 8)
 
 # dictionary containing the mapping of the argument to the what the fields in
 # the latex table should be
