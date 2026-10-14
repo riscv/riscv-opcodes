@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 
+import copy
 import logging
 import unittest
 from unittest.mock import Mock, patch
 
 from riscv_opcodes.shared_utils import (
     InstrDict,
+    add_segmented_vls_insn,
     check_arg_lut,
     check_overlapping_bits,
+    create_inst_dict,
     extract_isa_type,
     handle_arg_lut_mapping,
     initialize_encoding,
@@ -243,6 +246,30 @@ class InstructionProcessingTest(unittest.TestCase):
         # Nonexistent
         with self.assertRaises(SystemExit):
             read_extension_file("floop")
+
+    def test_add_segmented_vls_insn_preserves_input(self):
+        """Test that segment expansion preserves generic vector encodings"""
+        instr_dict = create_inst_dict(["rv_v"])
+        original_dict = copy.deepcopy(instr_dict)
+        expanded_dict = add_segmented_vls_insn(instr_dict)
+
+        for name in original_dict:
+            self.assertEqual(instr_dict[name], original_dict[name], name)
+
+        for name, base_word in (("vle32_v", 0x02056407), ("vse32_v", 0x02056427)):
+            for nf in range(8):
+                with self.subTest(instruction=name, nf=nf):
+                    word = base_word | (nf << 29)
+                    generic = instr_dict[name]
+                    self.assertEqual(
+                        word & int(generic["mask"], 16), int(generic["match"], 16)
+                    )
+                    segment_name = name if nf == 0 else f"{name[:2]}seg{nf + 1}e32_v"
+                    segment = expanded_dict[segment_name]
+                    self.assertNotIn("nf", segment["variable_fields"])
+                    self.assertEqual(
+                        word & int(segment["mask"], 16), int(segment["match"], 16)
+                    )
 
 
 if __name__ == "__main__":
