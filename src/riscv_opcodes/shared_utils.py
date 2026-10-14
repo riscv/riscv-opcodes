@@ -331,6 +331,7 @@ def expand_nf_field(
 ) -> "list[tuple[str, SingleInstr]]":
     """Validate and prepare the instruction dictionary."""
     validate_nf_field(single_dict, name)
+    single_dict = copy.deepcopy(single_dict)
     remove_nf_field(single_dict)
     update_mask(single_dict)
 
