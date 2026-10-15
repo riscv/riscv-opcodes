@@ -1,0 +1,10 @@
+# When the base ISA is RV32Y, the Zcf instructions are remapped loads/stores of capabilities:
+#   c.ly:   repurposes c.flw
+#   c.sy:   repurposes c.fsw
+#   c.lysp: repurposes c.flwsp
+#   c.sysp: repurposes c.fswsp
+
+c.ly_rv32         rd_p rs1_p c_uimm8lo c_uimm8hi   1..0=0 15..13=3
+c.sy_rv32         rs1_p rs2_p c_uimm8hi c_uimm8lo  1..0=0 15..13=7
+c.lysp_rv32       rd_n0 c_uimm9sphi c_uimm9splo    1..0=2 15..13=3
+c.sysp_rv32       c_rs2 c_uimm9sp_s                1..0=2 15..13=7
