@@ -1,4 +1,4 @@
-# Zvbc - Vector Carryless Multiplication
+# Zvbc/Zvbce32 - Vector Carryless Multiplication
 
 # Carryless Multiply
 vclmul.vv    31..26=0x0C         vm vs2 vs1     14..12=0x2 vd 6..0=0x57
