@@ -1,0 +1,14 @@
+# Region-filler placeholders for the RISC-V custom major-opcode spaces.
+# These are NOT real instructions. Each line fixes only the major opcode
+# bits (6..2) and the 32-bit marker bits (1..0=3), leaving every other bit
+# free (rd covers 11..7, imm20 covers 31..12).
+#
+# custom-0 : 6..2=0x02 -> opcode 0x0B
+# custom-1 : 6..2=0x0A -> opcode 0x2B
+# custom-2 : 6..2=0x16 -> opcode 0x5B (reserved for RV128, custom on RV32/64)
+# custom-3 : 6..2=0x1E -> opcode 0x7B (reserved for RV128, custom on RV32/64)
+
+custom.0 rd imm20 6..2=0x02 1..0=3
+custom.1 rd imm20 6..2=0x0A 1..0=3
+custom.2 rd imm20 6..2=0x16 1..0=3
+custom.3 rd imm20 6..2=0x1E 1..0=3
