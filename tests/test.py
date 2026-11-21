@@ -3,6 +3,7 @@
 import copy
 import logging
 import unittest
+import pathlib
 from unittest.mock import Mock, patch
 
 from riscv_opcodes.shared_utils import (
@@ -270,6 +271,61 @@ class InstructionProcessingTest(unittest.TestCase):
                     self.assertEqual(
                         word & int(segment["mask"], 16), int(segment["match"], 16)
                     )
+
+
+
+
+class FloatingPointOperandNamingTest(unittest.TestCase):
+    """Floating-point operands use fd/fs# names - see issue #190"""
+
+    def setUp(self):
+        self.logger = logging.getLogger()
+        self.logger.disabled = True
+
+    def _extension_file(self, name):
+        return (
+            pathlib.Path(__file__).parent.parent / "extensions" / name
+        ).read_text(encoding="utf-8")
+
+    def test_rv_f_uses_fp_operand_names(self):
+        """Arithmetic FP instructions name their operands fd/fs1/fs2/fs3"""
+        for line in self._extension_file("rv_f").splitlines():
+            if line.split() and line.split()[0] == "fadd.s":
+                operands = line.split()[1:]
+                self.assertEqual(operands[:3], ["fd", "fs1", "fs2"])
+                break
+        else:
+            self.fail("fadd.s not found in extensions/rv_f")
+
+    def test_arg_lut_has_fp_operand_rows(self):
+        """arg_lut.csv pairs each fd/fs# name with its parent positions"""
+        rows = {}
+        arg_lut = (
+            pathlib.Path(__file__).parent.parent / "arg_lut.csv"
+        ).read_text(encoding="utf-8")
+        for row in arg_lut.splitlines():
+            parts = [p.strip().strip('"') for p in row.split(",")]
+            if len(parts) == 3:
+                rows[parts[0]] = (int(parts[1]), int(parts[2]))
+        self.assertEqual(rows["fd"], rows["rd"])
+        self.assertEqual(rows["fs1"], rows["rs1"])
+        self.assertEqual(rows["fs2"], rows["rs2"])
+        self.assertEqual(rows["fs3"], rows["rs3"])
+
+    def test_latex_mapping_renders_fp_operands_unchanged(self):
+        """LaTeX output stays byte-identical: fd/fs# render the same as rd/rs#"""
+        from riscv_opcodes.constants import latex_mapping
+
+        self.assertEqual(latex_mapping["fd"], latex_mapping["rd"])
+        self.assertEqual(latex_mapping["fs1"], latex_mapping["rs1"])
+        self.assertEqual(latex_mapping["fs2"], latex_mapping["rs2"])
+        self.assertEqual(
+            latex_mapping["fs3"],
+            "rs3",
+        )  # rs3 is not in the mapping: it renders raw
+        self.assertEqual(latex_mapping["fd_p"], latex_mapping["rd_p"])
+        self.assertEqual(latex_mapping["fs2_p"], latex_mapping["rs2_p"])
+        self.assertEqual(latex_mapping["c_fs2"], latex_mapping["c_rs2"])
 
 
 if __name__ == "__main__":
