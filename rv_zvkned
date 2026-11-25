@@ -1,0 +1,21 @@
+# Zvkned - Vector Crypto AES Encryption & Decryption (Singe Round)
+
+# AES Single Round Decryption
+vaesdf.vv    31..26=0x28 25=1 vs2 19..15=0x1 14..12=0x2 vd 6..0=0x77
+vaesdf.vs    31..26=0x29 25=1 vs2 19..15=0x1 14..12=0x2 vd 6..0=0x77
+vaesdm.vv    31..26=0x28 25=1 vs2 19..15=0x0 14..12=0x2 vd 6..0=0x77
+vaesdm.vs    31..26=0x29 25=1 vs2 19..15=0x0 14..12=0x2 vd 6..0=0x77
+
+# AES Single Round Encryption
+vaesef.vv    31..26=0x28 25=1 vs2 19..15=0x3 14..12=0x2 vd 6..0=0x77
+vaesef.vs    31..26=0x29 25=1 vs2 19..15=0x3 14..12=0x2 vd 6..0=0x77
+vaesem.vv    31..26=0x28 25=1 vs2 19..15=0x2 14..12=0x2 vd 6..0=0x77
+vaesem.vs    31..26=0x29 25=1 vs2 19..15=0x2 14..12=0x2 vd 6..0=0x77
+
+# AES Scalar Round Zero Encryption/Decryption
+vaesz.vs     31..26=0x29 25=1 vs2 19..15=0x7 14..12=0x2 vd 6..0=0x77
+
+# AES-128 Forward Key Schedule
+vaeskf1.vi   31..26=0x22 25=1 vs2 zimm5      14..12=0x2 vd 6..0=0x77
+# AES-256 Forward Key Schedule
+vaeskf2.vi   31..26=0x2A 25=1 vs2 zimm5      14..12=0x2 vd 6..0=0x77

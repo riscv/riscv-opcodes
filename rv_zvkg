@@ -1,0 +1,8 @@
+# Zvkg - Vector GCM/GMAC
+
+# Vector Multiply over GHASH Galois-Field
+vgmul.vv 31..26=0x28 25=1 vs2 19..15=0x11 14..12=0x2 vd 6..0=0x77
+
+# Vector Add-Multiply over GHASH Galois-Field
+vghsh.vv 31..26=0x2C 25=1 vs2 vs1 14..12=0x2 vd 6..0=0x77
+

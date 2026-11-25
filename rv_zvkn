@@ -1,0 +1,46 @@
+# Zvkn, Vector Crypto Extension, NIST Algorithm Suite
+
+# Import Zvbb
+$import rv_zvbb::vandn.vv
+$import rv_zvbb::vandn.vx
+$import rv_zvbb::vbrev.v
+$import rv_zvbb::vbrev8.v
+$import rv_zvbb::vrev8.v
+$import rv_zvbb::vrol.vv
+$import rv_zvbb::vrol.vx
+$import rv_zvbb::vror.vv
+$import rv_zvbb::vror.vx
+$import rv_zvbb::vror.vi
+$import rv_zvbb::vclz.v
+$import rv_zvbb::vctz.v
+$import rv_zvbb::vcpop.v
+$import rv_zvbb::vwsll.vv
+$import rv_zvbb::vwsll.vx
+$import rv_zvbb::vwsll.vi
+
+# Import Zvbc
+$import rv_zvbc::vclmul.vv
+$import rv_zvbc::vclmul.vx
+$import rv_zvbc::vclmulh.vv
+$import rv_zvbc::vclmulh.vx
+
+# Import Zvkned
+$import rv_zvkned::vaesef.vs
+$import rv_zvkned::vaesef.vv
+$import rv_zvkned::vaesem.vs
+$import rv_zvkned::vaesem.vv
+$import rv_zvkned::vaesdf.vs
+$import rv_zvkned::vaesdf.vv
+$import rv_zvkned::vaesdm.vs
+$import rv_zvkned::vaesdm.vv
+$import rv_zvkned::vaeskf1.vi
+$import rv_zvkned::vaeskf2.vi
+$import rv_zvkned::vaesz.vs
+
+# Import Zvknh.
+# "Zvkn" implies "Zvknhb". We import the instructions from 'rv_zvknha',
+# because we cannot import already imported instructions, 'rv_zvknhb'
+# imports them from 'rv_zvknha', and the instructions are identical.
+$import rv_zvknha::vsha2ms.vv
+$import rv_zvknha::vsha2ch.vv
+$import rv_zvknha::vsha2cl.vv

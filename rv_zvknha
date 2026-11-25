@@ -1,0 +1,9 @@
+# Zvknha - Vector Crypto SHA-256 Secure Hash
+#
+# The following 3 instructions are defined in both Zvknha and Zvknhb:
+#  - in Zvknha, they support SHA-256 (SEW=32) only,
+#  - in Zvknhb, they support both SHA-256 (SEW=32) and SHA-512 (SEW=64).
+
+vsha2ms.vv    31..26=0x2D 25=1 vs2 vs1 14..12=0x2 vd 6..0=0x77
+vsha2ch.vv    31..26=0x2E 25=1 vs2 vs1 14..12=0x2 vd 6..0=0x77
+vsha2cl.vv    31..26=0x2F 25=1 vs2 vs1 14..12=0x2 vd 6..0=0x77

@@ -1,0 +1,37 @@
+# Zvbb - Vector Bit-manipulation used in Cryptography
+
+# Vector And-Not
+vandn.vv     31..26=0x01 vm vs2 vs1 14..12=0x0 vd 6..0=0x57
+vandn.vx     31..26=0x01 vm vs2 rs1 14..12=0x4 vd 6..0=0x57
+
+# Vector Reverse Bits in Elements
+vbrev.v      31..26=0x12 vm vs2 19..15=0xA 14..12=0x2 vd 6..0=0x57
+
+# Vector Reverse Bits in Bytes
+vbrev8.v     31..26=0x12 vm vs2 19..15=0x8 14..12=0x2 vd 6..0=0x57
+
+# Vector Reverse Bytes
+vrev8.v      31..26=0x12 vm vs2 19..15=0x9 14..12=0x2 vd 6..0=0x57
+
+# Vector Count Leading Zeros
+vclz.v       31..26=0x12 vm vs2 19..15=0xC 14..12=0x2 vd 6..0=0x57
+
+# Vector Count Trailing Zeros
+vctz.v       31..26=0x12 vm vs2 19..15=0xD 14..12=0x2 vd 6..0=0x57
+
+# Vector Population Count
+vcpop.v       31..26=0x12 vm vs2 19..15=0xE 14..12=0x2 vd 6..0=0x57
+
+# Vector Rotate Left
+vrol.vv      31..26=0x15         vm vs2 vs1     14..12=0x0 vd 6..0=0x57
+vrol.vx      31..26=0x15         vm vs2 rs1     14..12=0x4 vd 6..0=0x57
+
+# Vector Rotate Right
+vror.vv      31..26=0x14         vm vs2 vs1     14..12=0x0 vd 6..0=0x57
+vror.vx      31..26=0x14         vm vs2 rs1     14..12=0x4 vd 6..0=0x57
+vror.vi      31..27=0xa  zimm6hi vm vs2 zimm6lo 14..12=0x3 vd 6..0=0x57
+
+# Vector Widening Shift Left Logical
+vwsll.vv     31..26=0x35 vm vs2 vs1   14..12=0x0 vd 6..0=0x57
+vwsll.vx     31..26=0x35 vm vs2 rs1   14..12=0x4 vd 6..0=0x57
+vwsll.vi     31..26=0x35 vm vs2 zimm5 14..12=0x3 vd 6..0=0x57
