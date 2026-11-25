@@ -1,0 +1,7 @@
+# Genuinely-custom compressed (16-bit) code points. These are NOT real
+# instructions; they mark the encodings the spec explicitly designates for
+# custom use inside the RVC shift instructions.
+
+custom.c.slli rd_rs1_n0 c_nzuimm6lo 12=1 1..0=2 15..13=0
+custom.c.srli rd_rs1_p  c_nzuimm5   12=1 1..0=1 15..13=4 11..10=0
+custom.c.srai rd_rs1_p  c_nzuimm5   12=1 1..0=1 15..13=4 11..10=1
