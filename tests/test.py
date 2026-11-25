@@ -271,6 +271,24 @@ class InstructionProcessingTest(unittest.TestCase):
                         word & int(segment["mask"], 16), int(segment["match"], 16)
                     )
 
+    def test_zalasr_instruction_widths(self):
+        """Test that doubleword Zalasr instructions are RV64-only"""
+        common = {"lb_aq", "lh_aq", "lw_aq", "sb_rl", "sh_rl", "sw_rl"}
+        doubleword = {
+            "ld_aq": ("0x3400302f", "0xfdf0707f"),
+            "sd_rl": ("0x3a00302f", "0xfa007fff"),
+        }
+        rv32 = create_inst_dict(["rv_zalasr"])
+        self.assertEqual(set(rv32), common)
+
+        rv64 = create_inst_dict(["rv_zalasr", "rv64_zalasr"])
+        self.assertEqual(set(rv64), common | doubleword.keys())
+        for name, (match, mask) in doubleword.items():
+            with self.subTest(instruction=name):
+                self.assertEqual(rv64[name]["extension"], ["rv64_zalasr"])
+                self.assertEqual(rv64[name]["match"], match)
+                self.assertEqual(rv64[name]["mask"], mask)
+
 
 if __name__ == "__main__":
     unittest.main()
