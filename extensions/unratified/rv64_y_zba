@@ -1,0 +1,6 @@
+# Operand Types: rd YLEN, rs1 XLEN, rs2 YLEN (0b101)
+ysh4add           rd rs1 rs2         31..25=0b0011_101 14..12=0 6..2=0x1E 1..0=3
+ysh1add.uw        rd rs1 rs2         31..25=0b0100_101 14..12=0 6..2=0x1E 1..0=3
+ysh2add.uw        rd rs1 rs2         31..25=0b0101_101 14..12=0 6..2=0x1E 1..0=3
+ysh3add.uw        rd rs1 rs2         31..25=0b0110_101 14..12=0 6..2=0x1E 1..0=3
+ysh4add.uw        rd rs1 rs2         31..25=0b0111_101 14..12=0 6..2=0x1E 1..0=3
