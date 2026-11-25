@@ -108,7 +108,6 @@ latex_mapping = {
     "c_fs2": "rs2",
     "fd_p_e": "rd\\,$'$, even values only",
     "fs2_p_e": "rs2\\,$'$, even values only",
-    "fd_n0_e": "rd$\\neq$0, even values only",
     "c_fs2_e": "rs2, even values only",
     "vs2x8": "vs2[4:3]",
     "ci": "ci[5:3]",
