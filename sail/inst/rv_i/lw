@@ -1,0 +1,2 @@
+write_GPR(rd, zero_extend(readmem(read_GPR(rs1) + sign_extend(imm12), satp.bits)[31..0]));
+nextPC = PC + 4;
