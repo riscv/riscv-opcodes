@@ -96,6 +96,19 @@ latex_mapping = {
     "rs1": "rs1",
     "rs2": "rs2",
     "rd": "rd",
+    # Floating-point aliases of the register operands (issue #190): the
+    # LaTeX rendering is unchanged - fd/fs# render as rd/rs# - whether the
+    # printed FP operand names should change is a separate discussion.
+    "fd": "rd",
+    "fs1": "rs1",
+    "fs2": "rs2",
+    "fs3": "rs3",
+    "fd_p": "rd\\,$'$",
+    "fs2_p": "rs2\\,$'$",
+    "c_fs2": "rs2",
+    "fd_p_e": "rd\\,$'$, even values only",
+    "fs2_p_e": "rs2\\,$'$, even values only",
+    "c_fs2_e": "rs2, even values only",
     "vs2x8": "vs2[4:3]",
     "ci": "ci[5:3]",
     "imm20": "imm[31:12]",

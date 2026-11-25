@@ -1,7 +1,7 @@
 #quadrant 0
-c.fld rd_p rs1_p c_uimm8lo c_uimm8hi    1..0=0 15..13=1
-c.fsd rs1_p rs2_p c_uimm8lo c_uimm8hi   1..0=0 15..13=5
+c.fld fd_p rs1_p c_uimm8lo c_uimm8hi    1..0=0 15..13=1
+c.fsd rs1_p fs2_p c_uimm8lo c_uimm8hi   1..0=0 15..13=5
 
 #quadrant 2
-c.fldsp rd c_uimm9sphi c_uimm9splo      1..0=2 15..13=1
-c.fsdsp c_rs2 c_uimm9sp_s               1..0=2 15..13=5
+c.fldsp fd c_uimm9sphi c_uimm9splo      1..0=2 15..13=1
+c.fsdsp c_fs2 c_uimm9sp_s               1..0=2 15..13=5
