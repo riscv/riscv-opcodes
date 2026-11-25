@@ -2,8 +2,8 @@
 
 import copy
 import logging
-import unittest
 import pathlib
+import unittest
 from unittest.mock import Mock, patch
 
 from riscv_opcodes.shared_utils import (
@@ -273,8 +273,6 @@ class InstructionProcessingTest(unittest.TestCase):
                     )
 
 
-
-
 class FloatingPointOperandNamingTest(unittest.TestCase):
     """Floating-point operands use fd/fs# names - see issue #190"""
 
@@ -282,10 +280,10 @@ class FloatingPointOperandNamingTest(unittest.TestCase):
         self.logger = logging.getLogger()
         self.logger.disabled = True
 
-    def _extension_file(self, name):
-        return (
-            pathlib.Path(__file__).parent.parent / "extensions" / name
-        ).read_text(encoding="utf-8")
+    def _extension_file(self, name: str) -> str:
+        return (pathlib.Path(__file__).parent.parent / "extensions" / name).read_text(
+            encoding="utf-8"
+        )
 
     def test_rv_f_uses_fp_operand_names(self):
         """Arithmetic FP instructions name their operands fd/fs1/fs2/fs3"""
@@ -300,9 +298,9 @@ class FloatingPointOperandNamingTest(unittest.TestCase):
     def test_arg_lut_has_fp_operand_rows(self):
         """arg_lut.csv pairs each fd/fs# name with its parent positions"""
         rows = {}
-        arg_lut = (
-            pathlib.Path(__file__).parent.parent / "arg_lut.csv"
-        ).read_text(encoding="utf-8")
+        arg_lut = (pathlib.Path(__file__).parent.parent / "arg_lut.csv").read_text(
+            encoding="utf-8"
+        )
         for row in arg_lut.splitlines():
             parts = [p.strip().strip('"') for p in row.split(",")]
             if len(parts) == 3:
