@@ -248,6 +248,24 @@ class InstructionProcessingTest(unittest.TestCase):
         with self.assertRaises(SystemExit):
             read_extension_file("floop")
 
+    def test_rv32_zilsd_load_store_pair(self):
+        """Test that RV32 Zilsd includes both register-pair instructions"""
+        for include_pseudo in (False, True):
+            instr_dict = create_inst_dict(
+                ["rv_i", "rv32_i", "rv32_zilsd"], include_pseudo=include_pseudo
+            )
+            for name, match, mask, fields in (
+                ("ld", 0x3003, 0x70FF, ["rd_e", "rs1", "imm12"]),
+                ("sd", 0x3023, 0x10707F, ["imm12hi", "rs1", "rs2_e", "imm12lo"]),
+            ):
+                with self.subTest(include_pseudo=include_pseudo, instruction=name):
+                    self.assertIn(name, instr_dict)
+                    instruction = instr_dict[name]
+                    self.assertEqual(int(instruction["match"], 16), match)
+                    self.assertEqual(int(instruction["mask"], 16), mask)
+                    self.assertEqual(instruction["variable_fields"], fields)
+                    self.assertEqual(instruction["extension"], ["rv32_zilsd"])
+
     def test_add_segmented_vls_insn_preserves_input(self):
         """Test that segment expansion preserves generic vector encodings"""
         instr_dict = create_inst_dict(["rv_v"])
