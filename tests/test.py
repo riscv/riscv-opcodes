@@ -236,6 +236,28 @@ class InstructionProcessingTest(unittest.TestCase):
             self.assertIn("add", instr_dict)
             self.assertIn("sub", instr_dict)
 
+    def test_zfbfmin_instructions(self):
+        """Test Zfbfmin encodings without selecting Zfhmin"""
+        expected = {
+            "fcvt_bf16_s": (0x44800053, 0xFFF0007F),
+            "fcvt_s_bf16": (0x40600053, 0xFFF0007F),
+            "flh": (0x1007, 0x707F),
+            "fsh": (0x1027, 0x707F),
+            "fmv_x_h": (0xE4000053, 0xFFF0707F),
+            "fmv_h_x": (0xF4000053, 0xFFF0707F),
+        }
+        for xlen in (32, 64):
+            extensions = ["rv_i", f"rv{xlen}_i", "rv_zicsr", "rv_f", "rv_zfbfmin"]
+            if xlen == 64:
+                extensions.append("rv64_f")
+            instr_dict = create_inst_dict(extensions)
+            for name, (match, mask) in expected.items():
+                with self.subTest(xlen=xlen, instruction=name):
+                    self.assertIn(name, instr_dict)
+                    self.assertEqual(int(instr_dict[name]["match"], 16), match)
+                    self.assertEqual(int(instr_dict[name]["mask"], 16), mask)
+                    self.assertIn("rv_zfbfmin", instr_dict[name]["extension"])
+
     def test_read_extension_file(self):
         """
         Check that read_extension_file works.
